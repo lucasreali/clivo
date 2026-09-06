@@ -27,10 +27,11 @@ export default defineConfig({
       inferred: true,
       printer: { nodes: { bigint: int64AsNumber.zod } },
     }),
+    // No baseURL here: src/api/client.ts owns it, so the browser can reach the
+    // API on a same-origin path and keep sending the session cookie.
     pluginAxios({
       output: { path: 'clients' },
       group: { type: 'tag' },
-      baseURL: '${import.meta.env.VITE_API_URL}',
     }),
     pluginReactQuery({
       output: { path: 'hooks' },

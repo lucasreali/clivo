@@ -9,6 +9,7 @@ import {
 	Scripts,
 } from "@tanstack/react-router";
 import { TanStackRouterDevtoolsPanel } from "@tanstack/react-router-devtools";
+import { messageOf } from "#/shared/api-error";
 import appCss from "#/styles.css?url";
 
 export type RouterContext = {
@@ -27,7 +28,57 @@ export const Route = createRootRouteWithContext<RouterContext>()({
 	}),
 	shellComponent: RootDocument,
 	component: Outlet,
+	errorComponent: RootError,
+	notFoundComponent: NotFound,
 });
+
+function RootError({ error }: { error: Error }) {
+	return (
+		<Centered title="Não foi possível carregar a tela">
+			<p className="m-0 text-[13px] leading-relaxed text-muted">
+				{messageOf(error)}
+			</p>
+			<p className="m-0 text-[12px] leading-relaxed text-faint">
+				Se o erro for de rede, confirme que a API está no ar em{" "}
+				<code>API_PROXY_TARGET</code> e recarregue a página.
+			</p>
+			<button
+				type="button"
+				onClick={() => window.location.reload()}
+				className="mt-1 h-[34px] rounded-field bg-brand px-3.5 text-[13px] font-semibold text-white"
+			>
+				Tentar novamente
+			</button>
+		</Centered>
+	);
+}
+
+function NotFound() {
+	return (
+		<Centered title="Página não encontrada">
+			<a href="/" className="text-[13px] font-semibold">
+				Voltar para o painel do dia
+			</a>
+		</Centered>
+	);
+}
+
+function Centered({
+	title,
+	children,
+}: {
+	title: string;
+	children: React.ReactNode;
+}) {
+	return (
+		<main className="flex min-h-screen items-center justify-center bg-surface p-6">
+			<div className="flex w-[420px] flex-col gap-3 rounded-xl border border-line bg-panel p-6">
+				<span className="text-[15px] font-semibold text-ink">{title}</span>
+				{children}
+			</div>
+		</main>
+	);
+}
 
 function RootDocument({ children }: { children: React.ReactNode }) {
 	const { queryClient } = Route.useRouteContext();

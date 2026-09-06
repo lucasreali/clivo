@@ -749,4 +749,3 @@ export async function toEventStream<TData = unknown>(result: Promise<{ data: unk
 export const client = createClientCore()
 
 export const createClient = (config?: Parameters<typeof client.createClient>[0]) => client.createClient(config)
-client.setConfig({ baseURL: `${import.meta.env.VITE_API_URL}` })
