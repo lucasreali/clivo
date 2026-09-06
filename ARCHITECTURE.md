@@ -78,18 +78,31 @@ new branch in a screen.** If you find yourself writing
   forms map field violations through `violationsOf(error)`.
 - **Copy is Portuguese, code and docs are English.**
 
-## Rendering mode
+## Rendering mode and the API origin
 
-The API authenticates with a session cookie on a different origin, which a
-server render cannot forward. The app therefore runs as an SPA
-(`tanstackStart({ spa: { enabled: true } })` with `ssr: false` on the root
-route), and the `_app` layout guards every authenticated screen in `beforeLoad`.
+The API authenticates with a session cookie, which a server render cannot
+forward. The app therefore runs as an SPA (`tanstackStart({ spa: { enabled:
+true } })` with `ssr: false` on the root route), and the `_app` layout guards
+every authenticated screen in `beforeLoad`.
+
+The browser reaches the API on **its own origin**: Vite proxies `/api` to
+`API_PROXY_TARGET`, and `VITE_API_URL` stays empty. That is not a convenience —
+the API sends no CORS headers and rejects the preflight `OPTIONS` with 401, and
+its `JSESSIONID` cookie is `SameSite=Strict`, so a cross-origin call would lose
+the session even if CORS were opened. Point `VITE_API_URL` at another origin
+only once the API sends CORS headers *and* a cookie the browser will accept
+cross-site.
 
 ## Next steps
 
 - Seed data: the API has no tenant or user rows yet, so the sign-in flow cannot
   be exercised end to end.
-- `POST /api/session` answers `500` for unknown credentials; it should be `401`
-  so the login screen can explain the failure.
+- `POST /api/session` answers `500` for unknown credentials even though
+  `AccessExceptionHandler` maps `InvalidCredentialsException` to `401`;
+  something earlier in the chain is throwing. The login screen shows a generic
+  fallback until the real status arrives.
+- Serving the API and the app from one origin in production removes the CORS and
+  cookie problem there too; otherwise the API needs CORS headers and a
+  `SameSite=None; Secure` session cookie.
 - Screens still to build: session packages, inventory, commissions and
   notifications — all module-gated, all already routed from the sidebar.
