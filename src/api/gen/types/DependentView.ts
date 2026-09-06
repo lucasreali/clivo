@@ -25,13 +25,13 @@ export type DependentView = {
      * Format: `int64`
      * @type integer | undefined
     */
-    customerId?: bigint;
+    customerId?: number;
     /**
      * @description
      * Format: `int64`
      * @type integer | undefined
     */
-    id?: bigint;
+    id?: number;
     name?: string;
     status?: string;
     type?: string;

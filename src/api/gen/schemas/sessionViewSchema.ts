@@ -6,10 +6,10 @@
 import * as z from 'zod'
 
 export const sessionViewSchema = z.object({
-  clinicId: z.coerce.bigint().optional(),
+  clinicId: z.coerce.number().optional(),
   name: z.string().optional(),
   role: z.string().optional(),
-  userId: z.coerce.bigint().optional(),
+  userId: z.coerce.number().optional(),
 })
 
 export type SessionViewSchemaType = z.infer<typeof sessionViewSchema>

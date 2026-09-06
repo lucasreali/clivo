@@ -12,7 +12,7 @@ export type GetEncounterPath = {
      * Format: `int64`
      * @type integer
     */
-    id: bigint;
+    id: number;
 };
 
 export type GetEncounterStatus200 = EncounterView;

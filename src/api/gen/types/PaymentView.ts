@@ -10,7 +10,7 @@ export type PaymentView = {
      * Format: `int64`
      * @type integer | undefined
     */
-    id?: bigint;
+    id?: number;
     method?: string;
     /**
      * @description

@@ -7,7 +7,7 @@ import * as z from 'zod'
 import { errorResponseSchema } from '../errorResponseSchema'
 import { planViewSchema } from '../planViewSchema'
 
-export const deactivateInsurancePlanPathIdSchema = z.coerce.bigint()
+export const deactivateInsurancePlanPathIdSchema = z.coerce.number()
 
 export type DeactivateInsurancePlanPathIdSchemaType = z.infer<typeof deactivateInsurancePlanPathIdSchema>
 
@@ -40,7 +40,7 @@ export const deactivateInsurancePlanErrorSchema = z.union([deactivateInsurancePl
 export type DeactivateInsurancePlanErrorSchemaType = z.infer<typeof deactivateInsurancePlanErrorSchema>
 
 export const deactivateInsurancePlanPathSchema = z.object({
-  id: z.coerce.bigint(),
+  id: z.coerce.number(),
 })
 
 export type DeactivateInsurancePlanPathSchemaType = z.infer<typeof deactivateInsurancePlanPathSchema>

@@ -8,7 +8,7 @@ import { periodViewSchema } from './periodViewSchema'
 
 export const practitionerViewSchema = z.object({
   availability: z.array(periodViewSchema).optional(),
-  id: z.coerce.bigint().optional(),
+  id: z.coerce.number().optional(),
   licenseNumber: z.string().optional(),
   name: z.string().optional(),
   status: z.string().optional(),

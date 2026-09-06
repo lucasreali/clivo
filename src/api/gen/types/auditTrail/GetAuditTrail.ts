@@ -13,7 +13,7 @@ export type GetAuditTrailQuery = {
      * Format: `int64`
      * @type integer
     */
-    recordId: bigint;
+    recordId: number;
 };
 
 export type GetAuditTrailStatus200 = AuditEntryView[];

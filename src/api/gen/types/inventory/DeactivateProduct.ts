@@ -12,7 +12,7 @@ export type DeactivateProductPath = {
      * Format: `int64`
      * @type integer
     */
-    id: bigint;
+    id: number;
 };
 
 export type DeactivateProductStatus200 = ProductView;

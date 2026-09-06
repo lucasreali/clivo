@@ -7,7 +7,7 @@ import * as z from 'zod'
 import { dependentViewSchema } from '../dependentViewSchema'
 import { errorResponseSchema } from '../errorResponseSchema'
 
-export const listCustomerDependentsPathCustomerIdSchema = z.coerce.bigint()
+export const listCustomerDependentsPathCustomerIdSchema = z.coerce.number()
 
 export type ListCustomerDependentsPathCustomerIdSchemaType = z.infer<typeof listCustomerDependentsPathCustomerIdSchema>
 
@@ -40,7 +40,7 @@ export const listCustomerDependentsErrorSchema = z.union([listCustomerDependents
 export type ListCustomerDependentsErrorSchemaType = z.infer<typeof listCustomerDependentsErrorSchema>
 
 export const listCustomerDependentsPathSchema = z.object({
-  customerId: z.coerce.bigint(),
+  customerId: z.coerce.number(),
 })
 
 export type ListCustomerDependentsPathSchemaType = z.infer<typeof listCustomerDependentsPathSchema>

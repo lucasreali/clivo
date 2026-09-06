@@ -12,7 +12,7 @@ export type GetPractitionerPath = {
      * Format: `int64`
      * @type integer
     */
-    id: bigint;
+    id: number;
 };
 
 export type GetPractitionerStatus200 = PractitionerView;

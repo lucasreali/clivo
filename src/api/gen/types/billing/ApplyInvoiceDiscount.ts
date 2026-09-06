@@ -13,7 +13,7 @@ export type ApplyInvoiceDiscountPath = {
      * Format: `int64`
      * @type integer
     */
-    id: bigint;
+    id: number;
 };
 
 export type ApplyInvoiceDiscountStatus200 = InvoiceView;

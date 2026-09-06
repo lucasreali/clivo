@@ -8,7 +8,7 @@ import { dependentRequestSchema } from '../dependentRequestSchema'
 import { dependentViewSchema } from '../dependentViewSchema'
 import { errorResponseSchema } from '../errorResponseSchema'
 
-export const registerDependentPathCustomerIdSchema = z.coerce.bigint()
+export const registerDependentPathCustomerIdSchema = z.coerce.number()
 
 export type RegisterDependentPathCustomerIdSchemaType = z.infer<typeof registerDependentPathCustomerIdSchema>
 
@@ -49,7 +49,7 @@ export const registerDependentBodySchema = dependentRequestSchema
 export type RegisterDependentBodySchemaType = z.infer<typeof registerDependentBodySchema>
 
 export const registerDependentPathSchema = z.object({
-  customerId: z.coerce.bigint(),
+  customerId: z.coerce.number(),
 })
 
 export type RegisterDependentPathSchemaType = z.infer<typeof registerDependentPathSchema>

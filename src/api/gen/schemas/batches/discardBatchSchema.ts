@@ -8,7 +8,7 @@ import { batchViewSchema } from '../batchViewSchema'
 import { discardRequestSchema } from '../discardRequestSchema'
 import { errorResponseSchema } from '../errorResponseSchema'
 
-export const discardBatchPathIdSchema = z.coerce.bigint()
+export const discardBatchPathIdSchema = z.coerce.number()
 
 export type DiscardBatchPathIdSchemaType = z.infer<typeof discardBatchPathIdSchema>
 
@@ -49,7 +49,7 @@ export const discardBatchBodySchema = discardRequestSchema
 export type DiscardBatchBodySchemaType = z.infer<typeof discardBatchBodySchema>
 
 export const discardBatchPathSchema = z.object({
-  id: z.coerce.bigint(),
+  id: z.coerce.number(),
 })
 
 export type DiscardBatchPathSchemaType = z.infer<typeof discardBatchPathSchema>

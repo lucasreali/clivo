@@ -8,7 +8,7 @@ import { discountRequestSchema } from '../discountRequestSchema'
 import { errorResponseSchema } from '../errorResponseSchema'
 import { invoiceViewSchema } from '../invoiceViewSchema'
 
-export const applyInvoiceDiscountPathIdSchema = z.coerce.bigint()
+export const applyInvoiceDiscountPathIdSchema = z.coerce.number()
 
 export type ApplyInvoiceDiscountPathIdSchemaType = z.infer<typeof applyInvoiceDiscountPathIdSchema>
 
@@ -49,7 +49,7 @@ export const applyInvoiceDiscountBodySchema = discountRequestSchema
 export type ApplyInvoiceDiscountBodySchemaType = z.infer<typeof applyInvoiceDiscountBodySchema>
 
 export const applyInvoiceDiscountPathSchema = z.object({
-  id: z.coerce.bigint(),
+  id: z.coerce.number(),
 })
 
 export type ApplyInvoiceDiscountPathSchemaType = z.infer<typeof applyInvoiceDiscountPathSchema>

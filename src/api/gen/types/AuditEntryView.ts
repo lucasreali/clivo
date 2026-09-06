@@ -19,7 +19,7 @@ export type AuditEntryView = {
      * Format: `int64`
      * @type integer | undefined
     */
-    author?: bigint;
+    author?: number;
     newValue?: {
         [key: string]: unknown;
     };

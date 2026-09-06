@@ -13,7 +13,7 @@ export type RegisterNotificationReplyPath = {
      * Format: `int64`
      * @type integer
     */
-    id: bigint;
+    id: number;
 };
 
 export type RegisterNotificationReplyStatus200 = NotificationView;

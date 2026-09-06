@@ -7,7 +7,7 @@ import * as z from 'zod'
 import { batchChoiceViewSchema } from '../batchChoiceViewSchema'
 import { errorResponseSchema } from '../errorResponseSchema'
 
-export const selectBatchForDispatchPathProductIdSchema = z.coerce.bigint()
+export const selectBatchForDispatchPathProductIdSchema = z.coerce.number()
 
 export type SelectBatchForDispatchPathProductIdSchemaType = z.infer<typeof selectBatchForDispatchPathProductIdSchema>
 
@@ -44,7 +44,7 @@ export const selectBatchForDispatchErrorSchema = z.union([selectBatchForDispatch
 export type SelectBatchForDispatchErrorSchemaType = z.infer<typeof selectBatchForDispatchErrorSchema>
 
 export const selectBatchForDispatchPathSchema = z.object({
-  productId: z.coerce.bigint(),
+  productId: z.coerce.number(),
 })
 
 export type SelectBatchForDispatchPathSchemaType = z.infer<typeof selectBatchForDispatchPathSchema>

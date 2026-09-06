@@ -8,7 +8,7 @@ import { errorResponseSchema } from '../errorResponseSchema'
 import { planRequestSchema } from '../planRequestSchema'
 import { planViewSchema } from '../planViewSchema'
 
-export const describeInsurancePlanPathIdSchema = z.coerce.bigint()
+export const describeInsurancePlanPathIdSchema = z.coerce.number()
 
 export type DescribeInsurancePlanPathIdSchemaType = z.infer<typeof describeInsurancePlanPathIdSchema>
 
@@ -49,7 +49,7 @@ export const describeInsurancePlanBodySchema = planRequestSchema
 export type DescribeInsurancePlanBodySchemaType = z.infer<typeof describeInsurancePlanBodySchema>
 
 export const describeInsurancePlanPathSchema = z.object({
-  id: z.coerce.bigint(),
+  id: z.coerce.number(),
 })
 
 export type DescribeInsurancePlanPathSchemaType = z.infer<typeof describeInsurancePlanPathSchema>

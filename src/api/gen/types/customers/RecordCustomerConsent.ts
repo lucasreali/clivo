@@ -13,7 +13,7 @@ export type RecordCustomerConsentPath = {
      * Format: `int64`
      * @type integer
     */
-    id: bigint;
+    id: number;
 };
 
 export type RecordCustomerConsentStatus201 = CustomerView;

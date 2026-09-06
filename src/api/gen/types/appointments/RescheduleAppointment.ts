@@ -13,7 +13,7 @@ export type RescheduleAppointmentPath = {
      * Format: `int64`
      * @type integer
     */
-    id: bigint;
+    id: number;
 };
 
 export type RescheduleAppointmentStatus200 = AppointmentView;

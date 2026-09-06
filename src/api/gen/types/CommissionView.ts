@@ -10,20 +10,20 @@ export type CommissionView = {
      * Format: `int64`
      * @type integer | undefined
     */
-    encounterId?: bigint;
+    encounterId?: number;
     /**
      * @description
      * Format: `int64`
      * @type integer | undefined
     */
-    id?: bigint;
+    id?: number;
     percentage?: number;
     /**
      * @description
      * Format: `int64`
      * @type integer | undefined
     */
-    practitionerId?: bigint;
+    practitionerId?: number;
     practitionerName?: string;
     status?: string;
 };

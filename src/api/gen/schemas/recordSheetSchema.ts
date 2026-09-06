@@ -8,7 +8,7 @@ import { sheetSectionSchema } from './sheetSectionSchema'
 
 export const recordSheetSchema = z.object({
   sections: z.array(sheetSectionSchema).optional(),
-  templateId: z.coerce.bigint().optional(),
+  templateId: z.coerce.number().optional(),
   templateName: z.string().optional(),
   templateVersion: z.int().optional(),
 })

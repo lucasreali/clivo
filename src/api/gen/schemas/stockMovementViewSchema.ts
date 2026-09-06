@@ -6,13 +6,13 @@
 import * as z from 'zod'
 
 export const stockMovementViewSchema = z.object({
-  encounterId: z.coerce.bigint().optional(),
-  id: z.coerce.bigint().optional(),
-  productId: z.coerce.bigint().optional(),
+  encounterId: z.coerce.number().optional(),
+  id: z.coerce.number().optional(),
+  productId: z.coerce.number().optional(),
   quantity: z.number().optional(),
   reason: z.string().optional(),
   recordedAt: z.iso.datetime().optional(),
-  recordedBy: z.coerce.bigint().optional(),
+  recordedBy: z.coerce.number().optional(),
   type: z.string().optional(),
 })
 

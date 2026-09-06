@@ -13,7 +13,7 @@ export type SettleInvoicePath = {
      * Format: `int64`
      * @type integer
     */
-    id: bigint;
+    id: number;
 };
 
 export type SettleInvoiceStatus201 = InvoiceView;

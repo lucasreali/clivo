@@ -12,7 +12,7 @@ export type GetInvoicePath = {
      * Format: `int64`
      * @type integer
     */
-    id: bigint;
+    id: number;
 };
 
 export type GetInvoiceStatus200 = InvoiceView;

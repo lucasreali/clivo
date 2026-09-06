@@ -12,7 +12,7 @@ export type GetSessionPackagePath = {
      * Format: `int64`
      * @type integer
     */
-    id: bigint;
+    id: number;
 };
 
 export type GetSessionPackageStatus200 = PackageView;

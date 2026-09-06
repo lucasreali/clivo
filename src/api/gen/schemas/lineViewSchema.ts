@@ -8,7 +8,7 @@ import * as z from 'zod'
 export const lineViewSchema = z.object({
   description: z.string().optional(),
   quantity: z.number().optional(),
-  serviceId: z.coerce.bigint().optional(),
+  serviceId: z.coerce.number().optional(),
   unitPrice: z.number().optional(),
 })
 

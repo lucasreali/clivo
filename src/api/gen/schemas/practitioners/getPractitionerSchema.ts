@@ -7,7 +7,7 @@ import * as z from 'zod'
 import { errorResponseSchema } from '../errorResponseSchema'
 import { practitionerViewSchema } from '../practitionerViewSchema'
 
-export const getPractitionerPathIdSchema = z.coerce.bigint()
+export const getPractitionerPathIdSchema = z.coerce.number()
 
 export type GetPractitionerPathIdSchemaType = z.infer<typeof getPractitionerPathIdSchema>
 
@@ -40,7 +40,7 @@ export const getPractitionerErrorSchema = z.union([getPractitionerStatus401Schem
 export type GetPractitionerErrorSchemaType = z.infer<typeof getPractitionerErrorSchema>
 
 export const getPractitionerPathSchema = z.object({
-  id: z.coerce.bigint(),
+  id: z.coerce.number(),
 })
 
 export type GetPractitionerPathSchemaType = z.infer<typeof getPractitionerPathSchema>

@@ -9,6 +9,6 @@ export type SupplyRequest = {
      * Format: `int64`
      * @type integer
     */
-    productId: bigint;
+    productId: number;
     quantity: number;
 };

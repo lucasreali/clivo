@@ -12,7 +12,7 @@ export type PublishRecordTemplatePath = {
      * Format: `int64`
      * @type integer
     */
-    id: bigint;
+    id: number;
 };
 
 export type PublishRecordTemplateStatus200 = RecordTemplateView;

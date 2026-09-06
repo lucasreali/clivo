@@ -8,7 +8,7 @@ import * as z from 'zod'
 export const productViewSchema = z.object({
   batchControlled: z.boolean().optional(),
   belowMinimum: z.boolean().optional(),
-  id: z.coerce.bigint().optional(),
+  id: z.coerce.number().optional(),
   minStock: z.number().optional(),
   name: z.string().optional(),
   onHand: z.number().optional(),

@@ -8,7 +8,7 @@ import { errorResponseSchema } from '../errorResponseSchema'
 import { notificationViewSchema } from '../notificationViewSchema'
 import { replyRequestSchema } from '../replyRequestSchema'
 
-export const registerNotificationReplyPathIdSchema = z.coerce.bigint()
+export const registerNotificationReplyPathIdSchema = z.coerce.number()
 
 export type RegisterNotificationReplyPathIdSchemaType = z.infer<typeof registerNotificationReplyPathIdSchema>
 
@@ -49,7 +49,7 @@ export const registerNotificationReplyBodySchema = replyRequestSchema
 export type RegisterNotificationReplyBodySchemaType = z.infer<typeof registerNotificationReplyBodySchema>
 
 export const registerNotificationReplyPathSchema = z.object({
-  id: z.coerce.bigint(),
+  id: z.coerce.number(),
 })
 
 export type RegisterNotificationReplyPathSchemaType = z.infer<typeof registerNotificationReplyPathSchema>

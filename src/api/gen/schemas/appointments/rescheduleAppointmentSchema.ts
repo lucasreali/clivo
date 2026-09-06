@@ -8,7 +8,7 @@ import { appointmentViewSchema } from '../appointmentViewSchema'
 import { errorResponseSchema } from '../errorResponseSchema'
 import { rescheduleRequestSchema } from '../rescheduleRequestSchema'
 
-export const rescheduleAppointmentPathIdSchema = z.coerce.bigint()
+export const rescheduleAppointmentPathIdSchema = z.coerce.number()
 
 export type RescheduleAppointmentPathIdSchemaType = z.infer<typeof rescheduleAppointmentPathIdSchema>
 
@@ -49,7 +49,7 @@ export const rescheduleAppointmentBodySchema = rescheduleRequestSchema
 export type RescheduleAppointmentBodySchemaType = z.infer<typeof rescheduleAppointmentBodySchema>
 
 export const rescheduleAppointmentPathSchema = z.object({
-  id: z.coerce.bigint(),
+  id: z.coerce.number(),
 })
 
 export type RescheduleAppointmentPathSchemaType = z.infer<typeof rescheduleAppointmentPathSchema>

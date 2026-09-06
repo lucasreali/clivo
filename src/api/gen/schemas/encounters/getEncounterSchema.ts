@@ -7,7 +7,7 @@ import * as z from 'zod'
 import { encounterViewSchema } from '../encounterViewSchema'
 import { errorResponseSchema } from '../errorResponseSchema'
 
-export const getEncounterPathIdSchema = z.coerce.bigint()
+export const getEncounterPathIdSchema = z.coerce.number()
 
 export type GetEncounterPathIdSchemaType = z.infer<typeof getEncounterPathIdSchema>
 
@@ -40,7 +40,7 @@ export const getEncounterErrorSchema = z.union([getEncounterStatus401Schema, get
 export type GetEncounterErrorSchemaType = z.infer<typeof getEncounterErrorSchema>
 
 export const getEncounterPathSchema = z.object({
-  id: z.coerce.bigint(),
+  id: z.coerce.number(),
 })
 
 export type GetEncounterPathSchemaType = z.infer<typeof getEncounterPathSchema>

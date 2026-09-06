@@ -8,7 +8,7 @@ import * as z from 'zod'
 export const userViewSchema = z.object({
   active: z.boolean().optional(),
   email: z.string().optional(),
-  id: z.coerce.bigint().optional(),
+  id: z.coerce.number().optional(),
   name: z.string().optional(),
   role: z.string().optional(),
 })

@@ -9,7 +9,7 @@ export type BatchChoiceView = {
      * Format: `int64`
      * @type integer | undefined
     */
-    batchId?: bigint;
+    batchId?: number;
     code?: string;
     warning?: string;
 };

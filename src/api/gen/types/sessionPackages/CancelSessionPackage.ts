@@ -12,7 +12,7 @@ export type CancelSessionPackagePath = {
      * Format: `int64`
      * @type integer
     */
-    id: bigint;
+    id: number;
 };
 
 export type CancelSessionPackageStatus200 = PackageView;

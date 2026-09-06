@@ -13,7 +13,7 @@ export type SetCommissionRatePath = {
      * Format: `int64`
      * @type integer
     */
-    practitionerId: bigint;
+    practitionerId: number;
 };
 
 export type SetCommissionRateStatus200 = RateView;

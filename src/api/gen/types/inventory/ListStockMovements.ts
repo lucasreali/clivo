@@ -12,7 +12,7 @@ export type ListStockMovementsPath = {
      * Format: `int64`
      * @type integer
     */
-    id: bigint;
+    id: number;
 };
 
 export type ListStockMovementsStatus200 = StockMovementView[];

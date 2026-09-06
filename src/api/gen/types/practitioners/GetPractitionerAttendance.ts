@@ -12,7 +12,7 @@ export type GetPractitionerAttendancePath = {
      * Format: `int64`
      * @type integer
     */
-    id: bigint;
+    id: number;
 };
 
 export const getPractitionerAttendanceWeekday = {

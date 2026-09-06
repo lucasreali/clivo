@@ -9,7 +9,7 @@ export type PlanView = {
      * Format: `int64`
      * @type integer | undefined
     */
-    id?: bigint;
+    id?: number;
     name?: string;
     reimbursementPercentage?: number;
     status?: string;

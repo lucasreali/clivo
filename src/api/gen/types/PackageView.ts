@@ -10,7 +10,7 @@ export type PackageView = {
      * Format: `int64`
      * @type integer | undefined
     */
-    customerId?: bigint;
+    customerId?: number;
     /**
      * @description
      * Format: `date`
@@ -22,7 +22,7 @@ export type PackageView = {
      * Format: `int64`
      * @type integer | undefined
     */
-    id?: bigint;
+    id?: number;
     price?: number;
     /**
      * @description
@@ -35,7 +35,7 @@ export type PackageView = {
      * Format: `int64`
      * @type integer | undefined
     */
-    serviceId?: bigint;
+    serviceId?: number;
     serviceName?: string;
     status?: string;
     /**

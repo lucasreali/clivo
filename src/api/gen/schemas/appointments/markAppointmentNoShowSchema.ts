@@ -8,7 +8,7 @@ import { appointmentViewSchema } from '../appointmentViewSchema'
 import { errorResponseSchema } from '../errorResponseSchema'
 import { reasonRequestSchema } from '../reasonRequestSchema'
 
-export const markAppointmentNoShowPathIdSchema = z.coerce.bigint()
+export const markAppointmentNoShowPathIdSchema = z.coerce.number()
 
 export type MarkAppointmentNoShowPathIdSchemaType = z.infer<typeof markAppointmentNoShowPathIdSchema>
 
@@ -49,7 +49,7 @@ export const markAppointmentNoShowBodySchema = reasonRequestSchema
 export type MarkAppointmentNoShowBodySchemaType = z.infer<typeof markAppointmentNoShowBodySchema>
 
 export const markAppointmentNoShowPathSchema = z.object({
-  id: z.coerce.bigint(),
+  id: z.coerce.number(),
 })
 
 export type MarkAppointmentNoShowPathSchemaType = z.infer<typeof markAppointmentNoShowPathSchema>

@@ -12,7 +12,7 @@ export type GetServicePath = {
      * Format: `int64`
      * @type integer
     */
-    id: bigint;
+    id: number;
 };
 
 export type GetServiceStatus200 = ServiceView;

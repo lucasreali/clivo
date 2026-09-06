@@ -7,7 +7,7 @@ import * as z from 'zod'
 import { sectionViewSchema } from './sectionViewSchema'
 
 export const recordTemplateViewSchema = z.object({
-  id: z.coerce.bigint().optional(),
+  id: z.coerce.number().optional(),
   name: z.string().optional(),
   requiresModule: z.string().optional(),
   sections: z.array(sectionViewSchema).optional(),

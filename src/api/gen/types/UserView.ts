@@ -11,7 +11,7 @@ export type UserView = {
      * Format: `int64`
      * @type integer | undefined
     */
-    id?: bigint;
+    id?: number;
     name?: string;
     role?: string;
 };

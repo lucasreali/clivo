@@ -12,7 +12,7 @@ export type ListCustomerDependentsPath = {
      * Format: `int64`
      * @type integer
     */
-    customerId: bigint;
+    customerId: number;
 };
 
 export type ListCustomerDependentsStatus200 = DependentView[];

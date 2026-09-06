@@ -18,7 +18,7 @@ export type CustomerView = {
      * Format: `int64`
      * @type integer | undefined
     */
-    id?: bigint;
+    id?: number;
     name?: string;
     nationalId?: string;
     phone?: string;

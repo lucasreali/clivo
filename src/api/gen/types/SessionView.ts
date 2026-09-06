@@ -9,7 +9,7 @@ export type SessionView = {
      * Format: `int64`
      * @type integer | undefined
     */
-    clinicId?: bigint;
+    clinicId?: number;
     name?: string;
     role?: string;
     /**
@@ -17,5 +17,5 @@ export type SessionView = {
      * Format: `int64`
      * @type integer | undefined
     */
-    userId?: bigint;
+    userId?: number;
 };

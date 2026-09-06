@@ -9,29 +9,29 @@ export type EncounterRequest = {
      * Format: `int64`
      * @type integer | undefined
     */
-    appointmentId?: bigint;
+    appointmentId?: number;
     /**
      * @description
      * Format: `int64`
      * @type integer | undefined
     */
-    customerId?: bigint;
+    customerId?: number;
     /**
      * @description
      * Format: `int64`
      * @type integer | undefined
     */
-    practitionerId?: bigint;
+    practitionerId?: number;
     /**
      * @description
      * Format: `int64`
      * @type integer
     */
-    recordTemplateId: bigint;
+    recordTemplateId: number;
     /**
      * @description
      * Format: `int64`
      * @type integer | undefined
     */
-    serviceId?: bigint;
+    serviceId?: number;
 };

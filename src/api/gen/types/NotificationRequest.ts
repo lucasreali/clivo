@@ -9,7 +9,7 @@ export type NotificationRequest = {
      * Format: `int64`
      * @type integer
     */
-    appointmentId: bigint;
+    appointmentId: number;
     /**
      * @minLength 1
      * @type string

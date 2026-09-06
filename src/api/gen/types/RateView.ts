@@ -9,13 +9,13 @@ export type RateView = {
      * Format: `int64`
      * @type integer | undefined
     */
-    id?: bigint;
+    id?: number;
     percentage?: number;
     /**
      * @description
      * Format: `int64`
      * @type integer | undefined
     */
-    practitionerId?: bigint;
+    practitionerId?: number;
     practitionerName?: string;
 };

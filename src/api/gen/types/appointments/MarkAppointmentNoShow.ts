@@ -13,7 +13,7 @@ export type MarkAppointmentNoShowPath = {
      * Format: `int64`
      * @type integer
     */
-    id: bigint;
+    id: number;
 };
 
 export type MarkAppointmentNoShowStatus200 = AppointmentView;

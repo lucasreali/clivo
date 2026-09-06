@@ -12,7 +12,7 @@ export type ListProductBatchesPath = {
      * Format: `int64`
      * @type integer
     */
-    productId: bigint;
+    productId: number;
 };
 
 export type ListProductBatchesStatus200 = BatchView[];

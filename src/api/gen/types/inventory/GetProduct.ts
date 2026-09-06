@@ -12,7 +12,7 @@ export type GetProductPath = {
      * Format: `int64`
      * @type integer
     */
-    id: bigint;
+    id: number;
 };
 
 export type GetProductStatus200 = ProductView;

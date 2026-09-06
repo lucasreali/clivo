@@ -9,19 +9,19 @@ export type AppointmentRequest = {
      * Format: `int64`
      * @type integer
     */
-    customerId: bigint;
+    customerId: number;
     /**
      * @description
      * Format: `int64`
      * @type integer
     */
-    practitionerId: bigint;
+    practitionerId: number;
     /**
      * @description
      * Format: `int64`
      * @type integer
     */
-    serviceId: bigint;
+    serviceId: number;
     /**
      * @description
      * Format: `date-time`

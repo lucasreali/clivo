@@ -13,13 +13,13 @@ export type RefundInvoicePaymentPath = {
      * Format: `int64`
      * @type integer
     */
-    id: bigint;
+    id: number;
     /**
      * @description
      * Format: `int64`
      * @type integer
     */
-    paymentId: bigint;
+    paymentId: number;
 };
 
 export type RefundInvoicePaymentStatus200 = InvoiceView;

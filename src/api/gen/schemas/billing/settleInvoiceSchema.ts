@@ -8,7 +8,7 @@ import { errorResponseSchema } from '../errorResponseSchema'
 import { invoiceViewSchema } from '../invoiceViewSchema'
 import { paymentRequestSchema } from '../paymentRequestSchema'
 
-export const settleInvoicePathIdSchema = z.coerce.bigint()
+export const settleInvoicePathIdSchema = z.coerce.number()
 
 export type SettleInvoicePathIdSchemaType = z.infer<typeof settleInvoicePathIdSchema>
 
@@ -49,7 +49,7 @@ export const settleInvoiceBodySchema = paymentRequestSchema
 export type SettleInvoiceBodySchemaType = z.infer<typeof settleInvoiceBodySchema>
 
 export const settleInvoicePathSchema = z.object({
-  id: z.coerce.bigint(),
+  id: z.coerce.number(),
 })
 
 export type SettleInvoicePathSchemaType = z.infer<typeof settleInvoicePathSchema>

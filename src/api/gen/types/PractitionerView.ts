@@ -12,7 +12,7 @@ export type PractitionerView = {
      * Format: `int64`
      * @type integer | undefined
     */
-    id?: bigint;
+    id?: number;
     licenseNumber?: string;
     name?: string;
     status?: string;

@@ -7,7 +7,7 @@ import * as z from 'zod'
 import { errorResponseSchema } from '../errorResponseSchema'
 import { productViewSchema } from '../productViewSchema'
 
-export const getProductPathIdSchema = z.coerce.bigint()
+export const getProductPathIdSchema = z.coerce.number()
 
 export type GetProductPathIdSchemaType = z.infer<typeof getProductPathIdSchema>
 
@@ -40,7 +40,7 @@ export const getProductErrorSchema = z.union([getProductStatus401Schema, getProd
 export type GetProductErrorSchemaType = z.infer<typeof getProductErrorSchema>
 
 export const getProductPathSchema = z.object({
-  id: z.coerce.bigint(),
+  id: z.coerce.number(),
 })
 
 export type GetProductPathSchemaType = z.infer<typeof getProductPathSchema>

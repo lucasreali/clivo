@@ -7,7 +7,7 @@ import * as z from 'zod'
 import { errorResponseSchema } from '../errorResponseSchema'
 import { stockMovementViewSchema } from '../stockMovementViewSchema'
 
-export const listStockMovementsPathIdSchema = z.coerce.bigint()
+export const listStockMovementsPathIdSchema = z.coerce.number()
 
 export type ListStockMovementsPathIdSchemaType = z.infer<typeof listStockMovementsPathIdSchema>
 
@@ -40,7 +40,7 @@ export const listStockMovementsErrorSchema = z.union([listStockMovementsStatus40
 export type ListStockMovementsErrorSchemaType = z.infer<typeof listStockMovementsErrorSchema>
 
 export const listStockMovementsPathSchema = z.object({
-  id: z.coerce.bigint(),
+  id: z.coerce.number(),
 })
 
 export type ListStockMovementsPathSchemaType = z.infer<typeof listStockMovementsPathSchema>

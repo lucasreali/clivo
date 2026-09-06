@@ -9,19 +9,19 @@ export type StockMovementView = {
      * Format: `int64`
      * @type integer | undefined
     */
-    encounterId?: bigint;
+    encounterId?: number;
     /**
      * @description
      * Format: `int64`
      * @type integer | undefined
     */
-    id?: bigint;
+    id?: number;
     /**
      * @description
      * Format: `int64`
      * @type integer | undefined
     */
-    productId?: bigint;
+    productId?: number;
     quantity?: number;
     reason?: string;
     /**
@@ -35,6 +35,6 @@ export type StockMovementView = {
      * Format: `int64`
      * @type integer | undefined
     */
-    recordedBy?: bigint;
+    recordedBy?: number;
     type?: string;
 };

@@ -6,7 +6,7 @@
 import * as z from 'zod'
 
 export const batchChoiceViewSchema = z.object({
-  batchId: z.coerce.bigint().optional(),
+  batchId: z.coerce.number().optional(),
   code: z.string().optional(),
   warning: z.string().optional(),
 })

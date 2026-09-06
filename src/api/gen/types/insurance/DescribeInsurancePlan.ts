@@ -13,7 +13,7 @@ export type DescribeInsurancePlanPath = {
      * Format: `int64`
      * @type integer
     */
-    id: bigint;
+    id: number;
 };
 
 export type DescribeInsurancePlanStatus200 = PlanView;

@@ -13,7 +13,7 @@ export type MoveStockPath = {
      * Format: `int64`
      * @type integer
     */
-    id: bigint;
+    id: number;
 };
 
 export type MoveStockStatus201 = ProductView;

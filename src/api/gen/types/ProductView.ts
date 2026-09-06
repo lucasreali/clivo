@@ -11,7 +11,7 @@ export type ProductView = {
      * Format: `int64`
      * @type integer | undefined
     */
-    id?: bigint;
+    id?: number;
     minStock?: number;
     name?: string;
     onHand?: number;

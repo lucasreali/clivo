@@ -12,7 +12,7 @@ export type ListAppointmentNotificationsQuery = {
      * Format: `int64`
      * @type integer
     */
-    appointmentId: bigint;
+    appointmentId: number;
 };
 
 export type ListAppointmentNotificationsStatus200 = NotificationView[];

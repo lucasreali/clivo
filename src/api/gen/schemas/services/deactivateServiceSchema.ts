@@ -7,7 +7,7 @@ import * as z from 'zod'
 import { errorResponseSchema } from '../errorResponseSchema'
 import { serviceViewSchema } from '../serviceViewSchema'
 
-export const deactivateServicePathIdSchema = z.coerce.bigint()
+export const deactivateServicePathIdSchema = z.coerce.number()
 
 export type DeactivateServicePathIdSchemaType = z.infer<typeof deactivateServicePathIdSchema>
 
@@ -40,7 +40,7 @@ export const deactivateServiceErrorSchema = z.union([deactivateServiceStatus401S
 export type DeactivateServiceErrorSchemaType = z.infer<typeof deactivateServiceErrorSchema>
 
 export const deactivateServicePathSchema = z.object({
-  id: z.coerce.bigint(),
+  id: z.coerce.number(),
 })
 
 export type DeactivateServicePathSchemaType = z.infer<typeof deactivateServicePathSchema>

@@ -13,7 +13,7 @@ export type RegisterDependentPath = {
      * Format: `int64`
      * @type integer
     */
-    customerId: bigint;
+    customerId: number;
 };
 
 export type RegisterDependentStatus201 = DependentView;

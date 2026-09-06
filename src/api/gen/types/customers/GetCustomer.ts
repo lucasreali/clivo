@@ -12,7 +12,7 @@ export type GetCustomerPath = {
      * Format: `int64`
      * @type integer
     */
-    id: bigint;
+    id: number;
 };
 
 export type GetCustomerStatus200 = CustomerView;

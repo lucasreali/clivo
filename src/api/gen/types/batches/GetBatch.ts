@@ -12,7 +12,7 @@ export type GetBatchPath = {
      * Format: `int64`
      * @type integer
     */
-    id: bigint;
+    id: number;
 };
 
 export type GetBatchStatus200 = BatchView;

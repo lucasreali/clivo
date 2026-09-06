@@ -12,7 +12,7 @@ export type UseSuppliesPath = {
      * Format: `int64`
      * @type integer
     */
-    encounterId: bigint;
+    encounterId: number;
 };
 
 export type UseSuppliesStatus204 = unknown;

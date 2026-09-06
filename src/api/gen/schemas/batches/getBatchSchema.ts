@@ -7,7 +7,7 @@ import * as z from 'zod'
 import { batchViewSchema } from '../batchViewSchema'
 import { errorResponseSchema } from '../errorResponseSchema'
 
-export const getBatchPathIdSchema = z.coerce.bigint()
+export const getBatchPathIdSchema = z.coerce.number()
 
 export type GetBatchPathIdSchemaType = z.infer<typeof getBatchPathIdSchema>
 
@@ -40,7 +40,7 @@ export const getBatchErrorSchema = z.union([getBatchStatus401Schema, getBatchSta
 export type GetBatchErrorSchemaType = z.infer<typeof getBatchErrorSchema>
 
 export const getBatchPathSchema = z.object({
-  id: z.coerce.bigint(),
+  id: z.coerce.number(),
 })
 
 export type GetBatchPathSchemaType = z.infer<typeof getBatchPathSchema>

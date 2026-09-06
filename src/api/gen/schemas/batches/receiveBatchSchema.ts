@@ -8,7 +8,7 @@ import { batchRequestSchema } from '../batchRequestSchema'
 import { batchViewSchema } from '../batchViewSchema'
 import { errorResponseSchema } from '../errorResponseSchema'
 
-export const receiveBatchPathProductIdSchema = z.coerce.bigint()
+export const receiveBatchPathProductIdSchema = z.coerce.number()
 
 export type ReceiveBatchPathProductIdSchemaType = z.infer<typeof receiveBatchPathProductIdSchema>
 
@@ -49,7 +49,7 @@ export const receiveBatchBodySchema = batchRequestSchema
 export type ReceiveBatchBodySchemaType = z.infer<typeof receiveBatchBodySchema>
 
 export const receiveBatchPathSchema = z.object({
-  productId: z.coerce.bigint(),
+  productId: z.coerce.number(),
 })
 
 export type ReceiveBatchPathSchemaType = z.infer<typeof receiveBatchPathSchema>

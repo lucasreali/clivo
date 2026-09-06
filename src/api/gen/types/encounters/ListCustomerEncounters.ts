@@ -12,7 +12,7 @@ export type ListCustomerEncountersQuery = {
      * Format: `int64`
      * @type integer
     */
-    customerId: bigint;
+    customerId: number;
 };
 
 export type ListCustomerEncountersStatus200 = EncounterHistoryView[];

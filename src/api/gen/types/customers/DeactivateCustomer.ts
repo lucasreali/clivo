@@ -13,7 +13,7 @@ export type DeactivateCustomerPath = {
      * Format: `int64`
      * @type integer
     */
-    id: bigint;
+    id: number;
 };
 
 export type DeactivateCustomerStatus200 = CustomerView;

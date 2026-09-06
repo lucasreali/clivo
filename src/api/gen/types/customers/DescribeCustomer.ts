@@ -13,7 +13,7 @@ export type DescribeCustomerPath = {
      * Format: `int64`
      * @type integer
     */
-    id: bigint;
+    id: number;
 };
 
 export type DescribeCustomerStatus200 = CustomerView;

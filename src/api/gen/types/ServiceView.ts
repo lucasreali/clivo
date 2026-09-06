@@ -15,7 +15,7 @@ export type ServiceView = {
      * Format: `int64`
      * @type integer | undefined
     */
-    id?: bigint;
+    id?: number;
     name?: string;
     price?: number;
     status?: string;

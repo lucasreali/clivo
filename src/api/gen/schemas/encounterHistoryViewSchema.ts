@@ -8,11 +8,11 @@ import { recordSheetSchema } from './recordSheetSchema'
 
 export const encounterHistoryViewSchema = z.object({
   completedAt: z.iso.datetime().optional(),
-  customerId: z.coerce.bigint().optional(),
-  id: z.coerce.bigint().optional(),
-  practitionerId: z.coerce.bigint().optional(),
+  customerId: z.coerce.number().optional(),
+  id: z.coerce.number().optional(),
+  practitionerId: z.coerce.number().optional(),
   practitionerName: z.string().optional(),
-  serviceId: z.coerce.bigint().optional(),
+  serviceId: z.coerce.number().optional(),
   serviceName: z.string().optional(),
   sheet: recordSheetSchema.optional(),
   startedAt: z.iso.datetime().optional(),

@@ -11,13 +11,13 @@ export type MembershipView = {
      * Format: `int64`
      * @type integer | undefined
     */
-    customerId?: bigint;
+    customerId?: number;
     /**
      * @description
      * Format: `int64`
      * @type integer | undefined
     */
-    id?: bigint;
+    id?: number;
     memberNumber?: string;
     plan?: PlanView;
 };

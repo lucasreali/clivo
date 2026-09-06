@@ -9,7 +9,7 @@ export type NotificationView = {
      * Format: `int64`
      * @type integer | undefined
     */
-    appointmentId?: bigint;
+    appointmentId?: number;
     /**
      * @description
      * Format: `date-time`
@@ -22,7 +22,7 @@ export type NotificationView = {
      * Format: `int64`
      * @type integer | undefined
     */
-    id?: bigint;
+    id?: number;
     recipient?: string;
     reply?: string;
     /**

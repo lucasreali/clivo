@@ -11,7 +11,7 @@ export type ReleaseScheduleBlockPath = {
      * Format: `int64`
      * @type integer
     */
-    id: bigint;
+    id: number;
 };
 
 export type ReleaseScheduleBlockStatus204 = unknown;

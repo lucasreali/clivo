@@ -8,7 +8,7 @@ import { encounterViewSchema } from '../encounterViewSchema'
 import { errorResponseSchema } from '../errorResponseSchema'
 import { recordFillingRequestSchema } from '../recordFillingRequestSchema'
 
-export const fillEncounterRecordPathIdSchema = z.coerce.bigint()
+export const fillEncounterRecordPathIdSchema = z.coerce.number()
 
 export type FillEncounterRecordPathIdSchemaType = z.infer<typeof fillEncounterRecordPathIdSchema>
 
@@ -49,7 +49,7 @@ export const fillEncounterRecordBodySchema = recordFillingRequestSchema
 export type FillEncounterRecordBodySchemaType = z.infer<typeof fillEncounterRecordBodySchema>
 
 export const fillEncounterRecordPathSchema = z.object({
-  id: z.coerce.bigint(),
+  id: z.coerce.number(),
 })
 
 export type FillEncounterRecordPathSchemaType = z.infer<typeof fillEncounterRecordPathSchema>

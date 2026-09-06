@@ -12,7 +12,7 @@ export type RecordSheet = {
      * Format: `int64`
      * @type integer | undefined
     */
-    templateId?: bigint;
+    templateId?: number;
     templateName?: string;
     /**
      * @description

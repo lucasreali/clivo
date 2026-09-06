@@ -8,11 +8,11 @@ import { errorResponseSchema } from '../errorResponseSchema'
 import { invoiceViewSchema } from '../invoiceViewSchema'
 import { refundRequestSchema } from '../refundRequestSchema'
 
-export const refundInvoicePaymentPathIdSchema = z.coerce.bigint()
+export const refundInvoicePaymentPathIdSchema = z.coerce.number()
 
 export type RefundInvoicePaymentPathIdSchemaType = z.infer<typeof refundInvoicePaymentPathIdSchema>
 
-export const refundInvoicePaymentPathPaymentIdSchema = z.coerce.bigint()
+export const refundInvoicePaymentPathPaymentIdSchema = z.coerce.number()
 
 export type RefundInvoicePaymentPathPaymentIdSchemaType = z.infer<typeof refundInvoicePaymentPathPaymentIdSchema>
 
@@ -53,8 +53,8 @@ export const refundInvoicePaymentBodySchema = refundRequestSchema
 export type RefundInvoicePaymentBodySchemaType = z.infer<typeof refundInvoicePaymentBodySchema>
 
 export const refundInvoicePaymentPathSchema = z.object({
-  id: z.coerce.bigint(),
-  paymentId: z.coerce.bigint(),
+  id: z.coerce.number(),
+  paymentId: z.coerce.number(),
 })
 
 export type RefundInvoicePaymentPathSchemaType = z.infer<typeof refundInvoicePaymentPathSchema>

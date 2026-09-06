@@ -6,9 +6,9 @@
 import * as z from 'zod'
 
 export const appointmentRequestSchema = z.object({
-  customerId: z.coerce.bigint(),
-  practitionerId: z.coerce.bigint(),
-  serviceId: z.coerce.bigint(),
+  customerId: z.coerce.number(),
+  practitionerId: z.coerce.number(),
+  serviceId: z.coerce.number(),
   start: z.iso.datetime(),
 })
 

@@ -7,7 +7,7 @@ import * as z from 'zod'
 import { errorResponseSchema } from '../errorResponseSchema'
 import { invoiceViewSchema } from '../invoiceViewSchema'
 
-export const listInvoicesByCustomerQueryCustomerIdSchema = z.coerce.bigint()
+export const listInvoicesByCustomerQueryCustomerIdSchema = z.coerce.number()
 
 export type ListInvoicesByCustomerQueryCustomerIdSchemaType = z.infer<typeof listInvoicesByCustomerQueryCustomerIdSchema>
 
@@ -40,7 +40,7 @@ export const listInvoicesByCustomerErrorSchema = z.union([listInvoicesByCustomer
 export type ListInvoicesByCustomerErrorSchemaType = z.infer<typeof listInvoicesByCustomerErrorSchema>
 
 export const listInvoicesByCustomerQuerySchema = z.object({
-  customerId: z.coerce.bigint(),
+  customerId: z.coerce.number(),
 })
 
 export type ListInvoicesByCustomerQuerySchemaType = z.infer<typeof listInvoicesByCustomerQuerySchema>

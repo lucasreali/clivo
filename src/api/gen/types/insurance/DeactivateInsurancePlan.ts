@@ -12,7 +12,7 @@ export type DeactivateInsurancePlanPath = {
      * Format: `int64`
      * @type integer
     */
-    id: bigint;
+    id: number;
 };
 
 export type DeactivateInsurancePlanStatus200 = PlanView;

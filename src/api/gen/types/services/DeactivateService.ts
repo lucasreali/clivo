@@ -12,7 +12,7 @@ export type DeactivateServicePath = {
      * Format: `int64`
      * @type integer
     */
-    id: bigint;
+    id: number;
 };
 
 export type DeactivateServiceStatus200 = ServiceView;

@@ -16,13 +16,13 @@ export type ScheduleBlockView = {
      * Format: `int64`
      * @type integer | undefined
     */
-    id?: bigint;
+    id?: number;
     /**
      * @description
      * Format: `int64`
      * @type integer | undefined
     */
-    practitionerId?: bigint;
+    practitionerId?: number;
     reason?: string;
     /**
      * @description

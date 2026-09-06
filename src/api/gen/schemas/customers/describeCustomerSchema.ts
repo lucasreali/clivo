@@ -8,7 +8,7 @@ import { customerRequestSchema } from '../customerRequestSchema'
 import { customerViewSchema } from '../customerViewSchema'
 import { errorResponseSchema } from '../errorResponseSchema'
 
-export const describeCustomerPathIdSchema = z.coerce.bigint()
+export const describeCustomerPathIdSchema = z.coerce.number()
 
 export type DescribeCustomerPathIdSchemaType = z.infer<typeof describeCustomerPathIdSchema>
 
@@ -49,7 +49,7 @@ export const describeCustomerBodySchema = customerRequestSchema
 export type DescribeCustomerBodySchemaType = z.infer<typeof describeCustomerBodySchema>
 
 export const describeCustomerPathSchema = z.object({
-  id: z.coerce.bigint(),
+  id: z.coerce.number(),
 })
 
 export type DescribeCustomerPathSchemaType = z.infer<typeof describeCustomerPathSchema>

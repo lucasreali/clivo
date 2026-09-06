@@ -8,7 +8,7 @@ import { errorResponseSchema } from '../errorResponseSchema'
 import { productRequestSchema } from '../productRequestSchema'
 import { productViewSchema } from '../productViewSchema'
 
-export const describeProductPathIdSchema = z.coerce.bigint()
+export const describeProductPathIdSchema = z.coerce.number()
 
 export type DescribeProductPathIdSchemaType = z.infer<typeof describeProductPathIdSchema>
 
@@ -49,7 +49,7 @@ export const describeProductBodySchema = productRequestSchema
 export type DescribeProductBodySchemaType = z.infer<typeof describeProductBodySchema>
 
 export const describeProductPathSchema = z.object({
-  id: z.coerce.bigint(),
+  id: z.coerce.number(),
 })
 
 export type DescribeProductPathSchemaType = z.infer<typeof describeProductPathSchema>

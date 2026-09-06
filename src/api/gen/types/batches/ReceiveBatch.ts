@@ -13,7 +13,7 @@ export type ReceiveBatchPath = {
      * Format: `int64`
      * @type integer
     */
-    productId: bigint;
+    productId: number;
 };
 
 export type ReceiveBatchStatus201 = BatchView;

@@ -12,7 +12,7 @@ export type DeactivateDependentPath = {
      * Format: `int64`
      * @type integer
     */
-    id: bigint;
+    id: number;
 };
 
 export type DeactivateDependentStatus200 = DependentView;

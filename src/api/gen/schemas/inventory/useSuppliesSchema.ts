@@ -7,7 +7,7 @@ import * as z from 'zod'
 import { errorResponseSchema } from '../errorResponseSchema'
 import { supplyRequestSchema } from '../supplyRequestSchema'
 
-export const useSuppliesPathEncounterIdSchema = z.coerce.bigint()
+export const useSuppliesPathEncounterIdSchema = z.coerce.number()
 
 export type UseSuppliesPathEncounterIdSchemaType = z.infer<typeof useSuppliesPathEncounterIdSchema>
 
@@ -48,7 +48,7 @@ export const useSuppliesBodySchema = supplyRequestSchema
 export type UseSuppliesBodySchemaType = z.infer<typeof useSuppliesBodySchema>
 
 export const useSuppliesPathSchema = z.object({
-  encounterId: z.coerce.bigint(),
+  encounterId: z.coerce.number(),
 })
 
 export type UseSuppliesPathSchemaType = z.infer<typeof useSuppliesPathSchema>

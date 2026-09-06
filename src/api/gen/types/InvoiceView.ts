@@ -13,7 +13,7 @@ export type InvoiceView = {
      * Format: `int64`
      * @type integer | undefined
     */
-    customerId?: bigint;
+    customerId?: number;
     customerName?: string;
     discount?: number;
     discountReason?: string;
@@ -28,14 +28,14 @@ export type InvoiceView = {
      * Format: `int64`
      * @type integer | undefined
     */
-    encounterId?: bigint;
+    encounterId?: number;
     grossAmount?: number;
     /**
      * @description
      * Format: `int64`
      * @type integer | undefined
     */
-    id?: bigint;
+    id?: number;
     lines?: LineView[];
     netAmount?: number;
     outstandingBalance?: number;

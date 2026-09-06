@@ -15,7 +15,7 @@ export type ScheduleBlockRequest = {
      * Format: `int64`
      * @type integer | undefined
     */
-    practitionerId?: bigint;
+    practitionerId?: number;
     reason?: string;
     /**
      * @description

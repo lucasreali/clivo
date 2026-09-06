@@ -7,7 +7,7 @@ import * as z from 'zod'
 import { errorResponseSchema } from '../errorResponseSchema'
 import { recordTemplateViewSchema } from '../recordTemplateViewSchema'
 
-export const getRecordTemplatePathIdSchema = z.coerce.bigint()
+export const getRecordTemplatePathIdSchema = z.coerce.number()
 
 export type GetRecordTemplatePathIdSchemaType = z.infer<typeof getRecordTemplatePathIdSchema>
 
@@ -40,7 +40,7 @@ export const getRecordTemplateErrorSchema = z.union([getRecordTemplateStatus401S
 export type GetRecordTemplateErrorSchemaType = z.infer<typeof getRecordTemplateErrorSchema>
 
 export const getRecordTemplatePathSchema = z.object({
-  id: z.coerce.bigint(),
+  id: z.coerce.number(),
 })
 
 export type GetRecordTemplatePathSchemaType = z.infer<typeof getRecordTemplatePathSchema>

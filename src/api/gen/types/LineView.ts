@@ -11,6 +11,6 @@ export type LineView = {
      * Format: `int64`
      * @type integer | undefined
     */
-    serviceId?: bigint;
+    serviceId?: number;
     unitPrice?: number;
 };

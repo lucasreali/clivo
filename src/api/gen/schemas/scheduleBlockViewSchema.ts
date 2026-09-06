@@ -8,8 +8,8 @@ import * as z from 'zod'
 export const scheduleBlockViewSchema = z.object({
   clinicWide: z.boolean().optional(),
   end: z.iso.datetime().optional(),
-  id: z.coerce.bigint().optional(),
-  practitionerId: z.coerce.bigint().optional(),
+  id: z.coerce.number().optional(),
+  practitionerId: z.coerce.number().optional(),
   reason: z.string().optional(),
   start: z.iso.datetime().optional(),
 })

@@ -7,7 +7,7 @@ import * as z from 'zod'
 import { errorResponseSchema } from '../errorResponseSchema'
 import { packageViewSchema } from '../packageViewSchema'
 
-export const getSessionPackagePathIdSchema = z.coerce.bigint()
+export const getSessionPackagePathIdSchema = z.coerce.number()
 
 export type GetSessionPackagePathIdSchemaType = z.infer<typeof getSessionPackagePathIdSchema>
 
@@ -40,7 +40,7 @@ export const getSessionPackageErrorSchema = z.union([getSessionPackageStatus401S
 export type GetSessionPackageErrorSchemaType = z.infer<typeof getSessionPackageErrorSchema>
 
 export const getSessionPackagePathSchema = z.object({
-  id: z.coerce.bigint(),
+  id: z.coerce.number(),
 })
 
 export type GetSessionPackagePathSchemaType = z.infer<typeof getSessionPackagePathSchema>

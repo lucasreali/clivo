@@ -9,7 +9,7 @@ export type PackageRequest = {
      * Format: `int64`
      * @type integer
     */
-    customerId: bigint;
+    customerId: number;
     /**
      * @description
      * Format: `date`
@@ -22,7 +22,7 @@ export type PackageRequest = {
      * Format: `int64`
      * @type integer
     */
-    serviceId: bigint;
+    serviceId: number;
     /**
      * @description
      * Format: `int32`

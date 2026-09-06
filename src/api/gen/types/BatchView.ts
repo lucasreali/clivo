@@ -17,14 +17,14 @@ export type BatchView = {
      * Format: `int64`
      * @type integer | undefined
     */
-    id?: bigint;
+    id?: number;
     manufacturer?: string;
     /**
      * @description
      * Format: `int64`
      * @type integer | undefined
     */
-    productId?: bigint;
+    productId?: number;
     productName?: string;
     quantity?: number;
     status?: string;

@@ -12,7 +12,7 @@ export type GetDependentPath = {
      * Format: `int64`
      * @type integer
     */
-    id: bigint;
+    id: number;
 };
 
 export type GetDependentStatus200 = DependentView;

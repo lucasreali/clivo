@@ -9,7 +9,7 @@ export type AppointmentView = {
      * Format: `int64`
      * @type integer | undefined
     */
-    customerId?: bigint;
+    customerId?: number;
     customerName?: string;
     /**
      * @description
@@ -22,13 +22,13 @@ export type AppointmentView = {
      * Format: `int64`
      * @type integer | undefined
     */
-    id?: bigint;
+    id?: number;
     /**
      * @description
      * Format: `int64`
      * @type integer | undefined
     */
-    practitionerId?: bigint;
+    practitionerId?: number;
     practitionerName?: string;
     reason?: string;
     /**
@@ -36,7 +36,7 @@ export type AppointmentView = {
      * Format: `int64`
      * @type integer | undefined
     */
-    serviceId?: bigint;
+    serviceId?: number;
     serviceName?: string;
     /**
      * @description

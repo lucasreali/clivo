@@ -12,7 +12,7 @@ export type CheckInAppointmentPath = {
      * Format: `int64`
      * @type integer
     */
-    id: bigint;
+    id: number;
 };
 
 export type CheckInAppointmentStatus200 = AppointmentView;

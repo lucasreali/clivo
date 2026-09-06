@@ -13,7 +13,7 @@ export type CancelAppointmentPath = {
      * Format: `int64`
      * @type integer
     */
-    id: bigint;
+    id: number;
 };
 
 export type CancelAppointmentStatus200 = AppointmentView;

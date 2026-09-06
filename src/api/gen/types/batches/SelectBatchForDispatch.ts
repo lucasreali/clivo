@@ -12,7 +12,7 @@ export type SelectBatchForDispatchPath = {
      * Format: `int64`
      * @type integer
     */
-    productId: bigint;
+    productId: number;
 };
 
 export type SelectBatchForDispatchQuery = {

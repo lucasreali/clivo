@@ -7,12 +7,12 @@ import * as z from 'zod'
 
 export const packageViewSchema = z.object({
   active: z.boolean().optional(),
-  customerId: z.coerce.bigint().optional(),
+  customerId: z.coerce.number().optional(),
   expiresOn: z.iso.date().optional(),
-  id: z.coerce.bigint().optional(),
+  id: z.coerce.number().optional(),
   price: z.number().optional(),
   remainingSessions: z.int().optional(),
-  serviceId: z.coerce.bigint().optional(),
+  serviceId: z.coerce.number().optional(),
   serviceName: z.string().optional(),
   status: z.string().optional(),
   totalSessions: z.int().optional(),

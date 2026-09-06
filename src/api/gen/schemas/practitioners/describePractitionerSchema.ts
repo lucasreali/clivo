@@ -8,7 +8,7 @@ import { errorResponseSchema } from '../errorResponseSchema'
 import { practitionerRequestSchema } from '../practitionerRequestSchema'
 import { practitionerViewSchema } from '../practitionerViewSchema'
 
-export const describePractitionerPathIdSchema = z.coerce.bigint()
+export const describePractitionerPathIdSchema = z.coerce.number()
 
 export type DescribePractitionerPathIdSchemaType = z.infer<typeof describePractitionerPathIdSchema>
 
@@ -49,7 +49,7 @@ export const describePractitionerBodySchema = practitionerRequestSchema
 export type DescribePractitionerBodySchemaType = z.infer<typeof describePractitionerBodySchema>
 
 export const describePractitionerPathSchema = z.object({
-  id: z.coerce.bigint(),
+  id: z.coerce.number(),
 })
 
 export type DescribePractitionerPathSchemaType = z.infer<typeof describePractitionerPathSchema>

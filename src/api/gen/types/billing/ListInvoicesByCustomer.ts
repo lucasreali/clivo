@@ -12,7 +12,7 @@ export type ListInvoicesByCustomerQuery = {
      * Format: `int64`
      * @type integer
     */
-    customerId: bigint;
+    customerId: number;
 };
 
 export type ListInvoicesByCustomerStatus200 = InvoiceView[];

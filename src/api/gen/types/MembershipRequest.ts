@@ -9,12 +9,12 @@ export type MembershipRequest = {
      * Format: `int64`
      * @type integer
     */
-    customerId: bigint;
+    customerId: number;
     memberNumber?: string;
     /**
      * @description
      * Format: `int64`
      * @type integer
     */
-    planId: bigint;
+    planId: number;
 };
