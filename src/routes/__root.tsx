@@ -5,71 +5,49 @@ import { ReactQueryDevtoolsPanel } from "@tanstack/react-query-devtools";
 import {
 	createRootRouteWithContext,
 	HeadContent,
+	Outlet,
 	Scripts,
 } from "@tanstack/react-router";
 import { TanStackRouterDevtoolsPanel } from "@tanstack/react-router-devtools";
-import Footer from "../components/Footer";
-import Header from "../components/Header";
-
-import appCss from "../styles.css?url";
-
-const THEME_INIT_SCRIPT = `(function(){try{var stored=window.localStorage.getItem('theme');var mode=(stored==='light'||stored==='dark'||stored==='auto')?stored:'auto';var prefersDark=window.matchMedia('(prefers-color-scheme: dark)').matches;var resolved=mode==='auto'?(prefersDark?'dark':'light'):mode;var root=document.documentElement;root.classList.remove('light','dark');root.classList.add(resolved);if(mode==='auto'){root.removeAttribute('data-theme')}else{root.setAttribute('data-theme',mode)}root.style.colorScheme=resolved;}catch(e){}})();`;
+import appCss from "#/styles.css?url";
 
 export type RouterContext = {
 	queryClient: QueryClient;
 };
 
 export const Route = createRootRouteWithContext<RouterContext>()({
+	ssr: false,
 	head: () => ({
 		meta: [
-			{
-				charSet: "utf-8",
-			},
-			{
-				name: "viewport",
-				content: "width=device-width, initial-scale=1",
-			},
-			{
-				title: "TanStack Start Starter",
-			},
+			{ charSet: "utf-8" },
+			{ name: "viewport", content: "width=device-width, initial-scale=1" },
+			{ title: "CLIVO · Gestão clínica" },
 		],
-		links: [
-			{
-				rel: "stylesheet",
-				href: appCss,
-			},
-		],
+		links: [{ rel: "stylesheet", href: appCss }],
 	}),
 	shellComponent: RootDocument,
+	component: Outlet,
 });
 
 function RootDocument({ children }: { children: React.ReactNode }) {
 	const { queryClient } = Route.useRouteContext();
 
 	return (
-		<html lang="en" suppressHydrationWarning>
+		<html lang="pt-BR">
 			<head>
-				<script dangerouslySetInnerHTML={{ __html: THEME_INIT_SCRIPT }} />
 				<HeadContent />
 			</head>
-			<body className="font-sans antialiased [overflow-wrap:anywhere] selection:bg-[rgba(79,184,178,0.24)]">
+			<body className="font-sans">
 				<QueryClientProvider client={queryClient}>
-					<Header />
 					{children}
-					<Footer />
 					<TanStackDevtools
-						config={{
-							position: "bottom-right",
-						}}
+						config={{ position: "bottom-right" }}
 						plugins={[
 							{
 								name: "Tanstack Router",
 								render: <TanStackRouterDevtoolsPanel />,
 							},
-							{
-								name: "Tanstack Query",
-								render: <ReactQueryDevtoolsPanel />,
-							},
+							{ name: "Tanstack Query", render: <ReactQueryDevtoolsPanel /> },
 						]}
 					/>
 				</QueryClientProvider>
