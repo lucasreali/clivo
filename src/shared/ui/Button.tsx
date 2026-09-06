@@ -1,18 +1,30 @@
 import type { ButtonHTMLAttributes } from "react";
 import { cn } from "./cn";
 
-type Variant = "primary" | "secondary" | "ghost" | "danger";
+export type ButtonVariant = "primary" | "secondary" | "ghost" | "danger";
 
-const VARIANTS: Record<Variant, string> = {
-	primary: "bg-brand text-white hover:bg-brand-hover disabled:bg-neutral",
+const BASE =
+	"inline-flex h-[34px] items-center justify-center gap-2 rounded-field px-3.5 text-[13px] font-semibold no-underline transition-colors disabled:cursor-not-allowed";
+
+const VARIANTS: Record<ButtonVariant, string> = {
+	primary:
+		"bg-brand text-white hover:bg-brand-hover hover:text-white disabled:bg-neutral",
 	secondary:
-		"bg-panel text-ink border border-line hover:border-line-strong disabled:text-faint",
+		"bg-panel text-ink border border-line hover:border-line-strong hover:text-ink disabled:text-faint",
 	ghost: "text-muted hover:bg-neutral-soft hover:text-ink",
-	danger: "bg-danger text-white hover:bg-danger-ink disabled:bg-neutral",
+	danger:
+		"bg-danger text-white hover:bg-danger-ink hover:text-white disabled:bg-neutral",
 };
 
+export function buttonClass(
+	variant: ButtonVariant = "primary",
+	extra?: string,
+) {
+	return cn(BASE, VARIANTS[variant], extra);
+}
+
 type ButtonProps = ButtonHTMLAttributes<HTMLButtonElement> & {
-	variant?: Variant;
+	variant?: ButtonVariant;
 };
 
 export function Button({
@@ -22,14 +34,6 @@ export function Button({
 	...rest
 }: ButtonProps) {
 	return (
-		<button
-			type={type}
-			className={cn(
-				"inline-flex h-[34px] items-center justify-center gap-2 rounded-field px-3.5 text-[13px] font-semibold transition-colors disabled:cursor-not-allowed",
-				VARIANTS[variant],
-				className,
-			)}
-			{...rest}
-		/>
+		<button type={type} className={buttonClass(variant, className)} {...rest} />
 	);
 }
