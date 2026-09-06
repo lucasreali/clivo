@@ -1,0 +1,5 @@
+export { completeEncounter } from './completeEncounter'
+export { fillEncounterRecord } from './fillEncounterRecord'
+export { getEncounter } from './getEncounter'
+export { listCustomerEncounters } from './listCustomerEncounters'
+export { openEncounter } from './openEncounter'

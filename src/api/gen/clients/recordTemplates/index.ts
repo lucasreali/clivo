@@ -1,0 +1,5 @@
+export { draftRecordTemplate } from './draftRecordTemplate'
+export { getRecordTemplate } from './getRecordTemplate'
+export { listRecordTemplates } from './listRecordTemplates'
+export { publishRecordTemplate } from './publishRecordTemplate'
+export { redefineRecordTemplate } from './redefineRecordTemplate'

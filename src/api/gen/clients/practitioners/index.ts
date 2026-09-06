@@ -1,0 +1,7 @@
+export { deactivatePractitioner } from './deactivatePractitioner'
+export { describePractitioner } from './describePractitioner'
+export { getPractitioner } from './getPractitioner'
+export { getPractitionerAttendance } from './getPractitionerAttendance'
+export { listPractitioners } from './listPractitioners'
+export { registerPractitioner } from './registerPractitioner'
+export { setPractitionerAvailability } from './setPractitionerAvailability'

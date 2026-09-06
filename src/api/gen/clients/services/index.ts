@@ -1,0 +1,5 @@
+export { deactivateService } from './deactivateService'
+export { describeService } from './describeService'
+export { getService } from './getService'
+export { listServices } from './listServices'
+export { registerService } from './registerService'

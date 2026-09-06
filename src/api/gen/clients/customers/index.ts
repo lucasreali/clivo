@@ -1,0 +1,6 @@
+export { deactivateCustomer } from './deactivateCustomer'
+export { describeCustomer } from './describeCustomer'
+export { getCustomer } from './getCustomer'
+export { recordCustomerConsent } from './recordCustomerConsent'
+export { registerCustomer } from './registerCustomer'
+export { searchCustomers } from './searchCustomers'

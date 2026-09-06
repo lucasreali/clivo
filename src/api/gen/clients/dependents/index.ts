@@ -1,0 +1,5 @@
+export { deactivateDependent } from './deactivateDependent'
+export { describeDependent } from './describeDependent'
+export { getDependent } from './getDependent'
+export { listCustomerDependents } from './listCustomerDependents'
+export { registerDependent } from './registerDependent'

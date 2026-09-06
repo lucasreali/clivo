@@ -1,0 +1,8 @@
+export { deactivateProduct } from './deactivateProduct'
+export { describeProduct } from './describeProduct'
+export { getProduct } from './getProduct'
+export { listProducts } from './listProducts'
+export { listStockMovements } from './listStockMovements'
+export { moveStock } from './moveStock'
+export { registerProduct } from './registerProduct'
+export { useSupplies } from './useSupplies'

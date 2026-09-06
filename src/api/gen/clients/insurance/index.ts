@@ -1,0 +1,6 @@
+export { deactivateInsurancePlan } from './deactivateInsurancePlan'
+export { describeInsurancePlan } from './describeInsurancePlan'
+export { enrolInsuranceMembership } from './enrolInsuranceMembership'
+export { listCustomerInsuranceMemberships } from './listCustomerInsuranceMemberships'
+export { listInsurancePlans } from './listInsurancePlans'
+export { registerInsurancePlan } from './registerInsurancePlan'

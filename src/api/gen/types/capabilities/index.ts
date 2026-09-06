@@ -1,0 +1,1 @@
+export type { GetCapabilitiesOptions, GetCapabilitiesResponse, GetCapabilitiesResponses, GetCapabilitiesStatus200, GetCapabilitiesStatus401, GetCapabilitiesStatus403, GetCapabilitiesStatus404, GetCapabilitiesStatus422 } from './GetCapabilities'
