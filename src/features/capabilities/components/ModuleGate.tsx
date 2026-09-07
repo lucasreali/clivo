@@ -8,14 +8,14 @@ type ModuleGateProps = {
 };
 
 /**
- * Variability mechanism A: a screen region only exists when the clinic
- * has the modules it depends on turned on.
+ * Variability mechanism A: a screen region only exists when the caller
+ * reaches the modules it depends on.
  */
 export function ModuleGate({ requires, children, fallback }: ModuleGateProps) {
 	const { capabilities } = useCapabilities();
 	const codes = Array.isArray(requires) ? requires : [requires as ModuleCode];
 
-	if (!capabilities.modules.areAllActive(codes)) {
+	if (!capabilities.modules.reachesAll(codes)) {
 		return fallback ?? null;
 	}
 

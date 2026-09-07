@@ -12,14 +12,16 @@ export class Modules {
 		return new Modules(items ?? []);
 	}
 
-	isActive(code: ModuleCode) {
-		return this.items.some(
-			(item) => item.code === code && item.active === true,
-		);
+	reaches(code: ModuleCode) {
+		return this.items.some((item) => item.code === code);
 	}
 
-	areAllActive(codes: readonly ModuleCode[]) {
-		return codes.every((code) => this.isActive(code));
+	reachesAll(codes: readonly ModuleCode[]) {
+		return codes.every((code) => this.reaches(code));
+	}
+
+	isEmpty() {
+		return this.items.length === 0;
 	}
 
 	map<T>(project: (module: ModuleView) => T) {

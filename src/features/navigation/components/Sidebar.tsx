@@ -11,7 +11,7 @@ type SidebarProps = {
 export function Sidebar({ user, role }: SidebarProps) {
 	const { capabilities } = useCapabilities();
 	const items = NAVIGATION.filter(
-		(item) => !item.requires || capabilities.modules.isActive(item.requires),
+		(item) => !item.requires || capabilities.modules.reaches(item.requires),
 	);
 
 	return (
