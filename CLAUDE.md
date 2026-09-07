@@ -69,7 +69,8 @@ the generated axios clients as their `baseURL`.
   (framework-free domain logic and value objects, e.g. `Capabilities`,
   `Modules`, `Parameters`).
 - `src/shared/` — `ui/` design-system primitives (`Panel`, `Field`, `Button`,
-  `Badge`, `Modal`, `EmptyState`, `Avatar`, plus `cn` and the `Tone` palette),
+  `Badge`, `Modal`, `EmptyState`, `Avatar`, `Combobox`, plus `cn` and the `Tone`
+  palette),
   `format/` pt-BR formatters for dates, money, national ids and names, and
   `api-error.ts`.
 - `src/api/` — `client.ts` sets `withCredentials` (the API authenticates with a
@@ -115,8 +116,10 @@ invalidation predicates match on `queryKey[0].url` — see
 - **Forms are react-hook-form + zod.** The schema lives beside the draft type in
   `model/` (`customerSchema`, `clinicSchema`) and is built from the reusable
   field rules in `src/shared/form/schema.ts`; screens render
-  `FormTextField`/`FormSelectField` from `src/shared/form/fields.tsx` and never
-  wire an input by hand. Documents mask as the typist goes (`maskNationalId`,
+  `FormTextField`/`FormSelectField`/`FormComboboxField` from
+  `src/shared/form/fields.tsx` and never wire an input by hand. A choice made by
+  typing a name is a `FormComboboxField`, not a search box beside a select — it
+  filters the list it was given, or delegates upstream through `onSearch`. Documents mask as the typist goes (`maskNationalId`,
   `maskTaxId`, `maskPhone`, `maskPostalCode` in `shared/format/document.ts`) and
   are sent to the API as bare digits. CPF and CNPJ check digits are verified in
   `src/shared/validation/document.ts` — the API validates neither.

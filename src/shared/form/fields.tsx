@@ -4,6 +4,7 @@ import {
 	type FieldValues,
 	type Path,
 } from "react-hook-form";
+import { Combobox, type ComboboxOption } from "#/shared/ui/Combobox";
 import {
 	Checkbox,
 	Field,
@@ -197,6 +198,52 @@ export function FormCheckboxField<TValues extends FieldValues>({
 						</span>
 					) : null}
 				</div>
+			)}
+		/>
+	);
+}
+
+type ComboboxFieldProps<TValues extends FieldValues> = FieldProps<TValues> & {
+	options: readonly ComboboxOption[];
+	onSearch?: (term: string) => void;
+	placeholder?: string;
+	emptyMessage?: string;
+	isLoading?: boolean;
+};
+
+export function FormComboboxField<TValues extends FieldValues>({
+	control,
+	name,
+	label,
+	required,
+	hint,
+	disabled,
+	...combobox
+}: ComboboxFieldProps<TValues>) {
+	return (
+		<Controller
+			control={control}
+			name={name}
+			render={({ field, fieldState }) => (
+				<Field
+					label={label}
+					required={required}
+					hint={hint}
+					error={fieldState.error?.message}
+				>
+					{(id) => (
+						<Combobox
+							{...combobox}
+							id={id}
+							name={field.name}
+							ref={field.ref}
+							disabled={disabled}
+							value={field.value ?? ""}
+							onBlur={field.onBlur}
+							onChange={field.onChange}
+						/>
+					)}
+				</Field>
 			)}
 		/>
 	);

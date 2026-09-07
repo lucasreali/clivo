@@ -1,4 +1,6 @@
+import { zodResolver } from "@hookform/resolvers/zod";
 import { useState } from "react";
+import { useForm } from "react-hook-form";
 import {
 	useListPractitioners,
 	useListServices,
@@ -6,12 +8,20 @@ import {
 	useSearchCustomers,
 } from "#/api/gen/hooks";
 import { messageOf } from "#/shared/api-error";
-import { toInstant } from "#/shared/format/date";
+import { FormComboboxField, FormTextField } from "#/shared/form/fields";
+import { nationalId, phone } from "#/shared/format/document";
 import { Button } from "#/shared/ui/Button";
 import { Callout } from "#/shared/ui/Callout";
-import { Field, Select, TextInput } from "#/shared/ui/Field";
+import type { ComboboxOption } from "#/shared/ui/Combobox";
 import { Modal } from "#/shared/ui/Modal";
+import { useDebounced } from "#/shared/use-debounced";
 import { useAppointmentRefresh } from "../hooks/use-appointment-actions";
+import {
+	type AppointmentDraft,
+	appointmentRequestOf,
+	appointmentSchema,
+	emptyAppointmentDraft,
+} from "../model/appointment-draft";
 
 type NewAppointmentDialogProps = {
 	day: string;
@@ -23,13 +33,15 @@ export function NewAppointmentDialog({
 	onClose,
 }: NewAppointmentDialogProps) {
 	const [search, setSearch] = useState("");
-	const [customerId, setCustomerId] = useState("");
-	const [practitionerId, setPractitionerId] = useState("");
-	const [serviceId, setServiceId] = useState("");
-	const [date, setDate] = useState(day);
-	const [time, setTime] = useState("09:00");
+	const term = useDebounced(search);
 
-	const customers = useSearchCustomers({ query: { name: search } });
+	const form = useForm<AppointmentDraft>({
+		resolver: zodResolver(appointmentSchema),
+		mode: "onTouched",
+		defaultValues: emptyAppointmentDraft(day),
+	});
+
+	const customers = useSearchCustomers({ query: { name: term } });
 	const practitioners = useListPractitioners();
 	const services = useListServices();
 	const refresh = useAppointmentRefresh();
@@ -43,19 +55,33 @@ export function NewAppointmentDialog({
 		},
 	});
 
-	function submit(event: React.FormEvent) {
-		event.preventDefault();
-		schedule.mutate({
-			body: {
-				customerId,
-				practitionerId,
-				serviceId,
-				start: toInstant(date, time),
-			},
-		});
-	}
+	const submit = form.handleSubmit((values) =>
+		schedule.mutate({ body: appointmentRequestOf(values) }),
+	);
 
-	const ready = customerId && practitionerId && serviceId;
+	const patients: ComboboxOption[] = (customers.data ?? []).map((customer) => ({
+		value: String(customer.id),
+		label: customer.name ?? "Sem nome",
+		hint: describe(customer.nationalId, customer.phone),
+	}));
+
+	const practitionerOptions: ComboboxOption[] = (practitioners.data ?? []).map(
+		(practitioner) => ({
+			value: String(practitioner.id),
+			label: practitioner.name ?? "Sem nome",
+			hint: practitioner.licenseNumber ?? undefined,
+		}),
+	);
+
+	const serviceOptions: ComboboxOption[] = (services.data ?? []).map(
+		(service) => ({
+			value: String(service.id),
+			label: service.name ?? "Sem nome",
+			hint: service.durationMinutes
+				? `${service.durationMinutes} min`
+				: undefined,
+		}),
+	);
 
 	return (
 		<Modal
@@ -69,7 +95,7 @@ export function NewAppointmentDialog({
 					<Button
 						type="submit"
 						form="new-appointment"
-						disabled={!ready || schedule.isPending}
+						disabled={schedule.isPending}
 					>
 						Salvar agendamento
 					</Button>
@@ -79,97 +105,58 @@ export function NewAppointmentDialog({
 			<form
 				id="new-appointment"
 				onSubmit={submit}
+				noValidate
 				className="flex flex-col gap-4"
 			>
-				<Field
-					label="Buscar paciente"
-					hint="Digite parte do nome para filtrar."
-				>
-					{(id) => (
-						<TextInput
-							id={id}
-							value={search}
-							onChange={(event) => setSearch(event.target.value)}
-							placeholder="Nome do paciente"
-						/>
-					)}
-				</Field>
+				<FormComboboxField
+					control={form.control}
+					name="customerId"
+					label="Paciente"
+					required
+					options={patients}
+					onSearch={setSearch}
+					isLoading={customers.isFetching}
+					placeholder="Digite o nome do paciente"
+					emptyMessage={
+						search
+							? `Nenhum paciente encontrado para “${search}”.`
+							: "Digite parte do nome para buscar."
+					}
+				/>
 
-				<Field label="Paciente" required>
-					{(id) => (
-						<Select
-							id={id}
-							value={customerId}
-							onChange={(event) => setCustomerId(event.target.value)}
-						>
-							<option value="">Selecione</option>
-							{(customers.data ?? []).map((customer) => (
-								<option key={customer.id} value={customer.id}>
-									{customer.name}
-								</option>
-							))}
-						</Select>
-					)}
-				</Field>
+				<FormComboboxField
+					control={form.control}
+					name="practitionerId"
+					label="Profissional"
+					required
+					options={practitionerOptions}
+					placeholder="Selecione"
+				/>
 
-				<Field label="Profissional" required>
-					{(id) => (
-						<Select
-							id={id}
-							value={practitionerId}
-							onChange={(event) => setPractitionerId(event.target.value)}
-						>
-							<option value="">Selecione</option>
-							{(practitioners.data ?? []).map((practitioner) => (
-								<option key={practitioner.id} value={practitioner.id}>
-									{practitioner.name}
-								</option>
-							))}
-						</Select>
-					)}
-				</Field>
-
-				<Field label="Serviço" required>
-					{(id) => (
-						<Select
-							id={id}
-							value={serviceId}
-							onChange={(event) => setServiceId(event.target.value)}
-						>
-							<option value="">Selecione</option>
-							{(services.data ?? []).map((service) => (
-								<option key={service.id} value={service.id}>
-									{service.name}
-									{service.durationMinutes
-										? ` · ${service.durationMinutes} min`
-										: ""}
-								</option>
-							))}
-						</Select>
-					)}
-				</Field>
+				<FormComboboxField
+					control={form.control}
+					name="serviceId"
+					label="Serviço"
+					required
+					options={serviceOptions}
+					placeholder="Selecione"
+				/>
 
 				<div className="grid grid-cols-2 gap-3">
-					<Field label="Data" required>
-						{(id) => (
-							<TextInput
-								id={id}
-								type="date"
-								value={date}
-								onChange={(event) => setDate(event.target.value)}
-							/>
-						)}
-					</Field>
-					<Field label="Hora" required>
-						{(id) => (
-							<TextInput
-								id={id}
-								type="time"
-								value={time}
-								onChange={(event) => setTime(event.target.value)}
-							/>
-						)}
-					</Field>
+					<FormTextField
+						control={form.control}
+						name="date"
+						label="Data"
+						type="date"
+						required
+					/>
+					<FormTextField
+						control={form.control}
+						name="time"
+						label="Hora"
+						type="time"
+						required
+					/>
 				</div>
 
 				{schedule.isError ? (
@@ -180,4 +167,13 @@ export function NewAppointmentDialog({
 			</form>
 		</Modal>
 	);
+}
+
+function describe(document: string | undefined, contact: string | undefined) {
+	const details = [
+		document ? nationalId(document) : "",
+		contact ? phone(contact) : "",
+	];
+	const shown = details.filter(Boolean).join(" · ");
+	return shown === "" ? undefined : shown;
 }
