@@ -16,8 +16,11 @@ export function summarise(appointments: readonly AppointmentView[]): Counter[] {
 			value: countOf("SCHEDULED"),
 			tone: "warn",
 		},
-		{ label: "Na recepção", value: countOf("ARRIVED"), tone: "info" },
-		{ label: "Em atendimento", value: countOf("IN_PROGRESS"), tone: "brand" },
+		{
+			label: "Na recepção",
+			value: countOf("ARRIVED", "IN_PROGRESS"),
+			tone: "info",
+		},
 		{ label: "Concluídos", value: countOf("COMPLETED"), tone: "brand" },
 		{ label: "Faltas", value: countOf("NO_SHOW"), tone: "danger" },
 	];

@@ -2,13 +2,14 @@ import { useState } from "react";
 import { useGetDayPanel, useListPractitioners } from "#/api/gen/hooks";
 import type { AppointmentView } from "#/api/gen/types";
 import { Page } from "#/features/navigation/components/AppShell";
-import { TopBar } from "#/features/navigation/components/TopBar";
-import { dayLabel, shiftDays, today } from "#/shared/format/date";
+import { AppTopBar } from "#/features/navigation/components/AppTopBar";
+import { clockTime, dayLabel, shiftDays, today } from "#/shared/format/date";
 import { Button } from "#/shared/ui/Button";
+import { cn } from "#/shared/ui/cn";
 import { EmptyState } from "#/shared/ui/EmptyState";
-import { Select } from "#/shared/ui/Field";
 import { Panel } from "#/shared/ui/Panel";
-import { TONE_SURFACE } from "#/shared/ui/tone";
+import { announcePending } from "#/shared/ui/pending";
+import { TONE_TEXT } from "#/shared/ui/tone";
 import { summarise } from "../model/day-summary";
 import { AppointmentRow } from "./AppointmentRow";
 import { CancelAppointmentDialog } from "./CancelAppointmentDialog";
@@ -21,7 +22,10 @@ type Dialog =
 	| { kind: "reschedule"; appointment: AppointmentView }
 	| null;
 
-const COLUMNS = "grid-cols-[72px_1.4fr_1.1fr_1.2fr_140px_340px]";
+const COLUMNS = "grid-cols-[78px_1.5fr_1.4fr_1.6fr_190px_150px]";
+
+const CHIP =
+	"flex h-[30px] items-center rounded-full px-3 text-[12.5px] whitespace-nowrap";
 
 export function DayPanel() {
 	const [day, setDay] = useState(today());
@@ -38,26 +42,12 @@ export function DayPanel() {
 
 	return (
 		<>
-			<TopBar
+			<AppTopBar
 				title="Painel do dia"
 				meta={dayLabel(day)}
 				actions={
 					<>
-						<Button
-							variant="secondary"
-							onClick={() => setDay(shiftDays(day, -1))}
-						>
-							‹
-						</Button>
-						<Button variant="secondary" onClick={() => setDay(today())}>
-							Hoje
-						</Button>
-						<Button
-							variant="secondary"
-							onClick={() => setDay(shiftDays(day, 1))}
-						>
-							›
-						</Button>
+						<DayPager day={day} onChange={setDay} />
 						<Button onClick={() => setDialog({ kind: "create" })}>
 							+ Novo agendamento
 						</Button>
@@ -66,15 +56,18 @@ export function DayPanel() {
 			/>
 
 			<Page>
-				<div className="grid grid-cols-6 gap-3">
+				<div className="grid grid-cols-5 gap-3">
 					{summarise(appointments).map((counter) => (
 						<div
 							key={counter.label}
-							className="flex flex-col gap-1 rounded-[10px] border border-line bg-panel px-4 py-3"
+							className="flex flex-col gap-[3px] rounded-field border border-line bg-panel px-3.5 py-3"
 						>
-							<span className="text-[11.5px] text-muted">{counter.label}</span>
+							<span className="text-[12px] text-muted">{counter.label}</span>
 							<span
-								className={`w-fit rounded px-1.5 text-[22px] font-semibold ${TONE_SURFACE[counter.tone]}`}
+								className={cn(
+									"text-[24px] leading-[1.1] font-semibold",
+									TONE_TEXT[counter.tone],
+								)}
 							>
 								{counter.value}
 							</span>
@@ -82,26 +75,47 @@ export function DayPanel() {
 					))}
 				</div>
 
-				<Panel>
-					<div className="flex items-center gap-3 border-b border-line px-4 py-3">
-						<span className="text-[12px] text-muted">Profissional</span>
-						<Select
-							value={practitioner}
-							onChange={(event) => setPractitioner(event.target.value)}
-							className="h-[32px] w-[240px]"
-							aria-label="Filtrar por profissional"
-						>
-							<option value="">Todos</option>
+				<Panel className="overflow-hidden">
+					<div className="flex items-center justify-between gap-4 border-b border-line px-4 py-3">
+						<div className="flex flex-wrap items-center gap-2">
+							<span className="mr-0.5 text-[12.5px] text-muted">
+								Profissional
+							</span>
+							<PractitionerChip
+								label="Todos"
+								isActive={practitioner === ""}
+								onSelect={() => setPractitioner("")}
+							/>
 							{(practitioners.data ?? []).map((item) => (
-								<option key={item.id} value={item.id}>
-									{item.name}
-								</option>
+								<PractitionerChip
+									key={item.id}
+									label={item.name ?? "—"}
+									isActive={practitioner === String(item.id)}
+									onSelect={() => setPractitioner(String(item.id))}
+								/>
 							))}
-						</Select>
+						</div>
+						<div className="flex shrink-0 items-center gap-3.5">
+							<span className="text-[12.5px] text-muted">
+								{panel.dataUpdatedAt
+									? `Atualizado às ${clockTime(new Date(panel.dataUpdatedAt).toISOString())}`
+									: "Atualizando…"}
+							</span>
+							<button
+								type="button"
+								onClick={() => announcePending("A impressão da lista do dia")}
+								className="text-[12.5px] text-brand hover:text-brand-ink"
+							>
+								Imprimir lista
+							</button>
+						</div>
 					</div>
 
 					<div
-						className={`grid ${COLUMNS} gap-3 border-b border-line bg-surface px-4 py-2.5 text-[11.5px] font-semibold text-muted uppercase`}
+						className={cn(
+							"grid border-b border-line bg-surface px-4 py-[9px] text-[11.5px] tracking-[0.3px] text-muted uppercase",
+							COLUMNS,
+						)}
 					>
 						<span>Hora</span>
 						<span>Paciente</span>
@@ -155,6 +169,69 @@ export function DayPanel() {
 				/>
 			) : null}
 		</>
+	);
+}
+
+type PractitionerChipProps = {
+	label: string;
+	isActive: boolean;
+	onSelect: () => void;
+};
+
+function PractitionerChip({
+	label,
+	isActive,
+	onSelect,
+}: PractitionerChipProps) {
+	return (
+		<button
+			type="button"
+			onClick={onSelect}
+			aria-pressed={isActive}
+			className={cn(
+				CHIP,
+				isActive
+					? "bg-brand font-semibold text-white"
+					: "border border-line text-muted hover:border-brand hover:text-brand-ink",
+			)}
+		>
+			{label}
+		</button>
+	);
+}
+
+type DayPagerProps = {
+	day: string;
+	onChange: (day: string) => void;
+};
+
+function DayPager({ day, onChange }: DayPagerProps) {
+	return (
+		<div className="flex h-[34px] items-center overflow-hidden rounded-field border border-line bg-panel">
+			<button
+				type="button"
+				aria-label="Dia anterior"
+				onClick={() => onChange(shiftDays(day, -1))}
+				className="h-full w-[34px] border-r border-line text-[14px] text-muted hover:text-ink"
+			>
+				‹
+			</button>
+			<button
+				type="button"
+				onClick={() => onChange(today())}
+				className="h-full px-3.5 text-[13px] text-ink"
+			>
+				Hoje
+			</button>
+			<button
+				type="button"
+				aria-label="Próximo dia"
+				onClick={() => onChange(shiftDays(day, 1))}
+				className="h-full w-[34px] border-l border-line text-[14px] text-muted hover:text-ink"
+			>
+				›
+			</button>
+		</div>
 	);
 }
 
