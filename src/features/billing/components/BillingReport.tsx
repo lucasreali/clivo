@@ -1,9 +1,13 @@
 import { useState } from "react";
 import { useGetBillingReport } from "#/api/gen/hooks";
+import type { BillingReportView } from "#/api/gen/types";
 import { Page } from "#/features/navigation/components/AppShell";
 import { TopBar } from "#/features/navigation/components/TopBar";
+import { isNotGranted, messageOf } from "#/shared/api-error";
 import { shiftDays, today } from "#/shared/format/date";
 import { money } from "#/shared/format/money";
+import { Callout } from "#/shared/ui/Callout";
+import { EmptyState } from "#/shared/ui/EmptyState";
 import { TextInput } from "#/shared/ui/Field";
 import { Panel, PanelHeader } from "#/shared/ui/Panel";
 
@@ -12,7 +16,6 @@ export function BillingReport() {
 	const [to, setTo] = useState(today());
 
 	const report = useGetBillingReport({ query: { from, to } });
-	const data = report.data;
 
 	return (
 		<>
@@ -42,16 +45,48 @@ export function BillingReport() {
 						}
 					/>
 
-					<div className="grid grid-cols-5 gap-3 p-5">
-						<Metric label="Cobranças" value={String(data?.invoices ?? 0)} />
-						<Metric label="Bruto" value={money(data?.gross)} />
-						<Metric label="Descontos" value={money(data?.discount)} />
-						<Metric label="Recebido" value={money(data?.received)} />
-						<Metric label="Em aberto" value={money(data?.outstanding)} />
-					</div>
+					<ReportBody error={report.error} data={report.data} />
 				</Panel>
 			</Page>
 		</>
+	);
+}
+
+type ReportBodyProps = {
+	error: unknown;
+	data: BillingReportView | undefined;
+};
+
+function ReportBody({ error, data }: ReportBodyProps) {
+	if (isNotGranted(error)) {
+		return <ReportDenied />;
+	}
+
+	if (error) {
+		return (
+			<div className="p-5">
+				<Callout tone="danger">{messageOf(error)}</Callout>
+			</div>
+		);
+	}
+
+	return (
+		<div className="grid grid-cols-5 gap-3 p-5">
+			<Metric label="Cobranças" value={String(data?.invoices ?? 0)} />
+			<Metric label="Bruto" value={money(data?.gross)} />
+			<Metric label="Descontos" value={money(data?.discount)} />
+			<Metric label="Recebido" value={money(data?.received)} />
+			<Metric label="Em aberto" value={money(data?.outstanding)} />
+		</div>
+	);
+}
+
+function ReportDenied() {
+	return (
+		<EmptyState
+			title="Relatório restrito ao seu perfil"
+			description="Nesta clínica o modelo de acesso reserva os números do faturamento à gestão. Peça a quem gerencia a clínica para liberar o seu perfil."
+		/>
 	);
 }
 
