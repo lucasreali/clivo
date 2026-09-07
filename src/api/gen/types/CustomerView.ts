@@ -23,6 +23,12 @@ export type CustomerView = {
     nationalId?: string;
     phone?: string;
     postalCode?: string;
+    /**
+     * @description
+     * Format: `date-time`
+     * @type string | undefined
+    */
+    registeredAt?: string;
     status?: string;
     street?: string;
 };

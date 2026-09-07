@@ -3,8 +3,11 @@
 * Do not edit manually.
 */
 
+import type { ComponentDescriptor } from './ComponentDescriptor'
+
 export type SheetField = {
     code?: string;
+    descriptor?: ComponentDescriptor;
     fieldType?: string;
     label?: string;
     options?: string[];

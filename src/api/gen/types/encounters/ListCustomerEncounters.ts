@@ -3,7 +3,7 @@
 * Do not edit manually.
 */
 
-import type { EncounterHistoryView } from '../EncounterHistoryView'
+import type { CustomerHistoryView } from '../CustomerHistoryView'
 import type { ErrorResponse } from '../ErrorResponse'
 
 export type ListCustomerEncountersQuery = {
@@ -15,7 +15,7 @@ export type ListCustomerEncountersQuery = {
     customerId: string;
 };
 
-export type ListCustomerEncountersStatus200 = EncounterHistoryView[];
+export type ListCustomerEncountersStatus200 = CustomerHistoryView;
 
 export type ListCustomerEncountersStatus400 = ErrorResponse;
 

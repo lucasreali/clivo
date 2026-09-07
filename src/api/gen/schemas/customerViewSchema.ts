@@ -15,6 +15,7 @@ export const customerViewSchema = z.object({
   nationalId: z.string().optional(),
   phone: z.string().optional(),
   postalCode: z.string().optional(),
+  registeredAt: z.iso.datetime().optional(),
   status: z.string().optional(),
   street: z.string().optional(),
 })

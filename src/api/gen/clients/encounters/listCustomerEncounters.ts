@@ -8,7 +8,7 @@ import type { ListCustomerEncountersOptions, ListCustomerEncountersResponses } f
 import { client, withUnwrap } from '../../.kubb/client'
 
 /**
- * @summary List a customer's encounters; clinical content depends on the caller's role
+ * @summary Read a customer's history; clinical content depends on the caller's role
  * {@link /api/encounters}
  */
 export function listCustomerEncounters<ThrowOnError extends boolean = true>(options: Options<ListCustomerEncountersOptions, ThrowOnError>): Unwrappable<RequestResult<ListCustomerEncountersResponses, ThrowOnError>> {

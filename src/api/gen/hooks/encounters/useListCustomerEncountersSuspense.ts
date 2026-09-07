@@ -24,7 +24,7 @@ export function listCustomerEncountersSuspenseQueryOptions({ query }: ListCustom
 }
 
 /**
- * @summary List a customer's encounters; clinical content depends on the caller's role
+ * @summary Read a customer's history; clinical content depends on the caller's role
  * {@link /api/encounters}
  */
 export function useListCustomerEncountersSuspense<TData = ListCustomerEncountersStatus200, TQueryKey extends QueryKey = ListCustomerEncountersSuspenseQueryKey>({ query }: { query: ListCustomerEncountersOptions['query'] | (() => ListCustomerEncountersOptions['query']) }, options: {

@@ -24,7 +24,7 @@ export function listCustomerEncountersQueryOptions({ query }: ListCustomerEncoun
 }
 
 /**
- * @summary List a customer's encounters; clinical content depends on the caller's role
+ * @summary Read a customer's history; clinical content depends on the caller's role
  * {@link /api/encounters}
  */
 export function useListCustomerEncounters<TData = ListCustomerEncountersStatus200, TQueryData = ListCustomerEncountersStatus200, TQueryKey extends QueryKey = ListCustomerEncountersQueryKey>({ query }: { query: ListCustomerEncountersOptions['query'] | (() => ListCustomerEncountersOptions['query']) }, options: {

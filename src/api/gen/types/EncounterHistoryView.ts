@@ -3,9 +3,14 @@
 * Do not edit manually.
 */
 
+import type { AttachmentView } from './AttachmentView'
+import type { ChargeView } from './ChargeView'
+import type { CoverageView } from './CoverageView'
 import type { RecordSheet } from './RecordSheet'
 
 export type EncounterHistoryView = {
+    attachments?: AttachmentView[];
+    charge?: ChargeView;
     /**
      * @description
      * Format: `date-time`
@@ -24,6 +29,7 @@ export type EncounterHistoryView = {
      * @type string | undefined
     */
     id?: string;
+    insurance?: CoverageView;
     /**
      * @description
      * Format: `uuid`

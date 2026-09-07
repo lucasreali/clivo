@@ -4,14 +4,14 @@
 */
 
 import * as z from 'zod'
-import { encounterHistoryViewSchema } from '../encounterHistoryViewSchema'
+import { customerHistoryViewSchema } from '../customerHistoryViewSchema'
 import { errorResponseSchema } from '../errorResponseSchema'
 
 export const listCustomerEncountersQueryCustomerIdSchema = z.uuid()
 
 export type ListCustomerEncountersQueryCustomerIdSchemaType = z.infer<typeof listCustomerEncountersQueryCustomerIdSchema>
 
-export const listCustomerEncountersStatus200Schema = z.array(encounterHistoryViewSchema)
+export const listCustomerEncountersStatus200Schema = customerHistoryViewSchema
 
 export type ListCustomerEncountersStatus200SchemaType = z.infer<typeof listCustomerEncountersStatus200Schema>
 

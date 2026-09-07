@@ -4,9 +4,11 @@
 */
 
 import * as z from 'zod'
+import { componentDescriptorSchema } from './componentDescriptorSchema'
 
 export const sheetFieldSchema = z.object({
   code: z.string().optional(),
+  descriptor: componentDescriptorSchema.optional(),
   fieldType: z.string().optional(),
   label: z.string().optional(),
   options: z.array(z.string()).optional(),

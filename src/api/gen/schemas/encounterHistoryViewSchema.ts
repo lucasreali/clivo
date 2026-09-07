@@ -4,12 +4,18 @@
 */
 
 import * as z from 'zod'
+import { attachmentViewSchema } from './attachmentViewSchema'
+import { chargeViewSchema } from './chargeViewSchema'
+import { coverageViewSchema } from './coverageViewSchema'
 import { recordSheetSchema } from './recordSheetSchema'
 
 export const encounterHistoryViewSchema = z.object({
+  attachments: z.array(attachmentViewSchema).optional(),
+  charge: chargeViewSchema.optional(),
   completedAt: z.iso.datetime().optional(),
   customerId: z.uuid().optional(),
   id: z.uuid().optional(),
+  insurance: coverageViewSchema.optional(),
   practitionerId: z.uuid().optional(),
   practitionerName: z.string().optional(),
   serviceId: z.uuid().optional(),
