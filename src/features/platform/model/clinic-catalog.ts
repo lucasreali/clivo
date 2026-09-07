@@ -1,4 +1,5 @@
 import type { ClinicView } from "#/api/gen/types";
+import { digitsOf } from "#/shared/format/document";
 
 export class ClinicCatalog {
 	private constructor(private readonly items: readonly ClinicView[]) {}
@@ -34,8 +35,20 @@ export class ClinicCatalog {
 
 function answersTo(clinic: ClinicView, term: string) {
 	const wanted = term.trim().toLowerCase();
-	const searchable = `${clinic.name ?? ""} ${clinic.code ?? ""}`.toLowerCase();
-	return wanted === "" || searchable.includes(wanted);
+	if (wanted === "") {
+		return true;
+	}
+
+	return namesOf(clinic).includes(wanted) || answersToTaxId(clinic, term);
+}
+
+function namesOf(clinic: ClinicView) {
+	return `${clinic.name ?? ""} ${clinic.legalName ?? ""}`.toLowerCase();
+}
+
+function answersToTaxId(clinic: ClinicView, term: string) {
+	const wanted = digitsOf(term);
+	return wanted !== "" && (clinic.taxId ?? "").includes(wanted);
 }
 
 function holds(clinic: ClinicView, status: string) {

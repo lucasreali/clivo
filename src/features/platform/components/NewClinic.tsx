@@ -66,15 +66,6 @@ export function NewClinic() {
 									/>
 									<FormTextField
 										control={form.control}
-										name="code"
-										label="Código único"
-										required
-										maxLength={12}
-										placeholder="SORRNOR"
-										hint="Usado em URLs, exportações e chamados de suporte. De 4 a 12 letras e números, sem acento. Não poderá ser alterado depois."
-									/>
-									<FormTextField
-										control={form.control}
 										name="legalName"
 										label="Razão social"
 									/>
@@ -85,6 +76,7 @@ export function NewClinic() {
 										mask={maskTaxId}
 										inputMode="numeric"
 										placeholder="00.000.000/0000-00"
+										hint="Identifica a clínica na plataforma: um CNPJ pertence a uma única clínica."
 									/>
 									<FormTextField
 										control={form.control}
@@ -142,8 +134,9 @@ export function NewClinic() {
 								tem acesso a este console.
 							</p>
 							<p className="m-0 text-[12px] leading-relaxed text-faint">
-								O código é imutável após a criação. Para trocá-lo é preciso
-								criar outra clínica.
+								A clínica passa a ser endereçada pelo identificador que a
+								plataforma gera. O CNPJ, quando informado, não pode se repetir
+								em outra clínica.
 							</p>
 						</Panel>
 					</div>

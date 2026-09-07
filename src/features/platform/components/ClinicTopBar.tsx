@@ -1,6 +1,7 @@
 import { useGetClinic } from "#/api/gen/hooks";
 import { TopBar } from "#/features/navigation/components/TopBar";
 import { shortDate } from "#/shared/format/date";
+import { taxId } from "#/shared/format/document";
 import { describeClinicStatus } from "../model/clinic-status";
 
 type ClinicTopBarProps = {
@@ -20,7 +21,7 @@ export function ClinicTopBar({
 	const situation = describeClinicStatus(clinic.data?.status);
 
 	const details = [
-		clinic.data?.code,
+		clinic.data?.taxId ? taxId(clinic.data.taxId) : undefined,
 		`${situation.label} desde ${shortDate(clinic.data?.createdAt)}`,
 		meta,
 	].filter(Boolean);

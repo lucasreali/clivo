@@ -1,5 +1,6 @@
 import { Link, useParams } from "@tanstack/react-router";
 import { useGetClinic } from "#/api/gen/hooks";
+import { taxId } from "#/shared/format/document";
 import { initialsOf } from "#/shared/format/name";
 import {
 	CLINIC_NAVIGATION,
@@ -60,7 +61,7 @@ function OpenClinic({ tenantId }: { tenantId: string }) {
 				{clinic.data?.name ?? "Carregando…"}
 			</span>
 			<span className="font-mono text-[10.5px] tracking-[0.5px] text-muted">
-				{clinic.data?.code ?? ""}
+				{clinic.data?.taxId ? taxId(clinic.data.taxId) : ""}
 			</span>
 
 			<nav className="mt-1.5 flex flex-col gap-0.5">

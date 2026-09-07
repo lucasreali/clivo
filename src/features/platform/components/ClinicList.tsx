@@ -3,6 +3,7 @@ import { useState } from "react";
 import { Page } from "#/features/navigation/components/AppShell";
 import { TopBar } from "#/features/navigation/components/TopBar";
 import { shortDate } from "#/shared/format/date";
+import { taxId } from "#/shared/format/document";
 import { Badge } from "#/shared/ui/Badge";
 import { buttonClass } from "#/shared/ui/Button";
 import { EmptyState } from "#/shared/ui/EmptyState";
@@ -14,7 +15,7 @@ import {
 	describeClinicStatus,
 } from "../model/clinic-status";
 
-const COLUMNS = "grid-cols-[2fr_120px_140px_1fr_110px_90px]";
+const COLUMNS = "grid-cols-[2fr_170px_140px_1fr_110px_90px]";
 
 export function ClinicList() {
 	const [search, setSearch] = useState("");
@@ -41,7 +42,7 @@ export function ClinicList() {
 						<TextInput
 							value={search}
 							onChange={(event) => setSearch(event.target.value)}
-							placeholder="Buscar por nome ou código"
+							placeholder="Buscar por nome ou CNPJ"
 							className="h-[34px] w-[320px]"
 							aria-label="Buscar clínica"
 						/>
@@ -67,7 +68,7 @@ export function ClinicList() {
 						className={`grid ${COLUMNS} gap-3 border-b border-line bg-surface px-4 py-2.5 text-[11.5px] font-semibold text-muted uppercase`}
 					>
 						<span>Nome</span>
-						<span>Código</span>
+						<span>CNPJ</span>
 						<span>Situação</span>
 						<span>Segmento</span>
 						<span>Entrada</span>
@@ -101,7 +102,7 @@ export function ClinicList() {
 									</span>
 								</div>
 								<span className="font-mono text-[12px] text-muted">
-									{clinic.code}
+									{taxId(clinic.taxId)}
 								</span>
 								<Badge tone={situation.tone}>{situation.label}</Badge>
 								<span className="truncate text-muted">
@@ -138,7 +139,7 @@ function EmptyClinics({ search, platformIsEmpty }: EmptyClinicsProps) {
 		return (
 			<EmptyState
 				title="Nenhuma clínica cadastrada nesta instância"
-				description="Cadastre a primeira clínica com nome, código e o gestor inicial. A clínica nasce sem módulos ativos — a configuração vem depois."
+				description="Cadastre a primeira clínica com nome, CNPJ e o gestor inicial. A clínica nasce sem módulos ativos — a configuração vem depois."
 				actions={
 					<Link to="/console/nova-clinica" className={buttonClass()}>
 						Cadastrar primeira clínica
@@ -155,7 +156,7 @@ function EmptyClinics({ search, platformIsEmpty }: EmptyClinicsProps) {
 					? `Nenhuma clínica corresponde a “${search}”`
 					: "Nenhuma clínica nesta situação"
 			}
-			description="A busca cobre nome e código. Códigos não têm acento nem espaço — confira a grafia ou limpe o filtro de situação."
+			description="A busca cobre nome, razão social e CNPJ. Confira a grafia ou limpe o filtro de situação."
 			actions={
 				<Link to="/console/nova-clinica" className={buttonClass("secondary")}>
 					Cadastrar nova clínica
