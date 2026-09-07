@@ -6,7 +6,7 @@ import {
 	useGetEncounter,
 } from "#/api/gen/hooks";
 import { Page } from "#/features/navigation/components/AppShell";
-import { TopBar } from "#/features/navigation/components/TopBar";
+import { AppTopBar } from "#/features/navigation/components/AppTopBar";
 import { messageOf } from "#/shared/api-error";
 import { dateTimeLabel } from "#/shared/format/date";
 import { Badge } from "#/shared/ui/Badge";
@@ -61,7 +61,7 @@ export function EncounterRecord({ encounterId }: EncounterRecordProps) {
 
 	return (
 		<>
-			<TopBar
+			<AppTopBar
 				title="Ficha de atendimento"
 				meta={`${encounter.data.customerName ?? ""} · ${dateTimeLabel(encounter.data.startedAt)}`}
 				actions={

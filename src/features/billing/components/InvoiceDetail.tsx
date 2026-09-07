@@ -7,7 +7,7 @@ import {
 } from "#/api/gen/hooks";
 import type { PaymentRequestMethodEnumKey } from "#/api/gen/types";
 import { Page } from "#/features/navigation/components/AppShell";
-import { TopBar } from "#/features/navigation/components/TopBar";
+import { AppTopBar } from "#/features/navigation/components/AppTopBar";
 import { messageOf } from "#/shared/api-error";
 import { dateTimeLabel } from "#/shared/format/date";
 import { money } from "#/shared/format/money";
@@ -48,7 +48,7 @@ export function InvoiceDetail({ invoiceId }: InvoiceDetailProps) {
 
 	return (
 		<>
-			<TopBar
+			<AppTopBar
 				title={`Cobrança #${invoiceId}`}
 				meta={`Financeiro · ${invoice.data.customerName ?? ""}`}
 			/>

@@ -6,6 +6,7 @@ export type NavigationItem = {
 	to: string;
 	icon: string;
 	requires?: ModuleCode;
+	pending?: true;
 };
 
 export const NAVIGATION: readonly NavigationItem[] = [
@@ -25,33 +26,49 @@ export const NAVIGATION: readonly NavigationItem[] = [
 		icon: "M8 8a2.6 2.6 0 100-5.2A2.6 2.6 0 008 8zM2.8 13.6c0-2.6 2.4-3.9 5.2-3.9s5.2 1.3 5.2 3.9",
 	},
 	{
+		label: "Atendimentos",
+		to: "/atendimentos",
+		icon: "M4 2.2h8v11.6H4zM6.2 5.2h3.6M6.2 8h3.6M6.2 10.8h2",
+		pending: true,
+	},
+	{
 		label: "Financeiro",
 		to: "/financeiro",
 		icon: "M2.2 4.6h11.6v7H2.2zM2.2 7.4h11.6M5 10h2.2",
-	},
-	{
-		label: "Pacotes",
-		to: "/pacotes",
-		icon: "M2.4 5.1L8 2.3l5.6 2.8v5.8L8 13.7l-5.6-2.8zM2.4 5.1L8 7.9l5.6-2.8M8 7.9v5.8",
-		requires: MODULE.sessionPackages,
-	},
-	{
-		label: "Convênios",
-		to: "/convenios",
-		icon: "M2.2 4.6h11.6v7H2.2zM5 8.2h6M2.2 6.4h11.6",
-		requires: MODULE.insurance,
 	},
 	{
 		label: "Estoque",
 		to: "/estoque",
 		icon: "M2.4 5.1L8 2.3l5.6 2.8v5.8L8 13.7l-5.6-2.8zM2.4 5.1L8 7.9l5.6-2.8M8 7.9v5.8",
 		requires: MODULE.inventory,
+		pending: true,
+	},
+	{
+		label: "Relatórios",
+		to: "/relatorios",
+		icon: "M3.2 13.2V7.4M8 13.2V3.2M12.8 13.2V9",
+		pending: true,
+	},
+	{
+		label: "Pacotes",
+		to: "/pacotes",
+		icon: "M2.4 5.1L8 2.3l5.6 2.8v5.8L8 13.7l-5.6-2.8zM2.4 5.1L8 7.9l5.6-2.8M8 7.9v5.8",
+		requires: MODULE.sessionPackages,
+		pending: true,
+	},
+	{
+		label: "Convênios",
+		to: "/convenios",
+		icon: "M2.2 4.6h11.6v7H2.2zM5 8.2h6M2.2 6.4h11.6",
+		requires: MODULE.insurance,
+		pending: true,
 	},
 	{
 		label: "Comissões",
 		to: "/comissoes",
-		icon: "M3 13L13 3M3 4.6a1.6 1.6 0 103.2 0 1.6 1.6 0 00-3.2 0zM9.8 11.4a1.6 1.6 0 103.2 0 1.6 1.6 0 00-3.2 0z",
+		icon: "M3 13L13 3M4.6 3h.01M11.4 13h.01M3 4.6a1.6 1.6 0 103.2 0 1.6 1.6 0 00-3.2 0zM9.8 11.4a1.6 1.6 0 103.2 0 1.6 1.6 0 00-3.2 0z",
 		requires: MODULE.commissions,
+		pending: true,
 	},
 	{
 		label: "Configurações",

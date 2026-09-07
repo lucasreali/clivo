@@ -3,7 +3,11 @@ import { useState } from "react";
 import { useCapabilities } from "#/features/capabilities/hooks/use-capabilities";
 import { SessionDialog } from "#/features/session/components/SessionDialog";
 import { Avatar } from "#/shared/ui/Avatar";
+import { announcePending } from "#/shared/ui/pending";
 import { NAVIGATION, type NavigationItem } from "../model/navigation";
+
+const ENTRY =
+	"flex items-center gap-2.5 rounded-field px-2.5 py-[9px] text-left text-[13.5px] text-muted hover:bg-neutral-soft hover:text-ink";
 
 type SidebarProps = {
 	user: string;
@@ -22,17 +26,14 @@ export function Sidebar({ user, role, clinic }: SidebarProps) {
 		<aside className="flex h-full w-[220px] shrink-0 flex-col border-r border-line bg-panel">
 			<div className="flex h-16 shrink-0 items-center gap-2 border-b border-line px-5">
 				<span className="h-2.5 w-2.5 rounded-sm bg-brand" />
-				<span className="flex min-w-0 flex-col leading-tight">
-					<span className="text-[17px] font-semibold tracking-[1.6px] text-ink">
-						CLIVO
-					</span>
-					<span className="truncate text-[11px] text-muted">{clinic}</span>
+				<span className="text-[17px] font-semibold tracking-[1.6px] text-ink">
+					CLIVO
 				</span>
 			</div>
 
 			<nav className="flex flex-col gap-0.5 px-2.5 py-3.5">
 				{items.map((item) => (
-					<SidebarLink key={item.to} item={item} />
+					<SidebarEntry key={item.to} item={item} />
 				))}
 			</nav>
 
@@ -45,7 +46,9 @@ export function Sidebar({ user, role, clinic }: SidebarProps) {
 				<Avatar name={user} />
 				<span className="flex min-w-0 flex-col leading-tight">
 					<span className="truncate text-[12.5px] text-ink">{user}</span>
-					<span className="truncate text-[11.5px] text-muted">{role}</span>
+					<span className="truncate text-[11.5px] text-muted">
+						{role} · {clinic}
+					</span>
 				</span>
 			</button>
 
@@ -61,12 +64,25 @@ export function Sidebar({ user, role, clinic }: SidebarProps) {
 	);
 }
 
-function SidebarLink({ item }: { item: NavigationItem }) {
+function SidebarEntry({ item }: { item: NavigationItem }) {
+	if (item.pending) {
+		return (
+			<button
+				type="button"
+				onClick={() => announcePending(item.label)}
+				className={ENTRY}
+			>
+				<SidebarIcon path={item.icon} isActive={false} />
+				<span>{item.label}</span>
+			</button>
+		);
+	}
+
 	return (
 		<Link
 			to={item.to}
 			activeOptions={{ exact: item.to === "/" }}
-			className="flex items-center gap-2.5 rounded-field px-2.5 py-2.5 text-[13.5px] text-muted hover:bg-neutral-soft hover:text-ink"
+			className={ENTRY}
 			activeProps={{
 				className:
 					"bg-brand-soft font-semibold text-brand-ink hover:bg-brand-soft",
@@ -74,22 +90,28 @@ function SidebarLink({ item }: { item: NavigationItem }) {
 		>
 			{({ isActive }) => (
 				<>
-					<svg
-						width="16"
-						height="16"
-						viewBox="0 0 16 16"
-						fill="none"
-						stroke={isActive ? "#1D9E75" : "#8B8A83"}
-						strokeWidth="1.4"
-						strokeLinecap="round"
-						strokeLinejoin="round"
-						aria-hidden="true"
-					>
-						<path d={item.icon} />
-					</svg>
+					<SidebarIcon path={item.icon} isActive={isActive} />
 					<span>{item.label}</span>
 				</>
 			)}
 		</Link>
+	);
+}
+
+function SidebarIcon({ path, isActive }: { path: string; isActive: boolean }) {
+	return (
+		<svg
+			width="16"
+			height="16"
+			viewBox="0 0 16 16"
+			fill="none"
+			stroke={isActive ? "#1D9E75" : "#8B8A83"}
+			strokeWidth="1.4"
+			strokeLinecap="round"
+			strokeLinejoin="round"
+			aria-hidden="true"
+		>
+			<path d={path} />
+		</svg>
 	);
 }

@@ -4,7 +4,7 @@ import { useState } from "react";
 import { useForm } from "react-hook-form";
 import { useRecordCustomerConsent, useRegisterCustomer } from "#/api/gen/hooks";
 import { Page } from "#/features/navigation/components/AppShell";
-import { TopBar } from "#/features/navigation/components/TopBar";
+import { AppTopBar } from "#/features/navigation/components/AppTopBar";
 import { messageOf } from "#/shared/api-error";
 import { showViolations } from "#/shared/form/violations";
 import { Button } from "#/shared/ui/Button";
@@ -68,7 +68,7 @@ export function NewCustomer() {
 
 	return (
 		<>
-			<TopBar title="Novo cliente" meta="Clientes › Cadastro" />
+			<AppTopBar title="Novo cliente" meta="Clientes › Cadastro" />
 
 			<Page>
 				<form onSubmit={submit} noValidate className="flex flex-col gap-4">

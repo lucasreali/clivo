@@ -7,7 +7,7 @@ import { useDescribeCustomer, useGetCustomer } from "#/api/gen/hooks";
 import { ModuleGate } from "#/features/capabilities/components/ModuleGate";
 import { MODULE } from "#/features/capabilities/model/module-code";
 import { Page } from "#/features/navigation/components/AppShell";
-import { TopBar } from "#/features/navigation/components/TopBar";
+import { AppTopBar } from "#/features/navigation/components/AppTopBar";
 import { messageOf } from "#/shared/api-error";
 import { showViolations } from "#/shared/form/violations";
 import { Badge } from "#/shared/ui/Badge";
@@ -68,7 +68,7 @@ export function CustomerDetail({ customerId }: CustomerDetailProps) {
 
 	return (
 		<>
-			<TopBar
+			<AppTopBar
 				title={customer.data.name ?? "Cliente"}
 				meta="Clientes › Cadastro"
 				actions={

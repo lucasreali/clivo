@@ -2,7 +2,7 @@ import { useState } from "react";
 import { useGetBillingReport } from "#/api/gen/hooks";
 import type { BillingReportView } from "#/api/gen/types";
 import { Page } from "#/features/navigation/components/AppShell";
-import { TopBar } from "#/features/navigation/components/TopBar";
+import { AppTopBar } from "#/features/navigation/components/AppTopBar";
 import { isNotGranted, messageOf } from "#/shared/api-error";
 import { shiftDays, today } from "#/shared/format/date";
 import { money } from "#/shared/format/money";
@@ -19,7 +19,10 @@ export function BillingReport() {
 
 	return (
 		<>
-			<TopBar title="Financeiro" meta="Relatório de faturamento do período" />
+			<AppTopBar
+				title="Financeiro"
+				meta="Relatório de faturamento do período"
+			/>
 
 			<Page>
 				<Panel>

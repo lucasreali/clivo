@@ -6,7 +6,7 @@ import {
 } from "#/api/gen/hooks";
 import { describeInvoiceStatus } from "#/features/billing/model/invoice-status";
 import { Page } from "#/features/navigation/components/AppShell";
-import { TopBar } from "#/features/navigation/components/TopBar";
+import { AppTopBar } from "#/features/navigation/components/AppTopBar";
 import { dateTimeLabel } from "#/shared/format/date";
 import { money } from "#/shared/format/money";
 import { Badge } from "#/shared/ui/Badge";
@@ -29,7 +29,7 @@ export function CustomerHistory({ customerId }: CustomerHistoryProps) {
 
 	return (
 		<>
-			<TopBar
+			<AppTopBar
 				title={customer.data?.name ?? "Cliente"}
 				meta="Clientes › Histórico de atendimentos"
 			/>

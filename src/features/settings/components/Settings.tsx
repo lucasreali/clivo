@@ -1,6 +1,6 @@
 import { useGetCurrentSession } from "#/api/gen/hooks";
 import { Page } from "#/features/navigation/components/AppShell";
-import { TopBar } from "#/features/navigation/components/TopBar";
+import { AppTopBar } from "#/features/navigation/components/AppTopBar";
 import { manages } from "../model/role";
 import { ParametersPanel } from "./ParametersPanel";
 import { TeamPanel } from "./TeamPanel";
@@ -11,7 +11,7 @@ export function Settings() {
 
 	return (
 		<>
-			<TopBar
+			<AppTopBar
 				title="Configurações da clínica"
 				meta={
 					isManager
