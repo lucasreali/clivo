@@ -10,6 +10,7 @@ import {
 } from "@tanstack/react-router";
 import { TanStackRouterDevtoolsPanel } from "@tanstack/react-router-devtools";
 import { messageOf } from "#/shared/api-error";
+import { Toaster } from "#/shared/ui/pending";
 import appCss from "#/styles.css?url";
 
 export type RouterContext = {
@@ -91,6 +92,7 @@ function RootDocument({ children }: { children: React.ReactNode }) {
 			<body className="font-sans">
 				<QueryClientProvider client={queryClient}>
 					{children}
+					<Toaster />
 					<TanStackDevtools
 						config={{ position: "bottom-right" }}
 						plugins={[
