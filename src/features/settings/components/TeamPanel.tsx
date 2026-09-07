@@ -11,7 +11,7 @@ import { useTeam } from "../hooks/use-team";
 import { labelOfRole, manages, Roles } from "../model/role";
 import { UserAccess } from "./UserAccess";
 
-const COLUMNS = "grid-cols-[1.6fr_170px_110px_120px]";
+const COLUMNS = "grid-cols-[1.6fr_170px_110px_180px]";
 
 export function TeamPanel() {
 	const [opened, setOpened] = useState<string>();

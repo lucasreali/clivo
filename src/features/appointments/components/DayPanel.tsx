@@ -21,7 +21,7 @@ type Dialog =
 	| { kind: "reschedule"; appointment: AppointmentView }
 	| null;
 
-const COLUMNS = "grid-cols-[80px_1.6fr_1.2fr_1.4fr_150px_200px]";
+const COLUMNS = "grid-cols-[72px_1.4fr_1.1fr_1.2fr_140px_340px]";
 
 export function DayPanel() {
 	const [day, setDay] = useState(today());

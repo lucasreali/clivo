@@ -4,7 +4,7 @@ import { cn } from "./cn";
 export type ButtonVariant = "primary" | "secondary" | "ghost" | "danger";
 
 const BASE =
-	"inline-flex h-[34px] items-center justify-center gap-2 rounded-field px-3.5 text-[13px] font-semibold no-underline transition-colors disabled:cursor-not-allowed";
+	"inline-flex h-[34px] shrink-0 items-center justify-center gap-2 rounded-field px-3.5 text-[13px] font-semibold whitespace-nowrap no-underline transition-colors disabled:cursor-not-allowed";
 
 const VARIANTS: Record<ButtonVariant, string> = {
 	primary:
