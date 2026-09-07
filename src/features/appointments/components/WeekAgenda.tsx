@@ -85,7 +85,7 @@ export function WeekAgenda() {
 							className="h-[34px] w-[220px] text-[13px]"
 						/>
 					</div>
-					<div className="flex items-center gap-4 text-[12px] text-muted">
+					<div className="flex flex-wrap items-center justify-end gap-x-4 gap-y-1.5 text-[12px] text-muted">
 						{LEGEND.map((entry) => (
 							<span key={entry.label} className="flex items-center gap-1.5">
 								<span
@@ -199,15 +199,12 @@ type WeekPagerProps = {
 
 function WeekPager({ monday, onChange }: WeekPagerProps) {
 	return (
-		<div className="flex h-[34px] items-center overflow-hidden rounded-field border border-line bg-panel">
-			<button
-				type="button"
-				aria-label="Semana anterior"
+		<div className="flex h-[34px] shrink-0 items-center overflow-hidden rounded-field border border-line bg-panel">
+			<PagerArrow
+				label="Semana anterior"
+				direction="previous"
 				onClick={() => onChange(shiftDays(monday, -7))}
-				className="h-full w-[34px] border-r border-line text-[14px] text-muted hover:text-ink"
-			>
-				‹
-			</button>
+			/>
 			<button
 				type="button"
 				onClick={() => onChange(startOfWeek(today()))}
@@ -215,14 +212,52 @@ function WeekPager({ monday, onChange }: WeekPagerProps) {
 			>
 				{dayMonthLabel(monday)} – {dayMonthLabel(shiftDays(monday, 5))}
 			</button>
-			<button
-				type="button"
-				aria-label="Próxima semana"
+			<PagerArrow
+				label="Próxima semana"
+				direction="next"
 				onClick={() => onChange(shiftDays(monday, 7))}
-				className="h-full w-[34px] border-l border-line text-[14px] text-muted hover:text-ink"
-			>
-				›
-			</button>
+			/>
 		</div>
+	);
+}
+
+const ARROW_PATH = {
+	previous: { d: "M10 3.5L5.5 8l4.5 4.5", border: "border-r" },
+	next: { d: "M6 3.5L10.5 8 6 12.5", border: "border-l" },
+} as const;
+
+type PagerArrowProps = {
+	label: string;
+	direction: keyof typeof ARROW_PATH;
+	onClick: () => void;
+};
+
+function PagerArrow({ label, direction, onClick }: PagerArrowProps) {
+	const arrow = ARROW_PATH[direction];
+
+	return (
+		<button
+			type="button"
+			aria-label={label}
+			onClick={onClick}
+			className={cn(
+				"flex h-full w-[34px] shrink-0 items-center justify-center border-line text-muted hover:text-ink",
+				arrow.border,
+			)}
+		>
+			<svg
+				width="16"
+				height="16"
+				viewBox="0 0 16 16"
+				fill="none"
+				stroke="currentColor"
+				strokeWidth="1.6"
+				strokeLinecap="round"
+				strokeLinejoin="round"
+				aria-hidden="true"
+			>
+				<path d={arrow.d} />
+			</svg>
+		</button>
 	);
 }
