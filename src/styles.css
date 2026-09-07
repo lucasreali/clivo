@@ -66,11 +66,24 @@
 		color: var(--color-faint);
 	}
 
-	/* Tailwind's preflight resets buttons to `cursor: default`. Restoring the
-	   pointer here reaches every button, not only the ones built on `Button`. */
+	/* Tailwind's preflight resets buttons to `cursor: default`, and the browser
+	   never offered one for a select, a tick box or a label. Declaring the
+	   affordance once here reaches every control, including the ones built
+	   without the shared primitives. Text fields keep their caret. */
 	button:not(:disabled),
+	summary,
 	[role="button"]:not(:disabled),
-	input[type="checkbox"]:not(:disabled) {
+	select:not(:disabled),
+	input[type="checkbox"]:not(:disabled),
+	input[type="radio"]:not(:disabled),
+	input[type="file"]:not(:disabled),
+	label[for],
+	label:has(input, select, textarea) {
+		cursor: pointer;
+	}
+
+	::file-selector-button,
+	::-webkit-calendar-picker-indicator {
 		cursor: pointer;
 	}
 }
