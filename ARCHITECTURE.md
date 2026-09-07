@@ -5,6 +5,21 @@ serve a dental practice, a veterinary clinic and a physiotherapy studio, and the
 differences between them are **data, not branches**. The folder layout below
 exists to keep that promise legible.
 
+## Two surfaces, one build
+
+The app serves two audiences from one code base:
+
+- **The clinic**, under the `_app` layout — agenda, clientes, atendimentos,
+  financeiro. It sees only what the clinic's own modules turned on.
+- **The Clivo team**, under `/console` — the platform administration console:
+  every clinic on the instance, the modules each one contracted, the parameters
+  in effect and the creation of new administrators. It reaches the
+  `/api/platform/**` endpoints, which answer `404` to anyone who is not a
+  platform administrator.
+
+Each surface has its own shell (`AppShell` / `ConsoleShell`), its own sign-in
+(`/login` / `/console/entrar`) and its own guard, and both share `shared/ui`.
+
 ## Layers
 
 ```
@@ -67,6 +82,13 @@ new branch in a screen.** If you find yourself writing
   produces.
 - Wrap it, don't fork it. `api/client.ts` (credentials) and `api/query-client.ts`
   (retry policy) are the only places that configure the transport.
+- One documented gap: the platform module and parameter endpoints take the
+  clinic from `{tenantId}` in the URL, but the API reads it in a servlet
+  interceptor instead of a handler argument, so springdoc never declares the
+  variable and the generated clients have nowhere to put it.
+  `features/platform/api/clinic-scope.ts` addresses those five routes through
+  `api/client.ts` and keeps the clinic in the query key. Declaring `tenantId`
+  on those operations in `../clivo-api` retires that file.
 
 ## Conventions
 
@@ -106,3 +128,6 @@ cross-site.
   `SameSite=None; Secure` session cookie.
 - Screens still to build: session packages, inventory, commissions and
   notifications — all module-gated, all already routed from the sidebar.
+- The platform exposes only `POST /api/platform/administrators`; without a
+  listing endpoint the console cannot show who already has access, nor revoke
+  it. The administrators screen says so instead of faking a table.

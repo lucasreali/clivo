@@ -43,8 +43,10 @@ pnpm generate-api     # kubb: regenerate src/api/gen from ../clivo-api/openapi.j
 pnpm generate-routes  # tsr generate: rewrite src/routeTree.gen.ts
 ```
 
-There is no test runner in this project; `pnpm check` plus `pnpm build`
-(TypeScript is type-checked by the build) is the verification loop.
+There is no test runner in this project; `pnpm check` plus `npx tsc --noEmit` is
+the verification loop, and `pnpm build` on top of it. The build does **not**
+type-check — vite strips the types — so a contract change can build green and
+still be broken; run `tsc` after every `pnpm generate-api`.
 
 `VITE_API_URL` (see `.env.example`, default `http://localhost:8080`) is baked into
 the generated axios clients as their `baseURL`.
@@ -53,7 +55,11 @@ the generated axios clients as their `baseURL`.
 
 **Three layers, one direction.** `routes/` → `features/` → `shared/` + `api/gen`.
 
-- `src/routes/**` — TanStack Router file-based routes. Route files stay thin:
+- `src/routes/**` — TanStack Router file-based routes. Two surfaces live here:
+  `_app` is the clinic-facing product, and `console/_console` is the platform
+  administration console for the Clivo team (`/console`, signing in at
+  `/console/entrar`, backed by `/api/platform/**` and the `platform` feature).
+  Route files stay thin:
   they declare the route and point `component` at a feature component (see
   `src/routes/_app/agenda.tsx`). `_app.tsx` is the authenticated layout — it
   resolves the session in `beforeLoad`, redirects to `/login` on 401, and wraps
