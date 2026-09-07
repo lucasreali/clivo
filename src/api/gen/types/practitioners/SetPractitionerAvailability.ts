@@ -10,10 +10,10 @@ import type { ScheduleRequest } from '../ScheduleRequest'
 export type SetPractitionerAvailabilityPath = {
     /**
      * @description
-     * Format: `int64`
-     * @type integer
+     * Format: `uuid`
+     * @type string
     */
-    id: number;
+    id: string;
 };
 
 export type SetPractitionerAvailabilityStatus200 = PractitionerView;

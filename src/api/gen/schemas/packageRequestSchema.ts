@@ -6,10 +6,10 @@
 import * as z from 'zod'
 
 export const packageRequestSchema = z.object({
-  customerId: z.coerce.number(),
+  customerId: z.uuid(),
   expiresOn: z.iso.date().optional(),
   price: z.number(),
-  serviceId: z.coerce.number(),
+  serviceId: z.uuid(),
   totalSessions: z.int().optional(),
 })
 

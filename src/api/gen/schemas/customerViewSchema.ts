@@ -10,7 +10,7 @@ export const customerViewSchema = z.object({
   consented: z.boolean().optional(),
   deactivationReason: z.string().optional(),
   email: z.string().optional(),
-  id: z.coerce.number().optional(),
+  id: z.uuid().optional(),
   name: z.string().optional(),
   nationalId: z.string().optional(),
   phone: z.string().optional(),

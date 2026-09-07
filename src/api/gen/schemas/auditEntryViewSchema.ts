@@ -7,7 +7,7 @@ import * as z from 'zod'
 
 export const auditEntryViewSchema = z.object({
   action: z.enum(['CREATE', 'UPDATE', 'DEACTIVATE', 'ACCESS']).optional(),
-  author: z.coerce.number().optional(),
+  author: z.uuid().optional(),
   newValue: z.object({}).catchall(z.unknown()).optional(),
   occurredAt: z.iso.datetime().optional(),
   previousValue: z.object({}).catchall(z.unknown()).optional(),

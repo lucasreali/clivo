@@ -10,10 +10,10 @@ import type { ErrorResponse } from '../ErrorResponse'
 export type DeactivateCustomerPath = {
     /**
      * @description
-     * Format: `int64`
-     * @type integer
+     * Format: `uuid`
+     * @type string
     */
-    id: number;
+    id: string;
 };
 
 export type DeactivateCustomerStatus200 = CustomerView;

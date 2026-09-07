@@ -47,9 +47,9 @@ export function NewAppointmentDialog({
 		event.preventDefault();
 		schedule.mutate({
 			body: {
-				customerId: Number(customerId),
-				practitionerId: Number(practitionerId),
-				serviceId: Number(serviceId),
+				customerId,
+				practitionerId,
+				serviceId,
 				start: toInstant(date, time),
 			},
 		});

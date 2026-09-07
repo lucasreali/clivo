@@ -7,10 +7,10 @@ import * as z from 'zod'
 
 export const commissionViewSchema = z.object({
   amount: z.number().optional(),
-  encounterId: z.coerce.number().optional(),
-  id: z.coerce.number().optional(),
+  encounterId: z.uuid().optional(),
+  id: z.uuid().optional(),
   percentage: z.number().optional(),
-  practitionerId: z.coerce.number().optional(),
+  practitionerId: z.uuid().optional(),
   practitionerName: z.string().optional(),
   status: z.string().optional(),
 })

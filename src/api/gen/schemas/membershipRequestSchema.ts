@@ -6,9 +6,9 @@
 import * as z from 'zod'
 
 export const membershipRequestSchema = z.object({
-  customerId: z.coerce.number(),
+  customerId: z.uuid(),
   memberNumber: z.string().optional(),
-  planId: z.coerce.number(),
+  planId: z.uuid(),
 })
 
 export type MembershipRequestSchemaType = z.infer<typeof membershipRequestSchema>

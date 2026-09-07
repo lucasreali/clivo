@@ -6,11 +6,11 @@
 import * as z from 'zod'
 
 export const encounterRequestSchema = z.object({
-  appointmentId: z.coerce.number().optional(),
-  customerId: z.coerce.number().optional(),
-  practitionerId: z.coerce.number().optional(),
-  recordTemplateId: z.coerce.number(),
-  serviceId: z.coerce.number().optional(),
+  appointmentId: z.uuid().optional(),
+  customerId: z.uuid().optional(),
+  practitionerId: z.uuid().optional(),
+  recordTemplateId: z.uuid(),
+  serviceId: z.uuid().optional(),
 })
 
 export type EncounterRequestSchemaType = z.infer<typeof encounterRequestSchema>

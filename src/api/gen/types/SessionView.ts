@@ -3,19 +3,16 @@
 * Do not edit manually.
 */
 
+import type { ClinicView } from './ClinicView'
+
 export type SessionView = {
-    /**
-     * @description
-     * Format: `int64`
-     * @type integer | undefined
-    */
-    clinicId?: number;
+    clinic?: ClinicView;
     name?: string;
     role?: string;
     /**
      * @description
-     * Format: `int64`
-     * @type integer | undefined
+     * Format: `uuid`
+     * @type string | undefined
     */
-    userId?: number;
+    userId?: string;
 };

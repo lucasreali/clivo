@@ -1,0 +1,6 @@
+export { activateClinic } from './activateClinic'
+export { deactivateClinic } from './deactivateClinic'
+export { getClinic } from './getClinic'
+export { listClinics } from './listClinics'
+export { provisionClinic } from './provisionClinic'
+export { updateClinic } from './updateClinic'

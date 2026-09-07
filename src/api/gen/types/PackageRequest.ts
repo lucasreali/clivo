@@ -6,10 +6,10 @@
 export type PackageRequest = {
     /**
      * @description
-     * Format: `int64`
-     * @type integer
+     * Format: `uuid`
+     * @type string
     */
-    customerId: number;
+    customerId: string;
     /**
      * @description
      * Format: `date`
@@ -19,10 +19,10 @@ export type PackageRequest = {
     price: number;
     /**
      * @description
-     * Format: `int64`
-     * @type integer
+     * Format: `uuid`
+     * @type string
     */
-    serviceId: number;
+    serviceId: string;
     /**
      * @description
      * Format: `int32`

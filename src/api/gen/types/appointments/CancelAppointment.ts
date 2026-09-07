@@ -10,10 +10,10 @@ import type { ReasonRequest } from '../ReasonRequest'
 export type CancelAppointmentPath = {
     /**
      * @description
-     * Format: `int64`
-     * @type integer
+     * Format: `uuid`
+     * @type string
     */
-    id: number;
+    id: string;
 };
 
 export type CancelAppointmentStatus200 = AppointmentView;

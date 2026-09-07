@@ -6,15 +6,15 @@
 export type MembershipRequest = {
     /**
      * @description
-     * Format: `int64`
-     * @type integer
+     * Format: `uuid`
+     * @type string
     */
-    customerId: number;
+    customerId: string;
     memberNumber?: string;
     /**
      * @description
-     * Format: `int64`
-     * @type integer
+     * Format: `uuid`
+     * @type string
     */
-    planId: number;
+    planId: string;
 };

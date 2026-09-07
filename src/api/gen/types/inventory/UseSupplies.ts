@@ -9,10 +9,10 @@ import type { SupplyRequest } from '../SupplyRequest'
 export type UseSuppliesPath = {
     /**
      * @description
-     * Format: `int64`
-     * @type integer
+     * Format: `uuid`
+     * @type string
     */
-    encounterId: number;
+    encounterId: string;
 };
 
 export type UseSuppliesStatus204 = unknown;

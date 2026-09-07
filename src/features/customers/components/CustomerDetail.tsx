@@ -23,7 +23,7 @@ import { DependentsPanel } from "./DependentsPanel";
 import { InsurancePanel } from "./InsurancePanel";
 
 type CustomerDetailProps = {
-	customerId: number;
+	customerId: string;
 };
 
 export function CustomerDetail({ customerId }: CustomerDetailProps) {

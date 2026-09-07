@@ -8,10 +8,10 @@ import type { ErrorResponse } from '../ErrorResponse'
 export type ReleaseScheduleBlockPath = {
     /**
      * @description
-     * Format: `int64`
-     * @type integer
+     * Format: `uuid`
+     * @type string
     */
-    id: number;
+    id: string;
 };
 
 export type ReleaseScheduleBlockStatus204 = unknown;

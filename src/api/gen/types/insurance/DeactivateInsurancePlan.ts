@@ -9,10 +9,10 @@ import type { PlanView } from '../PlanView'
 export type DeactivateInsurancePlanPath = {
     /**
      * @description
-     * Format: `int64`
-     * @type integer
+     * Format: `uuid`
+     * @type string
     */
-    id: number;
+    id: string;
 };
 
 export type DeactivateInsurancePlanStatus200 = PlanView;

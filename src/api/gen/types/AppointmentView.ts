@@ -6,10 +6,10 @@
 export type AppointmentView = {
     /**
      * @description
-     * Format: `int64`
-     * @type integer | undefined
+     * Format: `uuid`
+     * @type string | undefined
     */
-    customerId?: number;
+    customerId?: string;
     customerName?: string;
     /**
      * @description
@@ -19,24 +19,24 @@ export type AppointmentView = {
     end?: string;
     /**
      * @description
-     * Format: `int64`
-     * @type integer | undefined
+     * Format: `uuid`
+     * @type string | undefined
     */
-    id?: number;
+    id?: string;
     /**
      * @description
-     * Format: `int64`
-     * @type integer | undefined
+     * Format: `uuid`
+     * @type string | undefined
     */
-    practitionerId?: number;
+    practitionerId?: string;
     practitionerName?: string;
     reason?: string;
     /**
      * @description
-     * Format: `int64`
-     * @type integer | undefined
+     * Format: `uuid`
+     * @type string | undefined
     */
-    serviceId?: number;
+    serviceId?: string;
     serviceName?: string;
     /**
      * @description

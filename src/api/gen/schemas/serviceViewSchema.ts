@@ -7,7 +7,7 @@ import * as z from 'zod'
 
 export const serviceViewSchema = z.object({
   durationMinutes: z.int().optional(),
-  id: z.coerce.number().optional(),
+  id: z.uuid().optional(),
   name: z.string().optional(),
   price: z.number().optional(),
   status: z.string().optional(),

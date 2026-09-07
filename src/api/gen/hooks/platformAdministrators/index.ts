@@ -1,0 +1,1 @@
+export { registerPlatformAdministratorMutationKey, registerPlatformAdministratorMutationOptions, useRegisterPlatformAdministrator } from './useRegisterPlatformAdministrator'

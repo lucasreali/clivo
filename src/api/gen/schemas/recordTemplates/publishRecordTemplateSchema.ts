@@ -7,7 +7,7 @@ import * as z from 'zod'
 import { errorResponseSchema } from '../errorResponseSchema'
 import { recordTemplateViewSchema } from '../recordTemplateViewSchema'
 
-export const publishRecordTemplatePathIdSchema = z.coerce.number()
+export const publishRecordTemplatePathIdSchema = z.uuid()
 
 export type PublishRecordTemplatePathIdSchemaType = z.infer<typeof publishRecordTemplatePathIdSchema>
 
@@ -40,7 +40,7 @@ export const publishRecordTemplateErrorSchema = z.union([publishRecordTemplateSt
 export type PublishRecordTemplateErrorSchemaType = z.infer<typeof publishRecordTemplateErrorSchema>
 
 export const publishRecordTemplatePathSchema = z.object({
-  id: z.coerce.number(),
+  id: z.uuid(),
 })
 
 export type PublishRecordTemplatePathSchemaType = z.infer<typeof publishRecordTemplatePathSchema>

@@ -6,9 +6,9 @@
 import * as z from 'zod'
 
 export const rateViewSchema = z.object({
-  id: z.coerce.number().optional(),
+  id: z.uuid().optional(),
   percentage: z.number().optional(),
-  practitionerId: z.coerce.number().optional(),
+  practitionerId: z.uuid().optional(),
   practitionerName: z.string().optional(),
 })
 

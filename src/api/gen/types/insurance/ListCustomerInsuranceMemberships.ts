@@ -9,10 +9,10 @@ import type { MembershipView } from '../MembershipView'
 export type ListCustomerInsuranceMembershipsQuery = {
     /**
      * @description
-     * Format: `int64`
-     * @type integer
+     * Format: `uuid`
+     * @type string
     */
-    customerId: number;
+    customerId: string;
 };
 
 export type ListCustomerInsuranceMembershipsStatus200 = MembershipView[];

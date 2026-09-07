@@ -9,10 +9,10 @@ import type { ErrorResponse } from '../ErrorResponse'
 export type CompleteEncounterPath = {
     /**
      * @description
-     * Format: `int64`
-     * @type integer
+     * Format: `uuid`
+     * @type string
     */
-    id: number;
+    id: string;
 };
 
 export type CompleteEncounterStatus200 = EncounterView;

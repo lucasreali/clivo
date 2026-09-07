@@ -6,10 +6,10 @@
 export type NotificationView = {
     /**
      * @description
-     * Format: `int64`
-     * @type integer | undefined
+     * Format: `uuid`
+     * @type string | undefined
     */
-    appointmentId?: number;
+    appointmentId?: string;
     /**
      * @description
      * Format: `date-time`
@@ -19,10 +19,10 @@ export type NotificationView = {
     channel?: string;
     /**
      * @description
-     * Format: `int64`
-     * @type integer | undefined
+     * Format: `uuid`
+     * @type string | undefined
     */
-    id?: number;
+    id?: string;
     recipient?: string;
     reply?: string;
     /**

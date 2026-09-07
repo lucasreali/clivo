@@ -10,10 +10,10 @@ import type { StockEntryRequest } from '../StockEntryRequest'
 export type MoveStockPath = {
     /**
      * @description
-     * Format: `int64`
-     * @type integer
+     * Format: `uuid`
+     * @type string
     */
-    id: number;
+    id: string;
 };
 
 export type MoveStockStatus201 = ProductView;

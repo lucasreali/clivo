@@ -9,10 +9,10 @@ import type { RecordTemplateView } from '../RecordTemplateView'
 export type PublishRecordTemplatePath = {
     /**
      * @description
-     * Format: `int64`
-     * @type integer
+     * Format: `uuid`
+     * @type string
     */
-    id: number;
+    id: string;
 };
 
 export type PublishRecordTemplateStatus200 = RecordTemplateView;

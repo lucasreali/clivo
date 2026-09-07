@@ -7,7 +7,7 @@ import * as z from 'zod'
 import { errorResponseSchema } from '../errorResponseSchema'
 import { notificationViewSchema } from '../notificationViewSchema'
 
-export const listAppointmentNotificationsQueryAppointmentIdSchema = z.coerce.number()
+export const listAppointmentNotificationsQueryAppointmentIdSchema = z.uuid()
 
 export type ListAppointmentNotificationsQueryAppointmentIdSchemaType = z.infer<typeof listAppointmentNotificationsQueryAppointmentIdSchema>
 
@@ -40,7 +40,7 @@ export const listAppointmentNotificationsErrorSchema = z.union([listAppointmentN
 export type ListAppointmentNotificationsErrorSchemaType = z.infer<typeof listAppointmentNotificationsErrorSchema>
 
 export const listAppointmentNotificationsQuerySchema = z.object({
-  appointmentId: z.coerce.number(),
+  appointmentId: z.uuid(),
 })
 
 export type ListAppointmentNotificationsQuerySchemaType = z.infer<typeof listAppointmentNotificationsQuerySchema>

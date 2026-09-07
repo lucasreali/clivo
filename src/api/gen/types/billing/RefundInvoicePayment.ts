@@ -10,16 +10,16 @@ import type { RefundRequest } from '../RefundRequest'
 export type RefundInvoicePaymentPath = {
     /**
      * @description
-     * Format: `int64`
-     * @type integer
+     * Format: `uuid`
+     * @type string
     */
-    id: number;
+    id: string;
     /**
      * @description
-     * Format: `int64`
-     * @type integer
+     * Format: `uuid`
+     * @type string
     */
-    paymentId: number;
+    paymentId: string;
 };
 
 export type RefundInvoicePaymentStatus200 = InvoiceView;

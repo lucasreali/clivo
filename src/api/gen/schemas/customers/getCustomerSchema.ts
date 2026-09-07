@@ -7,7 +7,7 @@ import * as z from 'zod'
 import { customerViewSchema } from '../customerViewSchema'
 import { errorResponseSchema } from '../errorResponseSchema'
 
-export const getCustomerPathIdSchema = z.coerce.number()
+export const getCustomerPathIdSchema = z.uuid()
 
 export type GetCustomerPathIdSchemaType = z.infer<typeof getCustomerPathIdSchema>
 
@@ -40,7 +40,7 @@ export const getCustomerErrorSchema = z.union([getCustomerStatus401Schema, getCu
 export type GetCustomerErrorSchemaType = z.infer<typeof getCustomerErrorSchema>
 
 export const getCustomerPathSchema = z.object({
-  id: z.coerce.number(),
+  id: z.uuid(),
 })
 
 export type GetCustomerPathSchemaType = z.infer<typeof getCustomerPathSchema>

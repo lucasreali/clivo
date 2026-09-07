@@ -9,10 +9,10 @@ export type PractitionerView = {
     availability?: PeriodView[];
     /**
      * @description
-     * Format: `int64`
-     * @type integer | undefined
+     * Format: `uuid`
+     * @type string | undefined
     */
-    id?: number;
+    id?: string;
     licenseNumber?: string;
     name?: string;
     status?: string;

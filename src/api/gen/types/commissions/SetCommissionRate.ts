@@ -10,10 +10,10 @@ import type { RateView } from '../RateView'
 export type SetCommissionRatePath = {
     /**
      * @description
-     * Format: `int64`
-     * @type integer
+     * Format: `uuid`
+     * @type string
     */
-    practitionerId: number;
+    practitionerId: string;
 };
 
 export type SetCommissionRateStatus200 = RateView;

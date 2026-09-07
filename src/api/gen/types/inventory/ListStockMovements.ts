@@ -9,10 +9,10 @@ import type { StockMovementView } from '../StockMovementView'
 export type ListStockMovementsPath = {
     /**
      * @description
-     * Format: `int64`
-     * @type integer
+     * Format: `uuid`
+     * @type string
     */
-    id: number;
+    id: string;
 };
 
 export type ListStockMovementsStatus200 = StockMovementView[];

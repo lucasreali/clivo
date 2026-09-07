@@ -1,0 +1,1 @@
+export { registerPlatformAdministrator } from './registerPlatformAdministrator'

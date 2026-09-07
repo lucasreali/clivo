@@ -10,7 +10,7 @@ import { Field, TextInput } from "#/shared/ui/Field";
 import { Panel, PanelHeader } from "#/shared/ui/Panel";
 
 type DependentsPanelProps = {
-	customerId: number;
+	customerId: string;
 };
 
 export function DependentsPanel({ customerId }: DependentsPanelProps) {

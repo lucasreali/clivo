@@ -10,10 +10,10 @@ import type { ReasonRequest } from '../ReasonRequest'
 export type MarkAppointmentNoShowPath = {
     /**
      * @description
-     * Format: `int64`
-     * @type integer
+     * Format: `uuid`
+     * @type string
     */
-    id: number;
+    id: string;
 };
 
 export type MarkAppointmentNoShowStatus200 = AppointmentView;

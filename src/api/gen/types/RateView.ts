@@ -6,16 +6,16 @@
 export type RateView = {
     /**
      * @description
-     * Format: `int64`
-     * @type integer | undefined
+     * Format: `uuid`
+     * @type string | undefined
     */
-    id?: number;
+    id?: string;
     percentage?: number;
     /**
      * @description
-     * Format: `int64`
-     * @type integer | undefined
+     * Format: `uuid`
+     * @type string | undefined
     */
-    practitionerId?: number;
+    practitionerId?: string;
     practitionerName?: string;
 };

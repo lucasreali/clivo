@@ -9,10 +9,10 @@ export type RecordSheet = {
     sections?: SheetSection[];
     /**
      * @description
-     * Format: `int64`
-     * @type integer | undefined
+     * Format: `uuid`
+     * @type string | undefined
     */
-    templateId?: number;
+    templateId?: string;
     templateName?: string;
     /**
      * @description

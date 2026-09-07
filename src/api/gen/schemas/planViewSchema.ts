@@ -6,7 +6,7 @@
 import * as z from 'zod'
 
 export const planViewSchema = z.object({
-  id: z.coerce.number().optional(),
+  id: z.uuid().optional(),
   name: z.string().optional(),
   reimbursementPercentage: z.number().optional(),
   status: z.string().optional(),

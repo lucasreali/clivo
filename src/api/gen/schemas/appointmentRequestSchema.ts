@@ -6,9 +6,9 @@
 import * as z from 'zod'
 
 export const appointmentRequestSchema = z.object({
-  customerId: z.coerce.number(),
-  practitionerId: z.coerce.number(),
-  serviceId: z.coerce.number(),
+  customerId: z.uuid(),
+  practitionerId: z.uuid(),
+  serviceId: z.uuid(),
   start: z.iso.datetime(),
 })
 

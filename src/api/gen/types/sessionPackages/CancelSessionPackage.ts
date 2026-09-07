@@ -9,10 +9,10 @@ import type { PackageView } from '../PackageView'
 export type CancelSessionPackagePath = {
     /**
      * @description
-     * Format: `int64`
-     * @type integer
+     * Format: `uuid`
+     * @type string
     */
-    id: number;
+    id: string;
 };
 
 export type CancelSessionPackageStatus200 = PackageView;

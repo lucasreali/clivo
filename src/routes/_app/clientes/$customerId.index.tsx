@@ -7,5 +7,5 @@ export const Route = createFileRoute("/_app/clientes/$customerId/")({
 
 function CustomerDetailPage() {
 	const { customerId } = Route.useParams();
-	return <CustomerDetail customerId={Number(customerId)} />;
+	return <CustomerDetail customerId={customerId} />;
 }

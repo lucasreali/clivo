@@ -8,7 +8,7 @@ import { errorResponseSchema } from '../errorResponseSchema'
 import { serviceRequestSchema } from '../serviceRequestSchema'
 import { serviceViewSchema } from '../serviceViewSchema'
 
-export const describeServicePathIdSchema = z.coerce.number()
+export const describeServicePathIdSchema = z.uuid()
 
 export type DescribeServicePathIdSchemaType = z.infer<typeof describeServicePathIdSchema>
 
@@ -49,7 +49,7 @@ export const describeServiceBodySchema = serviceRequestSchema
 export type DescribeServiceBodySchemaType = z.infer<typeof describeServiceBodySchema>
 
 export const describeServicePathSchema = z.object({
-  id: z.coerce.number(),
+  id: z.uuid(),
 })
 
 export type DescribeServicePathSchemaType = z.infer<typeof describeServicePathSchema>

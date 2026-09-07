@@ -6,7 +6,7 @@
 import * as z from 'zod'
 
 export const notificationRequestSchema = z.object({
-  appointmentId: z.coerce.number(),
+  appointmentId: z.uuid(),
   channel: z.string().min(1),
   recipient: z.string().optional(),
 })

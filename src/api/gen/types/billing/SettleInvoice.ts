@@ -10,10 +10,10 @@ import type { PaymentRequest } from '../PaymentRequest'
 export type SettleInvoicePath = {
     /**
      * @description
-     * Format: `int64`
-     * @type integer
+     * Format: `uuid`
+     * @type string
     */
-    id: number;
+    id: string;
 };
 
 export type SettleInvoiceStatus201 = InvoiceView;

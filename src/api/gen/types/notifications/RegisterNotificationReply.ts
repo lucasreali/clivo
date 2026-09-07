@@ -10,10 +10,10 @@ import type { ReplyRequest } from '../ReplyRequest'
 export type RegisterNotificationReplyPath = {
     /**
      * @description
-     * Format: `int64`
-     * @type integer
+     * Format: `uuid`
+     * @type string
     */
-    id: number;
+    id: string;
 };
 
 export type RegisterNotificationReplyStatus200 = NotificationView;

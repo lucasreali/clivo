@@ -7,7 +7,7 @@ import * as z from 'zod'
 import { errorResponseSchema } from '../errorResponseSchema'
 import { practitionerViewSchema } from '../practitionerViewSchema'
 
-export const deactivatePractitionerPathIdSchema = z.coerce.number()
+export const deactivatePractitionerPathIdSchema = z.uuid()
 
 export type DeactivatePractitionerPathIdSchemaType = z.infer<typeof deactivatePractitionerPathIdSchema>
 
@@ -40,7 +40,7 @@ export const deactivatePractitionerErrorSchema = z.union([deactivatePractitioner
 export type DeactivatePractitionerErrorSchemaType = z.infer<typeof deactivatePractitionerErrorSchema>
 
 export const deactivatePractitionerPathSchema = z.object({
-  id: z.coerce.number(),
+  id: z.uuid(),
 })
 
 export type DeactivatePractitionerPathSchemaType = z.infer<typeof deactivatePractitionerPathSchema>

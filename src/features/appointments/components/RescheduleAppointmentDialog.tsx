@@ -25,7 +25,7 @@ export function RescheduleAppointmentDialog({
 	function confirm() {
 		reschedule.mutate(
 			{
-				path: { id: appointment.id as number },
+				path: { id: appointment.id as string },
 				body: { start: toInstant(day, time) },
 			},
 			{ onSuccess: onClose },

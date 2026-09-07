@@ -7,7 +7,7 @@ import * as z from 'zod'
 import { dependentViewSchema } from '../dependentViewSchema'
 import { errorResponseSchema } from '../errorResponseSchema'
 
-export const getDependentPathIdSchema = z.coerce.number()
+export const getDependentPathIdSchema = z.uuid()
 
 export type GetDependentPathIdSchemaType = z.infer<typeof getDependentPathIdSchema>
 
@@ -40,7 +40,7 @@ export const getDependentErrorSchema = z.union([getDependentStatus401Schema, get
 export type GetDependentErrorSchemaType = z.infer<typeof getDependentErrorSchema>
 
 export const getDependentPathSchema = z.object({
-  id: z.coerce.number(),
+  id: z.uuid(),
 })
 
 export type GetDependentPathSchemaType = z.infer<typeof getDependentPathSchema>

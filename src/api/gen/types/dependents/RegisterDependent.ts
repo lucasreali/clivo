@@ -10,10 +10,10 @@ import type { ErrorResponse } from '../ErrorResponse'
 export type RegisterDependentPath = {
     /**
      * @description
-     * Format: `int64`
-     * @type integer
+     * Format: `uuid`
+     * @type string
     */
-    customerId: number;
+    customerId: string;
 };
 
 export type RegisterDependentStatus201 = DependentView;

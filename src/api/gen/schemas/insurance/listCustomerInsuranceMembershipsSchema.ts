@@ -7,7 +7,7 @@ import * as z from 'zod'
 import { errorResponseSchema } from '../errorResponseSchema'
 import { membershipViewSchema } from '../membershipViewSchema'
 
-export const listCustomerInsuranceMembershipsQueryCustomerIdSchema = z.coerce.number()
+export const listCustomerInsuranceMembershipsQueryCustomerIdSchema = z.uuid()
 
 export type ListCustomerInsuranceMembershipsQueryCustomerIdSchemaType = z.infer<typeof listCustomerInsuranceMembershipsQueryCustomerIdSchema>
 
@@ -40,7 +40,7 @@ export const listCustomerInsuranceMembershipsErrorSchema = z.union([listCustomer
 export type ListCustomerInsuranceMembershipsErrorSchemaType = z.infer<typeof listCustomerInsuranceMembershipsErrorSchema>
 
 export const listCustomerInsuranceMembershipsQuerySchema = z.object({
-  customerId: z.coerce.number(),
+  customerId: z.uuid(),
 })
 
 export type ListCustomerInsuranceMembershipsQuerySchemaType = z.infer<typeof listCustomerInsuranceMembershipsQuerySchema>

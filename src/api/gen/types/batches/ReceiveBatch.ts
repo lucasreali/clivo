@@ -10,10 +10,10 @@ import type { ErrorResponse } from '../ErrorResponse'
 export type ReceiveBatchPath = {
     /**
      * @description
-     * Format: `int64`
-     * @type integer
+     * Format: `uuid`
+     * @type string
     */
-    productId: number;
+    productId: string;
 };
 
 export type ReceiveBatchStatus201 = BatchView;

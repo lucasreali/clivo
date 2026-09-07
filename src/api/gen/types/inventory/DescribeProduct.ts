@@ -10,10 +10,10 @@ import type { ProductView } from '../ProductView'
 export type DescribeProductPath = {
     /**
      * @description
-     * Format: `int64`
-     * @type integer
+     * Format: `uuid`
+     * @type string
     */
-    id: number;
+    id: string;
 };
 
 export type DescribeProductStatus200 = ProductView;

@@ -12,10 +12,10 @@ export type ScheduleBlockRequest = {
     end: string;
     /**
      * @description
-     * Format: `int64`
-     * @type integer | undefined
+     * Format: `uuid`
+     * @type string | undefined
     */
-    practitionerId?: number;
+    practitionerId?: string;
     reason?: string;
     /**
      * @description

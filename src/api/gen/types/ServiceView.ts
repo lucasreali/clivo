@@ -12,10 +12,10 @@ export type ServiceView = {
     durationMinutes?: number;
     /**
      * @description
-     * Format: `int64`
-     * @type integer | undefined
+     * Format: `uuid`
+     * @type string | undefined
     */
-    id?: number;
+    id?: string;
     name?: string;
     price?: number;
     status?: string;

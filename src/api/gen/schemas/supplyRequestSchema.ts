@@ -6,7 +6,7 @@
 import * as z from 'zod'
 
 export const supplyRequestSchema = z.object({
-  productId: z.coerce.number(),
+  productId: z.uuid(),
   quantity: z.number(),
 })
 

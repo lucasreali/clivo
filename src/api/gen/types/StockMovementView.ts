@@ -6,22 +6,22 @@
 export type StockMovementView = {
     /**
      * @description
-     * Format: `int64`
-     * @type integer | undefined
+     * Format: `uuid`
+     * @type string | undefined
     */
-    encounterId?: number;
+    encounterId?: string;
     /**
      * @description
-     * Format: `int64`
-     * @type integer | undefined
+     * Format: `uuid`
+     * @type string | undefined
     */
-    id?: number;
+    id?: string;
     /**
      * @description
-     * Format: `int64`
-     * @type integer | undefined
+     * Format: `uuid`
+     * @type string | undefined
     */
-    productId?: number;
+    productId?: string;
     quantity?: number;
     reason?: string;
     /**
@@ -32,9 +32,9 @@ export type StockMovementView = {
     recordedAt?: string;
     /**
      * @description
-     * Format: `int64`
-     * @type integer | undefined
+     * Format: `uuid`
+     * @type string | undefined
     */
-    recordedBy?: number;
+    recordedBy?: string;
     type?: string;
 };

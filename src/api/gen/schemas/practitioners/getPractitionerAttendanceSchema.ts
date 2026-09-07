@@ -7,7 +7,7 @@ import * as z from 'zod'
 import { attendanceViewSchema } from '../attendanceViewSchema'
 import { errorResponseSchema } from '../errorResponseSchema'
 
-export const getPractitionerAttendancePathIdSchema = z.coerce.number()
+export const getPractitionerAttendancePathIdSchema = z.uuid()
 
 export type GetPractitionerAttendancePathIdSchemaType = z.infer<typeof getPractitionerAttendancePathIdSchema>
 
@@ -48,7 +48,7 @@ export const getPractitionerAttendanceErrorSchema = z.union([getPractitionerAtte
 export type GetPractitionerAttendanceErrorSchemaType = z.infer<typeof getPractitionerAttendanceErrorSchema>
 
 export const getPractitionerAttendancePathSchema = z.object({
-  id: z.coerce.number(),
+  id: z.uuid(),
 })
 
 export type GetPractitionerAttendancePathSchemaType = z.infer<typeof getPractitionerAttendancePathSchema>

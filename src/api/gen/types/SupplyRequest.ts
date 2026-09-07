@@ -6,9 +6,9 @@
 export type SupplyRequest = {
     /**
      * @description
-     * Format: `int64`
-     * @type integer
+     * Format: `uuid`
+     * @type string
     */
-    productId: number;
+    productId: string;
     quantity: number;
 };

@@ -16,10 +16,10 @@ export type AuditEntryView = {
     action?: AuditEntryViewActionEnumKey;
     /**
      * @description
-     * Format: `int64`
-     * @type integer | undefined
+     * Format: `uuid`
+     * @type string | undefined
     */
-    author?: number;
+    author?: string;
     newValue?: {
         [key: string]: unknown;
     };

@@ -10,10 +10,10 @@ import type { RecordFillingRequest } from '../RecordFillingRequest'
 export type FillEncounterRecordPath = {
     /**
      * @description
-     * Format: `int64`
-     * @type integer
+     * Format: `uuid`
+     * @type string
     */
-    id: number;
+    id: string;
 };
 
 export type FillEncounterRecordStatus200 = EncounterView;

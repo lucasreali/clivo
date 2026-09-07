@@ -9,10 +9,10 @@ import type { ErrorResponse } from '../ErrorResponse'
 export type ListCustomerEncountersQuery = {
     /**
      * @description
-     * Format: `int64`
-     * @type integer
+     * Format: `uuid`
+     * @type string
     */
-    customerId: number;
+    customerId: string;
 };
 
 export type ListCustomerEncountersStatus200 = EncounterHistoryView[];

@@ -7,10 +7,10 @@ export type PackageView = {
     active?: boolean;
     /**
      * @description
-     * Format: `int64`
-     * @type integer | undefined
+     * Format: `uuid`
+     * @type string | undefined
     */
-    customerId?: number;
+    customerId?: string;
     /**
      * @description
      * Format: `date`
@@ -19,10 +19,10 @@ export type PackageView = {
     expiresOn?: string;
     /**
      * @description
-     * Format: `int64`
-     * @type integer | undefined
+     * Format: `uuid`
+     * @type string | undefined
     */
-    id?: number;
+    id?: string;
     price?: number;
     /**
      * @description
@@ -32,10 +32,10 @@ export type PackageView = {
     remainingSessions?: number;
     /**
      * @description
-     * Format: `int64`
-     * @type integer | undefined
+     * Format: `uuid`
+     * @type string | undefined
     */
-    serviceId?: number;
+    serviceId?: string;
     serviceName?: string;
     status?: string;
     /**

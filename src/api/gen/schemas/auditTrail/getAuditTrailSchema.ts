@@ -11,7 +11,7 @@ export const getAuditTrailQueryEntitySchema = z.string()
 
 export type GetAuditTrailQueryEntitySchemaType = z.infer<typeof getAuditTrailQueryEntitySchema>
 
-export const getAuditTrailQueryRecordIdSchema = z.coerce.number()
+export const getAuditTrailQueryRecordIdSchema = z.uuid()
 
 export type GetAuditTrailQueryRecordIdSchemaType = z.infer<typeof getAuditTrailQueryRecordIdSchema>
 
@@ -45,7 +45,7 @@ export type GetAuditTrailErrorSchemaType = z.infer<typeof getAuditTrailErrorSche
 
 export const getAuditTrailQuerySchema = z.object({
   entity: z.string(),
-  recordId: z.coerce.number(),
+  recordId: z.uuid(),
 })
 
 export type GetAuditTrailQuerySchemaType = z.infer<typeof getAuditTrailQuerySchema>

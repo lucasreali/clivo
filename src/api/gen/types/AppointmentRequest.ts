@@ -6,22 +6,22 @@
 export type AppointmentRequest = {
     /**
      * @description
-     * Format: `int64`
-     * @type integer
+     * Format: `uuid`
+     * @type string
     */
-    customerId: number;
+    customerId: string;
     /**
      * @description
-     * Format: `int64`
-     * @type integer
+     * Format: `uuid`
+     * @type string
     */
-    practitionerId: number;
+    practitionerId: string;
     /**
      * @description
-     * Format: `int64`
-     * @type integer
+     * Format: `uuid`
+     * @type string
     */
-    serviceId: number;
+    serviceId: string;
     /**
      * @description
      * Format: `date-time`

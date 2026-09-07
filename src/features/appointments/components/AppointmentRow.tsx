@@ -67,7 +67,7 @@ function AppointmentActions({
 }: ActionsProps) {
 	const { checkIn, markNoShow } = useAppointmentActions();
 	const encounter = useStartEncounter();
-	const id = appointment.id as number;
+	const id = appointment.id as string;
 
 	if (awaitsArrival(appointment.status)) {
 		return (

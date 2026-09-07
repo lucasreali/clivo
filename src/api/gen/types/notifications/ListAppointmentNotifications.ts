@@ -9,10 +9,10 @@ import type { NotificationView } from '../NotificationView'
 export type ListAppointmentNotificationsQuery = {
     /**
      * @description
-     * Format: `int64`
-     * @type integer
+     * Format: `uuid`
+     * @type string
     */
-    appointmentId: number;
+    appointmentId: string;
 };
 
 export type ListAppointmentNotificationsStatus200 = NotificationView[];

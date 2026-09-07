@@ -7,7 +7,7 @@ import * as z from 'zod'
 
 export const paymentViewSchema = z.object({
   amount: z.number().optional(),
-  id: z.coerce.number().optional(),
+  id: z.uuid().optional(),
   method: z.string().optional(),
   paidAt: z.iso.datetime().optional(),
   refundReason: z.string().optional(),

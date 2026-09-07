@@ -6,10 +6,10 @@
 export type BatchChoiceView = {
     /**
      * @description
-     * Format: `int64`
-     * @type integer | undefined
+     * Format: `uuid`
+     * @type string | undefined
     */
-    batchId?: number;
+    batchId?: string;
     code?: string;
     warning?: string;
 };

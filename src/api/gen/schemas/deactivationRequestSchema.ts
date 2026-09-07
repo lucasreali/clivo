@@ -6,7 +6,7 @@
 import * as z from 'zod'
 
 export const deactivationRequestSchema = z.object({
-  reason: z.string().optional(),
+  reason: z.string().min(0).max(200),
 })
 
 export type DeactivationRequestSchemaType = z.infer<typeof deactivationRequestSchema>

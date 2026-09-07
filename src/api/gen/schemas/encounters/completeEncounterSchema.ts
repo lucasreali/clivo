@@ -7,7 +7,7 @@ import * as z from 'zod'
 import { encounterViewSchema } from '../encounterViewSchema'
 import { errorResponseSchema } from '../errorResponseSchema'
 
-export const completeEncounterPathIdSchema = z.coerce.number()
+export const completeEncounterPathIdSchema = z.uuid()
 
 export type CompleteEncounterPathIdSchemaType = z.infer<typeof completeEncounterPathIdSchema>
 
@@ -40,7 +40,7 @@ export const completeEncounterErrorSchema = z.union([completeEncounterStatus401S
 export type CompleteEncounterErrorSchemaType = z.infer<typeof completeEncounterErrorSchema>
 
 export const completeEncounterPathSchema = z.object({
-  id: z.coerce.number(),
+  id: z.uuid(),
 })
 
 export type CompleteEncounterPathSchemaType = z.infer<typeof completeEncounterPathSchema>

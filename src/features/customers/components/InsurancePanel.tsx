@@ -11,7 +11,7 @@ import { Field, Select, TextInput } from "#/shared/ui/Field";
 import { Panel, PanelHeader } from "#/shared/ui/Panel";
 
 type InsurancePanelProps = {
-	customerId: number;
+	customerId: string;
 };
 
 export function InsurancePanel({ customerId }: InsurancePanelProps) {
@@ -35,7 +35,7 @@ export function InsurancePanel({ customerId }: InsurancePanelProps) {
 	function submit(event: React.FormEvent) {
 		event.preventDefault();
 		enrol.mutate({
-			body: { customerId, planId: Number(planId), memberNumber },
+			body: { customerId, planId, memberNumber },
 		});
 	}
 

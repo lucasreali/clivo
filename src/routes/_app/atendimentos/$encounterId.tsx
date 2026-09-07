@@ -7,5 +7,5 @@ export const Route = createFileRoute("/_app/atendimentos/$encounterId")({
 
 function EncounterPage() {
 	const { encounterId } = Route.useParams();
-	return <EncounterRecord encounterId={Number(encounterId)} />;
+	return <EncounterRecord encounterId={encounterId} />;
 }

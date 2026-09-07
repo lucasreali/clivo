@@ -9,10 +9,10 @@ import type { InvoiceView } from '../InvoiceView'
 export type ListInvoicesByCustomerQuery = {
     /**
      * @description
-     * Format: `int64`
-     * @type integer
+     * Format: `uuid`
+     * @type string
     */
-    customerId: number;
+    customerId: string;
 };
 
 export type ListInvoicesByCustomerStatus200 = InvoiceView[];

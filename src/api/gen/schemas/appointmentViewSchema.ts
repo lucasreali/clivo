@@ -6,14 +6,14 @@
 import * as z from 'zod'
 
 export const appointmentViewSchema = z.object({
-  customerId: z.coerce.number().optional(),
+  customerId: z.uuid().optional(),
   customerName: z.string().optional(),
   end: z.iso.datetime().optional(),
-  id: z.coerce.number().optional(),
-  practitionerId: z.coerce.number().optional(),
+  id: z.uuid().optional(),
+  practitionerId: z.uuid().optional(),
   practitionerName: z.string().optional(),
   reason: z.string().optional(),
-  serviceId: z.coerce.number().optional(),
+  serviceId: z.uuid().optional(),
   serviceName: z.string().optional(),
   start: z.iso.datetime().optional(),
   status: z.string().optional(),

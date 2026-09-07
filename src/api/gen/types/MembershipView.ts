@@ -8,16 +8,16 @@ import type { PlanView } from './PlanView'
 export type MembershipView = {
     /**
      * @description
-     * Format: `int64`
-     * @type integer | undefined
+     * Format: `uuid`
+     * @type string | undefined
     */
-    customerId?: number;
+    customerId?: string;
     /**
      * @description
-     * Format: `int64`
-     * @type integer | undefined
+     * Format: `uuid`
+     * @type string | undefined
     */
-    id?: number;
+    id?: string;
     memberNumber?: string;
     plan?: PlanView;
 };

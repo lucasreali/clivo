@@ -7,5 +7,5 @@ export const Route = createFileRoute("/_app/clientes/$customerId/historico")({
 
 function CustomerHistoryPage() {
 	const { customerId } = Route.useParams();
-	return <CustomerHistory customerId={Number(customerId)} />;
+	return <CustomerHistory customerId={customerId} />;
 }

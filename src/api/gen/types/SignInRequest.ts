@@ -4,7 +4,6 @@
 */
 
 export type SignInRequest = {
-    clinic?: string;
     /**
      * @description
      * Format: `email`

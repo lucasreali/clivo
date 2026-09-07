@@ -8,7 +8,7 @@ import { appointmentViewSchema } from '../appointmentViewSchema'
 import { errorResponseSchema } from '../errorResponseSchema'
 import { reasonRequestSchema } from '../reasonRequestSchema'
 
-export const cancelAppointmentPathIdSchema = z.coerce.number()
+export const cancelAppointmentPathIdSchema = z.uuid()
 
 export type CancelAppointmentPathIdSchemaType = z.infer<typeof cancelAppointmentPathIdSchema>
 
@@ -49,7 +49,7 @@ export const cancelAppointmentBodySchema = reasonRequestSchema
 export type CancelAppointmentBodySchemaType = z.infer<typeof cancelAppointmentBodySchema>
 
 export const cancelAppointmentPathSchema = z.object({
-  id: z.coerce.number(),
+  id: z.uuid(),
 })
 
 export type CancelAppointmentPathSchemaType = z.infer<typeof cancelAppointmentPathSchema>

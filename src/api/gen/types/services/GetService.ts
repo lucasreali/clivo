@@ -9,10 +9,10 @@ import type { ServiceView } from '../ServiceView'
 export type GetServicePath = {
     /**
      * @description
-     * Format: `int64`
-     * @type integer
+     * Format: `uuid`
+     * @type string
     */
-    id: number;
+    id: string;
 };
 
 export type GetServiceStatus200 = ServiceView;

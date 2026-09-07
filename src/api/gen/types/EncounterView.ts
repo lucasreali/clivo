@@ -8,10 +8,10 @@ import type { RecordSheet } from './RecordSheet'
 export type EncounterView = {
     /**
      * @description
-     * Format: `int64`
-     * @type integer | undefined
+     * Format: `uuid`
+     * @type string | undefined
     */
-    appointmentId?: number;
+    appointmentId?: string;
     /**
      * @description
      * Format: `date-time`
@@ -20,30 +20,30 @@ export type EncounterView = {
     completedAt?: string;
     /**
      * @description
-     * Format: `int64`
-     * @type integer | undefined
+     * Format: `uuid`
+     * @type string | undefined
     */
-    customerId?: number;
+    customerId?: string;
     customerName?: string;
     /**
      * @description
-     * Format: `int64`
-     * @type integer | undefined
+     * Format: `uuid`
+     * @type string | undefined
     */
-    id?: number;
+    id?: string;
     /**
      * @description
-     * Format: `int64`
-     * @type integer | undefined
+     * Format: `uuid`
+     * @type string | undefined
     */
-    practitionerId?: number;
+    practitionerId?: string;
     practitionerName?: string;
     /**
      * @description
-     * Format: `int64`
-     * @type integer | undefined
+     * Format: `uuid`
+     * @type string | undefined
     */
-    serviceId?: number;
+    serviceId?: string;
     serviceName?: string;
     sheet?: RecordSheet;
     /**

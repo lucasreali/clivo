@@ -7,7 +7,7 @@ import * as z from 'zod'
 import { errorResponseSchema } from '../errorResponseSchema'
 import { packageViewSchema } from '../packageViewSchema'
 
-export const listCustomerSessionPackagesQueryCustomerIdSchema = z.coerce.number()
+export const listCustomerSessionPackagesQueryCustomerIdSchema = z.uuid()
 
 export type ListCustomerSessionPackagesQueryCustomerIdSchemaType = z.infer<typeof listCustomerSessionPackagesQueryCustomerIdSchema>
 
@@ -40,7 +40,7 @@ export const listCustomerSessionPackagesErrorSchema = z.union([listCustomerSessi
 export type ListCustomerSessionPackagesErrorSchemaType = z.infer<typeof listCustomerSessionPackagesErrorSchema>
 
 export const listCustomerSessionPackagesQuerySchema = z.object({
-  customerId: z.coerce.number(),
+  customerId: z.uuid(),
 })
 
 export type ListCustomerSessionPackagesQuerySchemaType = z.infer<typeof listCustomerSessionPackagesQuerySchema>

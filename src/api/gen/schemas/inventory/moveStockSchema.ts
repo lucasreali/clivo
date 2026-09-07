@@ -8,7 +8,7 @@ import { errorResponseSchema } from '../errorResponseSchema'
 import { productViewSchema } from '../productViewSchema'
 import { stockEntryRequestSchema } from '../stockEntryRequestSchema'
 
-export const moveStockPathIdSchema = z.coerce.number()
+export const moveStockPathIdSchema = z.uuid()
 
 export type MoveStockPathIdSchemaType = z.infer<typeof moveStockPathIdSchema>
 
@@ -49,7 +49,7 @@ export const moveStockBodySchema = stockEntryRequestSchema
 export type MoveStockBodySchemaType = z.infer<typeof moveStockBodySchema>
 
 export const moveStockPathSchema = z.object({
-  id: z.coerce.number(),
+  id: z.uuid(),
 })
 
 export type MoveStockPathSchemaType = z.infer<typeof moveStockPathSchema>

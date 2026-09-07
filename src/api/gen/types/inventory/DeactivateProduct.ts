@@ -9,10 +9,10 @@ import type { ProductView } from '../ProductView'
 export type DeactivateProductPath = {
     /**
      * @description
-     * Format: `int64`
-     * @type integer
+     * Format: `uuid`
+     * @type string
     */
-    id: number;
+    id: string;
 };
 
 export type DeactivateProductStatus200 = ProductView;

@@ -7,7 +7,7 @@ import * as z from 'zod'
 import { errorResponseSchema } from '../errorResponseSchema'
 import { productViewSchema } from '../productViewSchema'
 
-export const deactivateProductPathIdSchema = z.coerce.number()
+export const deactivateProductPathIdSchema = z.uuid()
 
 export type DeactivateProductPathIdSchemaType = z.infer<typeof deactivateProductPathIdSchema>
 
@@ -40,7 +40,7 @@ export const deactivateProductErrorSchema = z.union([deactivateProductStatus401S
 export type DeactivateProductErrorSchemaType = z.infer<typeof deactivateProductErrorSchema>
 
 export const deactivateProductPathSchema = z.object({
-  id: z.coerce.number(),
+  id: z.uuid(),
 })
 
 export type DeactivateProductPathSchemaType = z.infer<typeof deactivateProductPathSchema>

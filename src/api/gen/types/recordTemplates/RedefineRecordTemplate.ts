@@ -10,10 +10,10 @@ import type { RecordTemplateView } from '../RecordTemplateView'
 export type RedefineRecordTemplatePath = {
     /**
      * @description
-     * Format: `int64`
-     * @type integer
+     * Format: `uuid`
+     * @type string
     */
-    id: number;
+    id: string;
 };
 
 export type RedefineRecordTemplateStatus200 = RecordTemplateView;

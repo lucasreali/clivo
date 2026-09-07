@@ -7,7 +7,7 @@ import * as z from 'zod'
 import { errorResponseSchema } from '../errorResponseSchema'
 import { invoiceViewSchema } from '../invoiceViewSchema'
 
-export const getInvoicePathIdSchema = z.coerce.number()
+export const getInvoicePathIdSchema = z.uuid()
 
 export type GetInvoicePathIdSchemaType = z.infer<typeof getInvoicePathIdSchema>
 
@@ -40,7 +40,7 @@ export const getInvoiceErrorSchema = z.union([getInvoiceStatus401Schema, getInvo
 export type GetInvoiceErrorSchemaType = z.infer<typeof getInvoiceErrorSchema>
 
 export const getInvoicePathSchema = z.object({
-  id: z.coerce.number(),
+  id: z.uuid(),
 })
 
 export type GetInvoicePathSchemaType = z.infer<typeof getInvoicePathSchema>

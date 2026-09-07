@@ -8,7 +8,7 @@ import { consentRequestSchema } from '../consentRequestSchema'
 import { customerViewSchema } from '../customerViewSchema'
 import { errorResponseSchema } from '../errorResponseSchema'
 
-export const recordCustomerConsentPathIdSchema = z.coerce.number()
+export const recordCustomerConsentPathIdSchema = z.uuid()
 
 export type RecordCustomerConsentPathIdSchemaType = z.infer<typeof recordCustomerConsentPathIdSchema>
 
@@ -49,7 +49,7 @@ export const recordCustomerConsentBodySchema = consentRequestSchema
 export type RecordCustomerConsentBodySchemaType = z.infer<typeof recordCustomerConsentBodySchema>
 
 export const recordCustomerConsentPathSchema = z.object({
-  id: z.coerce.number(),
+  id: z.uuid(),
 })
 
 export type RecordCustomerConsentPathSchemaType = z.infer<typeof recordCustomerConsentPathSchema>

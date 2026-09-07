@@ -10,7 +10,6 @@ import { Field, TextInput } from "#/shared/ui/Field";
 export function SignInForm() {
 	const [email, setEmail] = useState("");
 	const [password, setPassword] = useState("");
-	const [clinic, setClinic] = useState("");
 	const queryClient = useQueryClient();
 	const navigate = useNavigate();
 
@@ -25,7 +24,7 @@ export function SignInForm() {
 
 	function submit(event: React.FormEvent) {
 		event.preventDefault();
-		signIn.mutate({ body: { email, password, clinic: clinic || undefined } });
+		signIn.mutate({ body: { email, password } });
 	}
 
 	return (
@@ -65,19 +64,6 @@ export function SignInForm() {
 						value={password}
 						onChange={(event) => setPassword(event.target.value)}
 						required
-					/>
-				)}
-			</Field>
-
-			<Field
-				label="Clínica"
-				hint="Informe apenas se o seu acesso atende mais de uma unidade."
-			>
-				{(id) => (
-					<TextInput
-						id={id}
-						value={clinic}
-						onChange={(event) => setClinic(event.target.value)}
 					/>
 				)}
 			</Field>

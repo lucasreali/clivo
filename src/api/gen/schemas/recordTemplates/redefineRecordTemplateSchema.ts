@@ -8,7 +8,7 @@ import { errorResponseSchema } from '../errorResponseSchema'
 import { recordTemplateRequestSchema } from '../recordTemplateRequestSchema'
 import { recordTemplateViewSchema } from '../recordTemplateViewSchema'
 
-export const redefineRecordTemplatePathIdSchema = z.coerce.number()
+export const redefineRecordTemplatePathIdSchema = z.uuid()
 
 export type RedefineRecordTemplatePathIdSchemaType = z.infer<typeof redefineRecordTemplatePathIdSchema>
 
@@ -49,7 +49,7 @@ export const redefineRecordTemplateBodySchema = recordTemplateRequestSchema
 export type RedefineRecordTemplateBodySchemaType = z.infer<typeof redefineRecordTemplateBodySchema>
 
 export const redefineRecordTemplatePathSchema = z.object({
-  id: z.coerce.number(),
+  id: z.uuid(),
 })
 
 export type RedefineRecordTemplatePathSchemaType = z.infer<typeof redefineRecordTemplatePathSchema>

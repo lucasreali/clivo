@@ -8,10 +8,10 @@ export type ProductView = {
     belowMinimum?: boolean;
     /**
      * @description
-     * Format: `int64`
-     * @type integer | undefined
+     * Format: `uuid`
+     * @type string | undefined
     */
-    id?: number;
+    id?: string;
     minStock?: number;
     name?: string;
     onHand?: number;

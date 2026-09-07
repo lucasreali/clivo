@@ -9,10 +9,10 @@ import type { PackageView } from '../PackageView'
 export type ListCustomerSessionPackagesQuery = {
     /**
      * @description
-     * Format: `int64`
-     * @type integer
+     * Format: `uuid`
+     * @type string
     */
-    customerId: number;
+    customerId: string;
 };
 
 export type ListCustomerSessionPackagesStatus200 = PackageView[];

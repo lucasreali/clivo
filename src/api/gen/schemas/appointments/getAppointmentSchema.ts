@@ -7,7 +7,7 @@ import * as z from 'zod'
 import { appointmentViewSchema } from '../appointmentViewSchema'
 import { errorResponseSchema } from '../errorResponseSchema'
 
-export const getAppointmentPathIdSchema = z.coerce.number()
+export const getAppointmentPathIdSchema = z.uuid()
 
 export type GetAppointmentPathIdSchemaType = z.infer<typeof getAppointmentPathIdSchema>
 
@@ -40,7 +40,7 @@ export const getAppointmentErrorSchema = z.union([getAppointmentStatus401Schema,
 export type GetAppointmentErrorSchemaType = z.infer<typeof getAppointmentErrorSchema>
 
 export const getAppointmentPathSchema = z.object({
-  id: z.coerce.number(),
+  id: z.uuid(),
 })
 
 export type GetAppointmentPathSchemaType = z.infer<typeof getAppointmentPathSchema>

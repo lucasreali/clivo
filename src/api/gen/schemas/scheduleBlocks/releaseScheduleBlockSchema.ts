@@ -6,7 +6,7 @@
 import * as z from 'zod'
 import { errorResponseSchema } from '../errorResponseSchema'
 
-export const releaseScheduleBlockPathIdSchema = z.coerce.number()
+export const releaseScheduleBlockPathIdSchema = z.uuid()
 
 export type ReleaseScheduleBlockPathIdSchemaType = z.infer<typeof releaseScheduleBlockPathIdSchema>
 
@@ -39,7 +39,7 @@ export const releaseScheduleBlockErrorSchema = z.union([releaseScheduleBlockStat
 export type ReleaseScheduleBlockErrorSchemaType = z.infer<typeof releaseScheduleBlockErrorSchema>
 
 export const releaseScheduleBlockPathSchema = z.object({
-  id: z.coerce.number(),
+  id: z.uuid(),
 })
 
 export type ReleaseScheduleBlockPathSchemaType = z.infer<typeof releaseScheduleBlockPathSchema>

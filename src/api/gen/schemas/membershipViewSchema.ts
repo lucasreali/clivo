@@ -7,8 +7,8 @@ import * as z from 'zod'
 import { planViewSchema } from './planViewSchema'
 
 export const membershipViewSchema = z.object({
-  customerId: z.coerce.number().optional(),
-  id: z.coerce.number().optional(),
+  customerId: z.uuid().optional(),
+  id: z.uuid().optional(),
   memberNumber: z.string().optional(),
   plan: planViewSchema.optional(),
 })

@@ -8,10 +8,10 @@ import type { SectionView } from './SectionView'
 export type RecordTemplateView = {
     /**
      * @description
-     * Format: `int64`
-     * @type integer | undefined
+     * Format: `uuid`
+     * @type string | undefined
     */
-    id?: number;
+    id?: string;
     name?: string;
     requiresModule?: string;
     sections?: SectionView[];

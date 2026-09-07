@@ -10,10 +10,10 @@ export type InvoiceView = {
     coverage?: string;
     /**
      * @description
-     * Format: `int64`
-     * @type integer | undefined
+     * Format: `uuid`
+     * @type string | undefined
     */
-    customerId?: number;
+    customerId?: string;
     customerName?: string;
     discount?: number;
     discountReason?: string;
@@ -25,17 +25,17 @@ export type InvoiceView = {
     dueDate?: string;
     /**
      * @description
-     * Format: `int64`
-     * @type integer | undefined
+     * Format: `uuid`
+     * @type string | undefined
     */
-    encounterId?: number;
+    encounterId?: string;
     grossAmount?: number;
     /**
      * @description
-     * Format: `int64`
-     * @type integer | undefined
+     * Format: `uuid`
+     * @type string | undefined
     */
-    id?: number;
+    id?: string;
     lines?: LineView[];
     netAmount?: number;
     outstandingBalance?: number;

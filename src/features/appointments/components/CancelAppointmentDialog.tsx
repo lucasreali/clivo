@@ -32,7 +32,7 @@ export function CancelAppointmentDialog({
 	function confirm() {
 		cancel.mutate(
 			{
-				path: { id: appointment.id as number },
+				path: { id: appointment.id as string },
 				body: { reason: note ? `${reason} — ${note}` : reason },
 			},
 			{ onSuccess: onClose },

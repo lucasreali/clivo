@@ -30,7 +30,7 @@ export function useStartEncounter() {
 				customerId: appointment.customerId,
 				practitionerId: appointment.practitionerId,
 				serviceId: appointment.serviceId,
-				recordTemplateId: capabilities.parameters.number(DEFAULT_TEMPLATE, 1),
+				recordTemplateId: capabilities.parameters.text(DEFAULT_TEMPLATE, ""),
 			},
 		});
 	}

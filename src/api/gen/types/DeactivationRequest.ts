@@ -4,5 +4,10 @@
 */
 
 export type DeactivationRequest = {
-    reason?: string;
+    /**
+     * @minLength 0
+     * @maxLength 200
+     * @type string
+    */
+    reason: string;
 };

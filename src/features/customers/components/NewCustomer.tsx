@@ -27,7 +27,7 @@ export function NewCustomer() {
 	const register = useRegisterCustomer({
 		mutation: {
 			onSuccess: async (customer) => {
-				await grantConsent(customer.id as number);
+				await grantConsent(customer.id as string);
 				await navigate({
 					to: "/clientes/$customerId",
 					params: { customerId: String(customer.id) },
@@ -36,7 +36,7 @@ export function NewCustomer() {
 		},
 	});
 
-	async function grantConsent(customerId: number) {
+	async function grantConsent(customerId: string) {
 		if (!consented) {
 			return;
 		}

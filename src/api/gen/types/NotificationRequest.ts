@@ -6,10 +6,10 @@
 export type NotificationRequest = {
     /**
      * @description
-     * Format: `int64`
-     * @type integer
+     * Format: `uuid`
+     * @type string
     */
-    appointmentId: number;
+    appointmentId: string;
     /**
      * @minLength 1
      * @type string

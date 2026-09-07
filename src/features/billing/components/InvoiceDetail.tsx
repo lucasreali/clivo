@@ -27,7 +27,7 @@ const METHODS: { value: PaymentRequestMethodEnumKey; label: string }[] = [
 ];
 
 type InvoiceDetailProps = {
-	invoiceId: number;
+	invoiceId: string;
 };
 
 export function InvoiceDetail({ invoiceId }: InvoiceDetailProps) {

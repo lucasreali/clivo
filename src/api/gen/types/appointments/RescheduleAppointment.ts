@@ -10,10 +10,10 @@ import type { RescheduleRequest } from '../RescheduleRequest'
 export type RescheduleAppointmentPath = {
     /**
      * @description
-     * Format: `int64`
-     * @type integer
+     * Format: `uuid`
+     * @type string
     */
-    id: number;
+    id: string;
 };
 
 export type RescheduleAppointmentStatus200 = AppointmentView;

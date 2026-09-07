@@ -9,10 +9,10 @@ import type { ErrorResponse } from '../ErrorResponse'
 export type GetDependentPath = {
     /**
      * @description
-     * Format: `int64`
-     * @type integer
+     * Format: `uuid`
+     * @type string
     */
-    id: number;
+    id: string;
 };
 
 export type GetDependentStatus200 = DependentView;

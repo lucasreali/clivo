@@ -7,7 +7,7 @@ import * as z from 'zod'
 
 export const scheduleBlockRequestSchema = z.object({
   end: z.iso.datetime(),
-  practitionerId: z.coerce.number().optional(),
+  practitionerId: z.uuid().optional(),
   reason: z.string().optional(),
   start: z.iso.datetime(),
 })

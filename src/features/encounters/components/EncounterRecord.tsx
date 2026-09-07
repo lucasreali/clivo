@@ -21,7 +21,7 @@ import {
 import { SheetFieldControl } from "./fields/SheetFieldControl";
 
 type EncounterRecordProps = {
-	encounterId: number;
+	encounterId: string;
 };
 
 export function EncounterRecord({ encounterId }: EncounterRecordProps) {

@@ -9,10 +9,10 @@ import type { PractitionerView } from '../PractitionerView'
 export type GetPractitionerPath = {
     /**
      * @description
-     * Format: `int64`
-     * @type integer
+     * Format: `uuid`
+     * @type string
     */
-    id: number;
+    id: string;
 };
 
 export type GetPractitionerStatus200 = PractitionerView;

@@ -10,10 +10,10 @@ import type { InvoiceView } from '../InvoiceView'
 export type ApplyInvoiceDiscountPath = {
     /**
      * @description
-     * Format: `int64`
-     * @type integer
+     * Format: `uuid`
+     * @type string
     */
-    id: number;
+    id: string;
 };
 
 export type ApplyInvoiceDiscountStatus200 = InvoiceView;

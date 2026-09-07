@@ -10,10 +10,10 @@ export type GetAuditTrailQuery = {
     entity: string;
     /**
      * @description
-     * Format: `int64`
-     * @type integer
+     * Format: `uuid`
+     * @type string
     */
-    recordId: number;
+    recordId: string;
 };
 
 export type GetAuditTrailStatus200 = AuditEntryView[];

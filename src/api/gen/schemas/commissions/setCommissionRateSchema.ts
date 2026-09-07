@@ -8,7 +8,7 @@ import { errorResponseSchema } from '../errorResponseSchema'
 import { rateRequestSchema } from '../rateRequestSchema'
 import { rateViewSchema } from '../rateViewSchema'
 
-export const setCommissionRatePathPractitionerIdSchema = z.coerce.number()
+export const setCommissionRatePathPractitionerIdSchema = z.uuid()
 
 export type SetCommissionRatePathPractitionerIdSchemaType = z.infer<typeof setCommissionRatePathPractitionerIdSchema>
 
@@ -49,7 +49,7 @@ export const setCommissionRateBodySchema = rateRequestSchema
 export type SetCommissionRateBodySchemaType = z.infer<typeof setCommissionRateBodySchema>
 
 export const setCommissionRatePathSchema = z.object({
-  practitionerId: z.coerce.number(),
+  practitionerId: z.uuid(),
 })
 
 export type SetCommissionRatePathSchemaType = z.infer<typeof setCommissionRatePathSchema>

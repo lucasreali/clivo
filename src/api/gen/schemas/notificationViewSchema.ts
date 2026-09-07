@@ -6,10 +6,10 @@
 import * as z from 'zod'
 
 export const notificationViewSchema = z.object({
-  appointmentId: z.coerce.number().optional(),
+  appointmentId: z.uuid().optional(),
   appointmentStart: z.iso.datetime().optional(),
   channel: z.string().optional(),
-  id: z.coerce.number().optional(),
+  id: z.uuid().optional(),
   recipient: z.string().optional(),
   reply: z.string().optional(),
   sentAt: z.iso.datetime().optional(),

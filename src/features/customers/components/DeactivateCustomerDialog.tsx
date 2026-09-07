@@ -40,7 +40,7 @@ export function DeactivateCustomerDialog({
 
 	function confirm() {
 		deactivate.mutate({
-			path: { id: customer.id as number },
+			path: { id: customer.id as string },
 			body: { reason: detail ? `${reason} — ${detail}` : reason },
 		});
 	}

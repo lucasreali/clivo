@@ -9,10 +9,10 @@ import type { InvoiceView } from '../InvoiceView'
 export type GetInvoicePath = {
     /**
      * @description
-     * Format: `int64`
-     * @type integer
+     * Format: `uuid`
+     * @type string
     */
-    id: number;
+    id: string;
 };
 
 export type GetInvoiceStatus200 = InvoiceView;

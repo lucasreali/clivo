@@ -7,14 +7,14 @@ import * as z from 'zod'
 import { recordSheetSchema } from './recordSheetSchema'
 
 export const encounterViewSchema = z.object({
-  appointmentId: z.coerce.number().optional(),
+  appointmentId: z.uuid().optional(),
   completedAt: z.iso.datetime().optional(),
-  customerId: z.coerce.number().optional(),
+  customerId: z.uuid().optional(),
   customerName: z.string().optional(),
-  id: z.coerce.number().optional(),
-  practitionerId: z.coerce.number().optional(),
+  id: z.uuid().optional(),
+  practitionerId: z.uuid().optional(),
   practitionerName: z.string().optional(),
-  serviceId: z.coerce.number().optional(),
+  serviceId: z.uuid().optional(),
   serviceName: z.string().optional(),
   sheet: recordSheetSchema.optional(),
   startedAt: z.iso.datetime().optional(),

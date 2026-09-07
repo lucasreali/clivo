@@ -4,12 +4,13 @@
 */
 
 import * as z from 'zod'
+import { clinicViewSchema } from './clinicViewSchema'
 
 export const sessionViewSchema = z.object({
-  clinicId: z.coerce.number().optional(),
+  clinic: clinicViewSchema.optional(),
   name: z.string().optional(),
   role: z.string().optional(),
-  userId: z.coerce.number().optional(),
+  userId: z.uuid().optional(),
 })
 
 export type SessionViewSchemaType = z.infer<typeof sessionViewSchema>

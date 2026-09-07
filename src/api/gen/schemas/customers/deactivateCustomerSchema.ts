@@ -8,7 +8,7 @@ import { customerViewSchema } from '../customerViewSchema'
 import { deactivationRequestSchema } from '../deactivationRequestSchema'
 import { errorResponseSchema } from '../errorResponseSchema'
 
-export const deactivateCustomerPathIdSchema = z.coerce.number()
+export const deactivateCustomerPathIdSchema = z.uuid()
 
 export type DeactivateCustomerPathIdSchemaType = z.infer<typeof deactivateCustomerPathIdSchema>
 
@@ -49,7 +49,7 @@ export const deactivateCustomerBodySchema = deactivationRequestSchema
 export type DeactivateCustomerBodySchemaType = z.infer<typeof deactivateCustomerBodySchema>
 
 export const deactivateCustomerPathSchema = z.object({
-  id: z.coerce.number(),
+  id: z.uuid(),
 })
 
 export type DeactivateCustomerPathSchemaType = z.infer<typeof deactivateCustomerPathSchema>

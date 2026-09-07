@@ -14,17 +14,17 @@ export type BatchView = {
     expiresOn?: string;
     /**
      * @description
-     * Format: `int64`
-     * @type integer | undefined
+     * Format: `uuid`
+     * @type string | undefined
     */
-    id?: number;
+    id?: string;
     manufacturer?: string;
     /**
      * @description
-     * Format: `int64`
-     * @type integer | undefined
+     * Format: `uuid`
+     * @type string | undefined
     */
-    productId?: number;
+    productId?: string;
     productName?: string;
     quantity?: number;
     status?: string;

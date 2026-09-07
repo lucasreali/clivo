@@ -9,14 +9,14 @@ import { paymentViewSchema } from './paymentViewSchema'
 
 export const invoiceViewSchema = z.object({
   coverage: z.string().optional(),
-  customerId: z.coerce.number().optional(),
+  customerId: z.uuid().optional(),
   customerName: z.string().optional(),
   discount: z.number().optional(),
   discountReason: z.string().optional(),
   dueDate: z.iso.date().optional(),
-  encounterId: z.coerce.number().optional(),
+  encounterId: z.uuid().optional(),
   grossAmount: z.number().optional(),
-  id: z.coerce.number().optional(),
+  id: z.uuid().optional(),
   lines: z.array(lineViewSchema).optional(),
   netAmount: z.number().optional(),
   outstandingBalance: z.number().optional(),

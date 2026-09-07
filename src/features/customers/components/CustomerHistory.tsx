@@ -14,7 +14,7 @@ import { EmptyState } from "#/shared/ui/EmptyState";
 import { Panel, PanelHeader } from "#/shared/ui/Panel";
 
 type CustomerHistoryProps = {
-	customerId: number;
+	customerId: string;
 };
 
 export function CustomerHistory({ customerId }: CustomerHistoryProps) {
