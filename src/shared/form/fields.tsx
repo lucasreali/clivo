@@ -7,7 +7,16 @@ import { useFieldContext } from "./context";
 
 type Issue = { message: string };
 
+/**
+ * The schema judges the whole draft at once, so a field the typist has not
+ * reached yet already carries a message. Only a field they have touched — or
+ * every field, once they have tried to submit — is allowed to show it.
+ */
 function errorOf(field: AnyFieldApi) {
+	if (!field.state.meta.isTouched) {
+		return undefined;
+	}
+
 	const [issue]: Array<Issue | undefined> = field.state.meta.errors;
 	return issue?.message;
 }
