@@ -8,12 +8,18 @@ import { useFieldContext } from "./context";
 type Issue = { message: string };
 
 /**
- * The schema judges the whole draft at once, so a field the typist has not
- * reached yet already carries a message. Only a field they have touched — or
- * every field, once they have tried to submit — is allowed to show it.
+ * The schema judges the whole draft at once, so leaving one field writes a
+ * message onto every other one — including fields the typist has not reached,
+ * whose message is about a value they have since changed. A message is only
+ * current for a field the typist has left, and for every field once they have
+ * tried to submit, from which point each keystroke re-judges the draft.
  */
+function judged(field: AnyFieldApi) {
+	return field.state.meta.isBlurred || field.form.state.submissionAttempts > 0;
+}
+
 function errorOf(field: AnyFieldApi) {
-	if (!field.state.meta.isTouched) {
+	if (!judged(field)) {
 		return undefined;
 	}
 
