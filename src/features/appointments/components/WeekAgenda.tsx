@@ -17,8 +17,8 @@ import {
 } from "#/shared/format/date";
 import { Button } from "#/shared/ui/Button";
 import { cn } from "#/shared/ui/cn";
-import { Select } from "#/shared/ui/Field";
 import { Panel } from "#/shared/ui/Panel";
+import { Select } from "#/shared/ui/Select";
 import { TONE_BLOCK, TONE_DOT, type Tone } from "#/shared/ui/tone";
 import { describeStatus } from "../model/appointment-status";
 import { appointmentAt, blockAt, daysOfWeek, slotsOfDay } from "../model/week";
@@ -73,17 +73,17 @@ export function WeekAgenda() {
 						<WeekPager monday={monday} onChange={setMonday} />
 						<Select
 							value={practitioner}
-							onChange={(event) => setPractitioner(event.target.value)}
+							onChange={setPractitioner}
+							options={[
+								{ value: "", label: "Todos os profissionais" },
+								...(practitioners.data ?? []).map((item) => ({
+									value: String(item.id),
+									label: item.name ?? "Sem nome",
+								})),
+							]}
 							aria-label="Filtrar por profissional"
 							className="h-[34px] w-[220px] text-[13px]"
-						>
-							<option value="">Todos os profissionais</option>
-							{(practitioners.data ?? []).map((item) => (
-								<option key={item.id} value={item.id}>
-									{item.name}
-								</option>
-							))}
-						</Select>
+						/>
 					</div>
 					<div className="flex items-center gap-4 text-[12px] text-muted">
 						{LEGEND.map((entry) => (

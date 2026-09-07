@@ -4,8 +4,9 @@ import { messageOf } from "#/shared/api-error";
 import { clockTime, shortDate } from "#/shared/format/date";
 import { Button } from "#/shared/ui/Button";
 import { Callout } from "#/shared/ui/Callout";
-import { Field, Select, TextArea } from "#/shared/ui/Field";
+import { Field, TextArea } from "#/shared/ui/Field";
 import { Modal } from "#/shared/ui/Modal";
+import { Select } from "#/shared/ui/Select";
 import { useAppointmentActions } from "../hooks/use-appointment-actions";
 
 const REASONS = [
@@ -64,14 +65,12 @@ export function CancelAppointmentDialog({
 					<Select
 						id={id}
 						value={reason}
-						onChange={(event) => setReason(event.target.value)}
-					>
-						{REASONS.map((option) => (
-							<option key={option} value={option}>
-								{option}
-							</option>
-						))}
-					</Select>
+						onChange={setReason}
+						options={REASONS.map((option) => ({
+							value: option,
+							label: option,
+						}))}
+					/>
 				)}
 			</Field>
 

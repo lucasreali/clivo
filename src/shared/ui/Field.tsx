@@ -1,8 +1,6 @@
 import { useId } from "react";
 import { cn } from "./cn";
-
-const CONTROL =
-	"h-[38px] w-full rounded-field border border-line bg-panel px-3 text-[13px] text-ink outline-none focus:border-brand disabled:bg-surface disabled:text-faint";
+import { CONTROL } from "./control";
 
 type FieldProps = {
 	label: string;
@@ -51,12 +49,6 @@ export function TextArea({ className, ...rest }: TextAreaProps) {
 			{...rest}
 		/>
 	);
-}
-
-type SelectProps = React.ComponentProps<"select">;
-
-export function Select({ className, ...rest }: SelectProps) {
-	return <select className={cn(CONTROL, "pr-8", className)} {...rest} />;
 }
 
 type CheckboxProps = Omit<InputProps, "type"> & { label: React.ReactNode };

@@ -1,11 +1,6 @@
 import type { SheetField } from "#/api/gen/types";
-import {
-	Checkbox,
-	Field,
-	Select,
-	TextArea,
-	TextInput,
-} from "#/shared/ui/Field";
+import { Checkbox, Field, TextArea, TextInput } from "#/shared/ui/Field";
+import { Select } from "#/shared/ui/Select";
 import { MarkedRegionsField } from "./MarkedRegionsField";
 
 type SheetFieldControlProps = {
@@ -75,15 +70,16 @@ export function SheetFieldControl({
 					<Select
 						id={id}
 						value={String(value ?? "")}
-						onChange={(event) => onChange(event.target.value)}
-					>
-						<option value="">Selecione</option>
-						{options.map((option) => (
-							<option key={option} value={option}>
-								{option}
-							</option>
-						))}
-					</Select>
+						onChange={onChange}
+						options={[
+							// An optional sheet field has to stay clearable once answered.
+							...(field.required ? [] : [{ value: "", label: "Selecione" }]),
+							...options.map((option) => ({
+								value: option,
+								label: option,
+							})),
+						]}
+					/>
 				)}
 			</Field>
 		);

@@ -86,14 +86,11 @@ export function InsurancePanel({ customerId }: InsurancePanelProps) {
 					name="planId"
 					label="Operadora"
 					required
-				>
-					<option value="">Selecione</option>
-					{(plans.data ?? []).map((plan) => (
-						<option key={plan.id} value={plan.id}>
-							{plan.name}
-						</option>
-					))}
-				</FormSelectField>
+					options={(plans.data ?? []).map((plan) => ({
+						value: String(plan.id),
+						label: plan.name ?? "Sem nome",
+					}))}
+				/>
 				<FormTextField
 					control={form.control}
 					name="memberNumber"

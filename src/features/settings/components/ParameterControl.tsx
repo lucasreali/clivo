@@ -4,7 +4,8 @@ import {
 	itemsAsValue,
 	selectedItems,
 } from "#/features/capabilities/model/parameter-editor";
-import { Checkbox, Field, Select, TextInput } from "#/shared/ui/Field";
+import { Checkbox, Field, TextInput } from "#/shared/ui/Field";
+import { Select } from "#/shared/ui/Select";
 
 type ParameterControlProps = {
 	parameter: ParameterView;
@@ -62,14 +63,12 @@ export function ParameterControl({
 					<Select
 						id={id}
 						value={value}
-						onChange={(event) => onChange(event.target.value)}
-					>
-						{editor.options.map((option) => (
-							<option key={option} value={option}>
-								{option}
-							</option>
-						))}
-					</Select>
+						onChange={onChange}
+						options={editor.options.map((option) => ({
+							value: option,
+							label: option,
+						}))}
+					/>
 				)}
 			</Field>
 		);

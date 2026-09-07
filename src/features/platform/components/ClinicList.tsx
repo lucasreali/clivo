@@ -7,8 +7,9 @@ import { taxId } from "#/shared/format/document";
 import { Badge } from "#/shared/ui/Badge";
 import { buttonClass } from "#/shared/ui/Button";
 import { EmptyState } from "#/shared/ui/EmptyState";
-import { Select, TextInput } from "#/shared/ui/Field";
+import { TextInput } from "#/shared/ui/Field";
 import { Panel } from "#/shared/ui/Panel";
+import { Select } from "#/shared/ui/Select";
 import { useClinicCatalog } from "../hooks/use-clinics";
 import {
 	CLINIC_SITUATIONS,
@@ -48,17 +49,17 @@ export function ClinicList() {
 						/>
 						<Select
 							value={status}
-							onChange={(event) => setStatus(event.target.value)}
+							onChange={setStatus}
+							options={[
+								{ value: "", label: "Todas as situações" },
+								...CLINIC_SITUATIONS.map((situation) => ({
+									value: situation.status,
+									label: situation.label,
+								})),
+							]}
 							className="h-[34px] w-[180px]"
 							aria-label="Filtrar por situação"
-						>
-							<option value="">Todas as situações</option>
-							{CLINIC_SITUATIONS.map((situation) => (
-								<option key={situation.status} value={situation.status}>
-									{situation.label}
-								</option>
-							))}
-						</Select>
+						/>
 						<span className="ml-auto text-[12px] text-faint">
 							{shown.total()} de {catalog.total()} listadas
 						</span>

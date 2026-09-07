@@ -5,8 +5,8 @@ import { Badge } from "#/shared/ui/Badge";
 import { Button } from "#/shared/ui/Button";
 import { Callout } from "#/shared/ui/Callout";
 import { EmptyState } from "#/shared/ui/EmptyState";
-import { Select } from "#/shared/ui/Field";
 import { Panel, PanelHeader } from "#/shared/ui/Panel";
+import { Select } from "#/shared/ui/Select";
 import { useTeam } from "../hooks/use-team";
 import { labelOfRole, manages, Roles } from "../model/role";
 import { UserAccess } from "./UserAccess";
@@ -106,19 +106,14 @@ function TeamRow({
 				disabled={!user.active || isSaving}
 				aria-label={`Perfil de ${user.name}`}
 				className="h-[32px]"
-				onChange={(event) =>
-					onChangeRole(
-						userId,
-						event.target.value as Parameters<typeof onChangeRole>[1],
-					)
+				options={Roles.assignableByManager().map((option) => ({
+					value: option.role,
+					label: option.label,
+				}))}
+				onChange={(role) =>
+					onChangeRole(userId, role as Parameters<typeof onChangeRole>[1])
 				}
-			>
-				{Roles.assignableByManager().map((option) => (
-					<option key={option.role} value={option.role}>
-						{option.label}
-					</option>
-				))}
-			</Select>
+			/>
 
 			<Badge tone={user.active ? "brand" : "neutral"}>
 				{user.active ? "Ativo" : "Inativo"}

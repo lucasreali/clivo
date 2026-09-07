@@ -5,8 +5,9 @@ import type { CustomerView } from "#/api/gen/types";
 import { messageOf } from "#/shared/api-error";
 import { Button } from "#/shared/ui/Button";
 import { Callout } from "#/shared/ui/Callout";
-import { Field, Select, TextArea } from "#/shared/ui/Field";
+import { Field, TextArea } from "#/shared/ui/Field";
 import { Modal } from "#/shared/ui/Modal";
+import { Select } from "#/shared/ui/Select";
 
 const REASONS = [
 	"Mudou de cidade",
@@ -77,14 +78,12 @@ export function DeactivateCustomerDialog({
 					<Select
 						id={id}
 						value={reason}
-						onChange={(event) => setReason(event.target.value)}
-					>
-						{REASONS.map((option) => (
-							<option key={option} value={option}>
-								{option}
-							</option>
-						))}
-					</Select>
+						onChange={setReason}
+						options={REASONS.map((option) => ({
+							value: option,
+							label: option,
+						}))}
+					/>
 				)}
 			</Field>
 

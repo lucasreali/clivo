@@ -14,8 +14,9 @@ import { money } from "#/shared/format/money";
 import { Badge } from "#/shared/ui/Badge";
 import { Button } from "#/shared/ui/Button";
 import { Callout } from "#/shared/ui/Callout";
-import { Field, Select, TextInput } from "#/shared/ui/Field";
+import { Field, TextInput } from "#/shared/ui/Field";
 import { Panel, PanelHeader } from "#/shared/ui/Panel";
+import { Select } from "#/shared/ui/Select";
 import { describeInvoiceStatus } from "../model/invoice-status";
 
 const METHODS: { value: PaymentRequestMethodEnumKey; label: string }[] = [
@@ -201,16 +202,11 @@ function SettleForm({
 						<Select
 							id={id}
 							value={method}
-							onChange={(event) =>
-								setMethod(event.target.value as PaymentRequestMethodEnumKey)
+							onChange={(chosen) =>
+								setMethod(chosen as PaymentRequestMethodEnumKey)
 							}
-						>
-							{METHODS.map((option) => (
-								<option key={option.value} value={option.value}>
-									{option.label}
-								</option>
-							))}
-						</Select>
+							options={METHODS}
+						/>
 					)}
 				</Field>
 				<Field label="Valor recebido" required>

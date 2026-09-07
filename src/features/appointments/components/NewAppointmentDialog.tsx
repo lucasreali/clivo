@@ -12,8 +12,8 @@ import { FormComboboxField, FormTextField } from "#/shared/form/fields";
 import { nationalId, phone } from "#/shared/format/document";
 import { Button } from "#/shared/ui/Button";
 import { Callout } from "#/shared/ui/Callout";
-import type { ComboboxOption } from "#/shared/ui/Combobox";
 import { Modal } from "#/shared/ui/Modal";
+import type { Option } from "#/shared/ui/options";
 import { useDebounced } from "#/shared/use-debounced";
 import { useAppointmentRefresh } from "../hooks/use-appointment-actions";
 import {
@@ -59,13 +59,13 @@ export function NewAppointmentDialog({
 		schedule.mutate({ body: appointmentRequestOf(values) }),
 	);
 
-	const patients: ComboboxOption[] = (customers.data ?? []).map((customer) => ({
+	const patients: Option[] = (customers.data ?? []).map((customer) => ({
 		value: String(customer.id),
 		label: customer.name ?? "Sem nome",
 		hint: describe(customer.nationalId, customer.phone),
 	}));
 
-	const practitionerOptions: ComboboxOption[] = (practitioners.data ?? []).map(
+	const practitionerOptions: Option[] = (practitioners.data ?? []).map(
 		(practitioner) => ({
 			value: String(practitioner.id),
 			label: practitioner.name ?? "Sem nome",
@@ -73,15 +73,13 @@ export function NewAppointmentDialog({
 		}),
 	);
 
-	const serviceOptions: ComboboxOption[] = (services.data ?? []).map(
-		(service) => ({
-			value: String(service.id),
-			label: service.name ?? "Sem nome",
-			hint: service.durationMinutes
-				? `${service.durationMinutes} min`
-				: undefined,
-		}),
-	);
+	const serviceOptions: Option[] = (services.data ?? []).map((service) => ({
+		value: String(service.id),
+		label: service.name ?? "Sem nome",
+		hint: service.durationMinutes
+			? `${service.durationMinutes} min`
+			: undefined,
+	}));
 
 	return (
 		<Modal

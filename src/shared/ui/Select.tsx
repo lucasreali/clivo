@@ -3,122 +3,119 @@ import { cn } from "./cn";
 import { CONTROL } from "./control";
 import { type Option, OptionItem, OptionList, OptionNotice } from "./options";
 
-type ComboboxProps = {
+type SelectProps = {
 	id?: string;
 	name?: string;
 	value: string;
 	options: readonly Option[];
 	onChange: (value: string) => void;
-	onSearch?: (term: string) => void;
 	onBlur?: () => void;
 	placeholder?: string;
 	emptyMessage?: string;
-	isLoading?: boolean;
 	disabled?: boolean;
 	className?: string;
-	ref?: React.Ref<HTMLInputElement>;
+	"aria-label"?: string;
+	"aria-invalid"?: boolean;
+	ref?: React.Ref<HTMLButtonElement>;
 };
 
-export function Combobox({
+export function Select({
 	id,
 	name,
 	value,
 	options,
 	onChange,
-	onSearch,
 	onBlur,
-	placeholder,
-	emptyMessage = "Nenhum resultado.",
-	isLoading = false,
+	placeholder = "Selecione",
+	emptyMessage = "Nenhuma opção disponível.",
 	disabled = false,
 	className,
 	ref,
-}: ComboboxProps) {
+	...rest
+}: SelectProps) {
 	const listId = useId();
-	const [query, setQuery] = useState("");
 	const [isOpen, setIsOpen] = useState(false);
 	const [highlighted, setHighlighted] = useState(0);
 
 	const chosen = options.find((option) => option.value === value);
-	// A field that searches upstream already receives the matches; one that was
-	// handed the whole list narrows it here, so typing filters either way.
-	const visible = onSearch ? options : options.filter(matching(query));
-	const active = visible[highlighted];
+	const active = options[highlighted];
 
-	function open(term: string) {
-		setQuery(term);
+	function open() {
+		setHighlighted(Math.max(options.indexOf(chosen ?? options[0]), 0));
 		setIsOpen(true);
-		setHighlighted(0);
-		onSearch?.(term);
 	}
 
 	function choose(option: Option) {
 		onChange(option.value);
-		setQuery("");
 		setIsOpen(false);
 	}
 
 	function move(step: number) {
 		setHighlighted((current) =>
-			Math.min(Math.max(current + step, 0), Math.max(visible.length - 1, 0)),
+			Math.min(Math.max(current + step, 0), Math.max(options.length - 1, 0)),
 		);
 	}
 
-	function onKeyDown(event: React.KeyboardEvent<HTMLInputElement>) {
+	function onKeyDown(event: React.KeyboardEvent<HTMLButtonElement>) {
+		if (event.key === "Escape") {
+			setIsOpen(false);
+			return;
+		}
 		if (event.key === "ArrowDown" || event.key === "ArrowUp") {
 			event.preventDefault();
-			setIsOpen(true);
+			if (!isOpen) {
+				open();
+				return;
+			}
 			move(event.key === "ArrowDown" ? 1 : -1);
 			return;
 		}
-		if (event.key === "Enter" && isOpen && active) {
+		if ((event.key === "Enter" || event.key === " ") && isOpen && active) {
 			event.preventDefault();
 			choose(active);
-			return;
-		}
-		if (event.key === "Escape") {
-			setIsOpen(false);
 		}
 	}
 
 	return (
 		<div className="relative">
-			<input
+			<input type="hidden" name={name} value={value} />
+			<button
 				id={id}
-				name={name}
 				ref={ref}
-				type="text"
+				type="button"
 				role="combobox"
-				autoComplete="off"
 				aria-expanded={isOpen}
 				aria-controls={listId}
-				aria-autocomplete="list"
 				aria-activedescendant={
 					isOpen && active ? `${listId}-${active.value}` : undefined
 				}
 				disabled={disabled}
-				placeholder={placeholder}
-				className={cn(CONTROL, className)}
-				value={isOpen ? query : (chosen?.label ?? "")}
-				onChange={(event) => open(event.target.value)}
-				onFocus={() => open("")}
-				onClick={() => setIsOpen(true)}
+				className={cn(
+					CONTROL,
+					"flex items-center justify-between gap-2 text-left",
+					className,
+				)}
+				onClick={() => (isOpen ? setIsOpen(false) : open())}
 				onKeyDown={onKeyDown}
 				onBlur={() => {
 					setIsOpen(false);
 					onBlur?.();
 				}}
-			/>
+				{...rest}
+			>
+				<span className={cn("truncate", !chosen && "text-faint")}>
+					{chosen?.label ?? placeholder}
+				</span>
+				<Chevron />
+			</button>
 
 			{isOpen ? (
 				<OptionList id={listId}>
-					{isLoading ? <OptionNotice>Buscando…</OptionNotice> : null}
-
-					{!isLoading && visible.length === 0 ? (
+					{options.length === 0 ? (
 						<OptionNotice>{emptyMessage}</OptionNotice>
 					) : null}
 
-					{visible.map((option, position) => (
+					{options.map((option, position) => (
 						<OptionItem
 							key={option.value}
 							id={`${listId}-${option.value}`}
@@ -135,9 +132,21 @@ export function Combobox({
 	);
 }
 
-function matching(query: string) {
-	const wanted = query.trim().toLowerCase();
-	return (option: Option) =>
-		wanted === "" ||
-		`${option.label} ${option.hint ?? ""}`.toLowerCase().includes(wanted);
+function Chevron() {
+	return (
+		<svg
+			width="10"
+			height="10"
+			viewBox="0 0 12 12"
+			fill="none"
+			stroke="currentColor"
+			strokeWidth="1.6"
+			strokeLinecap="round"
+			strokeLinejoin="round"
+			className="shrink-0 text-faint"
+			aria-hidden="true"
+		>
+			<path d="M2.5 4.5L6 8L9.5 4.5" />
+		</svg>
+	);
 }

@@ -4,14 +4,10 @@ import {
 	type FieldValues,
 	type Path,
 } from "react-hook-form";
-import { Combobox, type ComboboxOption } from "#/shared/ui/Combobox";
-import {
-	Checkbox,
-	Field,
-	Select,
-	TextArea,
-	TextInput,
-} from "#/shared/ui/Field";
+import { Combobox } from "#/shared/ui/Combobox";
+import { Checkbox, Field, TextArea, TextInput } from "#/shared/ui/Field";
+import type { Option } from "#/shared/ui/options";
+import { Select } from "#/shared/ui/Select";
 
 type FieldProps<TValues extends FieldValues> = {
 	control: Control<TValues>;
@@ -121,7 +117,8 @@ export function FormTextAreaField<TValues extends FieldValues>({
 }
 
 type SelectFieldProps<TValues extends FieldValues> = FieldProps<TValues> & {
-	children: React.ReactNode;
+	options: readonly Option[];
+	placeholder?: string;
 };
 
 export function FormSelectField<TValues extends FieldValues>({
@@ -131,7 +128,7 @@ export function FormSelectField<TValues extends FieldValues>({
 	required,
 	hint,
 	disabled,
-	children,
+	...select
 }: SelectFieldProps<TValues>) {
 	return (
 		<Controller
@@ -146,6 +143,7 @@ export function FormSelectField<TValues extends FieldValues>({
 				>
 					{(id) => (
 						<Select
+							{...select}
 							id={id}
 							name={field.name}
 							ref={field.ref}
@@ -154,9 +152,7 @@ export function FormSelectField<TValues extends FieldValues>({
 							onBlur={field.onBlur}
 							onChange={field.onChange}
 							aria-invalid={fieldState.invalid}
-						>
-							{children}
-						</Select>
+						/>
 					)}
 				</Field>
 			)}
@@ -204,7 +200,7 @@ export function FormCheckboxField<TValues extends FieldValues>({
 }
 
 type ComboboxFieldProps<TValues extends FieldValues> = FieldProps<TValues> & {
-	options: readonly ComboboxOption[];
+	options: readonly Option[];
 	onSearch?: (term: string) => void;
 	placeholder?: string;
 	emptyMessage?: string;
