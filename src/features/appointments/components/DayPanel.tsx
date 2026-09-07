@@ -75,7 +75,7 @@ export function DayPanel() {
 					))}
 				</div>
 
-				<Panel className="overflow-hidden">
+				<Panel className="overflow-x-clip">
 					<div className="flex items-center justify-between gap-4 border-b border-line px-4 py-3">
 						<div className="flex flex-wrap items-center gap-2">
 							<span className="mr-0.5 text-[12.5px] text-muted">

@@ -78,7 +78,7 @@ export function CustomerList() {
 					</button>
 				</div>
 
-				<Panel className="overflow-hidden">
+				<Panel className="overflow-x-clip">
 					<div
 						className={cn(
 							"grid border-b border-line bg-surface px-4 py-2.5 text-[11.5px] tracking-[0.3px] text-muted uppercase",
