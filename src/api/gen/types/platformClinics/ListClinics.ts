@@ -8,6 +8,8 @@ import type { ErrorResponse } from '../ErrorResponse'
 
 export type ListClinicsStatus200 = ClinicView[];
 
+export type ListClinicsStatus400 = ErrorResponse;
+
 export type ListClinicsStatus401 = ErrorResponse;
 
 export type ListClinicsStatus403 = ErrorResponse;
@@ -25,6 +27,7 @@ export type ListClinicsOptions = {
 
 export type ListClinicsResponses = {
     "200": ListClinicsStatus200;
+    "400": ListClinicsStatus400;
     "401": ListClinicsStatus401;
     "403": ListClinicsStatus403;
     "404": ListClinicsStatus404;
@@ -34,4 +37,4 @@ export type ListClinicsResponses = {
 /**
  * @description Union of all possible responses
 */
-export type ListClinicsResponse = (ListClinicsStatus200 | ListClinicsStatus401 | ListClinicsStatus403 | ListClinicsStatus404 | ListClinicsStatus422);
+export type ListClinicsResponse = (ListClinicsStatus200 | ListClinicsStatus400 | ListClinicsStatus401 | ListClinicsStatus403 | ListClinicsStatus404 | ListClinicsStatus422);

@@ -17,6 +17,8 @@ export type ListExpiringBatchesQuery = {
 
 export type ListExpiringBatchesStatus200 = BatchView[];
 
+export type ListExpiringBatchesStatus400 = ErrorResponse;
+
 export type ListExpiringBatchesStatus401 = ErrorResponse;
 
 export type ListExpiringBatchesStatus403 = ErrorResponse;
@@ -34,6 +36,7 @@ export type ListExpiringBatchesOptions = {
 
 export type ListExpiringBatchesResponses = {
     "200": ListExpiringBatchesStatus200;
+    "400": ListExpiringBatchesStatus400;
     "401": ListExpiringBatchesStatus401;
     "403": ListExpiringBatchesStatus403;
     "404": ListExpiringBatchesStatus404;
@@ -43,4 +46,4 @@ export type ListExpiringBatchesResponses = {
 /**
  * @description Union of all possible responses
 */
-export type ListExpiringBatchesResponse = (ListExpiringBatchesStatus200 | ListExpiringBatchesStatus401 | ListExpiringBatchesStatus403 | ListExpiringBatchesStatus404 | ListExpiringBatchesStatus422);
+export type ListExpiringBatchesResponse = (ListExpiringBatchesStatus200 | ListExpiringBatchesStatus400 | ListExpiringBatchesStatus401 | ListExpiringBatchesStatus403 | ListExpiringBatchesStatus404 | ListExpiringBatchesStatus422);

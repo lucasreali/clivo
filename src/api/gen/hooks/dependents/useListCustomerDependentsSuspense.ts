@@ -4,7 +4,7 @@
 */
 
 import type { RequestConfig, ResponseErrorConfig } from '../../.kubb/client'
-import type { ListCustomerDependentsOptions, ListCustomerDependentsStatus200, ListCustomerDependentsStatus401, ListCustomerDependentsStatus403, ListCustomerDependentsStatus404, ListCustomerDependentsStatus422 } from '../../types/dependents/ListCustomerDependents'
+import type { ListCustomerDependentsOptions, ListCustomerDependentsStatus200, ListCustomerDependentsStatus400, ListCustomerDependentsStatus401, ListCustomerDependentsStatus403, ListCustomerDependentsStatus404, ListCustomerDependentsStatus422 } from '../../types/dependents/ListCustomerDependents'
 import type { QueryKey, QueryClient, UseSuspenseQueryOptions, UseSuspenseQueryResult } from '@tanstack/react-query'
 import { listCustomerDependents } from '../../clients/dependents/listCustomerDependents'
 import { queryOptions, useSuspenseQuery } from '@tanstack/react-query'
@@ -15,7 +15,7 @@ type ListCustomerDependentsSuspenseQueryKey = ReturnType<typeof listCustomerDepe
 
 export function listCustomerDependentsSuspenseQueryOptions({ path }: ListCustomerDependentsOptions, config: Partial<Omit<RequestConfig, 'path' | 'query' | 'body' | 'headers' | 'url'>> = {}) {
   const queryKey = listCustomerDependentsSuspenseQueryKey({ path })
-  return queryOptions<ListCustomerDependentsStatus200, ResponseErrorConfig<ListCustomerDependentsStatus401 | ListCustomerDependentsStatus403 | ListCustomerDependentsStatus404 | ListCustomerDependentsStatus422>, ListCustomerDependentsStatus200, typeof queryKey>({
+  return queryOptions<ListCustomerDependentsStatus200, ResponseErrorConfig<ListCustomerDependentsStatus400 | ListCustomerDependentsStatus401 | ListCustomerDependentsStatus403 | ListCustomerDependentsStatus404 | ListCustomerDependentsStatus422>, ListCustomerDependentsStatus200, typeof queryKey>({
    queryKey,
    queryFn: async ({ signal }) => {
       return listCustomerDependents({ ...config, path, signal: config.signal ?? signal, throwOnError: true }).unwrap()
@@ -28,7 +28,7 @@ export function listCustomerDependentsSuspenseQueryOptions({ path }: ListCustome
  * {@link /api/customers/:customerId/dependents}
  */
 export function useListCustomerDependentsSuspense<TData = ListCustomerDependentsStatus200, TQueryKey extends QueryKey = ListCustomerDependentsSuspenseQueryKey>({ path }: { path: ListCustomerDependentsOptions['path'] | (() => ListCustomerDependentsOptions['path']) }, options: {
-  query?: Partial<UseSuspenseQueryOptions<ListCustomerDependentsStatus200, ResponseErrorConfig<ListCustomerDependentsStatus401 | ListCustomerDependentsStatus403 | ListCustomerDependentsStatus404 | ListCustomerDependentsStatus422>, TData, TQueryKey>> & { client?: QueryClient },
+  query?: Partial<UseSuspenseQueryOptions<ListCustomerDependentsStatus200, ResponseErrorConfig<ListCustomerDependentsStatus400 | ListCustomerDependentsStatus401 | ListCustomerDependentsStatus403 | ListCustomerDependentsStatus404 | ListCustomerDependentsStatus422>, TData, TQueryKey>> & { client?: QueryClient },
   client?: Partial<Omit<RequestConfig, 'path' | 'query' | 'body' | 'headers' | 'url'>>
 } = {}) {
   const { query: queryConfig = {}, client: config = {} } = options ?? {}
@@ -40,7 +40,7 @@ export function useListCustomerDependentsSuspense<TData = ListCustomerDependents
    ...listCustomerDependentsSuspenseQueryOptions(resolvedParams, config),
    ...resolvedOptions,
    queryKey,
-  } as unknown as UseSuspenseQueryOptions, queryClient) as UseSuspenseQueryResult<TData, ResponseErrorConfig<ListCustomerDependentsStatus401 | ListCustomerDependentsStatus403 | ListCustomerDependentsStatus404 | ListCustomerDependentsStatus422>> & { queryKey: TQueryKey }
+  } as unknown as UseSuspenseQueryOptions, queryClient) as UseSuspenseQueryResult<TData, ResponseErrorConfig<ListCustomerDependentsStatus400 | ListCustomerDependentsStatus401 | ListCustomerDependentsStatus403 | ListCustomerDependentsStatus404 | ListCustomerDependentsStatus422>> & { queryKey: TQueryKey }
 
   queryResult.queryKey = queryKey as TQueryKey
 

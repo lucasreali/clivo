@@ -18,6 +18,8 @@ export type GetAuditTrailQuery = {
 
 export type GetAuditTrailStatus200 = AuditEntryView[];
 
+export type GetAuditTrailStatus400 = ErrorResponse;
+
 export type GetAuditTrailStatus401 = ErrorResponse;
 
 export type GetAuditTrailStatus403 = ErrorResponse;
@@ -35,6 +37,7 @@ export type GetAuditTrailOptions = {
 
 export type GetAuditTrailResponses = {
     "200": GetAuditTrailStatus200;
+    "400": GetAuditTrailStatus400;
     "401": GetAuditTrailStatus401;
     "403": GetAuditTrailStatus403;
     "404": GetAuditTrailStatus404;
@@ -44,4 +47,4 @@ export type GetAuditTrailResponses = {
 /**
  * @description Union of all possible responses
 */
-export type GetAuditTrailResponse = (GetAuditTrailStatus200 | GetAuditTrailStatus401 | GetAuditTrailStatus403 | GetAuditTrailStatus404 | GetAuditTrailStatus422);
+export type GetAuditTrailResponse = (GetAuditTrailStatus200 | GetAuditTrailStatus400 | GetAuditTrailStatus401 | GetAuditTrailStatus403 | GetAuditTrailStatus404 | GetAuditTrailStatus422);

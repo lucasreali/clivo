@@ -4,7 +4,7 @@
 */
 
 import type { RequestConfig, ResponseErrorConfig } from '../../.kubb/client'
-import type { ListModulesStatus200, ListModulesStatus401, ListModulesStatus403, ListModulesStatus404, ListModulesStatus422 } from '../../types/modules/ListModules'
+import type { ListModulesStatus200, ListModulesStatus400, ListModulesStatus401, ListModulesStatus403, ListModulesStatus404, ListModulesStatus422 } from '../../types/modules/ListModules'
 import type { QueryKey, QueryClient, QueryObserverOptions, UseQueryResult } from '@tanstack/react-query'
 import { listModules } from '../../clients/modules/listModules'
 import { queryOptions, useQuery } from '@tanstack/react-query'
@@ -15,7 +15,7 @@ type ListModulesQueryKey = ReturnType<typeof listModulesQueryKey>
 
 export function listModulesQueryOptions(config: Partial<Omit<RequestConfig, 'path' | 'query' | 'body' | 'headers' | 'url'>> = {}) {
   const queryKey = listModulesQueryKey()
-  return queryOptions<ListModulesStatus200, ResponseErrorConfig<ListModulesStatus401 | ListModulesStatus403 | ListModulesStatus404 | ListModulesStatus422>, ListModulesStatus200, typeof queryKey>({
+  return queryOptions<ListModulesStatus200, ResponseErrorConfig<ListModulesStatus400 | ListModulesStatus401 | ListModulesStatus403 | ListModulesStatus404 | ListModulesStatus422>, ListModulesStatus200, typeof queryKey>({
    queryKey,
    queryFn: async ({ signal }) => {
       return listModules({ ...config, signal: config.signal ?? signal, throwOnError: true }).unwrap()
@@ -28,7 +28,7 @@ export function listModulesQueryOptions(config: Partial<Omit<RequestConfig, 'pat
  * {@link /api/modules}
  */
 export function useListModules<TData = ListModulesStatus200, TQueryData = ListModulesStatus200, TQueryKey extends QueryKey = ListModulesQueryKey>(options: {
-  query?: Partial<QueryObserverOptions<ListModulesStatus200, ResponseErrorConfig<ListModulesStatus401 | ListModulesStatus403 | ListModulesStatus404 | ListModulesStatus422>, TData, TQueryData, TQueryKey>> & { client?: QueryClient },
+  query?: Partial<QueryObserverOptions<ListModulesStatus200, ResponseErrorConfig<ListModulesStatus400 | ListModulesStatus401 | ListModulesStatus403 | ListModulesStatus404 | ListModulesStatus422>, TData, TQueryData, TQueryKey>> & { client?: QueryClient },
   client?: Partial<Omit<RequestConfig, 'path' | 'query' | 'body' | 'headers' | 'url'>>
 } = {}) {
   const { query: queryConfig = {}, client: config = {} } = options ?? {}
@@ -39,7 +39,7 @@ export function useListModules<TData = ListModulesStatus200, TQueryData = ListMo
    ...listModulesQueryOptions(config),
    ...resolvedOptions,
    queryKey,
-  } as unknown as QueryObserverOptions, queryClient) as UseQueryResult<TData, ResponseErrorConfig<ListModulesStatus401 | ListModulesStatus403 | ListModulesStatus404 | ListModulesStatus422>> & { queryKey: TQueryKey }
+  } as unknown as QueryObserverOptions, queryClient) as UseQueryResult<TData, ResponseErrorConfig<ListModulesStatus400 | ListModulesStatus401 | ListModulesStatus403 | ListModulesStatus404 | ListModulesStatus422>> & { queryKey: TQueryKey }
 
   queryResult.queryKey = queryKey as TQueryKey
 

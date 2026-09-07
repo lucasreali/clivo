@@ -19,6 +19,10 @@ export const getAuditTrailStatus200Schema = z.array(auditEntryViewSchema)
 
 export type GetAuditTrailStatus200SchemaType = z.infer<typeof getAuditTrailStatus200Schema>
 
+export const getAuditTrailStatus400Schema = errorResponseSchema
+
+export type GetAuditTrailStatus400SchemaType = z.infer<typeof getAuditTrailStatus400Schema>
+
 export const getAuditTrailStatus401Schema = errorResponseSchema
 
 export type GetAuditTrailStatus401SchemaType = z.infer<typeof getAuditTrailStatus401Schema>
@@ -39,7 +43,7 @@ export const getAuditTrailResponseSchema = getAuditTrailStatus200Schema
 
 export type GetAuditTrailResponseSchemaType = z.infer<typeof getAuditTrailResponseSchema>
 
-export const getAuditTrailErrorSchema = z.union([getAuditTrailStatus401Schema, getAuditTrailStatus403Schema, getAuditTrailStatus404Schema, getAuditTrailStatus422Schema])
+export const getAuditTrailErrorSchema = z.union([getAuditTrailStatus400Schema, getAuditTrailStatus401Schema, getAuditTrailStatus403Schema, getAuditTrailStatus404Schema, getAuditTrailStatus422Schema])
 
 export type GetAuditTrailErrorSchemaType = z.infer<typeof getAuditTrailErrorSchema>
 
@@ -61,6 +65,7 @@ export type GetAuditTrailOptionsSchemaType = z.infer<typeof getAuditTrailOptions
 
 export const getAuditTrailResponsesSchema = z.object({
   '200': getAuditTrailStatus200Schema,
+  '400': getAuditTrailStatus400Schema,
   '401': getAuditTrailStatus401Schema,
   '403': getAuditTrailStatus403Schema,
   '404': getAuditTrailStatus404Schema,

@@ -12,9 +12,9 @@ export type BatchRequest = {
     /**
      * @description
      * Format: `date`
-     * @type string | undefined
+     * @type string
     */
-    expiresOn?: string;
+    expiresOn: string;
     manufacturer?: string;
     quantity: number;
 };

@@ -1,1 +1,1 @@
-export type { GetAuditTrailOptions, GetAuditTrailQuery, GetAuditTrailResponse, GetAuditTrailResponses, GetAuditTrailStatus200, GetAuditTrailStatus401, GetAuditTrailStatus403, GetAuditTrailStatus404, GetAuditTrailStatus422 } from './GetAuditTrail'
+export type { GetAuditTrailOptions, GetAuditTrailQuery, GetAuditTrailResponse, GetAuditTrailResponses, GetAuditTrailStatus200, GetAuditTrailStatus400, GetAuditTrailStatus401, GetAuditTrailStatus403, GetAuditTrailStatus404, GetAuditTrailStatus422 } from './GetAuditTrail'

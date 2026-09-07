@@ -13,9 +13,9 @@ export type PackageRequest = {
     /**
      * @description
      * Format: `date`
-     * @type string | undefined
+     * @type string
     */
-    expiresOn?: string;
+    expiresOn: string;
     price: number;
     /**
      * @description

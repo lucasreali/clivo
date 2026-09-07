@@ -17,6 +17,8 @@ export type ListInvoicesByCustomerQuery = {
 
 export type ListInvoicesByCustomerStatus200 = InvoiceView[];
 
+export type ListInvoicesByCustomerStatus400 = ErrorResponse;
+
 export type ListInvoicesByCustomerStatus401 = ErrorResponse;
 
 export type ListInvoicesByCustomerStatus403 = ErrorResponse;
@@ -34,6 +36,7 @@ export type ListInvoicesByCustomerOptions = {
 
 export type ListInvoicesByCustomerResponses = {
     "200": ListInvoicesByCustomerStatus200;
+    "400": ListInvoicesByCustomerStatus400;
     "401": ListInvoicesByCustomerStatus401;
     "403": ListInvoicesByCustomerStatus403;
     "404": ListInvoicesByCustomerStatus404;
@@ -43,4 +46,4 @@ export type ListInvoicesByCustomerResponses = {
 /**
  * @description Union of all possible responses
 */
-export type ListInvoicesByCustomerResponse = (ListInvoicesByCustomerStatus200 | ListInvoicesByCustomerStatus401 | ListInvoicesByCustomerStatus403 | ListInvoicesByCustomerStatus404 | ListInvoicesByCustomerStatus422);
+export type ListInvoicesByCustomerResponse = (ListInvoicesByCustomerStatus200 | ListInvoicesByCustomerStatus400 | ListInvoicesByCustomerStatus401 | ListInvoicesByCustomerStatus403 | ListInvoicesByCustomerStatus404 | ListInvoicesByCustomerStatus422);

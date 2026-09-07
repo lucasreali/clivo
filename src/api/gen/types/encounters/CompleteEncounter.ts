@@ -17,6 +17,8 @@ export type CompleteEncounterPath = {
 
 export type CompleteEncounterStatus200 = EncounterView;
 
+export type CompleteEncounterStatus400 = ErrorResponse;
+
 export type CompleteEncounterStatus401 = ErrorResponse;
 
 export type CompleteEncounterStatus403 = ErrorResponse;
@@ -34,6 +36,7 @@ export type CompleteEncounterOptions = {
 
 export type CompleteEncounterResponses = {
     "200": CompleteEncounterStatus200;
+    "400": CompleteEncounterStatus400;
     "401": CompleteEncounterStatus401;
     "403": CompleteEncounterStatus403;
     "404": CompleteEncounterStatus404;
@@ -43,4 +46,4 @@ export type CompleteEncounterResponses = {
 /**
  * @description Union of all possible responses
 */
-export type CompleteEncounterResponse = (CompleteEncounterStatus200 | CompleteEncounterStatus401 | CompleteEncounterStatus403 | CompleteEncounterStatus404 | CompleteEncounterStatus422);
+export type CompleteEncounterResponse = (CompleteEncounterStatus200 | CompleteEncounterStatus400 | CompleteEncounterStatus401 | CompleteEncounterStatus403 | CompleteEncounterStatus404 | CompleteEncounterStatus422);

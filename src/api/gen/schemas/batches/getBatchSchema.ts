@@ -15,6 +15,10 @@ export const getBatchStatus200Schema = batchViewSchema
 
 export type GetBatchStatus200SchemaType = z.infer<typeof getBatchStatus200Schema>
 
+export const getBatchStatus400Schema = errorResponseSchema
+
+export type GetBatchStatus400SchemaType = z.infer<typeof getBatchStatus400Schema>
+
 export const getBatchStatus401Schema = errorResponseSchema
 
 export type GetBatchStatus401SchemaType = z.infer<typeof getBatchStatus401Schema>
@@ -35,7 +39,7 @@ export const getBatchResponseSchema = getBatchStatus200Schema
 
 export type GetBatchResponseSchemaType = z.infer<typeof getBatchResponseSchema>
 
-export const getBatchErrorSchema = z.union([getBatchStatus401Schema, getBatchStatus403Schema, getBatchStatus404Schema, getBatchStatus422Schema])
+export const getBatchErrorSchema = z.union([getBatchStatus400Schema, getBatchStatus401Schema, getBatchStatus403Schema, getBatchStatus404Schema, getBatchStatus422Schema])
 
 export type GetBatchErrorSchemaType = z.infer<typeof getBatchErrorSchema>
 
@@ -56,6 +60,7 @@ export type GetBatchOptionsSchemaType = z.infer<typeof getBatchOptionsSchema>
 
 export const getBatchResponsesSchema = z.object({
   '200': getBatchStatus200Schema,
+  '400': getBatchStatus400Schema,
   '401': getBatchStatus401Schema,
   '403': getBatchStatus403Schema,
   '404': getBatchStatus404Schema,

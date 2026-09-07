@@ -15,6 +15,10 @@ export const listAppointmentNotificationsStatus200Schema = z.array(notificationV
 
 export type ListAppointmentNotificationsStatus200SchemaType = z.infer<typeof listAppointmentNotificationsStatus200Schema>
 
+export const listAppointmentNotificationsStatus400Schema = errorResponseSchema
+
+export type ListAppointmentNotificationsStatus400SchemaType = z.infer<typeof listAppointmentNotificationsStatus400Schema>
+
 export const listAppointmentNotificationsStatus401Schema = errorResponseSchema
 
 export type ListAppointmentNotificationsStatus401SchemaType = z.infer<typeof listAppointmentNotificationsStatus401Schema>
@@ -35,7 +39,7 @@ export const listAppointmentNotificationsResponseSchema = listAppointmentNotific
 
 export type ListAppointmentNotificationsResponseSchemaType = z.infer<typeof listAppointmentNotificationsResponseSchema>
 
-export const listAppointmentNotificationsErrorSchema = z.union([listAppointmentNotificationsStatus401Schema, listAppointmentNotificationsStatus403Schema, listAppointmentNotificationsStatus404Schema, listAppointmentNotificationsStatus422Schema])
+export const listAppointmentNotificationsErrorSchema = z.union([listAppointmentNotificationsStatus400Schema, listAppointmentNotificationsStatus401Schema, listAppointmentNotificationsStatus403Schema, listAppointmentNotificationsStatus404Schema, listAppointmentNotificationsStatus422Schema])
 
 export type ListAppointmentNotificationsErrorSchemaType = z.infer<typeof listAppointmentNotificationsErrorSchema>
 
@@ -56,6 +60,7 @@ export type ListAppointmentNotificationsOptionsSchemaType = z.infer<typeof listA
 
 export const listAppointmentNotificationsResponsesSchema = z.object({
   '200': listAppointmentNotificationsStatus200Schema,
+  '400': listAppointmentNotificationsStatus400Schema,
   '401': listAppointmentNotificationsStatus401Schema,
   '403': listAppointmentNotificationsStatus403Schema,
   '404': listAppointmentNotificationsStatus404Schema,

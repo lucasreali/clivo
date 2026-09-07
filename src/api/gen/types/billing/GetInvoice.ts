@@ -17,6 +17,8 @@ export type GetInvoicePath = {
 
 export type GetInvoiceStatus200 = InvoiceView;
 
+export type GetInvoiceStatus400 = ErrorResponse;
+
 export type GetInvoiceStatus401 = ErrorResponse;
 
 export type GetInvoiceStatus403 = ErrorResponse;
@@ -34,6 +36,7 @@ export type GetInvoiceOptions = {
 
 export type GetInvoiceResponses = {
     "200": GetInvoiceStatus200;
+    "400": GetInvoiceStatus400;
     "401": GetInvoiceStatus401;
     "403": GetInvoiceStatus403;
     "404": GetInvoiceStatus404;
@@ -43,4 +46,4 @@ export type GetInvoiceResponses = {
 /**
  * @description Union of all possible responses
 */
-export type GetInvoiceResponse = (GetInvoiceStatus200 | GetInvoiceStatus401 | GetInvoiceStatus403 | GetInvoiceStatus404 | GetInvoiceStatus422);
+export type GetInvoiceResponse = (GetInvoiceStatus200 | GetInvoiceStatus400 | GetInvoiceStatus401 | GetInvoiceStatus403 | GetInvoiceStatus404 | GetInvoiceStatus422);

@@ -7,7 +7,7 @@ import * as z from 'zod'
 
 export const packageRequestSchema = z.object({
   customerId: z.uuid(),
-  expiresOn: z.iso.date().optional(),
+  expiresOn: z.iso.date(),
   price: z.number(),
   serviceId: z.uuid(),
   totalSessions: z.int().optional(),

@@ -11,6 +11,10 @@ export const listParametersStatus200Schema = z.array(parameterViewSchema)
 
 export type ListParametersStatus200SchemaType = z.infer<typeof listParametersStatus200Schema>
 
+export const listParametersStatus400Schema = errorResponseSchema
+
+export type ListParametersStatus400SchemaType = z.infer<typeof listParametersStatus400Schema>
+
 export const listParametersStatus401Schema = errorResponseSchema
 
 export type ListParametersStatus401SchemaType = z.infer<typeof listParametersStatus401Schema>
@@ -31,7 +35,7 @@ export const listParametersResponseSchema = listParametersStatus200Schema
 
 export type ListParametersResponseSchemaType = z.infer<typeof listParametersResponseSchema>
 
-export const listParametersErrorSchema = z.union([listParametersStatus401Schema, listParametersStatus403Schema, listParametersStatus404Schema, listParametersStatus422Schema])
+export const listParametersErrorSchema = z.union([listParametersStatus400Schema, listParametersStatus401Schema, listParametersStatus403Schema, listParametersStatus404Schema, listParametersStatus422Schema])
 
 export type ListParametersErrorSchemaType = z.infer<typeof listParametersErrorSchema>
 
@@ -46,6 +50,7 @@ export type ListParametersOptionsSchemaType = z.infer<typeof listParametersOptio
 
 export const listParametersResponsesSchema = z.object({
   '200': listParametersStatus200Schema,
+  '400': listParametersStatus400Schema,
   '401': listParametersStatus401Schema,
   '403': listParametersStatus403Schema,
   '404': listParametersStatus404Schema,

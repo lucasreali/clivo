@@ -11,6 +11,8 @@ export type DeactivateModulePath = {
 
 export type DeactivateModuleStatus204 = unknown;
 
+export type DeactivateModuleStatus400 = ErrorResponse;
+
 export type DeactivateModuleStatus401 = ErrorResponse;
 
 export type DeactivateModuleStatus403 = ErrorResponse;
@@ -28,6 +30,7 @@ export type DeactivateModuleOptions = {
 
 export type DeactivateModuleResponses = {
     "204": DeactivateModuleStatus204;
+    "400": DeactivateModuleStatus400;
     "401": DeactivateModuleStatus401;
     "403": DeactivateModuleStatus403;
     "404": DeactivateModuleStatus404;
@@ -37,4 +40,4 @@ export type DeactivateModuleResponses = {
 /**
  * @description Union of all possible responses
 */
-export type DeactivateModuleResponse = (DeactivateModuleStatus204 | DeactivateModuleStatus401 | DeactivateModuleStatus403 | DeactivateModuleStatus404 | DeactivateModuleStatus422);
+export type DeactivateModuleResponse = (DeactivateModuleStatus204 | DeactivateModuleStatus400 | DeactivateModuleStatus401 | DeactivateModuleStatus403 | DeactivateModuleStatus404 | DeactivateModuleStatus422);

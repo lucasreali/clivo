@@ -4,7 +4,7 @@
 */
 
 import type { RequestConfig, ResponseErrorConfig } from '../../.kubb/client'
-import type { CancelSessionPackageOptions, CancelSessionPackageStatus200, CancelSessionPackageStatus401, CancelSessionPackageStatus403, CancelSessionPackageStatus404, CancelSessionPackageStatus422 } from '../../types/sessionPackages/CancelSessionPackage'
+import type { CancelSessionPackageOptions, CancelSessionPackageStatus200, CancelSessionPackageStatus400, CancelSessionPackageStatus401, CancelSessionPackageStatus403, CancelSessionPackageStatus404, CancelSessionPackageStatus422 } from '../../types/sessionPackages/CancelSessionPackage'
 import type { UseMutationOptions, UseMutationResult, QueryClient } from '@tanstack/react-query'
 import { cancelSessionPackage } from '../../clients/sessionPackages/cancelSessionPackage'
 import { mutationOptions, useMutation } from '@tanstack/react-query'
@@ -13,7 +13,7 @@ export const cancelSessionPackageMutationKey = () => [{ url: '/api/session-packa
 
 export function cancelSessionPackageMutationOptions<TContext = unknown>(config: Partial<Omit<RequestConfig, 'path' | 'query' | 'body' | 'headers' | 'url'>> = {}) {
   const mutationKey = cancelSessionPackageMutationKey()
-  return mutationOptions<CancelSessionPackageStatus200, ResponseErrorConfig<CancelSessionPackageStatus401 | CancelSessionPackageStatus403 | CancelSessionPackageStatus404 | CancelSessionPackageStatus422>, CancelSessionPackageOptions, TContext>({
+  return mutationOptions<CancelSessionPackageStatus200, ResponseErrorConfig<CancelSessionPackageStatus400 | CancelSessionPackageStatus401 | CancelSessionPackageStatus403 | CancelSessionPackageStatus404 | CancelSessionPackageStatus422>, CancelSessionPackageOptions, TContext>({
     mutationKey,
     mutationFn: async({ path }) => {
       return cancelSessionPackage({ ...config, path, throwOnError: true }).unwrap()
@@ -26,18 +26,18 @@ export function cancelSessionPackageMutationOptions<TContext = unknown>(config: 
  * {@link /api/session-packages/:id/cancellation}
  */
 export function useCancelSessionPackage<TContext>(options: {
-  mutation?: UseMutationOptions<CancelSessionPackageStatus200, ResponseErrorConfig<CancelSessionPackageStatus401 | CancelSessionPackageStatus403 | CancelSessionPackageStatus404 | CancelSessionPackageStatus422>, CancelSessionPackageOptions, TContext> & { client?: QueryClient },
+  mutation?: UseMutationOptions<CancelSessionPackageStatus200, ResponseErrorConfig<CancelSessionPackageStatus400 | CancelSessionPackageStatus401 | CancelSessionPackageStatus403 | CancelSessionPackageStatus404 | CancelSessionPackageStatus422>, CancelSessionPackageOptions, TContext> & { client?: QueryClient },
   client?: Partial<Omit<RequestConfig, 'path' | 'query' | 'body' | 'headers' | 'url'>>,
 } = {}) {
   const { mutation = {}, client: config = {} } = options ?? {}
   const { client: queryClient, ...mutationOptions } = mutation;
   const mutationKey = mutationOptions.mutationKey ?? cancelSessionPackageMutationKey()
 
-  const baseOptions = cancelSessionPackageMutationOptions(config) as UseMutationOptions<CancelSessionPackageStatus200, ResponseErrorConfig<CancelSessionPackageStatus401 | CancelSessionPackageStatus403 | CancelSessionPackageStatus404 | CancelSessionPackageStatus422>, CancelSessionPackageOptions, TContext>
+  const baseOptions = cancelSessionPackageMutationOptions(config) as UseMutationOptions<CancelSessionPackageStatus200, ResponseErrorConfig<CancelSessionPackageStatus400 | CancelSessionPackageStatus401 | CancelSessionPackageStatus403 | CancelSessionPackageStatus404 | CancelSessionPackageStatus422>, CancelSessionPackageOptions, TContext>
 
-  return useMutation<CancelSessionPackageStatus200, ResponseErrorConfig<CancelSessionPackageStatus401 | CancelSessionPackageStatus403 | CancelSessionPackageStatus404 | CancelSessionPackageStatus422>, CancelSessionPackageOptions, TContext>({
+  return useMutation<CancelSessionPackageStatus200, ResponseErrorConfig<CancelSessionPackageStatus400 | CancelSessionPackageStatus401 | CancelSessionPackageStatus403 | CancelSessionPackageStatus404 | CancelSessionPackageStatus422>, CancelSessionPackageOptions, TContext>({
     ...baseOptions,
     mutationKey,
     ...mutationOptions,
-  }, queryClient) as UseMutationResult<CancelSessionPackageStatus200, ResponseErrorConfig<CancelSessionPackageStatus401 | CancelSessionPackageStatus403 | CancelSessionPackageStatus404 | CancelSessionPackageStatus422>, CancelSessionPackageOptions, TContext>
+  }, queryClient) as UseMutationResult<CancelSessionPackageStatus200, ResponseErrorConfig<CancelSessionPackageStatus400 | CancelSessionPackageStatus401 | CancelSessionPackageStatus403 | CancelSessionPackageStatus404 | CancelSessionPackageStatus422>, CancelSessionPackageOptions, TContext>
 }

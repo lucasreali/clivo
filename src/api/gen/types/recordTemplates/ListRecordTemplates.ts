@@ -8,6 +8,8 @@ import type { RecordTemplateView } from '../RecordTemplateView'
 
 export type ListRecordTemplatesStatus200 = RecordTemplateView[];
 
+export type ListRecordTemplatesStatus400 = ErrorResponse;
+
 export type ListRecordTemplatesStatus401 = ErrorResponse;
 
 export type ListRecordTemplatesStatus403 = ErrorResponse;
@@ -25,6 +27,7 @@ export type ListRecordTemplatesOptions = {
 
 export type ListRecordTemplatesResponses = {
     "200": ListRecordTemplatesStatus200;
+    "400": ListRecordTemplatesStatus400;
     "401": ListRecordTemplatesStatus401;
     "403": ListRecordTemplatesStatus403;
     "404": ListRecordTemplatesStatus404;
@@ -34,4 +37,4 @@ export type ListRecordTemplatesResponses = {
 /**
  * @description Union of all possible responses
 */
-export type ListRecordTemplatesResponse = (ListRecordTemplatesStatus200 | ListRecordTemplatesStatus401 | ListRecordTemplatesStatus403 | ListRecordTemplatesStatus404 | ListRecordTemplatesStatus422);
+export type ListRecordTemplatesResponse = (ListRecordTemplatesStatus200 | ListRecordTemplatesStatus400 | ListRecordTemplatesStatus401 | ListRecordTemplatesStatus403 | ListRecordTemplatesStatus404 | ListRecordTemplatesStatus422);

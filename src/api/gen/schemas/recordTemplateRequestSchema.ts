@@ -7,8 +7,8 @@ import * as z from 'zod'
 import { sectionRequestSchema } from './sectionRequestSchema'
 
 export const recordTemplateRequestSchema = z.object({
-  name: z.string().min(1),
-  requiresModule: z.string().optional(),
+  name: z.string().min(0).max(120),
+  requiresModule: z.string().min(0).max(4).optional(),
   sections: z.array(sectionRequestSchema),
 })
 

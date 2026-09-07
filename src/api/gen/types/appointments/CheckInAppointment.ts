@@ -17,6 +17,8 @@ export type CheckInAppointmentPath = {
 
 export type CheckInAppointmentStatus200 = AppointmentView;
 
+export type CheckInAppointmentStatus400 = ErrorResponse;
+
 export type CheckInAppointmentStatus401 = ErrorResponse;
 
 export type CheckInAppointmentStatus403 = ErrorResponse;
@@ -34,6 +36,7 @@ export type CheckInAppointmentOptions = {
 
 export type CheckInAppointmentResponses = {
     "200": CheckInAppointmentStatus200;
+    "400": CheckInAppointmentStatus400;
     "401": CheckInAppointmentStatus401;
     "403": CheckInAppointmentStatus403;
     "404": CheckInAppointmentStatus404;
@@ -43,4 +46,4 @@ export type CheckInAppointmentResponses = {
 /**
  * @description Union of all possible responses
 */
-export type CheckInAppointmentResponse = (CheckInAppointmentStatus200 | CheckInAppointmentStatus401 | CheckInAppointmentStatus403 | CheckInAppointmentStatus404 | CheckInAppointmentStatus422);
+export type CheckInAppointmentResponse = (CheckInAppointmentStatus200 | CheckInAppointmentStatus400 | CheckInAppointmentStatus401 | CheckInAppointmentStatus403 | CheckInAppointmentStatus404 | CheckInAppointmentStatus422);

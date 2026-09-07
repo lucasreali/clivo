@@ -11,6 +11,10 @@ export const listClinicModulesStatus200Schema = z.array(platformModuleViewSchema
 
 export type ListClinicModulesStatus200SchemaType = z.infer<typeof listClinicModulesStatus200Schema>
 
+export const listClinicModulesStatus400Schema = errorResponseSchema
+
+export type ListClinicModulesStatus400SchemaType = z.infer<typeof listClinicModulesStatus400Schema>
+
 export const listClinicModulesStatus401Schema = errorResponseSchema
 
 export type ListClinicModulesStatus401SchemaType = z.infer<typeof listClinicModulesStatus401Schema>
@@ -31,7 +35,7 @@ export const listClinicModulesResponseSchema = listClinicModulesStatus200Schema
 
 export type ListClinicModulesResponseSchemaType = z.infer<typeof listClinicModulesResponseSchema>
 
-export const listClinicModulesErrorSchema = z.union([listClinicModulesStatus401Schema, listClinicModulesStatus403Schema, listClinicModulesStatus404Schema, listClinicModulesStatus422Schema])
+export const listClinicModulesErrorSchema = z.union([listClinicModulesStatus400Schema, listClinicModulesStatus401Schema, listClinicModulesStatus403Schema, listClinicModulesStatus404Schema, listClinicModulesStatus422Schema])
 
 export type ListClinicModulesErrorSchemaType = z.infer<typeof listClinicModulesErrorSchema>
 
@@ -46,6 +50,7 @@ export type ListClinicModulesOptionsSchemaType = z.infer<typeof listClinicModule
 
 export const listClinicModulesResponsesSchema = z.object({
   '200': listClinicModulesStatus200Schema,
+  '400': listClinicModulesStatus400Schema,
   '401': listClinicModulesStatus401Schema,
   '403': listClinicModulesStatus403Schema,
   '404': listClinicModulesStatus404Schema,

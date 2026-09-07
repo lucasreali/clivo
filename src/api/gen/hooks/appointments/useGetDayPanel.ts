@@ -4,7 +4,7 @@
 */
 
 import type { RequestConfig, ResponseErrorConfig } from '../../.kubb/client'
-import type { GetDayPanelOptions, GetDayPanelStatus200, GetDayPanelStatus401, GetDayPanelStatus403, GetDayPanelStatus404, GetDayPanelStatus422 } from '../../types/appointments/GetDayPanel'
+import type { GetDayPanelOptions, GetDayPanelStatus200, GetDayPanelStatus400, GetDayPanelStatus401, GetDayPanelStatus403, GetDayPanelStatus404, GetDayPanelStatus422 } from '../../types/appointments/GetDayPanel'
 import type { QueryKey, QueryClient, QueryObserverOptions, UseQueryResult } from '@tanstack/react-query'
 import { getDayPanel } from '../../clients/appointments/getDayPanel'
 import { queryOptions, useQuery } from '@tanstack/react-query'
@@ -15,7 +15,7 @@ type GetDayPanelQueryKey = ReturnType<typeof getDayPanelQueryKey>
 
 export function getDayPanelQueryOptions({ query }: GetDayPanelOptions, config: Partial<Omit<RequestConfig, 'path' | 'query' | 'body' | 'headers' | 'url'>> = {}) {
   const queryKey = getDayPanelQueryKey({ query })
-  return queryOptions<GetDayPanelStatus200, ResponseErrorConfig<GetDayPanelStatus401 | GetDayPanelStatus403 | GetDayPanelStatus404 | GetDayPanelStatus422>, GetDayPanelStatus200, typeof queryKey>({
+  return queryOptions<GetDayPanelStatus200, ResponseErrorConfig<GetDayPanelStatus400 | GetDayPanelStatus401 | GetDayPanelStatus403 | GetDayPanelStatus404 | GetDayPanelStatus422>, GetDayPanelStatus200, typeof queryKey>({
    queryKey,
    queryFn: async ({ signal }) => {
       return getDayPanel({ ...config, query, signal: config.signal ?? signal, throwOnError: true }).unwrap()
@@ -28,7 +28,7 @@ export function getDayPanelQueryOptions({ query }: GetDayPanelOptions, config: P
  * {@link /api/appointments}
  */
 export function useGetDayPanel<TData = GetDayPanelStatus200, TQueryData = GetDayPanelStatus200, TQueryKey extends QueryKey = GetDayPanelQueryKey>({ query }: { query: GetDayPanelOptions['query'] | (() => GetDayPanelOptions['query']) }, options: {
-  query?: Partial<QueryObserverOptions<GetDayPanelStatus200, ResponseErrorConfig<GetDayPanelStatus401 | GetDayPanelStatus403 | GetDayPanelStatus404 | GetDayPanelStatus422>, TData, TQueryData, TQueryKey>> & { client?: QueryClient },
+  query?: Partial<QueryObserverOptions<GetDayPanelStatus200, ResponseErrorConfig<GetDayPanelStatus400 | GetDayPanelStatus401 | GetDayPanelStatus403 | GetDayPanelStatus404 | GetDayPanelStatus422>, TData, TQueryData, TQueryKey>> & { client?: QueryClient },
   client?: Partial<Omit<RequestConfig, 'path' | 'query' | 'body' | 'headers' | 'url'>>
 } = {}) {
   const { query: queryConfig = {}, client: config = {} } = options ?? {}
@@ -40,7 +40,7 @@ export function useGetDayPanel<TData = GetDayPanelStatus200, TQueryData = GetDay
    ...getDayPanelQueryOptions(resolvedParams, config),
    ...resolvedOptions,
    queryKey,
-  } as unknown as QueryObserverOptions, queryClient) as UseQueryResult<TData, ResponseErrorConfig<GetDayPanelStatus401 | GetDayPanelStatus403 | GetDayPanelStatus404 | GetDayPanelStatus422>> & { queryKey: TQueryKey }
+  } as unknown as QueryObserverOptions, queryClient) as UseQueryResult<TData, ResponseErrorConfig<GetDayPanelStatus400 | GetDayPanelStatus401 | GetDayPanelStatus403 | GetDayPanelStatus404 | GetDayPanelStatus422>> & { queryKey: TQueryKey }
 
   queryResult.queryKey = queryKey as TQueryKey
 

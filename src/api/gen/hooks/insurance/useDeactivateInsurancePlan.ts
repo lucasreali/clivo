@@ -4,7 +4,7 @@
 */
 
 import type { RequestConfig, ResponseErrorConfig } from '../../.kubb/client'
-import type { DeactivateInsurancePlanOptions, DeactivateInsurancePlanStatus200, DeactivateInsurancePlanStatus401, DeactivateInsurancePlanStatus403, DeactivateInsurancePlanStatus404, DeactivateInsurancePlanStatus422 } from '../../types/insurance/DeactivateInsurancePlan'
+import type { DeactivateInsurancePlanOptions, DeactivateInsurancePlanStatus200, DeactivateInsurancePlanStatus400, DeactivateInsurancePlanStatus401, DeactivateInsurancePlanStatus403, DeactivateInsurancePlanStatus404, DeactivateInsurancePlanStatus422 } from '../../types/insurance/DeactivateInsurancePlan'
 import type { UseMutationOptions, UseMutationResult, QueryClient } from '@tanstack/react-query'
 import { deactivateInsurancePlan } from '../../clients/insurance/deactivateInsurancePlan'
 import { mutationOptions, useMutation } from '@tanstack/react-query'
@@ -13,7 +13,7 @@ export const deactivateInsurancePlanMutationKey = () => [{ url: '/api/insurance-
 
 export function deactivateInsurancePlanMutationOptions<TContext = unknown>(config: Partial<Omit<RequestConfig, 'path' | 'query' | 'body' | 'headers' | 'url'>> = {}) {
   const mutationKey = deactivateInsurancePlanMutationKey()
-  return mutationOptions<DeactivateInsurancePlanStatus200, ResponseErrorConfig<DeactivateInsurancePlanStatus401 | DeactivateInsurancePlanStatus403 | DeactivateInsurancePlanStatus404 | DeactivateInsurancePlanStatus422>, DeactivateInsurancePlanOptions, TContext>({
+  return mutationOptions<DeactivateInsurancePlanStatus200, ResponseErrorConfig<DeactivateInsurancePlanStatus400 | DeactivateInsurancePlanStatus401 | DeactivateInsurancePlanStatus403 | DeactivateInsurancePlanStatus404 | DeactivateInsurancePlanStatus422>, DeactivateInsurancePlanOptions, TContext>({
     mutationKey,
     mutationFn: async({ path }) => {
       return deactivateInsurancePlan({ ...config, path, throwOnError: true }).unwrap()
@@ -26,18 +26,18 @@ export function deactivateInsurancePlanMutationOptions<TContext = unknown>(confi
  * {@link /api/insurance-plans/:id/deactivation}
  */
 export function useDeactivateInsurancePlan<TContext>(options: {
-  mutation?: UseMutationOptions<DeactivateInsurancePlanStatus200, ResponseErrorConfig<DeactivateInsurancePlanStatus401 | DeactivateInsurancePlanStatus403 | DeactivateInsurancePlanStatus404 | DeactivateInsurancePlanStatus422>, DeactivateInsurancePlanOptions, TContext> & { client?: QueryClient },
+  mutation?: UseMutationOptions<DeactivateInsurancePlanStatus200, ResponseErrorConfig<DeactivateInsurancePlanStatus400 | DeactivateInsurancePlanStatus401 | DeactivateInsurancePlanStatus403 | DeactivateInsurancePlanStatus404 | DeactivateInsurancePlanStatus422>, DeactivateInsurancePlanOptions, TContext> & { client?: QueryClient },
   client?: Partial<Omit<RequestConfig, 'path' | 'query' | 'body' | 'headers' | 'url'>>,
 } = {}) {
   const { mutation = {}, client: config = {} } = options ?? {}
   const { client: queryClient, ...mutationOptions } = mutation;
   const mutationKey = mutationOptions.mutationKey ?? deactivateInsurancePlanMutationKey()
 
-  const baseOptions = deactivateInsurancePlanMutationOptions(config) as UseMutationOptions<DeactivateInsurancePlanStatus200, ResponseErrorConfig<DeactivateInsurancePlanStatus401 | DeactivateInsurancePlanStatus403 | DeactivateInsurancePlanStatus404 | DeactivateInsurancePlanStatus422>, DeactivateInsurancePlanOptions, TContext>
+  const baseOptions = deactivateInsurancePlanMutationOptions(config) as UseMutationOptions<DeactivateInsurancePlanStatus200, ResponseErrorConfig<DeactivateInsurancePlanStatus400 | DeactivateInsurancePlanStatus401 | DeactivateInsurancePlanStatus403 | DeactivateInsurancePlanStatus404 | DeactivateInsurancePlanStatus422>, DeactivateInsurancePlanOptions, TContext>
 
-  return useMutation<DeactivateInsurancePlanStatus200, ResponseErrorConfig<DeactivateInsurancePlanStatus401 | DeactivateInsurancePlanStatus403 | DeactivateInsurancePlanStatus404 | DeactivateInsurancePlanStatus422>, DeactivateInsurancePlanOptions, TContext>({
+  return useMutation<DeactivateInsurancePlanStatus200, ResponseErrorConfig<DeactivateInsurancePlanStatus400 | DeactivateInsurancePlanStatus401 | DeactivateInsurancePlanStatus403 | DeactivateInsurancePlanStatus404 | DeactivateInsurancePlanStatus422>, DeactivateInsurancePlanOptions, TContext>({
     ...baseOptions,
     mutationKey,
     ...mutationOptions,
-  }, queryClient) as UseMutationResult<DeactivateInsurancePlanStatus200, ResponseErrorConfig<DeactivateInsurancePlanStatus401 | DeactivateInsurancePlanStatus403 | DeactivateInsurancePlanStatus404 | DeactivateInsurancePlanStatus422>, DeactivateInsurancePlanOptions, TContext>
+  }, queryClient) as UseMutationResult<DeactivateInsurancePlanStatus200, ResponseErrorConfig<DeactivateInsurancePlanStatus400 | DeactivateInsurancePlanStatus401 | DeactivateInsurancePlanStatus403 | DeactivateInsurancePlanStatus404 | DeactivateInsurancePlanStatus422>, DeactivateInsurancePlanOptions, TContext>
 }

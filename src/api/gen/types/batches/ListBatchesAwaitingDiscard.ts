@@ -8,6 +8,8 @@ import type { ErrorResponse } from '../ErrorResponse'
 
 export type ListBatchesAwaitingDiscardStatus200 = BatchView[];
 
+export type ListBatchesAwaitingDiscardStatus400 = ErrorResponse;
+
 export type ListBatchesAwaitingDiscardStatus401 = ErrorResponse;
 
 export type ListBatchesAwaitingDiscardStatus403 = ErrorResponse;
@@ -25,6 +27,7 @@ export type ListBatchesAwaitingDiscardOptions = {
 
 export type ListBatchesAwaitingDiscardResponses = {
     "200": ListBatchesAwaitingDiscardStatus200;
+    "400": ListBatchesAwaitingDiscardStatus400;
     "401": ListBatchesAwaitingDiscardStatus401;
     "403": ListBatchesAwaitingDiscardStatus403;
     "404": ListBatchesAwaitingDiscardStatus404;
@@ -34,4 +37,4 @@ export type ListBatchesAwaitingDiscardResponses = {
 /**
  * @description Union of all possible responses
 */
-export type ListBatchesAwaitingDiscardResponse = (ListBatchesAwaitingDiscardStatus200 | ListBatchesAwaitingDiscardStatus401 | ListBatchesAwaitingDiscardStatus403 | ListBatchesAwaitingDiscardStatus404 | ListBatchesAwaitingDiscardStatus422);
+export type ListBatchesAwaitingDiscardResponse = (ListBatchesAwaitingDiscardStatus200 | ListBatchesAwaitingDiscardStatus400 | ListBatchesAwaitingDiscardStatus401 | ListBatchesAwaitingDiscardStatus403 | ListBatchesAwaitingDiscardStatus404 | ListBatchesAwaitingDiscardStatus422);

@@ -4,7 +4,7 @@
 */
 
 import type { RequestConfig, ResponseErrorConfig } from '../../.kubb/client'
-import type { GetDependentOptions, GetDependentStatus200, GetDependentStatus401, GetDependentStatus403, GetDependentStatus404, GetDependentStatus422 } from '../../types/dependents/GetDependent'
+import type { GetDependentOptions, GetDependentStatus200, GetDependentStatus400, GetDependentStatus401, GetDependentStatus403, GetDependentStatus404, GetDependentStatus422 } from '../../types/dependents/GetDependent'
 import type { QueryKey, QueryClient, UseSuspenseQueryOptions, UseSuspenseQueryResult } from '@tanstack/react-query'
 import { getDependent } from '../../clients/dependents/getDependent'
 import { queryOptions, useSuspenseQuery } from '@tanstack/react-query'
@@ -15,7 +15,7 @@ type GetDependentSuspenseQueryKey = ReturnType<typeof getDependentSuspenseQueryK
 
 export function getDependentSuspenseQueryOptions({ path }: GetDependentOptions, config: Partial<Omit<RequestConfig, 'path' | 'query' | 'body' | 'headers' | 'url'>> = {}) {
   const queryKey = getDependentSuspenseQueryKey({ path })
-  return queryOptions<GetDependentStatus200, ResponseErrorConfig<GetDependentStatus401 | GetDependentStatus403 | GetDependentStatus404 | GetDependentStatus422>, GetDependentStatus200, typeof queryKey>({
+  return queryOptions<GetDependentStatus200, ResponseErrorConfig<GetDependentStatus400 | GetDependentStatus401 | GetDependentStatus403 | GetDependentStatus404 | GetDependentStatus422>, GetDependentStatus200, typeof queryKey>({
    queryKey,
    queryFn: async ({ signal }) => {
       return getDependent({ ...config, path, signal: config.signal ?? signal, throwOnError: true }).unwrap()
@@ -28,7 +28,7 @@ export function getDependentSuspenseQueryOptions({ path }: GetDependentOptions, 
  * {@link /api/dependents/:id}
  */
 export function useGetDependentSuspense<TData = GetDependentStatus200, TQueryKey extends QueryKey = GetDependentSuspenseQueryKey>({ path }: { path: GetDependentOptions['path'] | (() => GetDependentOptions['path']) }, options: {
-  query?: Partial<UseSuspenseQueryOptions<GetDependentStatus200, ResponseErrorConfig<GetDependentStatus401 | GetDependentStatus403 | GetDependentStatus404 | GetDependentStatus422>, TData, TQueryKey>> & { client?: QueryClient },
+  query?: Partial<UseSuspenseQueryOptions<GetDependentStatus200, ResponseErrorConfig<GetDependentStatus400 | GetDependentStatus401 | GetDependentStatus403 | GetDependentStatus404 | GetDependentStatus422>, TData, TQueryKey>> & { client?: QueryClient },
   client?: Partial<Omit<RequestConfig, 'path' | 'query' | 'body' | 'headers' | 'url'>>
 } = {}) {
   const { query: queryConfig = {}, client: config = {} } = options ?? {}
@@ -40,7 +40,7 @@ export function useGetDependentSuspense<TData = GetDependentStatus200, TQueryKey
    ...getDependentSuspenseQueryOptions(resolvedParams, config),
    ...resolvedOptions,
    queryKey,
-  } as unknown as UseSuspenseQueryOptions, queryClient) as UseSuspenseQueryResult<TData, ResponseErrorConfig<GetDependentStatus401 | GetDependentStatus403 | GetDependentStatus404 | GetDependentStatus422>> & { queryKey: TQueryKey }
+  } as unknown as UseSuspenseQueryOptions, queryClient) as UseSuspenseQueryResult<TData, ResponseErrorConfig<GetDependentStatus400 | GetDependentStatus401 | GetDependentStatus403 | GetDependentStatus404 | GetDependentStatus422>> & { queryKey: TQueryKey }
 
   queryResult.queryKey = queryKey as TQueryKey
 

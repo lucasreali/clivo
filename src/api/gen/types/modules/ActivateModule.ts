@@ -11,6 +11,8 @@ export type ActivateModulePath = {
 
 export type ActivateModuleStatus204 = unknown;
 
+export type ActivateModuleStatus400 = ErrorResponse;
+
 export type ActivateModuleStatus401 = ErrorResponse;
 
 export type ActivateModuleStatus403 = ErrorResponse;
@@ -28,6 +30,7 @@ export type ActivateModuleOptions = {
 
 export type ActivateModuleResponses = {
     "204": ActivateModuleStatus204;
+    "400": ActivateModuleStatus400;
     "401": ActivateModuleStatus401;
     "403": ActivateModuleStatus403;
     "404": ActivateModuleStatus404;
@@ -37,4 +40,4 @@ export type ActivateModuleResponses = {
 /**
  * @description Union of all possible responses
 */
-export type ActivateModuleResponse = (ActivateModuleStatus204 | ActivateModuleStatus401 | ActivateModuleStatus403 | ActivateModuleStatus404 | ActivateModuleStatus422);
+export type ActivateModuleResponse = (ActivateModuleStatus204 | ActivateModuleStatus400 | ActivateModuleStatus401 | ActivateModuleStatus403 | ActivateModuleStatus404 | ActivateModuleStatus422);

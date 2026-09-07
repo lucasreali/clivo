@@ -17,6 +17,8 @@ export type ListCustomerDependentsPath = {
 
 export type ListCustomerDependentsStatus200 = DependentView[];
 
+export type ListCustomerDependentsStatus400 = ErrorResponse;
+
 export type ListCustomerDependentsStatus401 = ErrorResponse;
 
 export type ListCustomerDependentsStatus403 = ErrorResponse;
@@ -34,6 +36,7 @@ export type ListCustomerDependentsOptions = {
 
 export type ListCustomerDependentsResponses = {
     "200": ListCustomerDependentsStatus200;
+    "400": ListCustomerDependentsStatus400;
     "401": ListCustomerDependentsStatus401;
     "403": ListCustomerDependentsStatus403;
     "404": ListCustomerDependentsStatus404;
@@ -43,4 +46,4 @@ export type ListCustomerDependentsResponses = {
 /**
  * @description Union of all possible responses
 */
-export type ListCustomerDependentsResponse = (ListCustomerDependentsStatus200 | ListCustomerDependentsStatus401 | ListCustomerDependentsStatus403 | ListCustomerDependentsStatus404 | ListCustomerDependentsStatus422);
+export type ListCustomerDependentsResponse = (ListCustomerDependentsStatus200 | ListCustomerDependentsStatus400 | ListCustomerDependentsStatus401 | ListCustomerDependentsStatus403 | ListCustomerDependentsStatus404 | ListCustomerDependentsStatus422);

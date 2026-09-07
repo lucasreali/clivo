@@ -17,6 +17,8 @@ export type GetDayPanelQuery = {
 
 export type GetDayPanelStatus200 = AppointmentView[];
 
+export type GetDayPanelStatus400 = ErrorResponse;
+
 export type GetDayPanelStatus401 = ErrorResponse;
 
 export type GetDayPanelStatus403 = ErrorResponse;
@@ -34,6 +36,7 @@ export type GetDayPanelOptions = {
 
 export type GetDayPanelResponses = {
     "200": GetDayPanelStatus200;
+    "400": GetDayPanelStatus400;
     "401": GetDayPanelStatus401;
     "403": GetDayPanelStatus403;
     "404": GetDayPanelStatus404;
@@ -43,4 +46,4 @@ export type GetDayPanelResponses = {
 /**
  * @description Union of all possible responses
 */
-export type GetDayPanelResponse = (GetDayPanelStatus200 | GetDayPanelStatus401 | GetDayPanelStatus403 | GetDayPanelStatus404 | GetDayPanelStatus422);
+export type GetDayPanelResponse = (GetDayPanelStatus200 | GetDayPanelStatus400 | GetDayPanelStatus401 | GetDayPanelStatus403 | GetDayPanelStatus404 | GetDayPanelStatus422);

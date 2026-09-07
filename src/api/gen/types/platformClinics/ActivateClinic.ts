@@ -17,6 +17,8 @@ export type ActivateClinicPath = {
 
 export type ActivateClinicStatus200 = ClinicView;
 
+export type ActivateClinicStatus400 = ErrorResponse;
+
 export type ActivateClinicStatus401 = ErrorResponse;
 
 export type ActivateClinicStatus403 = ErrorResponse;
@@ -34,6 +36,7 @@ export type ActivateClinicOptions = {
 
 export type ActivateClinicResponses = {
     "200": ActivateClinicStatus200;
+    "400": ActivateClinicStatus400;
     "401": ActivateClinicStatus401;
     "403": ActivateClinicStatus403;
     "404": ActivateClinicStatus404;
@@ -43,4 +46,4 @@ export type ActivateClinicResponses = {
 /**
  * @description Union of all possible responses
 */
-export type ActivateClinicResponse = (ActivateClinicStatus200 | ActivateClinicStatus401 | ActivateClinicStatus403 | ActivateClinicStatus404 | ActivateClinicStatus422);
+export type ActivateClinicResponse = (ActivateClinicStatus200 | ActivateClinicStatus400 | ActivateClinicStatus401 | ActivateClinicStatus403 | ActivateClinicStatus404 | ActivateClinicStatus422);

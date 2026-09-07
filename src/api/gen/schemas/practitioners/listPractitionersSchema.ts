@@ -11,6 +11,10 @@ export const listPractitionersStatus200Schema = z.array(practitionerViewSchema)
 
 export type ListPractitionersStatus200SchemaType = z.infer<typeof listPractitionersStatus200Schema>
 
+export const listPractitionersStatus400Schema = errorResponseSchema
+
+export type ListPractitionersStatus400SchemaType = z.infer<typeof listPractitionersStatus400Schema>
+
 export const listPractitionersStatus401Schema = errorResponseSchema
 
 export type ListPractitionersStatus401SchemaType = z.infer<typeof listPractitionersStatus401Schema>
@@ -31,7 +35,7 @@ export const listPractitionersResponseSchema = listPractitionersStatus200Schema
 
 export type ListPractitionersResponseSchemaType = z.infer<typeof listPractitionersResponseSchema>
 
-export const listPractitionersErrorSchema = z.union([listPractitionersStatus401Schema, listPractitionersStatus403Schema, listPractitionersStatus404Schema, listPractitionersStatus422Schema])
+export const listPractitionersErrorSchema = z.union([listPractitionersStatus400Schema, listPractitionersStatus401Schema, listPractitionersStatus403Schema, listPractitionersStatus404Schema, listPractitionersStatus422Schema])
 
 export type ListPractitionersErrorSchemaType = z.infer<typeof listPractitionersErrorSchema>
 
@@ -46,6 +50,7 @@ export type ListPractitionersOptionsSchemaType = z.infer<typeof listPractitioner
 
 export const listPractitionersResponsesSchema = z.object({
   '200': listPractitionersStatus200Schema,
+  '400': listPractitionersStatus400Schema,
   '401': listPractitionersStatus401Schema,
   '403': listPractitionersStatus403Schema,
   '404': listPractitionersStatus404Schema,

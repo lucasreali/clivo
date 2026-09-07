@@ -15,6 +15,10 @@ export const listCustomerEncountersStatus200Schema = z.array(encounterHistoryVie
 
 export type ListCustomerEncountersStatus200SchemaType = z.infer<typeof listCustomerEncountersStatus200Schema>
 
+export const listCustomerEncountersStatus400Schema = errorResponseSchema
+
+export type ListCustomerEncountersStatus400SchemaType = z.infer<typeof listCustomerEncountersStatus400Schema>
+
 export const listCustomerEncountersStatus401Schema = errorResponseSchema
 
 export type ListCustomerEncountersStatus401SchemaType = z.infer<typeof listCustomerEncountersStatus401Schema>
@@ -35,7 +39,7 @@ export const listCustomerEncountersResponseSchema = listCustomerEncountersStatus
 
 export type ListCustomerEncountersResponseSchemaType = z.infer<typeof listCustomerEncountersResponseSchema>
 
-export const listCustomerEncountersErrorSchema = z.union([listCustomerEncountersStatus401Schema, listCustomerEncountersStatus403Schema, listCustomerEncountersStatus404Schema, listCustomerEncountersStatus422Schema])
+export const listCustomerEncountersErrorSchema = z.union([listCustomerEncountersStatus400Schema, listCustomerEncountersStatus401Schema, listCustomerEncountersStatus403Schema, listCustomerEncountersStatus404Schema, listCustomerEncountersStatus422Schema])
 
 export type ListCustomerEncountersErrorSchemaType = z.infer<typeof listCustomerEncountersErrorSchema>
 
@@ -56,6 +60,7 @@ export type ListCustomerEncountersOptionsSchemaType = z.infer<typeof listCustome
 
 export const listCustomerEncountersResponsesSchema = z.object({
   '200': listCustomerEncountersStatus200Schema,
+  '400': listCustomerEncountersStatus400Schema,
   '401': listCustomerEncountersStatus401Schema,
   '403': listCustomerEncountersStatus403Schema,
   '404': listCustomerEncountersStatus404Schema,

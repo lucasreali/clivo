@@ -15,6 +15,10 @@ export const getServiceStatus200Schema = serviceViewSchema
 
 export type GetServiceStatus200SchemaType = z.infer<typeof getServiceStatus200Schema>
 
+export const getServiceStatus400Schema = errorResponseSchema
+
+export type GetServiceStatus400SchemaType = z.infer<typeof getServiceStatus400Schema>
+
 export const getServiceStatus401Schema = errorResponseSchema
 
 export type GetServiceStatus401SchemaType = z.infer<typeof getServiceStatus401Schema>
@@ -35,7 +39,7 @@ export const getServiceResponseSchema = getServiceStatus200Schema
 
 export type GetServiceResponseSchemaType = z.infer<typeof getServiceResponseSchema>
 
-export const getServiceErrorSchema = z.union([getServiceStatus401Schema, getServiceStatus403Schema, getServiceStatus404Schema, getServiceStatus422Schema])
+export const getServiceErrorSchema = z.union([getServiceStatus400Schema, getServiceStatus401Schema, getServiceStatus403Schema, getServiceStatus404Schema, getServiceStatus422Schema])
 
 export type GetServiceErrorSchemaType = z.infer<typeof getServiceErrorSchema>
 
@@ -56,6 +60,7 @@ export type GetServiceOptionsSchemaType = z.infer<typeof getServiceOptionsSchema
 
 export const getServiceResponsesSchema = z.object({
   '200': getServiceStatus200Schema,
+  '400': getServiceStatus400Schema,
   '401': getServiceStatus401Schema,
   '403': getServiceStatus403Schema,
   '404': getServiceStatus404Schema,

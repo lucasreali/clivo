@@ -4,7 +4,7 @@
 */
 
 import type { RequestConfig, ResponseErrorConfig } from '../../.kubb/client'
-import type { ListStockMovementsOptions, ListStockMovementsStatus200, ListStockMovementsStatus401, ListStockMovementsStatus403, ListStockMovementsStatus404, ListStockMovementsStatus422 } from '../../types/inventory/ListStockMovements'
+import type { ListStockMovementsOptions, ListStockMovementsStatus200, ListStockMovementsStatus400, ListStockMovementsStatus401, ListStockMovementsStatus403, ListStockMovementsStatus404, ListStockMovementsStatus422 } from '../../types/inventory/ListStockMovements'
 import type { QueryKey, QueryClient, QueryObserverOptions, UseQueryResult } from '@tanstack/react-query'
 import { listStockMovements } from '../../clients/inventory/listStockMovements'
 import { queryOptions, useQuery } from '@tanstack/react-query'
@@ -15,7 +15,7 @@ type ListStockMovementsQueryKey = ReturnType<typeof listStockMovementsQueryKey>
 
 export function listStockMovementsQueryOptions({ path }: ListStockMovementsOptions, config: Partial<Omit<RequestConfig, 'path' | 'query' | 'body' | 'headers' | 'url'>> = {}) {
   const queryKey = listStockMovementsQueryKey({ path })
-  return queryOptions<ListStockMovementsStatus200, ResponseErrorConfig<ListStockMovementsStatus401 | ListStockMovementsStatus403 | ListStockMovementsStatus404 | ListStockMovementsStatus422>, ListStockMovementsStatus200, typeof queryKey>({
+  return queryOptions<ListStockMovementsStatus200, ResponseErrorConfig<ListStockMovementsStatus400 | ListStockMovementsStatus401 | ListStockMovementsStatus403 | ListStockMovementsStatus404 | ListStockMovementsStatus422>, ListStockMovementsStatus200, typeof queryKey>({
    queryKey,
    queryFn: async ({ signal }) => {
       return listStockMovements({ ...config, path, signal: config.signal ?? signal, throwOnError: true }).unwrap()
@@ -28,7 +28,7 @@ export function listStockMovementsQueryOptions({ path }: ListStockMovementsOptio
  * {@link /api/products/:id/movements}
  */
 export function useListStockMovements<TData = ListStockMovementsStatus200, TQueryData = ListStockMovementsStatus200, TQueryKey extends QueryKey = ListStockMovementsQueryKey>({ path }: { path: ListStockMovementsOptions['path'] | (() => ListStockMovementsOptions['path']) }, options: {
-  query?: Partial<QueryObserverOptions<ListStockMovementsStatus200, ResponseErrorConfig<ListStockMovementsStatus401 | ListStockMovementsStatus403 | ListStockMovementsStatus404 | ListStockMovementsStatus422>, TData, TQueryData, TQueryKey>> & { client?: QueryClient },
+  query?: Partial<QueryObserverOptions<ListStockMovementsStatus200, ResponseErrorConfig<ListStockMovementsStatus400 | ListStockMovementsStatus401 | ListStockMovementsStatus403 | ListStockMovementsStatus404 | ListStockMovementsStatus422>, TData, TQueryData, TQueryKey>> & { client?: QueryClient },
   client?: Partial<Omit<RequestConfig, 'path' | 'query' | 'body' | 'headers' | 'url'>>
 } = {}) {
   const { query: queryConfig = {}, client: config = {} } = options ?? {}
@@ -40,7 +40,7 @@ export function useListStockMovements<TData = ListStockMovementsStatus200, TQuer
    ...listStockMovementsQueryOptions(resolvedParams, config),
    ...resolvedOptions,
    queryKey,
-  } as unknown as QueryObserverOptions, queryClient) as UseQueryResult<TData, ResponseErrorConfig<ListStockMovementsStatus401 | ListStockMovementsStatus403 | ListStockMovementsStatus404 | ListStockMovementsStatus422>> & { queryKey: TQueryKey }
+  } as unknown as QueryObserverOptions, queryClient) as UseQueryResult<TData, ResponseErrorConfig<ListStockMovementsStatus400 | ListStockMovementsStatus401 | ListStockMovementsStatus403 | ListStockMovementsStatus404 | ListStockMovementsStatus422>> & { queryKey: TQueryKey }
 
   queryResult.queryKey = queryKey as TQueryKey
 

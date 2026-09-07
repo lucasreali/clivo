@@ -6,12 +6,6 @@
 export type NewClinicRequest = {
     /**
      * @minLength 0
-     * @maxLength 20
-     * @type string
-    */
-    code: string;
-    /**
-     * @minLength 0
      * @maxLength 160
      * @type string | undefined
     */
@@ -19,18 +13,20 @@ export type NewClinicRequest = {
     /**
      * @description
      * Format: `email`
-     * @minLength 1
+     * @minLength 0
+     * @maxLength 160
      * @type string
     */
     managerEmail: string;
     /**
-     * @minLength 1
+     * @minLength 0
+     * @maxLength 120
      * @type string
     */
     managerName: string;
     /**
      * @minLength 8
-     * @maxLength 2147483647
+     * @maxLength 120
      * @type string
     */
     managerPassword: string;
@@ -48,7 +44,7 @@ export type NewClinicRequest = {
     segment?: string;
     /**
      * @minLength 0
-     * @maxLength 14
+     * @maxLength 18
      * @type string | undefined
     */
     taxId?: string;

@@ -4,7 +4,7 @@
 */
 
 import type { RequestConfig, ResponseErrorConfig } from '../../.kubb/client'
-import type { ListServicesStatus200, ListServicesStatus401, ListServicesStatus403, ListServicesStatus404, ListServicesStatus422 } from '../../types/services/ListServices'
+import type { ListServicesStatus200, ListServicesStatus400, ListServicesStatus401, ListServicesStatus403, ListServicesStatus404, ListServicesStatus422 } from '../../types/services/ListServices'
 import type { QueryKey, QueryClient, UseSuspenseQueryOptions, UseSuspenseQueryResult } from '@tanstack/react-query'
 import { listServices } from '../../clients/services/listServices'
 import { queryOptions, useSuspenseQuery } from '@tanstack/react-query'
@@ -15,7 +15,7 @@ type ListServicesSuspenseQueryKey = ReturnType<typeof listServicesSuspenseQueryK
 
 export function listServicesSuspenseQueryOptions(config: Partial<Omit<RequestConfig, 'path' | 'query' | 'body' | 'headers' | 'url'>> = {}) {
   const queryKey = listServicesSuspenseQueryKey()
-  return queryOptions<ListServicesStatus200, ResponseErrorConfig<ListServicesStatus401 | ListServicesStatus403 | ListServicesStatus404 | ListServicesStatus422>, ListServicesStatus200, typeof queryKey>({
+  return queryOptions<ListServicesStatus200, ResponseErrorConfig<ListServicesStatus400 | ListServicesStatus401 | ListServicesStatus403 | ListServicesStatus404 | ListServicesStatus422>, ListServicesStatus200, typeof queryKey>({
    queryKey,
    queryFn: async ({ signal }) => {
       return listServices({ ...config, signal: config.signal ?? signal, throwOnError: true }).unwrap()
@@ -28,7 +28,7 @@ export function listServicesSuspenseQueryOptions(config: Partial<Omit<RequestCon
  * {@link /api/services}
  */
 export function useListServicesSuspense<TData = ListServicesStatus200, TQueryKey extends QueryKey = ListServicesSuspenseQueryKey>(options: {
-  query?: Partial<UseSuspenseQueryOptions<ListServicesStatus200, ResponseErrorConfig<ListServicesStatus401 | ListServicesStatus403 | ListServicesStatus404 | ListServicesStatus422>, TData, TQueryKey>> & { client?: QueryClient },
+  query?: Partial<UseSuspenseQueryOptions<ListServicesStatus200, ResponseErrorConfig<ListServicesStatus400 | ListServicesStatus401 | ListServicesStatus403 | ListServicesStatus404 | ListServicesStatus422>, TData, TQueryKey>> & { client?: QueryClient },
   client?: Partial<Omit<RequestConfig, 'path' | 'query' | 'body' | 'headers' | 'url'>>
 } = {}) {
   const { query: queryConfig = {}, client: config = {} } = options ?? {}
@@ -39,7 +39,7 @@ export function useListServicesSuspense<TData = ListServicesStatus200, TQueryKey
    ...listServicesSuspenseQueryOptions(config),
    ...resolvedOptions,
    queryKey,
-  } as unknown as UseSuspenseQueryOptions, queryClient) as UseSuspenseQueryResult<TData, ResponseErrorConfig<ListServicesStatus401 | ListServicesStatus403 | ListServicesStatus404 | ListServicesStatus422>> & { queryKey: TQueryKey }
+  } as unknown as UseSuspenseQueryOptions, queryClient) as UseSuspenseQueryResult<TData, ResponseErrorConfig<ListServicesStatus400 | ListServicesStatus401 | ListServicesStatus403 | ListServicesStatus404 | ListServicesStatus422>> & { queryKey: TQueryKey }
 
   queryResult.queryKey = queryKey as TQueryKey
 

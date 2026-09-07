@@ -17,6 +17,8 @@ export type GetEncounterPath = {
 
 export type GetEncounterStatus200 = EncounterView;
 
+export type GetEncounterStatus400 = ErrorResponse;
+
 export type GetEncounterStatus401 = ErrorResponse;
 
 export type GetEncounterStatus403 = ErrorResponse;
@@ -34,6 +36,7 @@ export type GetEncounterOptions = {
 
 export type GetEncounterResponses = {
     "200": GetEncounterStatus200;
+    "400": GetEncounterStatus400;
     "401": GetEncounterStatus401;
     "403": GetEncounterStatus403;
     "404": GetEncounterStatus404;
@@ -43,4 +46,4 @@ export type GetEncounterResponses = {
 /**
  * @description Union of all possible responses
 */
-export type GetEncounterResponse = (GetEncounterStatus200 | GetEncounterStatus401 | GetEncounterStatus403 | GetEncounterStatus404 | GetEncounterStatus422);
+export type GetEncounterResponse = (GetEncounterStatus200 | GetEncounterStatus400 | GetEncounterStatus401 | GetEncounterStatus403 | GetEncounterStatus404 | GetEncounterStatus422);

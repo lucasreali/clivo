@@ -4,7 +4,7 @@
 */
 
 import type { RequestConfig, ResponseErrorConfig } from '../../.kubb/client'
-import type { DispatchDueNotificationsStatus200, DispatchDueNotificationsStatus401, DispatchDueNotificationsStatus403, DispatchDueNotificationsStatus404, DispatchDueNotificationsStatus422 } from '../../types/notifications/DispatchDueNotifications'
+import type { DispatchDueNotificationsStatus200, DispatchDueNotificationsStatus400, DispatchDueNotificationsStatus401, DispatchDueNotificationsStatus403, DispatchDueNotificationsStatus404, DispatchDueNotificationsStatus422 } from '../../types/notifications/DispatchDueNotifications'
 import type { UseMutationOptions, UseMutationResult, QueryClient } from '@tanstack/react-query'
 import { dispatchDueNotifications } from '../../clients/notifications/dispatchDueNotifications'
 import { mutationOptions, useMutation } from '@tanstack/react-query'
@@ -13,7 +13,7 @@ export const dispatchDueNotificationsMutationKey = () => [{ url: '/api/notificat
 
 export function dispatchDueNotificationsMutationOptions<TContext = unknown>(config: Partial<Omit<RequestConfig, 'path' | 'query' | 'body' | 'headers' | 'url'>> = {}) {
   const mutationKey = dispatchDueNotificationsMutationKey()
-  return mutationOptions<DispatchDueNotificationsStatus200, ResponseErrorConfig<DispatchDueNotificationsStatus401 | DispatchDueNotificationsStatus403 | DispatchDueNotificationsStatus404 | DispatchDueNotificationsStatus422>, undefined, TContext>({
+  return mutationOptions<DispatchDueNotificationsStatus200, ResponseErrorConfig<DispatchDueNotificationsStatus400 | DispatchDueNotificationsStatus401 | DispatchDueNotificationsStatus403 | DispatchDueNotificationsStatus404 | DispatchDueNotificationsStatus422>, undefined, TContext>({
     mutationKey,
     mutationFn: async(_) => {
       return dispatchDueNotifications({ ...config, throwOnError: true }).unwrap()
@@ -26,18 +26,18 @@ export function dispatchDueNotificationsMutationOptions<TContext = unknown>(conf
  * {@link /api/notifications/dispatch}
  */
 export function useDispatchDueNotifications<TContext>(options: {
-  mutation?: UseMutationOptions<DispatchDueNotificationsStatus200, ResponseErrorConfig<DispatchDueNotificationsStatus401 | DispatchDueNotificationsStatus403 | DispatchDueNotificationsStatus404 | DispatchDueNotificationsStatus422>, undefined, TContext> & { client?: QueryClient },
+  mutation?: UseMutationOptions<DispatchDueNotificationsStatus200, ResponseErrorConfig<DispatchDueNotificationsStatus400 | DispatchDueNotificationsStatus401 | DispatchDueNotificationsStatus403 | DispatchDueNotificationsStatus404 | DispatchDueNotificationsStatus422>, undefined, TContext> & { client?: QueryClient },
   client?: Partial<Omit<RequestConfig, 'path' | 'query' | 'body' | 'headers' | 'url'>>,
 } = {}) {
   const { mutation = {}, client: config = {} } = options ?? {}
   const { client: queryClient, ...mutationOptions } = mutation;
   const mutationKey = mutationOptions.mutationKey ?? dispatchDueNotificationsMutationKey()
 
-  const baseOptions = dispatchDueNotificationsMutationOptions(config) as UseMutationOptions<DispatchDueNotificationsStatus200, ResponseErrorConfig<DispatchDueNotificationsStatus401 | DispatchDueNotificationsStatus403 | DispatchDueNotificationsStatus404 | DispatchDueNotificationsStatus422>, undefined, TContext>
+  const baseOptions = dispatchDueNotificationsMutationOptions(config) as UseMutationOptions<DispatchDueNotificationsStatus200, ResponseErrorConfig<DispatchDueNotificationsStatus400 | DispatchDueNotificationsStatus401 | DispatchDueNotificationsStatus403 | DispatchDueNotificationsStatus404 | DispatchDueNotificationsStatus422>, undefined, TContext>
 
-  return useMutation<DispatchDueNotificationsStatus200, ResponseErrorConfig<DispatchDueNotificationsStatus401 | DispatchDueNotificationsStatus403 | DispatchDueNotificationsStatus404 | DispatchDueNotificationsStatus422>, undefined, TContext>({
+  return useMutation<DispatchDueNotificationsStatus200, ResponseErrorConfig<DispatchDueNotificationsStatus400 | DispatchDueNotificationsStatus401 | DispatchDueNotificationsStatus403 | DispatchDueNotificationsStatus404 | DispatchDueNotificationsStatus422>, undefined, TContext>({
     ...baseOptions,
     mutationKey,
     ...mutationOptions,
-  }, queryClient) as UseMutationResult<DispatchDueNotificationsStatus200, ResponseErrorConfig<DispatchDueNotificationsStatus401 | DispatchDueNotificationsStatus403 | DispatchDueNotificationsStatus404 | DispatchDueNotificationsStatus422>, undefined, TContext>
+  }, queryClient) as UseMutationResult<DispatchDueNotificationsStatus200, ResponseErrorConfig<DispatchDueNotificationsStatus400 | DispatchDueNotificationsStatus401 | DispatchDueNotificationsStatus403 | DispatchDueNotificationsStatus404 | DispatchDueNotificationsStatus422>, undefined, TContext>
 }

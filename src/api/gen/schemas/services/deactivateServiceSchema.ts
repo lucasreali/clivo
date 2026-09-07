@@ -15,6 +15,10 @@ export const deactivateServiceStatus200Schema = serviceViewSchema
 
 export type DeactivateServiceStatus200SchemaType = z.infer<typeof deactivateServiceStatus200Schema>
 
+export const deactivateServiceStatus400Schema = errorResponseSchema
+
+export type DeactivateServiceStatus400SchemaType = z.infer<typeof deactivateServiceStatus400Schema>
+
 export const deactivateServiceStatus401Schema = errorResponseSchema
 
 export type DeactivateServiceStatus401SchemaType = z.infer<typeof deactivateServiceStatus401Schema>
@@ -35,7 +39,7 @@ export const deactivateServiceResponseSchema = deactivateServiceStatus200Schema
 
 export type DeactivateServiceResponseSchemaType = z.infer<typeof deactivateServiceResponseSchema>
 
-export const deactivateServiceErrorSchema = z.union([deactivateServiceStatus401Schema, deactivateServiceStatus403Schema, deactivateServiceStatus404Schema, deactivateServiceStatus422Schema])
+export const deactivateServiceErrorSchema = z.union([deactivateServiceStatus400Schema, deactivateServiceStatus401Schema, deactivateServiceStatus403Schema, deactivateServiceStatus404Schema, deactivateServiceStatus422Schema])
 
 export type DeactivateServiceErrorSchemaType = z.infer<typeof deactivateServiceErrorSchema>
 
@@ -56,6 +60,7 @@ export type DeactivateServiceOptionsSchemaType = z.infer<typeof deactivateServic
 
 export const deactivateServiceResponsesSchema = z.object({
   '200': deactivateServiceStatus200Schema,
+  '400': deactivateServiceStatus400Schema,
   '401': deactivateServiceStatus401Schema,
   '403': deactivateServiceStatus403Schema,
   '404': deactivateServiceStatus404Schema,

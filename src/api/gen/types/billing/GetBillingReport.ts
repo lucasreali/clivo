@@ -23,6 +23,8 @@ export type GetBillingReportQuery = {
 
 export type GetBillingReportStatus200 = BillingReportView;
 
+export type GetBillingReportStatus400 = ErrorResponse;
+
 export type GetBillingReportStatus401 = ErrorResponse;
 
 export type GetBillingReportStatus403 = ErrorResponse;
@@ -40,6 +42,7 @@ export type GetBillingReportOptions = {
 
 export type GetBillingReportResponses = {
     "200": GetBillingReportStatus200;
+    "400": GetBillingReportStatus400;
     "401": GetBillingReportStatus401;
     "403": GetBillingReportStatus403;
     "404": GetBillingReportStatus404;
@@ -49,4 +52,4 @@ export type GetBillingReportResponses = {
 /**
  * @description Union of all possible responses
 */
-export type GetBillingReportResponse = (GetBillingReportStatus200 | GetBillingReportStatus401 | GetBillingReportStatus403 | GetBillingReportStatus404 | GetBillingReportStatus422);
+export type GetBillingReportResponse = (GetBillingReportStatus200 | GetBillingReportStatus400 | GetBillingReportStatus401 | GetBillingReportStatus403 | GetBillingReportStatus404 | GetBillingReportStatus422);

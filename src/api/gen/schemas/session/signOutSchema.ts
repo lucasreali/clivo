@@ -10,6 +10,10 @@ export const signOutStatus204Schema = z.unknown()
 
 export type SignOutStatus204SchemaType = z.infer<typeof signOutStatus204Schema>
 
+export const signOutStatus400Schema = errorResponseSchema
+
+export type SignOutStatus400SchemaType = z.infer<typeof signOutStatus400Schema>
+
 export const signOutStatus401Schema = errorResponseSchema
 
 export type SignOutStatus401SchemaType = z.infer<typeof signOutStatus401Schema>
@@ -30,7 +34,7 @@ export const signOutResponseSchema = signOutStatus204Schema
 
 export type SignOutResponseSchemaType = z.infer<typeof signOutResponseSchema>
 
-export const signOutErrorSchema = z.union([signOutStatus401Schema, signOutStatus403Schema, signOutStatus404Schema, signOutStatus422Schema])
+export const signOutErrorSchema = z.union([signOutStatus400Schema, signOutStatus401Schema, signOutStatus403Schema, signOutStatus404Schema, signOutStatus422Schema])
 
 export type SignOutErrorSchemaType = z.infer<typeof signOutErrorSchema>
 
@@ -45,6 +49,7 @@ export type SignOutOptionsSchemaType = z.infer<typeof signOutOptionsSchema>
 
 export const signOutResponsesSchema = z.object({
   '204': signOutStatus204Schema,
+  '400': signOutStatus400Schema,
   '401': signOutStatus401Schema,
   '403': signOutStatus403Schema,
   '404': signOutStatus404Schema,

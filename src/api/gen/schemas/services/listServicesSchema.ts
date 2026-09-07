@@ -11,6 +11,10 @@ export const listServicesStatus200Schema = z.array(serviceViewSchema)
 
 export type ListServicesStatus200SchemaType = z.infer<typeof listServicesStatus200Schema>
 
+export const listServicesStatus400Schema = errorResponseSchema
+
+export type ListServicesStatus400SchemaType = z.infer<typeof listServicesStatus400Schema>
+
 export const listServicesStatus401Schema = errorResponseSchema
 
 export type ListServicesStatus401SchemaType = z.infer<typeof listServicesStatus401Schema>
@@ -31,7 +35,7 @@ export const listServicesResponseSchema = listServicesStatus200Schema
 
 export type ListServicesResponseSchemaType = z.infer<typeof listServicesResponseSchema>
 
-export const listServicesErrorSchema = z.union([listServicesStatus401Schema, listServicesStatus403Schema, listServicesStatus404Schema, listServicesStatus422Schema])
+export const listServicesErrorSchema = z.union([listServicesStatus400Schema, listServicesStatus401Schema, listServicesStatus403Schema, listServicesStatus404Schema, listServicesStatus422Schema])
 
 export type ListServicesErrorSchemaType = z.infer<typeof listServicesErrorSchema>
 
@@ -46,6 +50,7 @@ export type ListServicesOptionsSchemaType = z.infer<typeof listServicesOptionsSc
 
 export const listServicesResponsesSchema = z.object({
   '200': listServicesStatus200Schema,
+  '400': listServicesStatus400Schema,
   '401': listServicesStatus401Schema,
   '403': listServicesStatus403Schema,
   '404': listServicesStatus404Schema,

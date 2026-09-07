@@ -12,6 +12,8 @@ export type SearchCustomersQuery = {
 
 export type SearchCustomersStatus200 = CustomerView[];
 
+export type SearchCustomersStatus400 = ErrorResponse;
+
 export type SearchCustomersStatus401 = ErrorResponse;
 
 export type SearchCustomersStatus403 = ErrorResponse;
@@ -29,6 +31,7 @@ export type SearchCustomersOptions = {
 
 export type SearchCustomersResponses = {
     "200": SearchCustomersStatus200;
+    "400": SearchCustomersStatus400;
     "401": SearchCustomersStatus401;
     "403": SearchCustomersStatus403;
     "404": SearchCustomersStatus404;
@@ -38,4 +41,4 @@ export type SearchCustomersResponses = {
 /**
  * @description Union of all possible responses
 */
-export type SearchCustomersResponse = (SearchCustomersStatus200 | SearchCustomersStatus401 | SearchCustomersStatus403 | SearchCustomersStatus404 | SearchCustomersStatus422);
+export type SearchCustomersResponse = (SearchCustomersStatus200 | SearchCustomersStatus400 | SearchCustomersStatus401 | SearchCustomersStatus403 | SearchCustomersStatus404 | SearchCustomersStatus422);

@@ -15,6 +15,10 @@ export const checkInAppointmentStatus200Schema = appointmentViewSchema
 
 export type CheckInAppointmentStatus200SchemaType = z.infer<typeof checkInAppointmentStatus200Schema>
 
+export const checkInAppointmentStatus400Schema = errorResponseSchema
+
+export type CheckInAppointmentStatus400SchemaType = z.infer<typeof checkInAppointmentStatus400Schema>
+
 export const checkInAppointmentStatus401Schema = errorResponseSchema
 
 export type CheckInAppointmentStatus401SchemaType = z.infer<typeof checkInAppointmentStatus401Schema>
@@ -35,7 +39,7 @@ export const checkInAppointmentResponseSchema = checkInAppointmentStatus200Schem
 
 export type CheckInAppointmentResponseSchemaType = z.infer<typeof checkInAppointmentResponseSchema>
 
-export const checkInAppointmentErrorSchema = z.union([checkInAppointmentStatus401Schema, checkInAppointmentStatus403Schema, checkInAppointmentStatus404Schema, checkInAppointmentStatus422Schema])
+export const checkInAppointmentErrorSchema = z.union([checkInAppointmentStatus400Schema, checkInAppointmentStatus401Schema, checkInAppointmentStatus403Schema, checkInAppointmentStatus404Schema, checkInAppointmentStatus422Schema])
 
 export type CheckInAppointmentErrorSchemaType = z.infer<typeof checkInAppointmentErrorSchema>
 
@@ -56,6 +60,7 @@ export type CheckInAppointmentOptionsSchemaType = z.infer<typeof checkInAppointm
 
 export const checkInAppointmentResponsesSchema = z.object({
   '200': checkInAppointmentStatus200Schema,
+  '400': checkInAppointmentStatus400Schema,
   '401': checkInAppointmentStatus401Schema,
   '403': checkInAppointmentStatus403Schema,
   '404': checkInAppointmentStatus404Schema,

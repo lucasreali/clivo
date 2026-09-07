@@ -4,7 +4,7 @@
 */
 
 import type { RequestConfig, ResponseErrorConfig } from '../../.kubb/client'
-import type { GetPractitionerAttendanceOptions, GetPractitionerAttendanceStatus200, GetPractitionerAttendanceStatus401, GetPractitionerAttendanceStatus403, GetPractitionerAttendanceStatus404, GetPractitionerAttendanceStatus422 } from '../../types/practitioners/GetPractitionerAttendance'
+import type { GetPractitionerAttendanceOptions, GetPractitionerAttendanceStatus200, GetPractitionerAttendanceStatus400, GetPractitionerAttendanceStatus401, GetPractitionerAttendanceStatus403, GetPractitionerAttendanceStatus404, GetPractitionerAttendanceStatus422 } from '../../types/practitioners/GetPractitionerAttendance'
 import type { QueryKey, QueryClient, UseSuspenseQueryOptions, UseSuspenseQueryResult } from '@tanstack/react-query'
 import { getPractitionerAttendance } from '../../clients/practitioners/getPractitionerAttendance'
 import { queryOptions, useSuspenseQuery } from '@tanstack/react-query'
@@ -15,7 +15,7 @@ type GetPractitionerAttendanceSuspenseQueryKey = ReturnType<typeof getPractition
 
 export function getPractitionerAttendanceSuspenseQueryOptions({ path, query }: GetPractitionerAttendanceOptions, config: Partial<Omit<RequestConfig, 'path' | 'query' | 'body' | 'headers' | 'url'>> = {}) {
   const queryKey = getPractitionerAttendanceSuspenseQueryKey({ path, query })
-  return queryOptions<GetPractitionerAttendanceStatus200, ResponseErrorConfig<GetPractitionerAttendanceStatus401 | GetPractitionerAttendanceStatus403 | GetPractitionerAttendanceStatus404 | GetPractitionerAttendanceStatus422>, GetPractitionerAttendanceStatus200, typeof queryKey>({
+  return queryOptions<GetPractitionerAttendanceStatus200, ResponseErrorConfig<GetPractitionerAttendanceStatus400 | GetPractitionerAttendanceStatus401 | GetPractitionerAttendanceStatus403 | GetPractitionerAttendanceStatus404 | GetPractitionerAttendanceStatus422>, GetPractitionerAttendanceStatus200, typeof queryKey>({
    queryKey,
    queryFn: async ({ signal }) => {
       return getPractitionerAttendance({ ...config, path, query, signal: config.signal ?? signal, throwOnError: true }).unwrap()
@@ -28,7 +28,7 @@ export function getPractitionerAttendanceSuspenseQueryOptions({ path, query }: G
  * {@link /api/practitioners/:id/attendance}
  */
 export function useGetPractitionerAttendanceSuspense<TData = GetPractitionerAttendanceStatus200, TQueryKey extends QueryKey = GetPractitionerAttendanceSuspenseQueryKey>({ path, query }: { path: GetPractitionerAttendanceOptions['path'] | (() => GetPractitionerAttendanceOptions['path']); query: GetPractitionerAttendanceOptions['query'] | (() => GetPractitionerAttendanceOptions['query']) }, options: {
-  query?: Partial<UseSuspenseQueryOptions<GetPractitionerAttendanceStatus200, ResponseErrorConfig<GetPractitionerAttendanceStatus401 | GetPractitionerAttendanceStatus403 | GetPractitionerAttendanceStatus404 | GetPractitionerAttendanceStatus422>, TData, TQueryKey>> & { client?: QueryClient },
+  query?: Partial<UseSuspenseQueryOptions<GetPractitionerAttendanceStatus200, ResponseErrorConfig<GetPractitionerAttendanceStatus400 | GetPractitionerAttendanceStatus401 | GetPractitionerAttendanceStatus403 | GetPractitionerAttendanceStatus404 | GetPractitionerAttendanceStatus422>, TData, TQueryKey>> & { client?: QueryClient },
   client?: Partial<Omit<RequestConfig, 'path' | 'query' | 'body' | 'headers' | 'url'>>
 } = {}) {
   const { query: queryConfig = {}, client: config = {} } = options ?? {}
@@ -40,7 +40,7 @@ export function useGetPractitionerAttendanceSuspense<TData = GetPractitionerAtte
    ...getPractitionerAttendanceSuspenseQueryOptions(resolvedParams, config),
    ...resolvedOptions,
    queryKey,
-  } as unknown as UseSuspenseQueryOptions, queryClient) as UseSuspenseQueryResult<TData, ResponseErrorConfig<GetPractitionerAttendanceStatus401 | GetPractitionerAttendanceStatus403 | GetPractitionerAttendanceStatus404 | GetPractitionerAttendanceStatus422>> & { queryKey: TQueryKey }
+  } as unknown as UseSuspenseQueryOptions, queryClient) as UseSuspenseQueryResult<TData, ResponseErrorConfig<GetPractitionerAttendanceStatus400 | GetPractitionerAttendanceStatus401 | GetPractitionerAttendanceStatus403 | GetPractitionerAttendanceStatus404 | GetPractitionerAttendanceStatus422>> & { queryKey: TQueryKey }
 
   queryResult.queryKey = queryKey as TQueryKey
 

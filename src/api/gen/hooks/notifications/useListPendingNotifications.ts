@@ -4,7 +4,7 @@
 */
 
 import type { RequestConfig, ResponseErrorConfig } from '../../.kubb/client'
-import type { ListPendingNotificationsStatus200, ListPendingNotificationsStatus401, ListPendingNotificationsStatus403, ListPendingNotificationsStatus404, ListPendingNotificationsStatus422 } from '../../types/notifications/ListPendingNotifications'
+import type { ListPendingNotificationsStatus200, ListPendingNotificationsStatus400, ListPendingNotificationsStatus401, ListPendingNotificationsStatus403, ListPendingNotificationsStatus404, ListPendingNotificationsStatus422 } from '../../types/notifications/ListPendingNotifications'
 import type { QueryKey, QueryClient, QueryObserverOptions, UseQueryResult } from '@tanstack/react-query'
 import { listPendingNotifications } from '../../clients/notifications/listPendingNotifications'
 import { queryOptions, useQuery } from '@tanstack/react-query'
@@ -15,7 +15,7 @@ type ListPendingNotificationsQueryKey = ReturnType<typeof listPendingNotificatio
 
 export function listPendingNotificationsQueryOptions(config: Partial<Omit<RequestConfig, 'path' | 'query' | 'body' | 'headers' | 'url'>> = {}) {
   const queryKey = listPendingNotificationsQueryKey()
-  return queryOptions<ListPendingNotificationsStatus200, ResponseErrorConfig<ListPendingNotificationsStatus401 | ListPendingNotificationsStatus403 | ListPendingNotificationsStatus404 | ListPendingNotificationsStatus422>, ListPendingNotificationsStatus200, typeof queryKey>({
+  return queryOptions<ListPendingNotificationsStatus200, ResponseErrorConfig<ListPendingNotificationsStatus400 | ListPendingNotificationsStatus401 | ListPendingNotificationsStatus403 | ListPendingNotificationsStatus404 | ListPendingNotificationsStatus422>, ListPendingNotificationsStatus200, typeof queryKey>({
    queryKey,
    queryFn: async ({ signal }) => {
       return listPendingNotifications({ ...config, signal: config.signal ?? signal, throwOnError: true }).unwrap()
@@ -28,7 +28,7 @@ export function listPendingNotificationsQueryOptions(config: Partial<Omit<Reques
  * {@link /api/notifications/pending}
  */
 export function useListPendingNotifications<TData = ListPendingNotificationsStatus200, TQueryData = ListPendingNotificationsStatus200, TQueryKey extends QueryKey = ListPendingNotificationsQueryKey>(options: {
-  query?: Partial<QueryObserverOptions<ListPendingNotificationsStatus200, ResponseErrorConfig<ListPendingNotificationsStatus401 | ListPendingNotificationsStatus403 | ListPendingNotificationsStatus404 | ListPendingNotificationsStatus422>, TData, TQueryData, TQueryKey>> & { client?: QueryClient },
+  query?: Partial<QueryObserverOptions<ListPendingNotificationsStatus200, ResponseErrorConfig<ListPendingNotificationsStatus400 | ListPendingNotificationsStatus401 | ListPendingNotificationsStatus403 | ListPendingNotificationsStatus404 | ListPendingNotificationsStatus422>, TData, TQueryData, TQueryKey>> & { client?: QueryClient },
   client?: Partial<Omit<RequestConfig, 'path' | 'query' | 'body' | 'headers' | 'url'>>
 } = {}) {
   const { query: queryConfig = {}, client: config = {} } = options ?? {}
@@ -39,7 +39,7 @@ export function useListPendingNotifications<TData = ListPendingNotificationsStat
    ...listPendingNotificationsQueryOptions(config),
    ...resolvedOptions,
    queryKey,
-  } as unknown as QueryObserverOptions, queryClient) as UseQueryResult<TData, ResponseErrorConfig<ListPendingNotificationsStatus401 | ListPendingNotificationsStatus403 | ListPendingNotificationsStatus404 | ListPendingNotificationsStatus422>> & { queryKey: TQueryKey }
+  } as unknown as QueryObserverOptions, queryClient) as UseQueryResult<TData, ResponseErrorConfig<ListPendingNotificationsStatus400 | ListPendingNotificationsStatus401 | ListPendingNotificationsStatus403 | ListPendingNotificationsStatus404 | ListPendingNotificationsStatus422>> & { queryKey: TQueryKey }
 
   queryResult.queryKey = queryKey as TQueryKey
 

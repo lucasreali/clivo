@@ -17,6 +17,8 @@ export type DeactivateProductPath = {
 
 export type DeactivateProductStatus200 = ProductView;
 
+export type DeactivateProductStatus400 = ErrorResponse;
+
 export type DeactivateProductStatus401 = ErrorResponse;
 
 export type DeactivateProductStatus403 = ErrorResponse;
@@ -34,6 +36,7 @@ export type DeactivateProductOptions = {
 
 export type DeactivateProductResponses = {
     "200": DeactivateProductStatus200;
+    "400": DeactivateProductStatus400;
     "401": DeactivateProductStatus401;
     "403": DeactivateProductStatus403;
     "404": DeactivateProductStatus404;
@@ -43,4 +46,4 @@ export type DeactivateProductResponses = {
 /**
  * @description Union of all possible responses
 */
-export type DeactivateProductResponse = (DeactivateProductStatus200 | DeactivateProductStatus401 | DeactivateProductStatus403 | DeactivateProductStatus404 | DeactivateProductStatus422);
+export type DeactivateProductResponse = (DeactivateProductStatus200 | DeactivateProductStatus400 | DeactivateProductStatus401 | DeactivateProductStatus403 | DeactivateProductStatus404 | DeactivateProductStatus422);

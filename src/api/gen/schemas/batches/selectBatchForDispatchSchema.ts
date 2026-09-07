@@ -19,6 +19,10 @@ export const selectBatchForDispatchStatus200Schema = batchChoiceViewSchema
 
 export type SelectBatchForDispatchStatus200SchemaType = z.infer<typeof selectBatchForDispatchStatus200Schema>
 
+export const selectBatchForDispatchStatus400Schema = errorResponseSchema
+
+export type SelectBatchForDispatchStatus400SchemaType = z.infer<typeof selectBatchForDispatchStatus400Schema>
+
 export const selectBatchForDispatchStatus401Schema = errorResponseSchema
 
 export type SelectBatchForDispatchStatus401SchemaType = z.infer<typeof selectBatchForDispatchStatus401Schema>
@@ -39,7 +43,7 @@ export const selectBatchForDispatchResponseSchema = selectBatchForDispatchStatus
 
 export type SelectBatchForDispatchResponseSchemaType = z.infer<typeof selectBatchForDispatchResponseSchema>
 
-export const selectBatchForDispatchErrorSchema = z.union([selectBatchForDispatchStatus401Schema, selectBatchForDispatchStatus403Schema, selectBatchForDispatchStatus404Schema, selectBatchForDispatchStatus422Schema])
+export const selectBatchForDispatchErrorSchema = z.union([selectBatchForDispatchStatus400Schema, selectBatchForDispatchStatus401Schema, selectBatchForDispatchStatus403Schema, selectBatchForDispatchStatus404Schema, selectBatchForDispatchStatus422Schema])
 
 export type SelectBatchForDispatchErrorSchemaType = z.infer<typeof selectBatchForDispatchErrorSchema>
 
@@ -66,6 +70,7 @@ export type SelectBatchForDispatchOptionsSchemaType = z.infer<typeof selectBatch
 
 export const selectBatchForDispatchResponsesSchema = z.object({
   '200': selectBatchForDispatchStatus200Schema,
+  '400': selectBatchForDispatchStatus400Schema,
   '401': selectBatchForDispatchStatus401Schema,
   '403': selectBatchForDispatchStatus403Schema,
   '404': selectBatchForDispatchStatus404Schema,

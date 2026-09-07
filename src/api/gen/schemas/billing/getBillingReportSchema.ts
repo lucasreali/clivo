@@ -19,6 +19,10 @@ export const getBillingReportStatus200Schema = billingReportViewSchema
 
 export type GetBillingReportStatus200SchemaType = z.infer<typeof getBillingReportStatus200Schema>
 
+export const getBillingReportStatus400Schema = errorResponseSchema
+
+export type GetBillingReportStatus400SchemaType = z.infer<typeof getBillingReportStatus400Schema>
+
 export const getBillingReportStatus401Schema = errorResponseSchema
 
 export type GetBillingReportStatus401SchemaType = z.infer<typeof getBillingReportStatus401Schema>
@@ -39,7 +43,7 @@ export const getBillingReportResponseSchema = getBillingReportStatus200Schema
 
 export type GetBillingReportResponseSchemaType = z.infer<typeof getBillingReportResponseSchema>
 
-export const getBillingReportErrorSchema = z.union([getBillingReportStatus401Schema, getBillingReportStatus403Schema, getBillingReportStatus404Schema, getBillingReportStatus422Schema])
+export const getBillingReportErrorSchema = z.union([getBillingReportStatus400Schema, getBillingReportStatus401Schema, getBillingReportStatus403Schema, getBillingReportStatus404Schema, getBillingReportStatus422Schema])
 
 export type GetBillingReportErrorSchemaType = z.infer<typeof getBillingReportErrorSchema>
 
@@ -61,6 +65,7 @@ export type GetBillingReportOptionsSchemaType = z.infer<typeof getBillingReportO
 
 export const getBillingReportResponsesSchema = z.object({
   '200': getBillingReportStatus200Schema,
+  '400': getBillingReportStatus400Schema,
   '401': getBillingReportStatus401Schema,
   '403': getBillingReportStatus403Schema,
   '404': getBillingReportStatus404Schema,

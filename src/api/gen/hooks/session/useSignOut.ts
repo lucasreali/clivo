@@ -4,7 +4,7 @@
 */
 
 import type { RequestConfig, ResponseErrorConfig } from '../../.kubb/client'
-import type { SignOutStatus204, SignOutStatus401, SignOutStatus403, SignOutStatus404, SignOutStatus422 } from '../../types/session/SignOut'
+import type { SignOutStatus204, SignOutStatus400, SignOutStatus401, SignOutStatus403, SignOutStatus404, SignOutStatus422 } from '../../types/session/SignOut'
 import type { UseMutationOptions, UseMutationResult, QueryClient } from '@tanstack/react-query'
 import { signOut } from '../../clients/session/signOut'
 import { mutationOptions, useMutation } from '@tanstack/react-query'
@@ -13,7 +13,7 @@ export const signOutMutationKey = () => [{ url: '/api/session' }] as const
 
 export function signOutMutationOptions<TContext = unknown>(config: Partial<Omit<RequestConfig, 'path' | 'query' | 'body' | 'headers' | 'url'>> = {}) {
   const mutationKey = signOutMutationKey()
-  return mutationOptions<SignOutStatus204, ResponseErrorConfig<SignOutStatus401 | SignOutStatus403 | SignOutStatus404 | SignOutStatus422>, undefined, TContext>({
+  return mutationOptions<SignOutStatus204, ResponseErrorConfig<SignOutStatus400 | SignOutStatus401 | SignOutStatus403 | SignOutStatus404 | SignOutStatus422>, undefined, TContext>({
     mutationKey,
     mutationFn: async(_) => {
       return signOut({ ...config, throwOnError: true }).unwrap()
@@ -26,18 +26,18 @@ export function signOutMutationOptions<TContext = unknown>(config: Partial<Omit<
  * {@link /api/session}
  */
 export function useSignOut<TContext>(options: {
-  mutation?: UseMutationOptions<SignOutStatus204, ResponseErrorConfig<SignOutStatus401 | SignOutStatus403 | SignOutStatus404 | SignOutStatus422>, undefined, TContext> & { client?: QueryClient },
+  mutation?: UseMutationOptions<SignOutStatus204, ResponseErrorConfig<SignOutStatus400 | SignOutStatus401 | SignOutStatus403 | SignOutStatus404 | SignOutStatus422>, undefined, TContext> & { client?: QueryClient },
   client?: Partial<Omit<RequestConfig, 'path' | 'query' | 'body' | 'headers' | 'url'>>,
 } = {}) {
   const { mutation = {}, client: config = {} } = options ?? {}
   const { client: queryClient, ...mutationOptions } = mutation;
   const mutationKey = mutationOptions.mutationKey ?? signOutMutationKey()
 
-  const baseOptions = signOutMutationOptions(config) as UseMutationOptions<SignOutStatus204, ResponseErrorConfig<SignOutStatus401 | SignOutStatus403 | SignOutStatus404 | SignOutStatus422>, undefined, TContext>
+  const baseOptions = signOutMutationOptions(config) as UseMutationOptions<SignOutStatus204, ResponseErrorConfig<SignOutStatus400 | SignOutStatus401 | SignOutStatus403 | SignOutStatus404 | SignOutStatus422>, undefined, TContext>
 
-  return useMutation<SignOutStatus204, ResponseErrorConfig<SignOutStatus401 | SignOutStatus403 | SignOutStatus404 | SignOutStatus422>, undefined, TContext>({
+  return useMutation<SignOutStatus204, ResponseErrorConfig<SignOutStatus400 | SignOutStatus401 | SignOutStatus403 | SignOutStatus404 | SignOutStatus422>, undefined, TContext>({
     ...baseOptions,
     mutationKey,
     ...mutationOptions,
-  }, queryClient) as UseMutationResult<SignOutStatus204, ResponseErrorConfig<SignOutStatus401 | SignOutStatus403 | SignOutStatus404 | SignOutStatus422>, undefined, TContext>
+  }, queryClient) as UseMutationResult<SignOutStatus204, ResponseErrorConfig<SignOutStatus400 | SignOutStatus401 | SignOutStatus403 | SignOutStatus404 | SignOutStatus422>, undefined, TContext>
 }

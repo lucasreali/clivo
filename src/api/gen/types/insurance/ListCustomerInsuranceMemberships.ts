@@ -17,6 +17,8 @@ export type ListCustomerInsuranceMembershipsQuery = {
 
 export type ListCustomerInsuranceMembershipsStatus200 = MembershipView[];
 
+export type ListCustomerInsuranceMembershipsStatus400 = ErrorResponse;
+
 export type ListCustomerInsuranceMembershipsStatus401 = ErrorResponse;
 
 export type ListCustomerInsuranceMembershipsStatus403 = ErrorResponse;
@@ -34,6 +36,7 @@ export type ListCustomerInsuranceMembershipsOptions = {
 
 export type ListCustomerInsuranceMembershipsResponses = {
     "200": ListCustomerInsuranceMembershipsStatus200;
+    "400": ListCustomerInsuranceMembershipsStatus400;
     "401": ListCustomerInsuranceMembershipsStatus401;
     "403": ListCustomerInsuranceMembershipsStatus403;
     "404": ListCustomerInsuranceMembershipsStatus404;
@@ -43,4 +46,4 @@ export type ListCustomerInsuranceMembershipsResponses = {
 /**
  * @description Union of all possible responses
 */
-export type ListCustomerInsuranceMembershipsResponse = (ListCustomerInsuranceMembershipsStatus200 | ListCustomerInsuranceMembershipsStatus401 | ListCustomerInsuranceMembershipsStatus403 | ListCustomerInsuranceMembershipsStatus404 | ListCustomerInsuranceMembershipsStatus422);
+export type ListCustomerInsuranceMembershipsResponse = (ListCustomerInsuranceMembershipsStatus200 | ListCustomerInsuranceMembershipsStatus400 | ListCustomerInsuranceMembershipsStatus401 | ListCustomerInsuranceMembershipsStatus403 | ListCustomerInsuranceMembershipsStatus404 | ListCustomerInsuranceMembershipsStatus422);

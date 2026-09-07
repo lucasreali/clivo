@@ -17,6 +17,8 @@ export type GetSessionPackagePath = {
 
 export type GetSessionPackageStatus200 = PackageView;
 
+export type GetSessionPackageStatus400 = ErrorResponse;
+
 export type GetSessionPackageStatus401 = ErrorResponse;
 
 export type GetSessionPackageStatus403 = ErrorResponse;
@@ -34,6 +36,7 @@ export type GetSessionPackageOptions = {
 
 export type GetSessionPackageResponses = {
     "200": GetSessionPackageStatus200;
+    "400": GetSessionPackageStatus400;
     "401": GetSessionPackageStatus401;
     "403": GetSessionPackageStatus403;
     "404": GetSessionPackageStatus404;
@@ -43,4 +46,4 @@ export type GetSessionPackageResponses = {
 /**
  * @description Union of all possible responses
 */
-export type GetSessionPackageResponse = (GetSessionPackageStatus200 | GetSessionPackageStatus401 | GetSessionPackageStatus403 | GetSessionPackageStatus404 | GetSessionPackageStatus422);
+export type GetSessionPackageResponse = (GetSessionPackageStatus200 | GetSessionPackageStatus400 | GetSessionPackageStatus401 | GetSessionPackageStatus403 | GetSessionPackageStatus404 | GetSessionPackageStatus422);

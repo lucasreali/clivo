@@ -4,7 +4,7 @@
 */
 
 import type { RequestConfig, ResponseErrorConfig } from '../../.kubb/client'
-import type { ReleaseScheduleBlockOptions, ReleaseScheduleBlockStatus204, ReleaseScheduleBlockStatus401, ReleaseScheduleBlockStatus403, ReleaseScheduleBlockStatus404, ReleaseScheduleBlockStatus422 } from '../../types/scheduleBlocks/ReleaseScheduleBlock'
+import type { ReleaseScheduleBlockOptions, ReleaseScheduleBlockStatus204, ReleaseScheduleBlockStatus400, ReleaseScheduleBlockStatus401, ReleaseScheduleBlockStatus403, ReleaseScheduleBlockStatus404, ReleaseScheduleBlockStatus422 } from '../../types/scheduleBlocks/ReleaseScheduleBlock'
 import type { UseMutationOptions, UseMutationResult, QueryClient } from '@tanstack/react-query'
 import { releaseScheduleBlock } from '../../clients/scheduleBlocks/releaseScheduleBlock'
 import { mutationOptions, useMutation } from '@tanstack/react-query'
@@ -13,7 +13,7 @@ export const releaseScheduleBlockMutationKey = () => [{ url: '/api/schedule-bloc
 
 export function releaseScheduleBlockMutationOptions<TContext = unknown>(config: Partial<Omit<RequestConfig, 'path' | 'query' | 'body' | 'headers' | 'url'>> = {}) {
   const mutationKey = releaseScheduleBlockMutationKey()
-  return mutationOptions<ReleaseScheduleBlockStatus204, ResponseErrorConfig<ReleaseScheduleBlockStatus401 | ReleaseScheduleBlockStatus403 | ReleaseScheduleBlockStatus404 | ReleaseScheduleBlockStatus422>, ReleaseScheduleBlockOptions, TContext>({
+  return mutationOptions<ReleaseScheduleBlockStatus204, ResponseErrorConfig<ReleaseScheduleBlockStatus400 | ReleaseScheduleBlockStatus401 | ReleaseScheduleBlockStatus403 | ReleaseScheduleBlockStatus404 | ReleaseScheduleBlockStatus422>, ReleaseScheduleBlockOptions, TContext>({
     mutationKey,
     mutationFn: async({ path }) => {
       return releaseScheduleBlock({ ...config, path, throwOnError: true }).unwrap()
@@ -26,18 +26,18 @@ export function releaseScheduleBlockMutationOptions<TContext = unknown>(config: 
  * {@link /api/schedule-blocks/:id}
  */
 export function useReleaseScheduleBlock<TContext>(options: {
-  mutation?: UseMutationOptions<ReleaseScheduleBlockStatus204, ResponseErrorConfig<ReleaseScheduleBlockStatus401 | ReleaseScheduleBlockStatus403 | ReleaseScheduleBlockStatus404 | ReleaseScheduleBlockStatus422>, ReleaseScheduleBlockOptions, TContext> & { client?: QueryClient },
+  mutation?: UseMutationOptions<ReleaseScheduleBlockStatus204, ResponseErrorConfig<ReleaseScheduleBlockStatus400 | ReleaseScheduleBlockStatus401 | ReleaseScheduleBlockStatus403 | ReleaseScheduleBlockStatus404 | ReleaseScheduleBlockStatus422>, ReleaseScheduleBlockOptions, TContext> & { client?: QueryClient },
   client?: Partial<Omit<RequestConfig, 'path' | 'query' | 'body' | 'headers' | 'url'>>,
 } = {}) {
   const { mutation = {}, client: config = {} } = options ?? {}
   const { client: queryClient, ...mutationOptions } = mutation;
   const mutationKey = mutationOptions.mutationKey ?? releaseScheduleBlockMutationKey()
 
-  const baseOptions = releaseScheduleBlockMutationOptions(config) as UseMutationOptions<ReleaseScheduleBlockStatus204, ResponseErrorConfig<ReleaseScheduleBlockStatus401 | ReleaseScheduleBlockStatus403 | ReleaseScheduleBlockStatus404 | ReleaseScheduleBlockStatus422>, ReleaseScheduleBlockOptions, TContext>
+  const baseOptions = releaseScheduleBlockMutationOptions(config) as UseMutationOptions<ReleaseScheduleBlockStatus204, ResponseErrorConfig<ReleaseScheduleBlockStatus400 | ReleaseScheduleBlockStatus401 | ReleaseScheduleBlockStatus403 | ReleaseScheduleBlockStatus404 | ReleaseScheduleBlockStatus422>, ReleaseScheduleBlockOptions, TContext>
 
-  return useMutation<ReleaseScheduleBlockStatus204, ResponseErrorConfig<ReleaseScheduleBlockStatus401 | ReleaseScheduleBlockStatus403 | ReleaseScheduleBlockStatus404 | ReleaseScheduleBlockStatus422>, ReleaseScheduleBlockOptions, TContext>({
+  return useMutation<ReleaseScheduleBlockStatus204, ResponseErrorConfig<ReleaseScheduleBlockStatus400 | ReleaseScheduleBlockStatus401 | ReleaseScheduleBlockStatus403 | ReleaseScheduleBlockStatus404 | ReleaseScheduleBlockStatus422>, ReleaseScheduleBlockOptions, TContext>({
     ...baseOptions,
     mutationKey,
     ...mutationOptions,
-  }, queryClient) as UseMutationResult<ReleaseScheduleBlockStatus204, ResponseErrorConfig<ReleaseScheduleBlockStatus401 | ReleaseScheduleBlockStatus403 | ReleaseScheduleBlockStatus404 | ReleaseScheduleBlockStatus422>, ReleaseScheduleBlockOptions, TContext>
+  }, queryClient) as UseMutationResult<ReleaseScheduleBlockStatus204, ResponseErrorConfig<ReleaseScheduleBlockStatus400 | ReleaseScheduleBlockStatus401 | ReleaseScheduleBlockStatus403 | ReleaseScheduleBlockStatus404 | ReleaseScheduleBlockStatus422>, ReleaseScheduleBlockOptions, TContext>
 }

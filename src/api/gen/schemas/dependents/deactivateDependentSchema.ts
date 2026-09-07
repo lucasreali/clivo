@@ -15,6 +15,10 @@ export const deactivateDependentStatus200Schema = dependentViewSchema
 
 export type DeactivateDependentStatus200SchemaType = z.infer<typeof deactivateDependentStatus200Schema>
 
+export const deactivateDependentStatus400Schema = errorResponseSchema
+
+export type DeactivateDependentStatus400SchemaType = z.infer<typeof deactivateDependentStatus400Schema>
+
 export const deactivateDependentStatus401Schema = errorResponseSchema
 
 export type DeactivateDependentStatus401SchemaType = z.infer<typeof deactivateDependentStatus401Schema>
@@ -35,7 +39,7 @@ export const deactivateDependentResponseSchema = deactivateDependentStatus200Sch
 
 export type DeactivateDependentResponseSchemaType = z.infer<typeof deactivateDependentResponseSchema>
 
-export const deactivateDependentErrorSchema = z.union([deactivateDependentStatus401Schema, deactivateDependentStatus403Schema, deactivateDependentStatus404Schema, deactivateDependentStatus422Schema])
+export const deactivateDependentErrorSchema = z.union([deactivateDependentStatus400Schema, deactivateDependentStatus401Schema, deactivateDependentStatus403Schema, deactivateDependentStatus404Schema, deactivateDependentStatus422Schema])
 
 export type DeactivateDependentErrorSchemaType = z.infer<typeof deactivateDependentErrorSchema>
 
@@ -56,6 +60,7 @@ export type DeactivateDependentOptionsSchemaType = z.infer<typeof deactivateDepe
 
 export const deactivateDependentResponsesSchema = z.object({
   '200': deactivateDependentStatus200Schema,
+  '400': deactivateDependentStatus400Schema,
   '401': deactivateDependentStatus401Schema,
   '403': deactivateDependentStatus403Schema,
   '404': deactivateDependentStatus404Schema,

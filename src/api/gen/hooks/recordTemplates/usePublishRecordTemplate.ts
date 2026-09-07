@@ -4,7 +4,7 @@
 */
 
 import type { RequestConfig, ResponseErrorConfig } from '../../.kubb/client'
-import type { PublishRecordTemplateOptions, PublishRecordTemplateStatus200, PublishRecordTemplateStatus401, PublishRecordTemplateStatus403, PublishRecordTemplateStatus404, PublishRecordTemplateStatus422 } from '../../types/recordTemplates/PublishRecordTemplate'
+import type { PublishRecordTemplateOptions, PublishRecordTemplateStatus200, PublishRecordTemplateStatus400, PublishRecordTemplateStatus401, PublishRecordTemplateStatus403, PublishRecordTemplateStatus404, PublishRecordTemplateStatus422 } from '../../types/recordTemplates/PublishRecordTemplate'
 import type { UseMutationOptions, UseMutationResult, QueryClient } from '@tanstack/react-query'
 import { publishRecordTemplate } from '../../clients/recordTemplates/publishRecordTemplate'
 import { mutationOptions, useMutation } from '@tanstack/react-query'
@@ -13,7 +13,7 @@ export const publishRecordTemplateMutationKey = () => [{ url: '/api/record-templ
 
 export function publishRecordTemplateMutationOptions<TContext = unknown>(config: Partial<Omit<RequestConfig, 'path' | 'query' | 'body' | 'headers' | 'url'>> = {}) {
   const mutationKey = publishRecordTemplateMutationKey()
-  return mutationOptions<PublishRecordTemplateStatus200, ResponseErrorConfig<PublishRecordTemplateStatus401 | PublishRecordTemplateStatus403 | PublishRecordTemplateStatus404 | PublishRecordTemplateStatus422>, PublishRecordTemplateOptions, TContext>({
+  return mutationOptions<PublishRecordTemplateStatus200, ResponseErrorConfig<PublishRecordTemplateStatus400 | PublishRecordTemplateStatus401 | PublishRecordTemplateStatus403 | PublishRecordTemplateStatus404 | PublishRecordTemplateStatus422>, PublishRecordTemplateOptions, TContext>({
     mutationKey,
     mutationFn: async({ path }) => {
       return publishRecordTemplate({ ...config, path, throwOnError: true }).unwrap()
@@ -26,18 +26,18 @@ export function publishRecordTemplateMutationOptions<TContext = unknown>(config:
  * {@link /api/record-templates/:id/publication}
  */
 export function usePublishRecordTemplate<TContext>(options: {
-  mutation?: UseMutationOptions<PublishRecordTemplateStatus200, ResponseErrorConfig<PublishRecordTemplateStatus401 | PublishRecordTemplateStatus403 | PublishRecordTemplateStatus404 | PublishRecordTemplateStatus422>, PublishRecordTemplateOptions, TContext> & { client?: QueryClient },
+  mutation?: UseMutationOptions<PublishRecordTemplateStatus200, ResponseErrorConfig<PublishRecordTemplateStatus400 | PublishRecordTemplateStatus401 | PublishRecordTemplateStatus403 | PublishRecordTemplateStatus404 | PublishRecordTemplateStatus422>, PublishRecordTemplateOptions, TContext> & { client?: QueryClient },
   client?: Partial<Omit<RequestConfig, 'path' | 'query' | 'body' | 'headers' | 'url'>>,
 } = {}) {
   const { mutation = {}, client: config = {} } = options ?? {}
   const { client: queryClient, ...mutationOptions } = mutation;
   const mutationKey = mutationOptions.mutationKey ?? publishRecordTemplateMutationKey()
 
-  const baseOptions = publishRecordTemplateMutationOptions(config) as UseMutationOptions<PublishRecordTemplateStatus200, ResponseErrorConfig<PublishRecordTemplateStatus401 | PublishRecordTemplateStatus403 | PublishRecordTemplateStatus404 | PublishRecordTemplateStatus422>, PublishRecordTemplateOptions, TContext>
+  const baseOptions = publishRecordTemplateMutationOptions(config) as UseMutationOptions<PublishRecordTemplateStatus200, ResponseErrorConfig<PublishRecordTemplateStatus400 | PublishRecordTemplateStatus401 | PublishRecordTemplateStatus403 | PublishRecordTemplateStatus404 | PublishRecordTemplateStatus422>, PublishRecordTemplateOptions, TContext>
 
-  return useMutation<PublishRecordTemplateStatus200, ResponseErrorConfig<PublishRecordTemplateStatus401 | PublishRecordTemplateStatus403 | PublishRecordTemplateStatus404 | PublishRecordTemplateStatus422>, PublishRecordTemplateOptions, TContext>({
+  return useMutation<PublishRecordTemplateStatus200, ResponseErrorConfig<PublishRecordTemplateStatus400 | PublishRecordTemplateStatus401 | PublishRecordTemplateStatus403 | PublishRecordTemplateStatus404 | PublishRecordTemplateStatus422>, PublishRecordTemplateOptions, TContext>({
     ...baseOptions,
     mutationKey,
     ...mutationOptions,
-  }, queryClient) as UseMutationResult<PublishRecordTemplateStatus200, ResponseErrorConfig<PublishRecordTemplateStatus401 | PublishRecordTemplateStatus403 | PublishRecordTemplateStatus404 | PublishRecordTemplateStatus422>, PublishRecordTemplateOptions, TContext>
+  }, queryClient) as UseMutationResult<PublishRecordTemplateStatus200, ResponseErrorConfig<PublishRecordTemplateStatus400 | PublishRecordTemplateStatus401 | PublishRecordTemplateStatus403 | PublishRecordTemplateStatus404 | PublishRecordTemplateStatus422>, PublishRecordTemplateOptions, TContext>
 }

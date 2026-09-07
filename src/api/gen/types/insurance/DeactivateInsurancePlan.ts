@@ -17,6 +17,8 @@ export type DeactivateInsurancePlanPath = {
 
 export type DeactivateInsurancePlanStatus200 = PlanView;
 
+export type DeactivateInsurancePlanStatus400 = ErrorResponse;
+
 export type DeactivateInsurancePlanStatus401 = ErrorResponse;
 
 export type DeactivateInsurancePlanStatus403 = ErrorResponse;
@@ -34,6 +36,7 @@ export type DeactivateInsurancePlanOptions = {
 
 export type DeactivateInsurancePlanResponses = {
     "200": DeactivateInsurancePlanStatus200;
+    "400": DeactivateInsurancePlanStatus400;
     "401": DeactivateInsurancePlanStatus401;
     "403": DeactivateInsurancePlanStatus403;
     "404": DeactivateInsurancePlanStatus404;
@@ -43,4 +46,4 @@ export type DeactivateInsurancePlanResponses = {
 /**
  * @description Union of all possible responses
 */
-export type DeactivateInsurancePlanResponse = (DeactivateInsurancePlanStatus200 | DeactivateInsurancePlanStatus401 | DeactivateInsurancePlanStatus403 | DeactivateInsurancePlanStatus404 | DeactivateInsurancePlanStatus422);
+export type DeactivateInsurancePlanResponse = (DeactivateInsurancePlanStatus200 | DeactivateInsurancePlanStatus400 | DeactivateInsurancePlanStatus401 | DeactivateInsurancePlanStatus403 | DeactivateInsurancePlanStatus404 | DeactivateInsurancePlanStatus422);

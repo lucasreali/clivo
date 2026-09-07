@@ -19,6 +19,10 @@ export const closeCommissionPeriodStatus200Schema = statementViewSchema
 
 export type CloseCommissionPeriodStatus200SchemaType = z.infer<typeof closeCommissionPeriodStatus200Schema>
 
+export const closeCommissionPeriodStatus400Schema = errorResponseSchema
+
+export type CloseCommissionPeriodStatus400SchemaType = z.infer<typeof closeCommissionPeriodStatus400Schema>
+
 export const closeCommissionPeriodStatus401Schema = errorResponseSchema
 
 export type CloseCommissionPeriodStatus401SchemaType = z.infer<typeof closeCommissionPeriodStatus401Schema>
@@ -39,7 +43,7 @@ export const closeCommissionPeriodResponseSchema = closeCommissionPeriodStatus20
 
 export type CloseCommissionPeriodResponseSchemaType = z.infer<typeof closeCommissionPeriodResponseSchema>
 
-export const closeCommissionPeriodErrorSchema = z.union([closeCommissionPeriodStatus401Schema, closeCommissionPeriodStatus403Schema, closeCommissionPeriodStatus404Schema, closeCommissionPeriodStatus422Schema])
+export const closeCommissionPeriodErrorSchema = z.union([closeCommissionPeriodStatus400Schema, closeCommissionPeriodStatus401Schema, closeCommissionPeriodStatus403Schema, closeCommissionPeriodStatus404Schema, closeCommissionPeriodStatus422Schema])
 
 export type CloseCommissionPeriodErrorSchemaType = z.infer<typeof closeCommissionPeriodErrorSchema>
 
@@ -61,6 +65,7 @@ export type CloseCommissionPeriodOptionsSchemaType = z.infer<typeof closeCommiss
 
 export const closeCommissionPeriodResponsesSchema = z.object({
   '200': closeCommissionPeriodStatus200Schema,
+  '400': closeCommissionPeriodStatus400Schema,
   '401': closeCommissionPeriodStatus401Schema,
   '403': closeCommissionPeriodStatus403Schema,
   '404': closeCommissionPeriodStatus404Schema,

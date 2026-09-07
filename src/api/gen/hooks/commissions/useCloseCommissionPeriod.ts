@@ -4,7 +4,7 @@
 */
 
 import type { RequestConfig, ResponseErrorConfig } from '../../.kubb/client'
-import type { CloseCommissionPeriodOptions, CloseCommissionPeriodStatus200, CloseCommissionPeriodStatus401, CloseCommissionPeriodStatus403, CloseCommissionPeriodStatus404, CloseCommissionPeriodStatus422 } from '../../types/commissions/CloseCommissionPeriod'
+import type { CloseCommissionPeriodOptions, CloseCommissionPeriodStatus200, CloseCommissionPeriodStatus400, CloseCommissionPeriodStatus401, CloseCommissionPeriodStatus403, CloseCommissionPeriodStatus404, CloseCommissionPeriodStatus422 } from '../../types/commissions/CloseCommissionPeriod'
 import type { UseMutationOptions, UseMutationResult, QueryClient } from '@tanstack/react-query'
 import { closeCommissionPeriod } from '../../clients/commissions/closeCommissionPeriod'
 import { mutationOptions, useMutation } from '@tanstack/react-query'
@@ -13,7 +13,7 @@ export const closeCommissionPeriodMutationKey = () => [{ url: '/api/commissions/
 
 export function closeCommissionPeriodMutationOptions<TContext = unknown>(config: Partial<Omit<RequestConfig, 'path' | 'query' | 'body' | 'headers' | 'url'>> = {}) {
   const mutationKey = closeCommissionPeriodMutationKey()
-  return mutationOptions<CloseCommissionPeriodStatus200, ResponseErrorConfig<CloseCommissionPeriodStatus401 | CloseCommissionPeriodStatus403 | CloseCommissionPeriodStatus404 | CloseCommissionPeriodStatus422>, CloseCommissionPeriodOptions, TContext>({
+  return mutationOptions<CloseCommissionPeriodStatus200, ResponseErrorConfig<CloseCommissionPeriodStatus400 | CloseCommissionPeriodStatus401 | CloseCommissionPeriodStatus403 | CloseCommissionPeriodStatus404 | CloseCommissionPeriodStatus422>, CloseCommissionPeriodOptions, TContext>({
     mutationKey,
     mutationFn: async({ query }) => {
       return closeCommissionPeriod({ ...config, query, throwOnError: true }).unwrap()
@@ -26,18 +26,18 @@ export function closeCommissionPeriodMutationOptions<TContext = unknown>(config:
  * {@link /api/commissions/closing}
  */
 export function useCloseCommissionPeriod<TContext>(options: {
-  mutation?: UseMutationOptions<CloseCommissionPeriodStatus200, ResponseErrorConfig<CloseCommissionPeriodStatus401 | CloseCommissionPeriodStatus403 | CloseCommissionPeriodStatus404 | CloseCommissionPeriodStatus422>, CloseCommissionPeriodOptions, TContext> & { client?: QueryClient },
+  mutation?: UseMutationOptions<CloseCommissionPeriodStatus200, ResponseErrorConfig<CloseCommissionPeriodStatus400 | CloseCommissionPeriodStatus401 | CloseCommissionPeriodStatus403 | CloseCommissionPeriodStatus404 | CloseCommissionPeriodStatus422>, CloseCommissionPeriodOptions, TContext> & { client?: QueryClient },
   client?: Partial<Omit<RequestConfig, 'path' | 'query' | 'body' | 'headers' | 'url'>>,
 } = {}) {
   const { mutation = {}, client: config = {} } = options ?? {}
   const { client: queryClient, ...mutationOptions } = mutation;
   const mutationKey = mutationOptions.mutationKey ?? closeCommissionPeriodMutationKey()
 
-  const baseOptions = closeCommissionPeriodMutationOptions(config) as UseMutationOptions<CloseCommissionPeriodStatus200, ResponseErrorConfig<CloseCommissionPeriodStatus401 | CloseCommissionPeriodStatus403 | CloseCommissionPeriodStatus404 | CloseCommissionPeriodStatus422>, CloseCommissionPeriodOptions, TContext>
+  const baseOptions = closeCommissionPeriodMutationOptions(config) as UseMutationOptions<CloseCommissionPeriodStatus200, ResponseErrorConfig<CloseCommissionPeriodStatus400 | CloseCommissionPeriodStatus401 | CloseCommissionPeriodStatus403 | CloseCommissionPeriodStatus404 | CloseCommissionPeriodStatus422>, CloseCommissionPeriodOptions, TContext>
 
-  return useMutation<CloseCommissionPeriodStatus200, ResponseErrorConfig<CloseCommissionPeriodStatus401 | CloseCommissionPeriodStatus403 | CloseCommissionPeriodStatus404 | CloseCommissionPeriodStatus422>, CloseCommissionPeriodOptions, TContext>({
+  return useMutation<CloseCommissionPeriodStatus200, ResponseErrorConfig<CloseCommissionPeriodStatus400 | CloseCommissionPeriodStatus401 | CloseCommissionPeriodStatus403 | CloseCommissionPeriodStatus404 | CloseCommissionPeriodStatus422>, CloseCommissionPeriodOptions, TContext>({
     ...baseOptions,
     mutationKey,
     ...mutationOptions,
-  }, queryClient) as UseMutationResult<CloseCommissionPeriodStatus200, ResponseErrorConfig<CloseCommissionPeriodStatus401 | CloseCommissionPeriodStatus403 | CloseCommissionPeriodStatus404 | CloseCommissionPeriodStatus422>, CloseCommissionPeriodOptions, TContext>
+  }, queryClient) as UseMutationResult<CloseCommissionPeriodStatus200, ResponseErrorConfig<CloseCommissionPeriodStatus400 | CloseCommissionPeriodStatus401 | CloseCommissionPeriodStatus403 | CloseCommissionPeriodStatus404 | CloseCommissionPeriodStatus422>, CloseCommissionPeriodOptions, TContext>
 }

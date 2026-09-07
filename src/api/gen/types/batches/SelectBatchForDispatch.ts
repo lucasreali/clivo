@@ -21,6 +21,8 @@ export type SelectBatchForDispatchQuery = {
 
 export type SelectBatchForDispatchStatus200 = BatchChoiceView;
 
+export type SelectBatchForDispatchStatus400 = ErrorResponse;
+
 export type SelectBatchForDispatchStatus401 = ErrorResponse;
 
 export type SelectBatchForDispatchStatus403 = ErrorResponse;
@@ -38,6 +40,7 @@ export type SelectBatchForDispatchOptions = {
 
 export type SelectBatchForDispatchResponses = {
     "200": SelectBatchForDispatchStatus200;
+    "400": SelectBatchForDispatchStatus400;
     "401": SelectBatchForDispatchStatus401;
     "403": SelectBatchForDispatchStatus403;
     "404": SelectBatchForDispatchStatus404;
@@ -47,4 +50,4 @@ export type SelectBatchForDispatchResponses = {
 /**
  * @description Union of all possible responses
 */
-export type SelectBatchForDispatchResponse = (SelectBatchForDispatchStatus200 | SelectBatchForDispatchStatus401 | SelectBatchForDispatchStatus403 | SelectBatchForDispatchStatus404 | SelectBatchForDispatchStatus422);
+export type SelectBatchForDispatchResponse = (SelectBatchForDispatchStatus200 | SelectBatchForDispatchStatus400 | SelectBatchForDispatchStatus401 | SelectBatchForDispatchStatus403 | SelectBatchForDispatchStatus404 | SelectBatchForDispatchStatus422);

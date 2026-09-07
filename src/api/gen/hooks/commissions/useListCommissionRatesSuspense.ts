@@ -4,7 +4,7 @@
 */
 
 import type { RequestConfig, ResponseErrorConfig } from '../../.kubb/client'
-import type { ListCommissionRatesStatus200, ListCommissionRatesStatus401, ListCommissionRatesStatus403, ListCommissionRatesStatus404, ListCommissionRatesStatus422 } from '../../types/commissions/ListCommissionRates'
+import type { ListCommissionRatesStatus200, ListCommissionRatesStatus400, ListCommissionRatesStatus401, ListCommissionRatesStatus403, ListCommissionRatesStatus404, ListCommissionRatesStatus422 } from '../../types/commissions/ListCommissionRates'
 import type { QueryKey, QueryClient, UseSuspenseQueryOptions, UseSuspenseQueryResult } from '@tanstack/react-query'
 import { listCommissionRates } from '../../clients/commissions/listCommissionRates'
 import { queryOptions, useSuspenseQuery } from '@tanstack/react-query'
@@ -15,7 +15,7 @@ type ListCommissionRatesSuspenseQueryKey = ReturnType<typeof listCommissionRates
 
 export function listCommissionRatesSuspenseQueryOptions(config: Partial<Omit<RequestConfig, 'path' | 'query' | 'body' | 'headers' | 'url'>> = {}) {
   const queryKey = listCommissionRatesSuspenseQueryKey()
-  return queryOptions<ListCommissionRatesStatus200, ResponseErrorConfig<ListCommissionRatesStatus401 | ListCommissionRatesStatus403 | ListCommissionRatesStatus404 | ListCommissionRatesStatus422>, ListCommissionRatesStatus200, typeof queryKey>({
+  return queryOptions<ListCommissionRatesStatus200, ResponseErrorConfig<ListCommissionRatesStatus400 | ListCommissionRatesStatus401 | ListCommissionRatesStatus403 | ListCommissionRatesStatus404 | ListCommissionRatesStatus422>, ListCommissionRatesStatus200, typeof queryKey>({
    queryKey,
    queryFn: async ({ signal }) => {
       return listCommissionRates({ ...config, signal: config.signal ?? signal, throwOnError: true }).unwrap()
@@ -28,7 +28,7 @@ export function listCommissionRatesSuspenseQueryOptions(config: Partial<Omit<Req
  * {@link /api/commission-rates}
  */
 export function useListCommissionRatesSuspense<TData = ListCommissionRatesStatus200, TQueryKey extends QueryKey = ListCommissionRatesSuspenseQueryKey>(options: {
-  query?: Partial<UseSuspenseQueryOptions<ListCommissionRatesStatus200, ResponseErrorConfig<ListCommissionRatesStatus401 | ListCommissionRatesStatus403 | ListCommissionRatesStatus404 | ListCommissionRatesStatus422>, TData, TQueryKey>> & { client?: QueryClient },
+  query?: Partial<UseSuspenseQueryOptions<ListCommissionRatesStatus200, ResponseErrorConfig<ListCommissionRatesStatus400 | ListCommissionRatesStatus401 | ListCommissionRatesStatus403 | ListCommissionRatesStatus404 | ListCommissionRatesStatus422>, TData, TQueryKey>> & { client?: QueryClient },
   client?: Partial<Omit<RequestConfig, 'path' | 'query' | 'body' | 'headers' | 'url'>>
 } = {}) {
   const { query: queryConfig = {}, client: config = {} } = options ?? {}
@@ -39,7 +39,7 @@ export function useListCommissionRatesSuspense<TData = ListCommissionRatesStatus
    ...listCommissionRatesSuspenseQueryOptions(config),
    ...resolvedOptions,
    queryKey,
-  } as unknown as UseSuspenseQueryOptions, queryClient) as UseSuspenseQueryResult<TData, ResponseErrorConfig<ListCommissionRatesStatus401 | ListCommissionRatesStatus403 | ListCommissionRatesStatus404 | ListCommissionRatesStatus422>> & { queryKey: TQueryKey }
+  } as unknown as UseSuspenseQueryOptions, queryClient) as UseSuspenseQueryResult<TData, ResponseErrorConfig<ListCommissionRatesStatus400 | ListCommissionRatesStatus401 | ListCommissionRatesStatus403 | ListCommissionRatesStatus404 | ListCommissionRatesStatus422>> & { queryKey: TQueryKey }
 
   queryResult.queryKey = queryKey as TQueryKey
 

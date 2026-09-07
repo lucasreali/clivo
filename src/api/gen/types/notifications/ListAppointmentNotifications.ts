@@ -17,6 +17,8 @@ export type ListAppointmentNotificationsQuery = {
 
 export type ListAppointmentNotificationsStatus200 = NotificationView[];
 
+export type ListAppointmentNotificationsStatus400 = ErrorResponse;
+
 export type ListAppointmentNotificationsStatus401 = ErrorResponse;
 
 export type ListAppointmentNotificationsStatus403 = ErrorResponse;
@@ -34,6 +36,7 @@ export type ListAppointmentNotificationsOptions = {
 
 export type ListAppointmentNotificationsResponses = {
     "200": ListAppointmentNotificationsStatus200;
+    "400": ListAppointmentNotificationsStatus400;
     "401": ListAppointmentNotificationsStatus401;
     "403": ListAppointmentNotificationsStatus403;
     "404": ListAppointmentNotificationsStatus404;
@@ -43,4 +46,4 @@ export type ListAppointmentNotificationsResponses = {
 /**
  * @description Union of all possible responses
 */
-export type ListAppointmentNotificationsResponse = (ListAppointmentNotificationsStatus200 | ListAppointmentNotificationsStatus401 | ListAppointmentNotificationsStatus403 | ListAppointmentNotificationsStatus404 | ListAppointmentNotificationsStatus422);
+export type ListAppointmentNotificationsResponse = (ListAppointmentNotificationsStatus200 | ListAppointmentNotificationsStatus400 | ListAppointmentNotificationsStatus401 | ListAppointmentNotificationsStatus403 | ListAppointmentNotificationsStatus404 | ListAppointmentNotificationsStatus422);

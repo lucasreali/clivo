@@ -11,6 +11,10 @@ export const listModulesStatus200Schema = z.array(moduleViewSchema)
 
 export type ListModulesStatus200SchemaType = z.infer<typeof listModulesStatus200Schema>
 
+export const listModulesStatus400Schema = errorResponseSchema
+
+export type ListModulesStatus400SchemaType = z.infer<typeof listModulesStatus400Schema>
+
 export const listModulesStatus401Schema = errorResponseSchema
 
 export type ListModulesStatus401SchemaType = z.infer<typeof listModulesStatus401Schema>
@@ -31,7 +35,7 @@ export const listModulesResponseSchema = listModulesStatus200Schema
 
 export type ListModulesResponseSchemaType = z.infer<typeof listModulesResponseSchema>
 
-export const listModulesErrorSchema = z.union([listModulesStatus401Schema, listModulesStatus403Schema, listModulesStatus404Schema, listModulesStatus422Schema])
+export const listModulesErrorSchema = z.union([listModulesStatus400Schema, listModulesStatus401Schema, listModulesStatus403Schema, listModulesStatus404Schema, listModulesStatus422Schema])
 
 export type ListModulesErrorSchemaType = z.infer<typeof listModulesErrorSchema>
 
@@ -46,6 +50,7 @@ export type ListModulesOptionsSchemaType = z.infer<typeof listModulesOptionsSche
 
 export const listModulesResponsesSchema = z.object({
   '200': listModulesStatus200Schema,
+  '400': listModulesStatus400Schema,
   '401': listModulesStatus401Schema,
   '403': listModulesStatus403Schema,
   '404': listModulesStatus404Schema,

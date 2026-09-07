@@ -17,6 +17,8 @@ export type GetAppointmentPath = {
 
 export type GetAppointmentStatus200 = AppointmentView;
 
+export type GetAppointmentStatus400 = ErrorResponse;
+
 export type GetAppointmentStatus401 = ErrorResponse;
 
 export type GetAppointmentStatus403 = ErrorResponse;
@@ -34,6 +36,7 @@ export type GetAppointmentOptions = {
 
 export type GetAppointmentResponses = {
     "200": GetAppointmentStatus200;
+    "400": GetAppointmentStatus400;
     "401": GetAppointmentStatus401;
     "403": GetAppointmentStatus403;
     "404": GetAppointmentStatus404;
@@ -43,4 +46,4 @@ export type GetAppointmentResponses = {
 /**
  * @description Union of all possible responses
 */
-export type GetAppointmentResponse = (GetAppointmentStatus200 | GetAppointmentStatus401 | GetAppointmentStatus403 | GetAppointmentStatus404 | GetAppointmentStatus422);
+export type GetAppointmentResponse = (GetAppointmentStatus200 | GetAppointmentStatus400 | GetAppointmentStatus401 | GetAppointmentStatus403 | GetAppointmentStatus404 | GetAppointmentStatus422);

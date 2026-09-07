@@ -17,6 +17,8 @@ export type GetPractitionerPath = {
 
 export type GetPractitionerStatus200 = PractitionerView;
 
+export type GetPractitionerStatus400 = ErrorResponse;
+
 export type GetPractitionerStatus401 = ErrorResponse;
 
 export type GetPractitionerStatus403 = ErrorResponse;
@@ -34,6 +36,7 @@ export type GetPractitionerOptions = {
 
 export type GetPractitionerResponses = {
     "200": GetPractitionerStatus200;
+    "400": GetPractitionerStatus400;
     "401": GetPractitionerStatus401;
     "403": GetPractitionerStatus403;
     "404": GetPractitionerStatus404;
@@ -43,4 +46,4 @@ export type GetPractitionerResponses = {
 /**
  * @description Union of all possible responses
 */
-export type GetPractitionerResponse = (GetPractitionerStatus200 | GetPractitionerStatus401 | GetPractitionerStatus403 | GetPractitionerStatus404 | GetPractitionerStatus422);
+export type GetPractitionerResponse = (GetPractitionerStatus200 | GetPractitionerStatus400 | GetPractitionerStatus401 | GetPractitionerStatus403 | GetPractitionerStatus404 | GetPractitionerStatus422);

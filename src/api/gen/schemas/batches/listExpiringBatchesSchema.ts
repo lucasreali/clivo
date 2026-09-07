@@ -15,6 +15,10 @@ export const listExpiringBatchesStatus200Schema = z.array(batchViewSchema)
 
 export type ListExpiringBatchesStatus200SchemaType = z.infer<typeof listExpiringBatchesStatus200Schema>
 
+export const listExpiringBatchesStatus400Schema = errorResponseSchema
+
+export type ListExpiringBatchesStatus400SchemaType = z.infer<typeof listExpiringBatchesStatus400Schema>
+
 export const listExpiringBatchesStatus401Schema = errorResponseSchema
 
 export type ListExpiringBatchesStatus401SchemaType = z.infer<typeof listExpiringBatchesStatus401Schema>
@@ -35,7 +39,7 @@ export const listExpiringBatchesResponseSchema = listExpiringBatchesStatus200Sch
 
 export type ListExpiringBatchesResponseSchemaType = z.infer<typeof listExpiringBatchesResponseSchema>
 
-export const listExpiringBatchesErrorSchema = z.union([listExpiringBatchesStatus401Schema, listExpiringBatchesStatus403Schema, listExpiringBatchesStatus404Schema, listExpiringBatchesStatus422Schema])
+export const listExpiringBatchesErrorSchema = z.union([listExpiringBatchesStatus400Schema, listExpiringBatchesStatus401Schema, listExpiringBatchesStatus403Schema, listExpiringBatchesStatus404Schema, listExpiringBatchesStatus422Schema])
 
 export type ListExpiringBatchesErrorSchemaType = z.infer<typeof listExpiringBatchesErrorSchema>
 
@@ -56,6 +60,7 @@ export type ListExpiringBatchesOptionsSchemaType = z.infer<typeof listExpiringBa
 
 export const listExpiringBatchesResponsesSchema = z.object({
   '200': listExpiringBatchesStatus200Schema,
+  '400': listExpiringBatchesStatus400Schema,
   '401': listExpiringBatchesStatus401Schema,
   '403': listExpiringBatchesStatus403Schema,
   '404': listExpiringBatchesStatus404Schema,

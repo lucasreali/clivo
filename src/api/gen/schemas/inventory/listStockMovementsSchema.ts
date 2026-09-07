@@ -15,6 +15,10 @@ export const listStockMovementsStatus200Schema = z.array(stockMovementViewSchema
 
 export type ListStockMovementsStatus200SchemaType = z.infer<typeof listStockMovementsStatus200Schema>
 
+export const listStockMovementsStatus400Schema = errorResponseSchema
+
+export type ListStockMovementsStatus400SchemaType = z.infer<typeof listStockMovementsStatus400Schema>
+
 export const listStockMovementsStatus401Schema = errorResponseSchema
 
 export type ListStockMovementsStatus401SchemaType = z.infer<typeof listStockMovementsStatus401Schema>
@@ -35,7 +39,7 @@ export const listStockMovementsResponseSchema = listStockMovementsStatus200Schem
 
 export type ListStockMovementsResponseSchemaType = z.infer<typeof listStockMovementsResponseSchema>
 
-export const listStockMovementsErrorSchema = z.union([listStockMovementsStatus401Schema, listStockMovementsStatus403Schema, listStockMovementsStatus404Schema, listStockMovementsStatus422Schema])
+export const listStockMovementsErrorSchema = z.union([listStockMovementsStatus400Schema, listStockMovementsStatus401Schema, listStockMovementsStatus403Schema, listStockMovementsStatus404Schema, listStockMovementsStatus422Schema])
 
 export type ListStockMovementsErrorSchemaType = z.infer<typeof listStockMovementsErrorSchema>
 
@@ -56,6 +60,7 @@ export type ListStockMovementsOptionsSchemaType = z.infer<typeof listStockMoveme
 
 export const listStockMovementsResponsesSchema = z.object({
   '200': listStockMovementsStatus200Schema,
+  '400': listStockMovementsStatus400Schema,
   '401': listStockMovementsStatus401Schema,
   '403': listStockMovementsStatus403Schema,
   '404': listStockMovementsStatus404Schema,

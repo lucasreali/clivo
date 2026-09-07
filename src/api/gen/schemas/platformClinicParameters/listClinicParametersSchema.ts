@@ -11,6 +11,10 @@ export const listClinicParametersStatus200Schema = z.array(platformParameterView
 
 export type ListClinicParametersStatus200SchemaType = z.infer<typeof listClinicParametersStatus200Schema>
 
+export const listClinicParametersStatus400Schema = errorResponseSchema
+
+export type ListClinicParametersStatus400SchemaType = z.infer<typeof listClinicParametersStatus400Schema>
+
 export const listClinicParametersStatus401Schema = errorResponseSchema
 
 export type ListClinicParametersStatus401SchemaType = z.infer<typeof listClinicParametersStatus401Schema>
@@ -31,7 +35,7 @@ export const listClinicParametersResponseSchema = listClinicParametersStatus200S
 
 export type ListClinicParametersResponseSchemaType = z.infer<typeof listClinicParametersResponseSchema>
 
-export const listClinicParametersErrorSchema = z.union([listClinicParametersStatus401Schema, listClinicParametersStatus403Schema, listClinicParametersStatus404Schema, listClinicParametersStatus422Schema])
+export const listClinicParametersErrorSchema = z.union([listClinicParametersStatus400Schema, listClinicParametersStatus401Schema, listClinicParametersStatus403Schema, listClinicParametersStatus404Schema, listClinicParametersStatus422Schema])
 
 export type ListClinicParametersErrorSchemaType = z.infer<typeof listClinicParametersErrorSchema>
 
@@ -46,6 +50,7 @@ export type ListClinicParametersOptionsSchemaType = z.infer<typeof listClinicPar
 
 export const listClinicParametersResponsesSchema = z.object({
   '200': listClinicParametersStatus200Schema,
+  '400': listClinicParametersStatus400Schema,
   '401': listClinicParametersStatus401Schema,
   '403': listClinicParametersStatus403Schema,
   '404': listClinicParametersStatus404Schema,

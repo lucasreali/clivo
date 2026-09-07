@@ -16,6 +16,8 @@ export type ListProductsQuery = {
 
 export type ListProductsStatus200 = ProductView[];
 
+export type ListProductsStatus400 = ErrorResponse;
+
 export type ListProductsStatus401 = ErrorResponse;
 
 export type ListProductsStatus403 = ErrorResponse;
@@ -33,6 +35,7 @@ export type ListProductsOptions = {
 
 export type ListProductsResponses = {
     "200": ListProductsStatus200;
+    "400": ListProductsStatus400;
     "401": ListProductsStatus401;
     "403": ListProductsStatus403;
     "404": ListProductsStatus404;
@@ -42,4 +45,4 @@ export type ListProductsResponses = {
 /**
  * @description Union of all possible responses
 */
-export type ListProductsResponse = (ListProductsStatus200 | ListProductsStatus401 | ListProductsStatus403 | ListProductsStatus404 | ListProductsStatus422);
+export type ListProductsResponse = (ListProductsStatus200 | ListProductsStatus400 | ListProductsStatus401 | ListProductsStatus403 | ListProductsStatus404 | ListProductsStatus422);

@@ -8,6 +8,8 @@ import type { UserView } from '../UserView'
 
 export type ListUsersStatus200 = UserView[];
 
+export type ListUsersStatus400 = ErrorResponse;
+
 export type ListUsersStatus401 = ErrorResponse;
 
 export type ListUsersStatus403 = ErrorResponse;
@@ -25,6 +27,7 @@ export type ListUsersOptions = {
 
 export type ListUsersResponses = {
     "200": ListUsersStatus200;
+    "400": ListUsersStatus400;
     "401": ListUsersStatus401;
     "403": ListUsersStatus403;
     "404": ListUsersStatus404;
@@ -34,4 +37,4 @@ export type ListUsersResponses = {
 /**
  * @description Union of all possible responses
 */
-export type ListUsersResponse = (ListUsersStatus200 | ListUsersStatus401 | ListUsersStatus403 | ListUsersStatus404 | ListUsersStatus422);
+export type ListUsersResponse = (ListUsersStatus200 | ListUsersStatus400 | ListUsersStatus401 | ListUsersStatus403 | ListUsersStatus404 | ListUsersStatus422);

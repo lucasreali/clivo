@@ -4,7 +4,7 @@
 */
 
 import type { RequestConfig, ResponseErrorConfig } from '../../.kubb/client'
-import type { GetCapabilitiesStatus200, GetCapabilitiesStatus401, GetCapabilitiesStatus403, GetCapabilitiesStatus404, GetCapabilitiesStatus422 } from '../../types/capabilities/GetCapabilities'
+import type { GetCapabilitiesStatus200, GetCapabilitiesStatus400, GetCapabilitiesStatus401, GetCapabilitiesStatus403, GetCapabilitiesStatus404, GetCapabilitiesStatus422 } from '../../types/capabilities/GetCapabilities'
 import type { QueryKey, QueryClient, UseSuspenseQueryOptions, UseSuspenseQueryResult } from '@tanstack/react-query'
 import { getCapabilities } from '../../clients/capabilities/getCapabilities'
 import { queryOptions, useSuspenseQuery } from '@tanstack/react-query'
@@ -15,7 +15,7 @@ type GetCapabilitiesSuspenseQueryKey = ReturnType<typeof getCapabilitiesSuspense
 
 export function getCapabilitiesSuspenseQueryOptions(config: Partial<Omit<RequestConfig, 'path' | 'query' | 'body' | 'headers' | 'url'>> = {}) {
   const queryKey = getCapabilitiesSuspenseQueryKey()
-  return queryOptions<GetCapabilitiesStatus200, ResponseErrorConfig<GetCapabilitiesStatus401 | GetCapabilitiesStatus403 | GetCapabilitiesStatus404 | GetCapabilitiesStatus422>, GetCapabilitiesStatus200, typeof queryKey>({
+  return queryOptions<GetCapabilitiesStatus200, ResponseErrorConfig<GetCapabilitiesStatus400 | GetCapabilitiesStatus401 | GetCapabilitiesStatus403 | GetCapabilitiesStatus404 | GetCapabilitiesStatus422>, GetCapabilitiesStatus200, typeof queryKey>({
    queryKey,
    queryFn: async ({ signal }) => {
       return getCapabilities({ ...config, signal: config.signal ?? signal, throwOnError: true }).unwrap()
@@ -28,7 +28,7 @@ export function getCapabilitiesSuspenseQueryOptions(config: Partial<Omit<Request
  * {@link /api/capabilities}
  */
 export function useGetCapabilitiesSuspense<TData = GetCapabilitiesStatus200, TQueryKey extends QueryKey = GetCapabilitiesSuspenseQueryKey>(options: {
-  query?: Partial<UseSuspenseQueryOptions<GetCapabilitiesStatus200, ResponseErrorConfig<GetCapabilitiesStatus401 | GetCapabilitiesStatus403 | GetCapabilitiesStatus404 | GetCapabilitiesStatus422>, TData, TQueryKey>> & { client?: QueryClient },
+  query?: Partial<UseSuspenseQueryOptions<GetCapabilitiesStatus200, ResponseErrorConfig<GetCapabilitiesStatus400 | GetCapabilitiesStatus401 | GetCapabilitiesStatus403 | GetCapabilitiesStatus404 | GetCapabilitiesStatus422>, TData, TQueryKey>> & { client?: QueryClient },
   client?: Partial<Omit<RequestConfig, 'path' | 'query' | 'body' | 'headers' | 'url'>>
 } = {}) {
   const { query: queryConfig = {}, client: config = {} } = options ?? {}
@@ -39,7 +39,7 @@ export function useGetCapabilitiesSuspense<TData = GetCapabilitiesStatus200, TQu
    ...getCapabilitiesSuspenseQueryOptions(config),
    ...resolvedOptions,
    queryKey,
-  } as unknown as UseSuspenseQueryOptions, queryClient) as UseSuspenseQueryResult<TData, ResponseErrorConfig<GetCapabilitiesStatus401 | GetCapabilitiesStatus403 | GetCapabilitiesStatus404 | GetCapabilitiesStatus422>> & { queryKey: TQueryKey }
+  } as unknown as UseSuspenseQueryOptions, queryClient) as UseSuspenseQueryResult<TData, ResponseErrorConfig<GetCapabilitiesStatus400 | GetCapabilitiesStatus401 | GetCapabilitiesStatus403 | GetCapabilitiesStatus404 | GetCapabilitiesStatus422>> & { queryKey: TQueryKey }
 
   queryResult.queryKey = queryKey as TQueryKey
 

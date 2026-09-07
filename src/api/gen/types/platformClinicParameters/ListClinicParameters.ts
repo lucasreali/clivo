@@ -8,6 +8,8 @@ import type { PlatformParameterView } from '../PlatformParameterView'
 
 export type ListClinicParametersStatus200 = PlatformParameterView[];
 
+export type ListClinicParametersStatus400 = ErrorResponse;
+
 export type ListClinicParametersStatus401 = ErrorResponse;
 
 export type ListClinicParametersStatus403 = ErrorResponse;
@@ -25,6 +27,7 @@ export type ListClinicParametersOptions = {
 
 export type ListClinicParametersResponses = {
     "200": ListClinicParametersStatus200;
+    "400": ListClinicParametersStatus400;
     "401": ListClinicParametersStatus401;
     "403": ListClinicParametersStatus403;
     "404": ListClinicParametersStatus404;
@@ -34,4 +37,4 @@ export type ListClinicParametersResponses = {
 /**
  * @description Union of all possible responses
 */
-export type ListClinicParametersResponse = (ListClinicParametersStatus200 | ListClinicParametersStatus401 | ListClinicParametersStatus403 | ListClinicParametersStatus404 | ListClinicParametersStatus422);
+export type ListClinicParametersResponse = (ListClinicParametersStatus200 | ListClinicParametersStatus400 | ListClinicParametersStatus401 | ListClinicParametersStatus403 | ListClinicParametersStatus404 | ListClinicParametersStatus422);

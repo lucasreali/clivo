@@ -17,6 +17,8 @@ export type PublishRecordTemplatePath = {
 
 export type PublishRecordTemplateStatus200 = RecordTemplateView;
 
+export type PublishRecordTemplateStatus400 = ErrorResponse;
+
 export type PublishRecordTemplateStatus401 = ErrorResponse;
 
 export type PublishRecordTemplateStatus403 = ErrorResponse;
@@ -34,6 +36,7 @@ export type PublishRecordTemplateOptions = {
 
 export type PublishRecordTemplateResponses = {
     "200": PublishRecordTemplateStatus200;
+    "400": PublishRecordTemplateStatus400;
     "401": PublishRecordTemplateStatus401;
     "403": PublishRecordTemplateStatus403;
     "404": PublishRecordTemplateStatus404;
@@ -43,4 +46,4 @@ export type PublishRecordTemplateResponses = {
 /**
  * @description Union of all possible responses
 */
-export type PublishRecordTemplateResponse = (PublishRecordTemplateStatus200 | PublishRecordTemplateStatus401 | PublishRecordTemplateStatus403 | PublishRecordTemplateStatus404 | PublishRecordTemplateStatus422);
+export type PublishRecordTemplateResponse = (PublishRecordTemplateStatus200 | PublishRecordTemplateStatus400 | PublishRecordTemplateStatus401 | PublishRecordTemplateStatus403 | PublishRecordTemplateStatus404 | PublishRecordTemplateStatus422);

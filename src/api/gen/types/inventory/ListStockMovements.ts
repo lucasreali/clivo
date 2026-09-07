@@ -17,6 +17,8 @@ export type ListStockMovementsPath = {
 
 export type ListStockMovementsStatus200 = StockMovementView[];
 
+export type ListStockMovementsStatus400 = ErrorResponse;
+
 export type ListStockMovementsStatus401 = ErrorResponse;
 
 export type ListStockMovementsStatus403 = ErrorResponse;
@@ -34,6 +36,7 @@ export type ListStockMovementsOptions = {
 
 export type ListStockMovementsResponses = {
     "200": ListStockMovementsStatus200;
+    "400": ListStockMovementsStatus400;
     "401": ListStockMovementsStatus401;
     "403": ListStockMovementsStatus403;
     "404": ListStockMovementsStatus404;
@@ -43,4 +46,4 @@ export type ListStockMovementsResponses = {
 /**
  * @description Union of all possible responses
 */
-export type ListStockMovementsResponse = (ListStockMovementsStatus200 | ListStockMovementsStatus401 | ListStockMovementsStatus403 | ListStockMovementsStatus404 | ListStockMovementsStatus422);
+export type ListStockMovementsResponse = (ListStockMovementsStatus200 | ListStockMovementsStatus400 | ListStockMovementsStatus401 | ListStockMovementsStatus403 | ListStockMovementsStatus404 | ListStockMovementsStatus422);

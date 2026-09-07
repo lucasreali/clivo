@@ -8,6 +8,8 @@ import type { PlanView } from '../PlanView'
 
 export type ListInsurancePlansStatus200 = PlanView[];
 
+export type ListInsurancePlansStatus400 = ErrorResponse;
+
 export type ListInsurancePlansStatus401 = ErrorResponse;
 
 export type ListInsurancePlansStatus403 = ErrorResponse;
@@ -25,6 +27,7 @@ export type ListInsurancePlansOptions = {
 
 export type ListInsurancePlansResponses = {
     "200": ListInsurancePlansStatus200;
+    "400": ListInsurancePlansStatus400;
     "401": ListInsurancePlansStatus401;
     "403": ListInsurancePlansStatus403;
     "404": ListInsurancePlansStatus404;
@@ -34,4 +37,4 @@ export type ListInsurancePlansResponses = {
 /**
  * @description Union of all possible responses
 */
-export type ListInsurancePlansResponse = (ListInsurancePlansStatus200 | ListInsurancePlansStatus401 | ListInsurancePlansStatus403 | ListInsurancePlansStatus404 | ListInsurancePlansStatus422);
+export type ListInsurancePlansResponse = (ListInsurancePlansStatus200 | ListInsurancePlansStatus400 | ListInsurancePlansStatus401 | ListInsurancePlansStatus403 | ListInsurancePlansStatus404 | ListInsurancePlansStatus422);

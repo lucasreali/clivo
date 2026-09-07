@@ -4,7 +4,7 @@
 */
 
 import type { RequestConfig, ResponseErrorConfig } from '../../.kubb/client'
-import type { GetDependentOptions, GetDependentStatus200, GetDependentStatus401, GetDependentStatus403, GetDependentStatus404, GetDependentStatus422 } from '../../types/dependents/GetDependent'
+import type { GetDependentOptions, GetDependentStatus200, GetDependentStatus400, GetDependentStatus401, GetDependentStatus403, GetDependentStatus404, GetDependentStatus422 } from '../../types/dependents/GetDependent'
 import type { QueryKey, QueryClient, QueryObserverOptions, UseQueryResult } from '@tanstack/react-query'
 import { getDependent } from '../../clients/dependents/getDependent'
 import { queryOptions, useQuery } from '@tanstack/react-query'
@@ -15,7 +15,7 @@ type GetDependentQueryKey = ReturnType<typeof getDependentQueryKey>
 
 export function getDependentQueryOptions({ path }: GetDependentOptions, config: Partial<Omit<RequestConfig, 'path' | 'query' | 'body' | 'headers' | 'url'>> = {}) {
   const queryKey = getDependentQueryKey({ path })
-  return queryOptions<GetDependentStatus200, ResponseErrorConfig<GetDependentStatus401 | GetDependentStatus403 | GetDependentStatus404 | GetDependentStatus422>, GetDependentStatus200, typeof queryKey>({
+  return queryOptions<GetDependentStatus200, ResponseErrorConfig<GetDependentStatus400 | GetDependentStatus401 | GetDependentStatus403 | GetDependentStatus404 | GetDependentStatus422>, GetDependentStatus200, typeof queryKey>({
    queryKey,
    queryFn: async ({ signal }) => {
       return getDependent({ ...config, path, signal: config.signal ?? signal, throwOnError: true }).unwrap()
@@ -28,7 +28,7 @@ export function getDependentQueryOptions({ path }: GetDependentOptions, config: 
  * {@link /api/dependents/:id}
  */
 export function useGetDependent<TData = GetDependentStatus200, TQueryData = GetDependentStatus200, TQueryKey extends QueryKey = GetDependentQueryKey>({ path }: { path: GetDependentOptions['path'] | (() => GetDependentOptions['path']) }, options: {
-  query?: Partial<QueryObserverOptions<GetDependentStatus200, ResponseErrorConfig<GetDependentStatus401 | GetDependentStatus403 | GetDependentStatus404 | GetDependentStatus422>, TData, TQueryData, TQueryKey>> & { client?: QueryClient },
+  query?: Partial<QueryObserverOptions<GetDependentStatus200, ResponseErrorConfig<GetDependentStatus400 | GetDependentStatus401 | GetDependentStatus403 | GetDependentStatus404 | GetDependentStatus422>, TData, TQueryData, TQueryKey>> & { client?: QueryClient },
   client?: Partial<Omit<RequestConfig, 'path' | 'query' | 'body' | 'headers' | 'url'>>
 } = {}) {
   const { query: queryConfig = {}, client: config = {} } = options ?? {}
@@ -40,7 +40,7 @@ export function useGetDependent<TData = GetDependentStatus200, TQueryData = GetD
    ...getDependentQueryOptions(resolvedParams, config),
    ...resolvedOptions,
    queryKey,
-  } as unknown as QueryObserverOptions, queryClient) as UseQueryResult<TData, ResponseErrorConfig<GetDependentStatus401 | GetDependentStatus403 | GetDependentStatus404 | GetDependentStatus422>> & { queryKey: TQueryKey }
+  } as unknown as QueryObserverOptions, queryClient) as UseQueryResult<TData, ResponseErrorConfig<GetDependentStatus400 | GetDependentStatus401 | GetDependentStatus403 | GetDependentStatus404 | GetDependentStatus422>> & { queryKey: TQueryKey }
 
   queryResult.queryKey = queryKey as TQueryKey
 

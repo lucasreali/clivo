@@ -19,6 +19,10 @@ export const listScheduleBlocksStatus200Schema = z.array(scheduleBlockViewSchema
 
 export type ListScheduleBlocksStatus200SchemaType = z.infer<typeof listScheduleBlocksStatus200Schema>
 
+export const listScheduleBlocksStatus400Schema = errorResponseSchema
+
+export type ListScheduleBlocksStatus400SchemaType = z.infer<typeof listScheduleBlocksStatus400Schema>
+
 export const listScheduleBlocksStatus401Schema = errorResponseSchema
 
 export type ListScheduleBlocksStatus401SchemaType = z.infer<typeof listScheduleBlocksStatus401Schema>
@@ -39,7 +43,7 @@ export const listScheduleBlocksResponseSchema = listScheduleBlocksStatus200Schem
 
 export type ListScheduleBlocksResponseSchemaType = z.infer<typeof listScheduleBlocksResponseSchema>
 
-export const listScheduleBlocksErrorSchema = z.union([listScheduleBlocksStatus401Schema, listScheduleBlocksStatus403Schema, listScheduleBlocksStatus404Schema, listScheduleBlocksStatus422Schema])
+export const listScheduleBlocksErrorSchema = z.union([listScheduleBlocksStatus400Schema, listScheduleBlocksStatus401Schema, listScheduleBlocksStatus403Schema, listScheduleBlocksStatus404Schema, listScheduleBlocksStatus422Schema])
 
 export type ListScheduleBlocksErrorSchemaType = z.infer<typeof listScheduleBlocksErrorSchema>
 
@@ -61,6 +65,7 @@ export type ListScheduleBlocksOptionsSchemaType = z.infer<typeof listScheduleBlo
 
 export const listScheduleBlocksResponsesSchema = z.object({
   '200': listScheduleBlocksStatus200Schema,
+  '400': listScheduleBlocksStatus400Schema,
   '401': listScheduleBlocksStatus401Schema,
   '403': listScheduleBlocksStatus403Schema,
   '404': listScheduleBlocksStatus404Schema,

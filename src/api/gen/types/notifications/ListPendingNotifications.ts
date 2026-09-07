@@ -8,6 +8,8 @@ import type { NotificationView } from '../NotificationView'
 
 export type ListPendingNotificationsStatus200 = NotificationView[];
 
+export type ListPendingNotificationsStatus400 = ErrorResponse;
+
 export type ListPendingNotificationsStatus401 = ErrorResponse;
 
 export type ListPendingNotificationsStatus403 = ErrorResponse;
@@ -25,6 +27,7 @@ export type ListPendingNotificationsOptions = {
 
 export type ListPendingNotificationsResponses = {
     "200": ListPendingNotificationsStatus200;
+    "400": ListPendingNotificationsStatus400;
     "401": ListPendingNotificationsStatus401;
     "403": ListPendingNotificationsStatus403;
     "404": ListPendingNotificationsStatus404;
@@ -34,4 +37,4 @@ export type ListPendingNotificationsResponses = {
 /**
  * @description Union of all possible responses
 */
-export type ListPendingNotificationsResponse = (ListPendingNotificationsStatus200 | ListPendingNotificationsStatus401 | ListPendingNotificationsStatus403 | ListPendingNotificationsStatus404 | ListPendingNotificationsStatus422);
+export type ListPendingNotificationsResponse = (ListPendingNotificationsStatus200 | ListPendingNotificationsStatus400 | ListPendingNotificationsStatus401 | ListPendingNotificationsStatus403 | ListPendingNotificationsStatus404 | ListPendingNotificationsStatus422);

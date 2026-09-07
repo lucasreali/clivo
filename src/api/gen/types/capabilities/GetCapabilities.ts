@@ -8,6 +8,8 @@ import type { ErrorResponse } from '../ErrorResponse'
 
 export type GetCapabilitiesStatus200 = CapabilitiesView;
 
+export type GetCapabilitiesStatus400 = ErrorResponse;
+
 export type GetCapabilitiesStatus401 = ErrorResponse;
 
 export type GetCapabilitiesStatus403 = ErrorResponse;
@@ -25,6 +27,7 @@ export type GetCapabilitiesOptions = {
 
 export type GetCapabilitiesResponses = {
     "200": GetCapabilitiesStatus200;
+    "400": GetCapabilitiesStatus400;
     "401": GetCapabilitiesStatus401;
     "403": GetCapabilitiesStatus403;
     "404": GetCapabilitiesStatus404;
@@ -34,4 +37,4 @@ export type GetCapabilitiesResponses = {
 /**
  * @description Union of all possible responses
 */
-export type GetCapabilitiesResponse = (GetCapabilitiesStatus200 | GetCapabilitiesStatus401 | GetCapabilitiesStatus403 | GetCapabilitiesStatus404 | GetCapabilitiesStatus422);
+export type GetCapabilitiesResponse = (GetCapabilitiesStatus200 | GetCapabilitiesStatus400 | GetCapabilitiesStatus401 | GetCapabilitiesStatus403 | GetCapabilitiesStatus404 | GetCapabilitiesStatus422);

@@ -4,7 +4,7 @@
 */
 
 import type { RequestConfig, ResponseErrorConfig } from '../../.kubb/client'
-import type { ListAppointmentNotificationsOptions, ListAppointmentNotificationsStatus200, ListAppointmentNotificationsStatus401, ListAppointmentNotificationsStatus403, ListAppointmentNotificationsStatus404, ListAppointmentNotificationsStatus422 } from '../../types/notifications/ListAppointmentNotifications'
+import type { ListAppointmentNotificationsOptions, ListAppointmentNotificationsStatus200, ListAppointmentNotificationsStatus400, ListAppointmentNotificationsStatus401, ListAppointmentNotificationsStatus403, ListAppointmentNotificationsStatus404, ListAppointmentNotificationsStatus422 } from '../../types/notifications/ListAppointmentNotifications'
 import type { QueryKey, QueryClient, UseSuspenseQueryOptions, UseSuspenseQueryResult } from '@tanstack/react-query'
 import { listAppointmentNotifications } from '../../clients/notifications/listAppointmentNotifications'
 import { queryOptions, useSuspenseQuery } from '@tanstack/react-query'
@@ -15,7 +15,7 @@ type ListAppointmentNotificationsSuspenseQueryKey = ReturnType<typeof listAppoin
 
 export function listAppointmentNotificationsSuspenseQueryOptions({ query }: ListAppointmentNotificationsOptions, config: Partial<Omit<RequestConfig, 'path' | 'query' | 'body' | 'headers' | 'url'>> = {}) {
   const queryKey = listAppointmentNotificationsSuspenseQueryKey({ query })
-  return queryOptions<ListAppointmentNotificationsStatus200, ResponseErrorConfig<ListAppointmentNotificationsStatus401 | ListAppointmentNotificationsStatus403 | ListAppointmentNotificationsStatus404 | ListAppointmentNotificationsStatus422>, ListAppointmentNotificationsStatus200, typeof queryKey>({
+  return queryOptions<ListAppointmentNotificationsStatus200, ResponseErrorConfig<ListAppointmentNotificationsStatus400 | ListAppointmentNotificationsStatus401 | ListAppointmentNotificationsStatus403 | ListAppointmentNotificationsStatus404 | ListAppointmentNotificationsStatus422>, ListAppointmentNotificationsStatus200, typeof queryKey>({
    queryKey,
    queryFn: async ({ signal }) => {
       return listAppointmentNotifications({ ...config, query, signal: config.signal ?? signal, throwOnError: true }).unwrap()
@@ -28,7 +28,7 @@ export function listAppointmentNotificationsSuspenseQueryOptions({ query }: List
  * {@link /api/notifications}
  */
 export function useListAppointmentNotificationsSuspense<TData = ListAppointmentNotificationsStatus200, TQueryKey extends QueryKey = ListAppointmentNotificationsSuspenseQueryKey>({ query }: { query: ListAppointmentNotificationsOptions['query'] | (() => ListAppointmentNotificationsOptions['query']) }, options: {
-  query?: Partial<UseSuspenseQueryOptions<ListAppointmentNotificationsStatus200, ResponseErrorConfig<ListAppointmentNotificationsStatus401 | ListAppointmentNotificationsStatus403 | ListAppointmentNotificationsStatus404 | ListAppointmentNotificationsStatus422>, TData, TQueryKey>> & { client?: QueryClient },
+  query?: Partial<UseSuspenseQueryOptions<ListAppointmentNotificationsStatus200, ResponseErrorConfig<ListAppointmentNotificationsStatus400 | ListAppointmentNotificationsStatus401 | ListAppointmentNotificationsStatus403 | ListAppointmentNotificationsStatus404 | ListAppointmentNotificationsStatus422>, TData, TQueryKey>> & { client?: QueryClient },
   client?: Partial<Omit<RequestConfig, 'path' | 'query' | 'body' | 'headers' | 'url'>>
 } = {}) {
   const { query: queryConfig = {}, client: config = {} } = options ?? {}
@@ -40,7 +40,7 @@ export function useListAppointmentNotificationsSuspense<TData = ListAppointmentN
    ...listAppointmentNotificationsSuspenseQueryOptions(resolvedParams, config),
    ...resolvedOptions,
    queryKey,
-  } as unknown as UseSuspenseQueryOptions, queryClient) as UseSuspenseQueryResult<TData, ResponseErrorConfig<ListAppointmentNotificationsStatus401 | ListAppointmentNotificationsStatus403 | ListAppointmentNotificationsStatus404 | ListAppointmentNotificationsStatus422>> & { queryKey: TQueryKey }
+  } as unknown as UseSuspenseQueryOptions, queryClient) as UseSuspenseQueryResult<TData, ResponseErrorConfig<ListAppointmentNotificationsStatus400 | ListAppointmentNotificationsStatus401 | ListAppointmentNotificationsStatus403 | ListAppointmentNotificationsStatus404 | ListAppointmentNotificationsStatus422>> & { queryKey: TQueryKey }
 
   queryResult.queryKey = queryKey as TQueryKey
 

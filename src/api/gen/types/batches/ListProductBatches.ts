@@ -17,6 +17,8 @@ export type ListProductBatchesPath = {
 
 export type ListProductBatchesStatus200 = BatchView[];
 
+export type ListProductBatchesStatus400 = ErrorResponse;
+
 export type ListProductBatchesStatus401 = ErrorResponse;
 
 export type ListProductBatchesStatus403 = ErrorResponse;
@@ -34,6 +36,7 @@ export type ListProductBatchesOptions = {
 
 export type ListProductBatchesResponses = {
     "200": ListProductBatchesStatus200;
+    "400": ListProductBatchesStatus400;
     "401": ListProductBatchesStatus401;
     "403": ListProductBatchesStatus403;
     "404": ListProductBatchesStatus404;
@@ -43,4 +46,4 @@ export type ListProductBatchesResponses = {
 /**
  * @description Union of all possible responses
 */
-export type ListProductBatchesResponse = (ListProductBatchesStatus200 | ListProductBatchesStatus401 | ListProductBatchesStatus403 | ListProductBatchesStatus404 | ListProductBatchesStatus422);
+export type ListProductBatchesResponse = (ListProductBatchesStatus200 | ListProductBatchesStatus400 | ListProductBatchesStatus401 | ListProductBatchesStatus403 | ListProductBatchesStatus404 | ListProductBatchesStatus422);

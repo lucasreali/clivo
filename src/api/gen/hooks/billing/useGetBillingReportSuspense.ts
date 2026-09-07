@@ -4,7 +4,7 @@
 */
 
 import type { RequestConfig, ResponseErrorConfig } from '../../.kubb/client'
-import type { GetBillingReportOptions, GetBillingReportStatus200, GetBillingReportStatus401, GetBillingReportStatus403, GetBillingReportStatus404, GetBillingReportStatus422 } from '../../types/billing/GetBillingReport'
+import type { GetBillingReportOptions, GetBillingReportStatus200, GetBillingReportStatus400, GetBillingReportStatus401, GetBillingReportStatus403, GetBillingReportStatus404, GetBillingReportStatus422 } from '../../types/billing/GetBillingReport'
 import type { QueryKey, QueryClient, UseSuspenseQueryOptions, UseSuspenseQueryResult } from '@tanstack/react-query'
 import { getBillingReport } from '../../clients/billing/getBillingReport'
 import { queryOptions, useSuspenseQuery } from '@tanstack/react-query'
@@ -15,7 +15,7 @@ type GetBillingReportSuspenseQueryKey = ReturnType<typeof getBillingReportSuspen
 
 export function getBillingReportSuspenseQueryOptions({ query }: GetBillingReportOptions, config: Partial<Omit<RequestConfig, 'path' | 'query' | 'body' | 'headers' | 'url'>> = {}) {
   const queryKey = getBillingReportSuspenseQueryKey({ query })
-  return queryOptions<GetBillingReportStatus200, ResponseErrorConfig<GetBillingReportStatus401 | GetBillingReportStatus403 | GetBillingReportStatus404 | GetBillingReportStatus422>, GetBillingReportStatus200, typeof queryKey>({
+  return queryOptions<GetBillingReportStatus200, ResponseErrorConfig<GetBillingReportStatus400 | GetBillingReportStatus401 | GetBillingReportStatus403 | GetBillingReportStatus404 | GetBillingReportStatus422>, GetBillingReportStatus200, typeof queryKey>({
    queryKey,
    queryFn: async ({ signal }) => {
       return getBillingReport({ ...config, query, signal: config.signal ?? signal, throwOnError: true }).unwrap()
@@ -28,7 +28,7 @@ export function getBillingReportSuspenseQueryOptions({ query }: GetBillingReport
  * {@link /api/invoices/report}
  */
 export function useGetBillingReportSuspense<TData = GetBillingReportStatus200, TQueryKey extends QueryKey = GetBillingReportSuspenseQueryKey>({ query }: { query: GetBillingReportOptions['query'] | (() => GetBillingReportOptions['query']) }, options: {
-  query?: Partial<UseSuspenseQueryOptions<GetBillingReportStatus200, ResponseErrorConfig<GetBillingReportStatus401 | GetBillingReportStatus403 | GetBillingReportStatus404 | GetBillingReportStatus422>, TData, TQueryKey>> & { client?: QueryClient },
+  query?: Partial<UseSuspenseQueryOptions<GetBillingReportStatus200, ResponseErrorConfig<GetBillingReportStatus400 | GetBillingReportStatus401 | GetBillingReportStatus403 | GetBillingReportStatus404 | GetBillingReportStatus422>, TData, TQueryKey>> & { client?: QueryClient },
   client?: Partial<Omit<RequestConfig, 'path' | 'query' | 'body' | 'headers' | 'url'>>
 } = {}) {
   const { query: queryConfig = {}, client: config = {} } = options ?? {}
@@ -40,7 +40,7 @@ export function useGetBillingReportSuspense<TData = GetBillingReportStatus200, T
    ...getBillingReportSuspenseQueryOptions(resolvedParams, config),
    ...resolvedOptions,
    queryKey,
-  } as unknown as UseSuspenseQueryOptions, queryClient) as UseSuspenseQueryResult<TData, ResponseErrorConfig<GetBillingReportStatus401 | GetBillingReportStatus403 | GetBillingReportStatus404 | GetBillingReportStatus422>> & { queryKey: TQueryKey }
+  } as unknown as UseSuspenseQueryOptions, queryClient) as UseSuspenseQueryResult<TData, ResponseErrorConfig<GetBillingReportStatus400 | GetBillingReportStatus401 | GetBillingReportStatus403 | GetBillingReportStatus404 | GetBillingReportStatus422>> & { queryKey: TQueryKey }
 
   queryResult.queryKey = queryKey as TQueryKey
 

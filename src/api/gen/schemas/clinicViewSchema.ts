@@ -6,7 +6,6 @@
 import * as z from 'zod'
 
 export const clinicViewSchema = z.object({
-  code: z.string().optional(),
   createdAt: z.iso.datetime().optional(),
   id: z.uuid().optional(),
   legalName: z.string().optional(),

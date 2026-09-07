@@ -4,7 +4,7 @@
 */
 
 import type { RequestConfig, ResponseErrorConfig } from '../../.kubb/client'
-import type { ActivateClinicOptions, ActivateClinicStatus200, ActivateClinicStatus401, ActivateClinicStatus403, ActivateClinicStatus404, ActivateClinicStatus422 } from '../../types/platformClinics/ActivateClinic'
+import type { ActivateClinicOptions, ActivateClinicStatus200, ActivateClinicStatus400, ActivateClinicStatus401, ActivateClinicStatus403, ActivateClinicStatus404, ActivateClinicStatus422 } from '../../types/platformClinics/ActivateClinic'
 import type { UseMutationOptions, UseMutationResult, QueryClient } from '@tanstack/react-query'
 import { activateClinic } from '../../clients/platformClinics/activateClinic'
 import { mutationOptions, useMutation } from '@tanstack/react-query'
@@ -13,7 +13,7 @@ export const activateClinicMutationKey = () => [{ url: '/api/platform/tenants/:t
 
 export function activateClinicMutationOptions<TContext = unknown>(config: Partial<Omit<RequestConfig, 'path' | 'query' | 'body' | 'headers' | 'url'>> = {}) {
   const mutationKey = activateClinicMutationKey()
-  return mutationOptions<ActivateClinicStatus200, ResponseErrorConfig<ActivateClinicStatus401 | ActivateClinicStatus403 | ActivateClinicStatus404 | ActivateClinicStatus422>, ActivateClinicOptions, TContext>({
+  return mutationOptions<ActivateClinicStatus200, ResponseErrorConfig<ActivateClinicStatus400 | ActivateClinicStatus401 | ActivateClinicStatus403 | ActivateClinicStatus404 | ActivateClinicStatus422>, ActivateClinicOptions, TContext>({
     mutationKey,
     mutationFn: async({ path }) => {
       return activateClinic({ ...config, path, throwOnError: true }).unwrap()
@@ -26,18 +26,18 @@ export function activateClinicMutationOptions<TContext = unknown>(config: Partia
  * {@link /api/platform/tenants/:tenantId/activation}
  */
 export function useActivateClinic<TContext>(options: {
-  mutation?: UseMutationOptions<ActivateClinicStatus200, ResponseErrorConfig<ActivateClinicStatus401 | ActivateClinicStatus403 | ActivateClinicStatus404 | ActivateClinicStatus422>, ActivateClinicOptions, TContext> & { client?: QueryClient },
+  mutation?: UseMutationOptions<ActivateClinicStatus200, ResponseErrorConfig<ActivateClinicStatus400 | ActivateClinicStatus401 | ActivateClinicStatus403 | ActivateClinicStatus404 | ActivateClinicStatus422>, ActivateClinicOptions, TContext> & { client?: QueryClient },
   client?: Partial<Omit<RequestConfig, 'path' | 'query' | 'body' | 'headers' | 'url'>>,
 } = {}) {
   const { mutation = {}, client: config = {} } = options ?? {}
   const { client: queryClient, ...mutationOptions } = mutation;
   const mutationKey = mutationOptions.mutationKey ?? activateClinicMutationKey()
 
-  const baseOptions = activateClinicMutationOptions(config) as UseMutationOptions<ActivateClinicStatus200, ResponseErrorConfig<ActivateClinicStatus401 | ActivateClinicStatus403 | ActivateClinicStatus404 | ActivateClinicStatus422>, ActivateClinicOptions, TContext>
+  const baseOptions = activateClinicMutationOptions(config) as UseMutationOptions<ActivateClinicStatus200, ResponseErrorConfig<ActivateClinicStatus400 | ActivateClinicStatus401 | ActivateClinicStatus403 | ActivateClinicStatus404 | ActivateClinicStatus422>, ActivateClinicOptions, TContext>
 
-  return useMutation<ActivateClinicStatus200, ResponseErrorConfig<ActivateClinicStatus401 | ActivateClinicStatus403 | ActivateClinicStatus404 | ActivateClinicStatus422>, ActivateClinicOptions, TContext>({
+  return useMutation<ActivateClinicStatus200, ResponseErrorConfig<ActivateClinicStatus400 | ActivateClinicStatus401 | ActivateClinicStatus403 | ActivateClinicStatus404 | ActivateClinicStatus422>, ActivateClinicOptions, TContext>({
     ...baseOptions,
     mutationKey,
     ...mutationOptions,
-  }, queryClient) as UseMutationResult<ActivateClinicStatus200, ResponseErrorConfig<ActivateClinicStatus401 | ActivateClinicStatus403 | ActivateClinicStatus404 | ActivateClinicStatus422>, ActivateClinicOptions, TContext>
+  }, queryClient) as UseMutationResult<ActivateClinicStatus200, ResponseErrorConfig<ActivateClinicStatus400 | ActivateClinicStatus401 | ActivateClinicStatus403 | ActivateClinicStatus404 | ActivateClinicStatus422>, ActivateClinicOptions, TContext>
 }

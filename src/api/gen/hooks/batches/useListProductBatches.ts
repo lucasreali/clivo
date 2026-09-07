@@ -4,7 +4,7 @@
 */
 
 import type { RequestConfig, ResponseErrorConfig } from '../../.kubb/client'
-import type { ListProductBatchesOptions, ListProductBatchesStatus200, ListProductBatchesStatus401, ListProductBatchesStatus403, ListProductBatchesStatus404, ListProductBatchesStatus422 } from '../../types/batches/ListProductBatches'
+import type { ListProductBatchesOptions, ListProductBatchesStatus200, ListProductBatchesStatus400, ListProductBatchesStatus401, ListProductBatchesStatus403, ListProductBatchesStatus404, ListProductBatchesStatus422 } from '../../types/batches/ListProductBatches'
 import type { QueryKey, QueryClient, QueryObserverOptions, UseQueryResult } from '@tanstack/react-query'
 import { listProductBatches } from '../../clients/batches/listProductBatches'
 import { queryOptions, useQuery } from '@tanstack/react-query'
@@ -15,7 +15,7 @@ type ListProductBatchesQueryKey = ReturnType<typeof listProductBatchesQueryKey>
 
 export function listProductBatchesQueryOptions({ path }: ListProductBatchesOptions, config: Partial<Omit<RequestConfig, 'path' | 'query' | 'body' | 'headers' | 'url'>> = {}) {
   const queryKey = listProductBatchesQueryKey({ path })
-  return queryOptions<ListProductBatchesStatus200, ResponseErrorConfig<ListProductBatchesStatus401 | ListProductBatchesStatus403 | ListProductBatchesStatus404 | ListProductBatchesStatus422>, ListProductBatchesStatus200, typeof queryKey>({
+  return queryOptions<ListProductBatchesStatus200, ResponseErrorConfig<ListProductBatchesStatus400 | ListProductBatchesStatus401 | ListProductBatchesStatus403 | ListProductBatchesStatus404 | ListProductBatchesStatus422>, ListProductBatchesStatus200, typeof queryKey>({
    queryKey,
    queryFn: async ({ signal }) => {
       return listProductBatches({ ...config, path, signal: config.signal ?? signal, throwOnError: true }).unwrap()
@@ -28,7 +28,7 @@ export function listProductBatchesQueryOptions({ path }: ListProductBatchesOptio
  * {@link /api/products/:productId/batches}
  */
 export function useListProductBatches<TData = ListProductBatchesStatus200, TQueryData = ListProductBatchesStatus200, TQueryKey extends QueryKey = ListProductBatchesQueryKey>({ path }: { path: ListProductBatchesOptions['path'] | (() => ListProductBatchesOptions['path']) }, options: {
-  query?: Partial<QueryObserverOptions<ListProductBatchesStatus200, ResponseErrorConfig<ListProductBatchesStatus401 | ListProductBatchesStatus403 | ListProductBatchesStatus404 | ListProductBatchesStatus422>, TData, TQueryData, TQueryKey>> & { client?: QueryClient },
+  query?: Partial<QueryObserverOptions<ListProductBatchesStatus200, ResponseErrorConfig<ListProductBatchesStatus400 | ListProductBatchesStatus401 | ListProductBatchesStatus403 | ListProductBatchesStatus404 | ListProductBatchesStatus422>, TData, TQueryData, TQueryKey>> & { client?: QueryClient },
   client?: Partial<Omit<RequestConfig, 'path' | 'query' | 'body' | 'headers' | 'url'>>
 } = {}) {
   const { query: queryConfig = {}, client: config = {} } = options ?? {}
@@ -40,7 +40,7 @@ export function useListProductBatches<TData = ListProductBatchesStatus200, TQuer
    ...listProductBatchesQueryOptions(resolvedParams, config),
    ...resolvedOptions,
    queryKey,
-  } as unknown as QueryObserverOptions, queryClient) as UseQueryResult<TData, ResponseErrorConfig<ListProductBatchesStatus401 | ListProductBatchesStatus403 | ListProductBatchesStatus404 | ListProductBatchesStatus422>> & { queryKey: TQueryKey }
+  } as unknown as QueryObserverOptions, queryClient) as UseQueryResult<TData, ResponseErrorConfig<ListProductBatchesStatus400 | ListProductBatchesStatus401 | ListProductBatchesStatus403 | ListProductBatchesStatus404 | ListProductBatchesStatus422>> & { queryKey: TQueryKey }
 
   queryResult.queryKey = queryKey as TQueryKey
 

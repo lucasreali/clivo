@@ -23,6 +23,8 @@ export type CloseCommissionPeriodQuery = {
 
 export type CloseCommissionPeriodStatus200 = StatementView;
 
+export type CloseCommissionPeriodStatus400 = ErrorResponse;
+
 export type CloseCommissionPeriodStatus401 = ErrorResponse;
 
 export type CloseCommissionPeriodStatus403 = ErrorResponse;
@@ -40,6 +42,7 @@ export type CloseCommissionPeriodOptions = {
 
 export type CloseCommissionPeriodResponses = {
     "200": CloseCommissionPeriodStatus200;
+    "400": CloseCommissionPeriodStatus400;
     "401": CloseCommissionPeriodStatus401;
     "403": CloseCommissionPeriodStatus403;
     "404": CloseCommissionPeriodStatus404;
@@ -49,4 +52,4 @@ export type CloseCommissionPeriodResponses = {
 /**
  * @description Union of all possible responses
 */
-export type CloseCommissionPeriodResponse = (CloseCommissionPeriodStatus200 | CloseCommissionPeriodStatus401 | CloseCommissionPeriodStatus403 | CloseCommissionPeriodStatus404 | CloseCommissionPeriodStatus422);
+export type CloseCommissionPeriodResponse = (CloseCommissionPeriodStatus200 | CloseCommissionPeriodStatus400 | CloseCommissionPeriodStatus401 | CloseCommissionPeriodStatus403 | CloseCommissionPeriodStatus404 | CloseCommissionPeriodStatus422);

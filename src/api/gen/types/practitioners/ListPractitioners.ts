@@ -8,6 +8,8 @@ import type { PractitionerView } from '../PractitionerView'
 
 export type ListPractitionersStatus200 = PractitionerView[];
 
+export type ListPractitionersStatus400 = ErrorResponse;
+
 export type ListPractitionersStatus401 = ErrorResponse;
 
 export type ListPractitionersStatus403 = ErrorResponse;
@@ -25,6 +27,7 @@ export type ListPractitionersOptions = {
 
 export type ListPractitionersResponses = {
     "200": ListPractitionersStatus200;
+    "400": ListPractitionersStatus400;
     "401": ListPractitionersStatus401;
     "403": ListPractitionersStatus403;
     "404": ListPractitionersStatus404;
@@ -34,4 +37,4 @@ export type ListPractitionersResponses = {
 /**
  * @description Union of all possible responses
 */
-export type ListPractitionersResponse = (ListPractitionersStatus200 | ListPractitionersStatus401 | ListPractitionersStatus403 | ListPractitionersStatus404 | ListPractitionersStatus422);
+export type ListPractitionersResponse = (ListPractitionersStatus200 | ListPractitionersStatus400 | ListPractitionersStatus401 | ListPractitionersStatus403 | ListPractitionersStatus404 | ListPractitionersStatus422);

@@ -24,7 +24,7 @@ export type ClinicDetailsRequest = {
     segment?: string;
     /**
      * @minLength 0
-     * @maxLength 14
+     * @maxLength 18
      * @type string | undefined
     */
     taxId?: string;

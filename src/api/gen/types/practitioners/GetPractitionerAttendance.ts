@@ -34,6 +34,8 @@ export type GetPractitionerAttendanceQuery = {
 
 export type GetPractitionerAttendanceStatus200 = AttendanceView;
 
+export type GetPractitionerAttendanceStatus400 = ErrorResponse;
+
 export type GetPractitionerAttendanceStatus401 = ErrorResponse;
 
 export type GetPractitionerAttendanceStatus403 = ErrorResponse;
@@ -51,6 +53,7 @@ export type GetPractitionerAttendanceOptions = {
 
 export type GetPractitionerAttendanceResponses = {
     "200": GetPractitionerAttendanceStatus200;
+    "400": GetPractitionerAttendanceStatus400;
     "401": GetPractitionerAttendanceStatus401;
     "403": GetPractitionerAttendanceStatus403;
     "404": GetPractitionerAttendanceStatus404;
@@ -60,4 +63,4 @@ export type GetPractitionerAttendanceResponses = {
 /**
  * @description Union of all possible responses
 */
-export type GetPractitionerAttendanceResponse = (GetPractitionerAttendanceStatus200 | GetPractitionerAttendanceStatus401 | GetPractitionerAttendanceStatus403 | GetPractitionerAttendanceStatus404 | GetPractitionerAttendanceStatus422);
+export type GetPractitionerAttendanceResponse = (GetPractitionerAttendanceStatus200 | GetPractitionerAttendanceStatus400 | GetPractitionerAttendanceStatus401 | GetPractitionerAttendanceStatus403 | GetPractitionerAttendanceStatus404 | GetPractitionerAttendanceStatus422);

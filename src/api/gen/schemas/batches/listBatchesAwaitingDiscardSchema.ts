@@ -11,6 +11,10 @@ export const listBatchesAwaitingDiscardStatus200Schema = z.array(batchViewSchema
 
 export type ListBatchesAwaitingDiscardStatus200SchemaType = z.infer<typeof listBatchesAwaitingDiscardStatus200Schema>
 
+export const listBatchesAwaitingDiscardStatus400Schema = errorResponseSchema
+
+export type ListBatchesAwaitingDiscardStatus400SchemaType = z.infer<typeof listBatchesAwaitingDiscardStatus400Schema>
+
 export const listBatchesAwaitingDiscardStatus401Schema = errorResponseSchema
 
 export type ListBatchesAwaitingDiscardStatus401SchemaType = z.infer<typeof listBatchesAwaitingDiscardStatus401Schema>
@@ -31,7 +35,7 @@ export const listBatchesAwaitingDiscardResponseSchema = listBatchesAwaitingDisca
 
 export type ListBatchesAwaitingDiscardResponseSchemaType = z.infer<typeof listBatchesAwaitingDiscardResponseSchema>
 
-export const listBatchesAwaitingDiscardErrorSchema = z.union([listBatchesAwaitingDiscardStatus401Schema, listBatchesAwaitingDiscardStatus403Schema, listBatchesAwaitingDiscardStatus404Schema, listBatchesAwaitingDiscardStatus422Schema])
+export const listBatchesAwaitingDiscardErrorSchema = z.union([listBatchesAwaitingDiscardStatus400Schema, listBatchesAwaitingDiscardStatus401Schema, listBatchesAwaitingDiscardStatus403Schema, listBatchesAwaitingDiscardStatus404Schema, listBatchesAwaitingDiscardStatus422Schema])
 
 export type ListBatchesAwaitingDiscardErrorSchemaType = z.infer<typeof listBatchesAwaitingDiscardErrorSchema>
 
@@ -46,6 +50,7 @@ export type ListBatchesAwaitingDiscardOptionsSchemaType = z.infer<typeof listBat
 
 export const listBatchesAwaitingDiscardResponsesSchema = z.object({
   '200': listBatchesAwaitingDiscardStatus200Schema,
+  '400': listBatchesAwaitingDiscardStatus400Schema,
   '401': listBatchesAwaitingDiscardStatus401Schema,
   '403': listBatchesAwaitingDiscardStatus403Schema,
   '404': listBatchesAwaitingDiscardStatus404Schema,

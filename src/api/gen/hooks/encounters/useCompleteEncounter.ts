@@ -4,7 +4,7 @@
 */
 
 import type { RequestConfig, ResponseErrorConfig } from '../../.kubb/client'
-import type { CompleteEncounterOptions, CompleteEncounterStatus200, CompleteEncounterStatus401, CompleteEncounterStatus403, CompleteEncounterStatus404, CompleteEncounterStatus422 } from '../../types/encounters/CompleteEncounter'
+import type { CompleteEncounterOptions, CompleteEncounterStatus200, CompleteEncounterStatus400, CompleteEncounterStatus401, CompleteEncounterStatus403, CompleteEncounterStatus404, CompleteEncounterStatus422 } from '../../types/encounters/CompleteEncounter'
 import type { UseMutationOptions, UseMutationResult, QueryClient } from '@tanstack/react-query'
 import { completeEncounter } from '../../clients/encounters/completeEncounter'
 import { mutationOptions, useMutation } from '@tanstack/react-query'
@@ -13,7 +13,7 @@ export const completeEncounterMutationKey = () => [{ url: '/api/encounters/:id/c
 
 export function completeEncounterMutationOptions<TContext = unknown>(config: Partial<Omit<RequestConfig, 'path' | 'query' | 'body' | 'headers' | 'url'>> = {}) {
   const mutationKey = completeEncounterMutationKey()
-  return mutationOptions<CompleteEncounterStatus200, ResponseErrorConfig<CompleteEncounterStatus401 | CompleteEncounterStatus403 | CompleteEncounterStatus404 | CompleteEncounterStatus422>, CompleteEncounterOptions, TContext>({
+  return mutationOptions<CompleteEncounterStatus200, ResponseErrorConfig<CompleteEncounterStatus400 | CompleteEncounterStatus401 | CompleteEncounterStatus403 | CompleteEncounterStatus404 | CompleteEncounterStatus422>, CompleteEncounterOptions, TContext>({
     mutationKey,
     mutationFn: async({ path }) => {
       return completeEncounter({ ...config, path, throwOnError: true }).unwrap()
@@ -26,18 +26,18 @@ export function completeEncounterMutationOptions<TContext = unknown>(config: Par
  * {@link /api/encounters/:id/completion}
  */
 export function useCompleteEncounter<TContext>(options: {
-  mutation?: UseMutationOptions<CompleteEncounterStatus200, ResponseErrorConfig<CompleteEncounterStatus401 | CompleteEncounterStatus403 | CompleteEncounterStatus404 | CompleteEncounterStatus422>, CompleteEncounterOptions, TContext> & { client?: QueryClient },
+  mutation?: UseMutationOptions<CompleteEncounterStatus200, ResponseErrorConfig<CompleteEncounterStatus400 | CompleteEncounterStatus401 | CompleteEncounterStatus403 | CompleteEncounterStatus404 | CompleteEncounterStatus422>, CompleteEncounterOptions, TContext> & { client?: QueryClient },
   client?: Partial<Omit<RequestConfig, 'path' | 'query' | 'body' | 'headers' | 'url'>>,
 } = {}) {
   const { mutation = {}, client: config = {} } = options ?? {}
   const { client: queryClient, ...mutationOptions } = mutation;
   const mutationKey = mutationOptions.mutationKey ?? completeEncounterMutationKey()
 
-  const baseOptions = completeEncounterMutationOptions(config) as UseMutationOptions<CompleteEncounterStatus200, ResponseErrorConfig<CompleteEncounterStatus401 | CompleteEncounterStatus403 | CompleteEncounterStatus404 | CompleteEncounterStatus422>, CompleteEncounterOptions, TContext>
+  const baseOptions = completeEncounterMutationOptions(config) as UseMutationOptions<CompleteEncounterStatus200, ResponseErrorConfig<CompleteEncounterStatus400 | CompleteEncounterStatus401 | CompleteEncounterStatus403 | CompleteEncounterStatus404 | CompleteEncounterStatus422>, CompleteEncounterOptions, TContext>
 
-  return useMutation<CompleteEncounterStatus200, ResponseErrorConfig<CompleteEncounterStatus401 | CompleteEncounterStatus403 | CompleteEncounterStatus404 | CompleteEncounterStatus422>, CompleteEncounterOptions, TContext>({
+  return useMutation<CompleteEncounterStatus200, ResponseErrorConfig<CompleteEncounterStatus400 | CompleteEncounterStatus401 | CompleteEncounterStatus403 | CompleteEncounterStatus404 | CompleteEncounterStatus422>, CompleteEncounterOptions, TContext>({
     ...baseOptions,
     mutationKey,
     ...mutationOptions,
-  }, queryClient) as UseMutationResult<CompleteEncounterStatus200, ResponseErrorConfig<CompleteEncounterStatus401 | CompleteEncounterStatus403 | CompleteEncounterStatus404 | CompleteEncounterStatus422>, CompleteEncounterOptions, TContext>
+  }, queryClient) as UseMutationResult<CompleteEncounterStatus200, ResponseErrorConfig<CompleteEncounterStatus400 | CompleteEncounterStatus401 | CompleteEncounterStatus403 | CompleteEncounterStatus404 | CompleteEncounterStatus422>, CompleteEncounterOptions, TContext>
 }

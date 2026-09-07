@@ -15,6 +15,10 @@ export const getDependentStatus200Schema = dependentViewSchema
 
 export type GetDependentStatus200SchemaType = z.infer<typeof getDependentStatus200Schema>
 
+export const getDependentStatus400Schema = errorResponseSchema
+
+export type GetDependentStatus400SchemaType = z.infer<typeof getDependentStatus400Schema>
+
 export const getDependentStatus401Schema = errorResponseSchema
 
 export type GetDependentStatus401SchemaType = z.infer<typeof getDependentStatus401Schema>
@@ -35,7 +39,7 @@ export const getDependentResponseSchema = getDependentStatus200Schema
 
 export type GetDependentResponseSchemaType = z.infer<typeof getDependentResponseSchema>
 
-export const getDependentErrorSchema = z.union([getDependentStatus401Schema, getDependentStatus403Schema, getDependentStatus404Schema, getDependentStatus422Schema])
+export const getDependentErrorSchema = z.union([getDependentStatus400Schema, getDependentStatus401Schema, getDependentStatus403Schema, getDependentStatus404Schema, getDependentStatus422Schema])
 
 export type GetDependentErrorSchemaType = z.infer<typeof getDependentErrorSchema>
 
@@ -56,6 +60,7 @@ export type GetDependentOptionsSchemaType = z.infer<typeof getDependentOptionsSc
 
 export const getDependentResponsesSchema = z.object({
   '200': getDependentStatus200Schema,
+  '400': getDependentStatus400Schema,
   '401': getDependentStatus401Schema,
   '403': getDependentStatus403Schema,
   '404': getDependentStatus404Schema,

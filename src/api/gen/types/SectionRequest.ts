@@ -8,7 +8,8 @@ import type { FieldRequest } from './FieldRequest'
 export type SectionRequest = {
     fields: FieldRequest[];
     /**
-     * @minLength 1
+     * @minLength 0
+     * @maxLength 80
      * @type string
     */
     name: string;

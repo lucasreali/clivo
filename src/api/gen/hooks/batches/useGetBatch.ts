@@ -4,7 +4,7 @@
 */
 
 import type { RequestConfig, ResponseErrorConfig } from '../../.kubb/client'
-import type { GetBatchOptions, GetBatchStatus200, GetBatchStatus401, GetBatchStatus403, GetBatchStatus404, GetBatchStatus422 } from '../../types/batches/GetBatch'
+import type { GetBatchOptions, GetBatchStatus200, GetBatchStatus400, GetBatchStatus401, GetBatchStatus403, GetBatchStatus404, GetBatchStatus422 } from '../../types/batches/GetBatch'
 import type { QueryKey, QueryClient, QueryObserverOptions, UseQueryResult } from '@tanstack/react-query'
 import { getBatch } from '../../clients/batches/getBatch'
 import { queryOptions, useQuery } from '@tanstack/react-query'
@@ -15,7 +15,7 @@ type GetBatchQueryKey = ReturnType<typeof getBatchQueryKey>
 
 export function getBatchQueryOptions({ path }: GetBatchOptions, config: Partial<Omit<RequestConfig, 'path' | 'query' | 'body' | 'headers' | 'url'>> = {}) {
   const queryKey = getBatchQueryKey({ path })
-  return queryOptions<GetBatchStatus200, ResponseErrorConfig<GetBatchStatus401 | GetBatchStatus403 | GetBatchStatus404 | GetBatchStatus422>, GetBatchStatus200, typeof queryKey>({
+  return queryOptions<GetBatchStatus200, ResponseErrorConfig<GetBatchStatus400 | GetBatchStatus401 | GetBatchStatus403 | GetBatchStatus404 | GetBatchStatus422>, GetBatchStatus200, typeof queryKey>({
    queryKey,
    queryFn: async ({ signal }) => {
       return getBatch({ ...config, path, signal: config.signal ?? signal, throwOnError: true }).unwrap()
@@ -28,7 +28,7 @@ export function getBatchQueryOptions({ path }: GetBatchOptions, config: Partial<
  * {@link /api/batches/:id}
  */
 export function useGetBatch<TData = GetBatchStatus200, TQueryData = GetBatchStatus200, TQueryKey extends QueryKey = GetBatchQueryKey>({ path }: { path: GetBatchOptions['path'] | (() => GetBatchOptions['path']) }, options: {
-  query?: Partial<QueryObserverOptions<GetBatchStatus200, ResponseErrorConfig<GetBatchStatus401 | GetBatchStatus403 | GetBatchStatus404 | GetBatchStatus422>, TData, TQueryData, TQueryKey>> & { client?: QueryClient },
+  query?: Partial<QueryObserverOptions<GetBatchStatus200, ResponseErrorConfig<GetBatchStatus400 | GetBatchStatus401 | GetBatchStatus403 | GetBatchStatus404 | GetBatchStatus422>, TData, TQueryData, TQueryKey>> & { client?: QueryClient },
   client?: Partial<Omit<RequestConfig, 'path' | 'query' | 'body' | 'headers' | 'url'>>
 } = {}) {
   const { query: queryConfig = {}, client: config = {} } = options ?? {}
@@ -40,7 +40,7 @@ export function useGetBatch<TData = GetBatchStatus200, TQueryData = GetBatchStat
    ...getBatchQueryOptions(resolvedParams, config),
    ...resolvedOptions,
    queryKey,
-  } as unknown as QueryObserverOptions, queryClient) as UseQueryResult<TData, ResponseErrorConfig<GetBatchStatus401 | GetBatchStatus403 | GetBatchStatus404 | GetBatchStatus422>> & { queryKey: TQueryKey }
+  } as unknown as QueryObserverOptions, queryClient) as UseQueryResult<TData, ResponseErrorConfig<GetBatchStatus400 | GetBatchStatus401 | GetBatchStatus403 | GetBatchStatus404 | GetBatchStatus422>> & { queryKey: TQueryKey }
 
   queryResult.queryKey = queryKey as TQueryKey
 

@@ -17,6 +17,8 @@ export type ListCustomerSessionPackagesQuery = {
 
 export type ListCustomerSessionPackagesStatus200 = PackageView[];
 
+export type ListCustomerSessionPackagesStatus400 = ErrorResponse;
+
 export type ListCustomerSessionPackagesStatus401 = ErrorResponse;
 
 export type ListCustomerSessionPackagesStatus403 = ErrorResponse;
@@ -34,6 +36,7 @@ export type ListCustomerSessionPackagesOptions = {
 
 export type ListCustomerSessionPackagesResponses = {
     "200": ListCustomerSessionPackagesStatus200;
+    "400": ListCustomerSessionPackagesStatus400;
     "401": ListCustomerSessionPackagesStatus401;
     "403": ListCustomerSessionPackagesStatus403;
     "404": ListCustomerSessionPackagesStatus404;
@@ -43,4 +46,4 @@ export type ListCustomerSessionPackagesResponses = {
 /**
  * @description Union of all possible responses
 */
-export type ListCustomerSessionPackagesResponse = (ListCustomerSessionPackagesStatus200 | ListCustomerSessionPackagesStatus401 | ListCustomerSessionPackagesStatus403 | ListCustomerSessionPackagesStatus404 | ListCustomerSessionPackagesStatus422);
+export type ListCustomerSessionPackagesResponse = (ListCustomerSessionPackagesStatus200 | ListCustomerSessionPackagesStatus400 | ListCustomerSessionPackagesStatus401 | ListCustomerSessionPackagesStatus403 | ListCustomerSessionPackagesStatus404 | ListCustomerSessionPackagesStatus422);

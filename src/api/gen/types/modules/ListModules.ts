@@ -8,6 +8,8 @@ import type { ModuleView } from '../ModuleView'
 
 export type ListModulesStatus200 = ModuleView[];
 
+export type ListModulesStatus400 = ErrorResponse;
+
 export type ListModulesStatus401 = ErrorResponse;
 
 export type ListModulesStatus403 = ErrorResponse;
@@ -25,6 +27,7 @@ export type ListModulesOptions = {
 
 export type ListModulesResponses = {
     "200": ListModulesStatus200;
+    "400": ListModulesStatus400;
     "401": ListModulesStatus401;
     "403": ListModulesStatus403;
     "404": ListModulesStatus404;
@@ -34,4 +37,4 @@ export type ListModulesResponses = {
 /**
  * @description Union of all possible responses
 */
-export type ListModulesResponse = (ListModulesStatus200 | ListModulesStatus401 | ListModulesStatus403 | ListModulesStatus404 | ListModulesStatus422);
+export type ListModulesResponse = (ListModulesStatus200 | ListModulesStatus400 | ListModulesStatus401 | ListModulesStatus403 | ListModulesStatus404 | ListModulesStatus422);

@@ -17,6 +17,8 @@ export type DeactivateServicePath = {
 
 export type DeactivateServiceStatus200 = ServiceView;
 
+export type DeactivateServiceStatus400 = ErrorResponse;
+
 export type DeactivateServiceStatus401 = ErrorResponse;
 
 export type DeactivateServiceStatus403 = ErrorResponse;
@@ -34,6 +36,7 @@ export type DeactivateServiceOptions = {
 
 export type DeactivateServiceResponses = {
     "200": DeactivateServiceStatus200;
+    "400": DeactivateServiceStatus400;
     "401": DeactivateServiceStatus401;
     "403": DeactivateServiceStatus403;
     "404": DeactivateServiceStatus404;
@@ -43,4 +46,4 @@ export type DeactivateServiceResponses = {
 /**
  * @description Union of all possible responses
 */
-export type DeactivateServiceResponse = (DeactivateServiceStatus200 | DeactivateServiceStatus401 | DeactivateServiceStatus403 | DeactivateServiceStatus404 | DeactivateServiceStatus422);
+export type DeactivateServiceResponse = (DeactivateServiceStatus200 | DeactivateServiceStatus400 | DeactivateServiceStatus401 | DeactivateServiceStatus403 | DeactivateServiceStatus404 | DeactivateServiceStatus422);

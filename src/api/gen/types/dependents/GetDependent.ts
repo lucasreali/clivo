@@ -17,6 +17,8 @@ export type GetDependentPath = {
 
 export type GetDependentStatus200 = DependentView;
 
+export type GetDependentStatus400 = ErrorResponse;
+
 export type GetDependentStatus401 = ErrorResponse;
 
 export type GetDependentStatus403 = ErrorResponse;
@@ -34,6 +36,7 @@ export type GetDependentOptions = {
 
 export type GetDependentResponses = {
     "200": GetDependentStatus200;
+    "400": GetDependentStatus400;
     "401": GetDependentStatus401;
     "403": GetDependentStatus403;
     "404": GetDependentStatus404;
@@ -43,4 +46,4 @@ export type GetDependentResponses = {
 /**
  * @description Union of all possible responses
 */
-export type GetDependentResponse = (GetDependentStatus200 | GetDependentStatus401 | GetDependentStatus403 | GetDependentStatus404 | GetDependentStatus422);
+export type GetDependentResponse = (GetDependentStatus200 | GetDependentStatus400 | GetDependentStatus401 | GetDependentStatus403 | GetDependentStatus404 | GetDependentStatus422);

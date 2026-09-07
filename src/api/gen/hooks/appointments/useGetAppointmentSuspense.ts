@@ -4,7 +4,7 @@
 */
 
 import type { RequestConfig, ResponseErrorConfig } from '../../.kubb/client'
-import type { GetAppointmentOptions, GetAppointmentStatus200, GetAppointmentStatus401, GetAppointmentStatus403, GetAppointmentStatus404, GetAppointmentStatus422 } from '../../types/appointments/GetAppointment'
+import type { GetAppointmentOptions, GetAppointmentStatus200, GetAppointmentStatus400, GetAppointmentStatus401, GetAppointmentStatus403, GetAppointmentStatus404, GetAppointmentStatus422 } from '../../types/appointments/GetAppointment'
 import type { QueryKey, QueryClient, UseSuspenseQueryOptions, UseSuspenseQueryResult } from '@tanstack/react-query'
 import { getAppointment } from '../../clients/appointments/getAppointment'
 import { queryOptions, useSuspenseQuery } from '@tanstack/react-query'
@@ -15,7 +15,7 @@ type GetAppointmentSuspenseQueryKey = ReturnType<typeof getAppointmentSuspenseQu
 
 export function getAppointmentSuspenseQueryOptions({ path }: GetAppointmentOptions, config: Partial<Omit<RequestConfig, 'path' | 'query' | 'body' | 'headers' | 'url'>> = {}) {
   const queryKey = getAppointmentSuspenseQueryKey({ path })
-  return queryOptions<GetAppointmentStatus200, ResponseErrorConfig<GetAppointmentStatus401 | GetAppointmentStatus403 | GetAppointmentStatus404 | GetAppointmentStatus422>, GetAppointmentStatus200, typeof queryKey>({
+  return queryOptions<GetAppointmentStatus200, ResponseErrorConfig<GetAppointmentStatus400 | GetAppointmentStatus401 | GetAppointmentStatus403 | GetAppointmentStatus404 | GetAppointmentStatus422>, GetAppointmentStatus200, typeof queryKey>({
    queryKey,
    queryFn: async ({ signal }) => {
       return getAppointment({ ...config, path, signal: config.signal ?? signal, throwOnError: true }).unwrap()
@@ -28,7 +28,7 @@ export function getAppointmentSuspenseQueryOptions({ path }: GetAppointmentOptio
  * {@link /api/appointments/:id}
  */
 export function useGetAppointmentSuspense<TData = GetAppointmentStatus200, TQueryKey extends QueryKey = GetAppointmentSuspenseQueryKey>({ path }: { path: GetAppointmentOptions['path'] | (() => GetAppointmentOptions['path']) }, options: {
-  query?: Partial<UseSuspenseQueryOptions<GetAppointmentStatus200, ResponseErrorConfig<GetAppointmentStatus401 | GetAppointmentStatus403 | GetAppointmentStatus404 | GetAppointmentStatus422>, TData, TQueryKey>> & { client?: QueryClient },
+  query?: Partial<UseSuspenseQueryOptions<GetAppointmentStatus200, ResponseErrorConfig<GetAppointmentStatus400 | GetAppointmentStatus401 | GetAppointmentStatus403 | GetAppointmentStatus404 | GetAppointmentStatus422>, TData, TQueryKey>> & { client?: QueryClient },
   client?: Partial<Omit<RequestConfig, 'path' | 'query' | 'body' | 'headers' | 'url'>>
 } = {}) {
   const { query: queryConfig = {}, client: config = {} } = options ?? {}
@@ -40,7 +40,7 @@ export function useGetAppointmentSuspense<TData = GetAppointmentStatus200, TQuer
    ...getAppointmentSuspenseQueryOptions(resolvedParams, config),
    ...resolvedOptions,
    queryKey,
-  } as unknown as UseSuspenseQueryOptions, queryClient) as UseSuspenseQueryResult<TData, ResponseErrorConfig<GetAppointmentStatus401 | GetAppointmentStatus403 | GetAppointmentStatus404 | GetAppointmentStatus422>> & { queryKey: TQueryKey }
+  } as unknown as UseSuspenseQueryOptions, queryClient) as UseSuspenseQueryResult<TData, ResponseErrorConfig<GetAppointmentStatus400 | GetAppointmentStatus401 | GetAppointmentStatus403 | GetAppointmentStatus404 | GetAppointmentStatus422>> & { queryKey: TQueryKey }
 
   queryResult.queryKey = queryKey as TQueryKey
 

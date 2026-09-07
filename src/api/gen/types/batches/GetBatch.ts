@@ -17,6 +17,8 @@ export type GetBatchPath = {
 
 export type GetBatchStatus200 = BatchView;
 
+export type GetBatchStatus400 = ErrorResponse;
+
 export type GetBatchStatus401 = ErrorResponse;
 
 export type GetBatchStatus403 = ErrorResponse;
@@ -34,6 +36,7 @@ export type GetBatchOptions = {
 
 export type GetBatchResponses = {
     "200": GetBatchStatus200;
+    "400": GetBatchStatus400;
     "401": GetBatchStatus401;
     "403": GetBatchStatus403;
     "404": GetBatchStatus404;
@@ -43,4 +46,4 @@ export type GetBatchResponses = {
 /**
  * @description Union of all possible responses
 */
-export type GetBatchResponse = (GetBatchStatus200 | GetBatchStatus401 | GetBatchStatus403 | GetBatchStatus404 | GetBatchStatus422);
+export type GetBatchResponse = (GetBatchStatus200 | GetBatchStatus400 | GetBatchStatus401 | GetBatchStatus403 | GetBatchStatus404 | GetBatchStatus422);

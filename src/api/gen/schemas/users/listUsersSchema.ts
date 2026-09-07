@@ -11,6 +11,10 @@ export const listUsersStatus200Schema = z.array(userViewSchema)
 
 export type ListUsersStatus200SchemaType = z.infer<typeof listUsersStatus200Schema>
 
+export const listUsersStatus400Schema = errorResponseSchema
+
+export type ListUsersStatus400SchemaType = z.infer<typeof listUsersStatus400Schema>
+
 export const listUsersStatus401Schema = errorResponseSchema
 
 export type ListUsersStatus401SchemaType = z.infer<typeof listUsersStatus401Schema>
@@ -31,7 +35,7 @@ export const listUsersResponseSchema = listUsersStatus200Schema
 
 export type ListUsersResponseSchemaType = z.infer<typeof listUsersResponseSchema>
 
-export const listUsersErrorSchema = z.union([listUsersStatus401Schema, listUsersStatus403Schema, listUsersStatus404Schema, listUsersStatus422Schema])
+export const listUsersErrorSchema = z.union([listUsersStatus400Schema, listUsersStatus401Schema, listUsersStatus403Schema, listUsersStatus404Schema, listUsersStatus422Schema])
 
 export type ListUsersErrorSchemaType = z.infer<typeof listUsersErrorSchema>
 
@@ -46,6 +50,7 @@ export type ListUsersOptionsSchemaType = z.infer<typeof listUsersOptionsSchema>
 
 export const listUsersResponsesSchema = z.object({
   '200': listUsersStatus200Schema,
+  '400': listUsersStatus400Schema,
   '401': listUsersStatus401Schema,
   '403': listUsersStatus403Schema,
   '404': listUsersStatus404Schema,

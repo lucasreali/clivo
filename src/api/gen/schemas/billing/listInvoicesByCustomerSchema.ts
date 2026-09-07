@@ -15,6 +15,10 @@ export const listInvoicesByCustomerStatus200Schema = z.array(invoiceViewSchema)
 
 export type ListInvoicesByCustomerStatus200SchemaType = z.infer<typeof listInvoicesByCustomerStatus200Schema>
 
+export const listInvoicesByCustomerStatus400Schema = errorResponseSchema
+
+export type ListInvoicesByCustomerStatus400SchemaType = z.infer<typeof listInvoicesByCustomerStatus400Schema>
+
 export const listInvoicesByCustomerStatus401Schema = errorResponseSchema
 
 export type ListInvoicesByCustomerStatus401SchemaType = z.infer<typeof listInvoicesByCustomerStatus401Schema>
@@ -35,7 +39,7 @@ export const listInvoicesByCustomerResponseSchema = listInvoicesByCustomerStatus
 
 export type ListInvoicesByCustomerResponseSchemaType = z.infer<typeof listInvoicesByCustomerResponseSchema>
 
-export const listInvoicesByCustomerErrorSchema = z.union([listInvoicesByCustomerStatus401Schema, listInvoicesByCustomerStatus403Schema, listInvoicesByCustomerStatus404Schema, listInvoicesByCustomerStatus422Schema])
+export const listInvoicesByCustomerErrorSchema = z.union([listInvoicesByCustomerStatus400Schema, listInvoicesByCustomerStatus401Schema, listInvoicesByCustomerStatus403Schema, listInvoicesByCustomerStatus404Schema, listInvoicesByCustomerStatus422Schema])
 
 export type ListInvoicesByCustomerErrorSchemaType = z.infer<typeof listInvoicesByCustomerErrorSchema>
 
@@ -56,6 +60,7 @@ export type ListInvoicesByCustomerOptionsSchemaType = z.infer<typeof listInvoice
 
 export const listInvoicesByCustomerResponsesSchema = z.object({
   '200': listInvoicesByCustomerStatus200Schema,
+  '400': listInvoicesByCustomerStatus400Schema,
   '401': listInvoicesByCustomerStatus401Schema,
   '403': listInvoicesByCustomerStatus403Schema,
   '404': listInvoicesByCustomerStatus404Schema,

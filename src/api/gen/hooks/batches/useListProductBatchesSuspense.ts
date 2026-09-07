@@ -4,7 +4,7 @@
 */
 
 import type { RequestConfig, ResponseErrorConfig } from '../../.kubb/client'
-import type { ListProductBatchesOptions, ListProductBatchesStatus200, ListProductBatchesStatus401, ListProductBatchesStatus403, ListProductBatchesStatus404, ListProductBatchesStatus422 } from '../../types/batches/ListProductBatches'
+import type { ListProductBatchesOptions, ListProductBatchesStatus200, ListProductBatchesStatus400, ListProductBatchesStatus401, ListProductBatchesStatus403, ListProductBatchesStatus404, ListProductBatchesStatus422 } from '../../types/batches/ListProductBatches'
 import type { QueryKey, QueryClient, UseSuspenseQueryOptions, UseSuspenseQueryResult } from '@tanstack/react-query'
 import { listProductBatches } from '../../clients/batches/listProductBatches'
 import { queryOptions, useSuspenseQuery } from '@tanstack/react-query'
@@ -15,7 +15,7 @@ type ListProductBatchesSuspenseQueryKey = ReturnType<typeof listProductBatchesSu
 
 export function listProductBatchesSuspenseQueryOptions({ path }: ListProductBatchesOptions, config: Partial<Omit<RequestConfig, 'path' | 'query' | 'body' | 'headers' | 'url'>> = {}) {
   const queryKey = listProductBatchesSuspenseQueryKey({ path })
-  return queryOptions<ListProductBatchesStatus200, ResponseErrorConfig<ListProductBatchesStatus401 | ListProductBatchesStatus403 | ListProductBatchesStatus404 | ListProductBatchesStatus422>, ListProductBatchesStatus200, typeof queryKey>({
+  return queryOptions<ListProductBatchesStatus200, ResponseErrorConfig<ListProductBatchesStatus400 | ListProductBatchesStatus401 | ListProductBatchesStatus403 | ListProductBatchesStatus404 | ListProductBatchesStatus422>, ListProductBatchesStatus200, typeof queryKey>({
    queryKey,
    queryFn: async ({ signal }) => {
       return listProductBatches({ ...config, path, signal: config.signal ?? signal, throwOnError: true }).unwrap()
@@ -28,7 +28,7 @@ export function listProductBatchesSuspenseQueryOptions({ path }: ListProductBatc
  * {@link /api/products/:productId/batches}
  */
 export function useListProductBatchesSuspense<TData = ListProductBatchesStatus200, TQueryKey extends QueryKey = ListProductBatchesSuspenseQueryKey>({ path }: { path: ListProductBatchesOptions['path'] | (() => ListProductBatchesOptions['path']) }, options: {
-  query?: Partial<UseSuspenseQueryOptions<ListProductBatchesStatus200, ResponseErrorConfig<ListProductBatchesStatus401 | ListProductBatchesStatus403 | ListProductBatchesStatus404 | ListProductBatchesStatus422>, TData, TQueryKey>> & { client?: QueryClient },
+  query?: Partial<UseSuspenseQueryOptions<ListProductBatchesStatus200, ResponseErrorConfig<ListProductBatchesStatus400 | ListProductBatchesStatus401 | ListProductBatchesStatus403 | ListProductBatchesStatus404 | ListProductBatchesStatus422>, TData, TQueryKey>> & { client?: QueryClient },
   client?: Partial<Omit<RequestConfig, 'path' | 'query' | 'body' | 'headers' | 'url'>>
 } = {}) {
   const { query: queryConfig = {}, client: config = {} } = options ?? {}
@@ -40,7 +40,7 @@ export function useListProductBatchesSuspense<TData = ListProductBatchesStatus20
    ...listProductBatchesSuspenseQueryOptions(resolvedParams, config),
    ...resolvedOptions,
    queryKey,
-  } as unknown as UseSuspenseQueryOptions, queryClient) as UseSuspenseQueryResult<TData, ResponseErrorConfig<ListProductBatchesStatus401 | ListProductBatchesStatus403 | ListProductBatchesStatus404 | ListProductBatchesStatus422>> & { queryKey: TQueryKey }
+  } as unknown as UseSuspenseQueryOptions, queryClient) as UseSuspenseQueryResult<TData, ResponseErrorConfig<ListProductBatchesStatus400 | ListProductBatchesStatus401 | ListProductBatchesStatus403 | ListProductBatchesStatus404 | ListProductBatchesStatus422>> & { queryKey: TQueryKey }
 
   queryResult.queryKey = queryKey as TQueryKey
 

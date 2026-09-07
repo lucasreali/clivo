@@ -4,7 +4,7 @@
 */
 
 import type { RequestConfig, ResponseErrorConfig } from '../../.kubb/client'
-import type { ListBatchesAwaitingDiscardStatus200, ListBatchesAwaitingDiscardStatus401, ListBatchesAwaitingDiscardStatus403, ListBatchesAwaitingDiscardStatus404, ListBatchesAwaitingDiscardStatus422 } from '../../types/batches/ListBatchesAwaitingDiscard'
+import type { ListBatchesAwaitingDiscardStatus200, ListBatchesAwaitingDiscardStatus400, ListBatchesAwaitingDiscardStatus401, ListBatchesAwaitingDiscardStatus403, ListBatchesAwaitingDiscardStatus404, ListBatchesAwaitingDiscardStatus422 } from '../../types/batches/ListBatchesAwaitingDiscard'
 import type { QueryKey, QueryClient, UseSuspenseQueryOptions, UseSuspenseQueryResult } from '@tanstack/react-query'
 import { listBatchesAwaitingDiscard } from '../../clients/batches/listBatchesAwaitingDiscard'
 import { queryOptions, useSuspenseQuery } from '@tanstack/react-query'
@@ -15,7 +15,7 @@ type ListBatchesAwaitingDiscardSuspenseQueryKey = ReturnType<typeof listBatchesA
 
 export function listBatchesAwaitingDiscardSuspenseQueryOptions(config: Partial<Omit<RequestConfig, 'path' | 'query' | 'body' | 'headers' | 'url'>> = {}) {
   const queryKey = listBatchesAwaitingDiscardSuspenseQueryKey()
-  return queryOptions<ListBatchesAwaitingDiscardStatus200, ResponseErrorConfig<ListBatchesAwaitingDiscardStatus401 | ListBatchesAwaitingDiscardStatus403 | ListBatchesAwaitingDiscardStatus404 | ListBatchesAwaitingDiscardStatus422>, ListBatchesAwaitingDiscardStatus200, typeof queryKey>({
+  return queryOptions<ListBatchesAwaitingDiscardStatus200, ResponseErrorConfig<ListBatchesAwaitingDiscardStatus400 | ListBatchesAwaitingDiscardStatus401 | ListBatchesAwaitingDiscardStatus403 | ListBatchesAwaitingDiscardStatus404 | ListBatchesAwaitingDiscardStatus422>, ListBatchesAwaitingDiscardStatus200, typeof queryKey>({
    queryKey,
    queryFn: async ({ signal }) => {
       return listBatchesAwaitingDiscard({ ...config, signal: config.signal ?? signal, throwOnError: true }).unwrap()
@@ -28,7 +28,7 @@ export function listBatchesAwaitingDiscardSuspenseQueryOptions(config: Partial<O
  * {@link /api/batches/awaiting-discard}
  */
 export function useListBatchesAwaitingDiscardSuspense<TData = ListBatchesAwaitingDiscardStatus200, TQueryKey extends QueryKey = ListBatchesAwaitingDiscardSuspenseQueryKey>(options: {
-  query?: Partial<UseSuspenseQueryOptions<ListBatchesAwaitingDiscardStatus200, ResponseErrorConfig<ListBatchesAwaitingDiscardStatus401 | ListBatchesAwaitingDiscardStatus403 | ListBatchesAwaitingDiscardStatus404 | ListBatchesAwaitingDiscardStatus422>, TData, TQueryKey>> & { client?: QueryClient },
+  query?: Partial<UseSuspenseQueryOptions<ListBatchesAwaitingDiscardStatus200, ResponseErrorConfig<ListBatchesAwaitingDiscardStatus400 | ListBatchesAwaitingDiscardStatus401 | ListBatchesAwaitingDiscardStatus403 | ListBatchesAwaitingDiscardStatus404 | ListBatchesAwaitingDiscardStatus422>, TData, TQueryKey>> & { client?: QueryClient },
   client?: Partial<Omit<RequestConfig, 'path' | 'query' | 'body' | 'headers' | 'url'>>
 } = {}) {
   const { query: queryConfig = {}, client: config = {} } = options ?? {}
@@ -39,7 +39,7 @@ export function useListBatchesAwaitingDiscardSuspense<TData = ListBatchesAwaitin
    ...listBatchesAwaitingDiscardSuspenseQueryOptions(config),
    ...resolvedOptions,
    queryKey,
-  } as unknown as UseSuspenseQueryOptions, queryClient) as UseSuspenseQueryResult<TData, ResponseErrorConfig<ListBatchesAwaitingDiscardStatus401 | ListBatchesAwaitingDiscardStatus403 | ListBatchesAwaitingDiscardStatus404 | ListBatchesAwaitingDiscardStatus422>> & { queryKey: TQueryKey }
+  } as unknown as UseSuspenseQueryOptions, queryClient) as UseSuspenseQueryResult<TData, ResponseErrorConfig<ListBatchesAwaitingDiscardStatus400 | ListBatchesAwaitingDiscardStatus401 | ListBatchesAwaitingDiscardStatus403 | ListBatchesAwaitingDiscardStatus404 | ListBatchesAwaitingDiscardStatus422>> & { queryKey: TQueryKey }
 
   queryResult.queryKey = queryKey as TQueryKey
 

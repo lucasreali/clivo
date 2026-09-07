@@ -4,7 +4,6 @@
 */
 
 export type ClinicView = {
-    code?: string;
     /**
      * @description
      * Format: `date-time`

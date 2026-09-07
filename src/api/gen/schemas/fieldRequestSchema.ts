@@ -6,13 +6,13 @@
 import * as z from 'zod'
 
 export const fieldRequestSchema = z.object({
-  code: z.string().min(1),
-  component: z.string().optional(),
-  fieldType: z.string().min(1),
-  label: z.string().min(1),
+  code: z.string().min(0).max(40),
+  component: z.string().min(0).max(30).optional(),
+  fieldType: z.string().min(0).max(20),
+  label: z.string().min(0).max(80),
   options: z.array(z.string()).optional(),
   required: z.boolean().optional(),
-  requiresModule: z.string().optional(),
+  requiresModule: z.string().min(0).max(4).optional(),
   validation: z.object({}).catchall(z.unknown()).optional(),
 })
 

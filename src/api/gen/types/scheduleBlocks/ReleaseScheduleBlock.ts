@@ -16,6 +16,8 @@ export type ReleaseScheduleBlockPath = {
 
 export type ReleaseScheduleBlockStatus204 = unknown;
 
+export type ReleaseScheduleBlockStatus400 = ErrorResponse;
+
 export type ReleaseScheduleBlockStatus401 = ErrorResponse;
 
 export type ReleaseScheduleBlockStatus403 = ErrorResponse;
@@ -33,6 +35,7 @@ export type ReleaseScheduleBlockOptions = {
 
 export type ReleaseScheduleBlockResponses = {
     "204": ReleaseScheduleBlockStatus204;
+    "400": ReleaseScheduleBlockStatus400;
     "401": ReleaseScheduleBlockStatus401;
     "403": ReleaseScheduleBlockStatus403;
     "404": ReleaseScheduleBlockStatus404;
@@ -42,4 +45,4 @@ export type ReleaseScheduleBlockResponses = {
 /**
  * @description Union of all possible responses
 */
-export type ReleaseScheduleBlockResponse = (ReleaseScheduleBlockStatus204 | ReleaseScheduleBlockStatus401 | ReleaseScheduleBlockStatus403 | ReleaseScheduleBlockStatus404 | ReleaseScheduleBlockStatus422);
+export type ReleaseScheduleBlockResponse = (ReleaseScheduleBlockStatus204 | ReleaseScheduleBlockStatus400 | ReleaseScheduleBlockStatus401 | ReleaseScheduleBlockStatus403 | ReleaseScheduleBlockStatus404 | ReleaseScheduleBlockStatus422);

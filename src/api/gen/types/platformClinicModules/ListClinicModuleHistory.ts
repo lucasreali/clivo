@@ -8,6 +8,8 @@ import type { PlatformModuleChangeView } from '../PlatformModuleChangeView'
 
 export type ListClinicModuleHistoryStatus200 = PlatformModuleChangeView[];
 
+export type ListClinicModuleHistoryStatus400 = ErrorResponse;
+
 export type ListClinicModuleHistoryStatus401 = ErrorResponse;
 
 export type ListClinicModuleHistoryStatus403 = ErrorResponse;
@@ -25,6 +27,7 @@ export type ListClinicModuleHistoryOptions = {
 
 export type ListClinicModuleHistoryResponses = {
     "200": ListClinicModuleHistoryStatus200;
+    "400": ListClinicModuleHistoryStatus400;
     "401": ListClinicModuleHistoryStatus401;
     "403": ListClinicModuleHistoryStatus403;
     "404": ListClinicModuleHistoryStatus404;
@@ -34,4 +37,4 @@ export type ListClinicModuleHistoryResponses = {
 /**
  * @description Union of all possible responses
 */
-export type ListClinicModuleHistoryResponse = (ListClinicModuleHistoryStatus200 | ListClinicModuleHistoryStatus401 | ListClinicModuleHistoryStatus403 | ListClinicModuleHistoryStatus404 | ListClinicModuleHistoryStatus422);
+export type ListClinicModuleHistoryResponse = (ListClinicModuleHistoryStatus200 | ListClinicModuleHistoryStatus400 | ListClinicModuleHistoryStatus401 | ListClinicModuleHistoryStatus403 | ListClinicModuleHistoryStatus404 | ListClinicModuleHistoryStatus422);

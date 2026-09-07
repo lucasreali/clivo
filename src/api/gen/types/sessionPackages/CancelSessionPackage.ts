@@ -17,6 +17,8 @@ export type CancelSessionPackagePath = {
 
 export type CancelSessionPackageStatus200 = PackageView;
 
+export type CancelSessionPackageStatus400 = ErrorResponse;
+
 export type CancelSessionPackageStatus401 = ErrorResponse;
 
 export type CancelSessionPackageStatus403 = ErrorResponse;
@@ -34,6 +36,7 @@ export type CancelSessionPackageOptions = {
 
 export type CancelSessionPackageResponses = {
     "200": CancelSessionPackageStatus200;
+    "400": CancelSessionPackageStatus400;
     "401": CancelSessionPackageStatus401;
     "403": CancelSessionPackageStatus403;
     "404": CancelSessionPackageStatus404;
@@ -43,4 +46,4 @@ export type CancelSessionPackageResponses = {
 /**
  * @description Union of all possible responses
 */
-export type CancelSessionPackageResponse = (CancelSessionPackageStatus200 | CancelSessionPackageStatus401 | CancelSessionPackageStatus403 | CancelSessionPackageStatus404 | CancelSessionPackageStatus422);
+export type CancelSessionPackageResponse = (CancelSessionPackageStatus200 | CancelSessionPackageStatus400 | CancelSessionPackageStatus401 | CancelSessionPackageStatus403 | CancelSessionPackageStatus404 | CancelSessionPackageStatus422);

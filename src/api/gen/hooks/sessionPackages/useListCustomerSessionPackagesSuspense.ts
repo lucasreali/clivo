@@ -4,7 +4,7 @@
 */
 
 import type { RequestConfig, ResponseErrorConfig } from '../../.kubb/client'
-import type { ListCustomerSessionPackagesOptions, ListCustomerSessionPackagesStatus200, ListCustomerSessionPackagesStatus401, ListCustomerSessionPackagesStatus403, ListCustomerSessionPackagesStatus404, ListCustomerSessionPackagesStatus422 } from '../../types/sessionPackages/ListCustomerSessionPackages'
+import type { ListCustomerSessionPackagesOptions, ListCustomerSessionPackagesStatus200, ListCustomerSessionPackagesStatus400, ListCustomerSessionPackagesStatus401, ListCustomerSessionPackagesStatus403, ListCustomerSessionPackagesStatus404, ListCustomerSessionPackagesStatus422 } from '../../types/sessionPackages/ListCustomerSessionPackages'
 import type { QueryKey, QueryClient, UseSuspenseQueryOptions, UseSuspenseQueryResult } from '@tanstack/react-query'
 import { listCustomerSessionPackages } from '../../clients/sessionPackages/listCustomerSessionPackages'
 import { queryOptions, useSuspenseQuery } from '@tanstack/react-query'
@@ -15,7 +15,7 @@ type ListCustomerSessionPackagesSuspenseQueryKey = ReturnType<typeof listCustome
 
 export function listCustomerSessionPackagesSuspenseQueryOptions({ query }: ListCustomerSessionPackagesOptions, config: Partial<Omit<RequestConfig, 'path' | 'query' | 'body' | 'headers' | 'url'>> = {}) {
   const queryKey = listCustomerSessionPackagesSuspenseQueryKey({ query })
-  return queryOptions<ListCustomerSessionPackagesStatus200, ResponseErrorConfig<ListCustomerSessionPackagesStatus401 | ListCustomerSessionPackagesStatus403 | ListCustomerSessionPackagesStatus404 | ListCustomerSessionPackagesStatus422>, ListCustomerSessionPackagesStatus200, typeof queryKey>({
+  return queryOptions<ListCustomerSessionPackagesStatus200, ResponseErrorConfig<ListCustomerSessionPackagesStatus400 | ListCustomerSessionPackagesStatus401 | ListCustomerSessionPackagesStatus403 | ListCustomerSessionPackagesStatus404 | ListCustomerSessionPackagesStatus422>, ListCustomerSessionPackagesStatus200, typeof queryKey>({
    queryKey,
    queryFn: async ({ signal }) => {
       return listCustomerSessionPackages({ ...config, query, signal: config.signal ?? signal, throwOnError: true }).unwrap()
@@ -28,7 +28,7 @@ export function listCustomerSessionPackagesSuspenseQueryOptions({ query }: ListC
  * {@link /api/session-packages}
  */
 export function useListCustomerSessionPackagesSuspense<TData = ListCustomerSessionPackagesStatus200, TQueryKey extends QueryKey = ListCustomerSessionPackagesSuspenseQueryKey>({ query }: { query: ListCustomerSessionPackagesOptions['query'] | (() => ListCustomerSessionPackagesOptions['query']) }, options: {
-  query?: Partial<UseSuspenseQueryOptions<ListCustomerSessionPackagesStatus200, ResponseErrorConfig<ListCustomerSessionPackagesStatus401 | ListCustomerSessionPackagesStatus403 | ListCustomerSessionPackagesStatus404 | ListCustomerSessionPackagesStatus422>, TData, TQueryKey>> & { client?: QueryClient },
+  query?: Partial<UseSuspenseQueryOptions<ListCustomerSessionPackagesStatus200, ResponseErrorConfig<ListCustomerSessionPackagesStatus400 | ListCustomerSessionPackagesStatus401 | ListCustomerSessionPackagesStatus403 | ListCustomerSessionPackagesStatus404 | ListCustomerSessionPackagesStatus422>, TData, TQueryKey>> & { client?: QueryClient },
   client?: Partial<Omit<RequestConfig, 'path' | 'query' | 'body' | 'headers' | 'url'>>
 } = {}) {
   const { query: queryConfig = {}, client: config = {} } = options ?? {}
@@ -40,7 +40,7 @@ export function useListCustomerSessionPackagesSuspense<TData = ListCustomerSessi
    ...listCustomerSessionPackagesSuspenseQueryOptions(resolvedParams, config),
    ...resolvedOptions,
    queryKey,
-  } as unknown as UseSuspenseQueryOptions, queryClient) as UseSuspenseQueryResult<TData, ResponseErrorConfig<ListCustomerSessionPackagesStatus401 | ListCustomerSessionPackagesStatus403 | ListCustomerSessionPackagesStatus404 | ListCustomerSessionPackagesStatus422>> & { queryKey: TQueryKey }
+  } as unknown as UseSuspenseQueryOptions, queryClient) as UseSuspenseQueryResult<TData, ResponseErrorConfig<ListCustomerSessionPackagesStatus400 | ListCustomerSessionPackagesStatus401 | ListCustomerSessionPackagesStatus403 | ListCustomerSessionPackagesStatus404 | ListCustomerSessionPackagesStatus422>> & { queryKey: TQueryKey }
 
   queryResult.queryKey = queryKey as TQueryKey
 

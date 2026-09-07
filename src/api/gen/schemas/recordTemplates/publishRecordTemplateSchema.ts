@@ -15,6 +15,10 @@ export const publishRecordTemplateStatus200Schema = recordTemplateViewSchema
 
 export type PublishRecordTemplateStatus200SchemaType = z.infer<typeof publishRecordTemplateStatus200Schema>
 
+export const publishRecordTemplateStatus400Schema = errorResponseSchema
+
+export type PublishRecordTemplateStatus400SchemaType = z.infer<typeof publishRecordTemplateStatus400Schema>
+
 export const publishRecordTemplateStatus401Schema = errorResponseSchema
 
 export type PublishRecordTemplateStatus401SchemaType = z.infer<typeof publishRecordTemplateStatus401Schema>
@@ -35,7 +39,7 @@ export const publishRecordTemplateResponseSchema = publishRecordTemplateStatus20
 
 export type PublishRecordTemplateResponseSchemaType = z.infer<typeof publishRecordTemplateResponseSchema>
 
-export const publishRecordTemplateErrorSchema = z.union([publishRecordTemplateStatus401Schema, publishRecordTemplateStatus403Schema, publishRecordTemplateStatus404Schema, publishRecordTemplateStatus422Schema])
+export const publishRecordTemplateErrorSchema = z.union([publishRecordTemplateStatus400Schema, publishRecordTemplateStatus401Schema, publishRecordTemplateStatus403Schema, publishRecordTemplateStatus404Schema, publishRecordTemplateStatus422Schema])
 
 export type PublishRecordTemplateErrorSchemaType = z.infer<typeof publishRecordTemplateErrorSchema>
 
@@ -56,6 +60,7 @@ export type PublishRecordTemplateOptionsSchemaType = z.infer<typeof publishRecor
 
 export const publishRecordTemplateResponsesSchema = z.object({
   '200': publishRecordTemplateStatus200Schema,
+  '400': publishRecordTemplateStatus400Schema,
   '401': publishRecordTemplateStatus401Schema,
   '403': publishRecordTemplateStatus403Schema,
   '404': publishRecordTemplateStatus404Schema,

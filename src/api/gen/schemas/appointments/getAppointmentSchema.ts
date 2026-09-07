@@ -15,6 +15,10 @@ export const getAppointmentStatus200Schema = appointmentViewSchema
 
 export type GetAppointmentStatus200SchemaType = z.infer<typeof getAppointmentStatus200Schema>
 
+export const getAppointmentStatus400Schema = errorResponseSchema
+
+export type GetAppointmentStatus400SchemaType = z.infer<typeof getAppointmentStatus400Schema>
+
 export const getAppointmentStatus401Schema = errorResponseSchema
 
 export type GetAppointmentStatus401SchemaType = z.infer<typeof getAppointmentStatus401Schema>
@@ -35,7 +39,7 @@ export const getAppointmentResponseSchema = getAppointmentStatus200Schema
 
 export type GetAppointmentResponseSchemaType = z.infer<typeof getAppointmentResponseSchema>
 
-export const getAppointmentErrorSchema = z.union([getAppointmentStatus401Schema, getAppointmentStatus403Schema, getAppointmentStatus404Schema, getAppointmentStatus422Schema])
+export const getAppointmentErrorSchema = z.union([getAppointmentStatus400Schema, getAppointmentStatus401Schema, getAppointmentStatus403Schema, getAppointmentStatus404Schema, getAppointmentStatus422Schema])
 
 export type GetAppointmentErrorSchemaType = z.infer<typeof getAppointmentErrorSchema>
 
@@ -56,6 +60,7 @@ export type GetAppointmentOptionsSchemaType = z.infer<typeof getAppointmentOptio
 
 export const getAppointmentResponsesSchema = z.object({
   '200': getAppointmentStatus200Schema,
+  '400': getAppointmentStatus400Schema,
   '401': getAppointmentStatus401Schema,
   '403': getAppointmentStatus403Schema,
   '404': getAppointmentStatus404Schema,

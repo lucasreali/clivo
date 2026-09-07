@@ -8,6 +8,8 @@ import type { ServiceView } from '../ServiceView'
 
 export type ListServicesStatus200 = ServiceView[];
 
+export type ListServicesStatus400 = ErrorResponse;
+
 export type ListServicesStatus401 = ErrorResponse;
 
 export type ListServicesStatus403 = ErrorResponse;
@@ -25,6 +27,7 @@ export type ListServicesOptions = {
 
 export type ListServicesResponses = {
     "200": ListServicesStatus200;
+    "400": ListServicesStatus400;
     "401": ListServicesStatus401;
     "403": ListServicesStatus403;
     "404": ListServicesStatus404;
@@ -34,4 +37,4 @@ export type ListServicesResponses = {
 /**
  * @description Union of all possible responses
 */
-export type ListServicesResponse = (ListServicesStatus200 | ListServicesStatus401 | ListServicesStatus403 | ListServicesStatus404 | ListServicesStatus422);
+export type ListServicesResponse = (ListServicesStatus200 | ListServicesStatus400 | ListServicesStatus401 | ListServicesStatus403 | ListServicesStatus404 | ListServicesStatus422);

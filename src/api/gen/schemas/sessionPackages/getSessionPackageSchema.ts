@@ -15,6 +15,10 @@ export const getSessionPackageStatus200Schema = packageViewSchema
 
 export type GetSessionPackageStatus200SchemaType = z.infer<typeof getSessionPackageStatus200Schema>
 
+export const getSessionPackageStatus400Schema = errorResponseSchema
+
+export type GetSessionPackageStatus400SchemaType = z.infer<typeof getSessionPackageStatus400Schema>
+
 export const getSessionPackageStatus401Schema = errorResponseSchema
 
 export type GetSessionPackageStatus401SchemaType = z.infer<typeof getSessionPackageStatus401Schema>
@@ -35,7 +39,7 @@ export const getSessionPackageResponseSchema = getSessionPackageStatus200Schema
 
 export type GetSessionPackageResponseSchemaType = z.infer<typeof getSessionPackageResponseSchema>
 
-export const getSessionPackageErrorSchema = z.union([getSessionPackageStatus401Schema, getSessionPackageStatus403Schema, getSessionPackageStatus404Schema, getSessionPackageStatus422Schema])
+export const getSessionPackageErrorSchema = z.union([getSessionPackageStatus400Schema, getSessionPackageStatus401Schema, getSessionPackageStatus403Schema, getSessionPackageStatus404Schema, getSessionPackageStatus422Schema])
 
 export type GetSessionPackageErrorSchemaType = z.infer<typeof getSessionPackageErrorSchema>
 
@@ -56,6 +60,7 @@ export type GetSessionPackageOptionsSchemaType = z.infer<typeof getSessionPackag
 
 export const getSessionPackageResponsesSchema = z.object({
   '200': getSessionPackageStatus200Schema,
+  '400': getSessionPackageStatus400Schema,
   '401': getSessionPackageStatus401Schema,
   '403': getSessionPackageStatus403Schema,
   '404': getSessionPackageStatus404Schema,

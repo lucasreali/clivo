@@ -4,7 +4,7 @@
 */
 
 import type { RequestConfig, ResponseErrorConfig } from '../../.kubb/client'
-import type { DeactivateClinicModuleOptions, DeactivateClinicModuleStatus204, DeactivateClinicModuleStatus401, DeactivateClinicModuleStatus403, DeactivateClinicModuleStatus404, DeactivateClinicModuleStatus422 } from '../../types/platformClinicModules/DeactivateClinicModule'
+import type { DeactivateClinicModuleOptions, DeactivateClinicModuleStatus204, DeactivateClinicModuleStatus400, DeactivateClinicModuleStatus401, DeactivateClinicModuleStatus403, DeactivateClinicModuleStatus404, DeactivateClinicModuleStatus422 } from '../../types/platformClinicModules/DeactivateClinicModule'
 import type { UseMutationOptions, UseMutationResult, QueryClient } from '@tanstack/react-query'
 import { deactivateClinicModule } from '../../clients/platformClinicModules/deactivateClinicModule'
 import { mutationOptions, useMutation } from '@tanstack/react-query'
@@ -13,7 +13,7 @@ export const deactivateClinicModuleMutationKey = () => [{ url: '/api/platform/te
 
 export function deactivateClinicModuleMutationOptions<TContext = unknown>(config: Partial<Omit<RequestConfig, 'path' | 'query' | 'body' | 'headers' | 'url'>> = {}) {
   const mutationKey = deactivateClinicModuleMutationKey()
-  return mutationOptions<DeactivateClinicModuleStatus204, ResponseErrorConfig<DeactivateClinicModuleStatus401 | DeactivateClinicModuleStatus403 | DeactivateClinicModuleStatus404 | DeactivateClinicModuleStatus422>, DeactivateClinicModuleOptions, TContext>({
+  return mutationOptions<DeactivateClinicModuleStatus204, ResponseErrorConfig<DeactivateClinicModuleStatus400 | DeactivateClinicModuleStatus401 | DeactivateClinicModuleStatus403 | DeactivateClinicModuleStatus404 | DeactivateClinicModuleStatus422>, DeactivateClinicModuleOptions, TContext>({
     mutationKey,
     mutationFn: async({ path }) => {
       return deactivateClinicModule({ ...config, path, throwOnError: true }).unwrap()
@@ -26,18 +26,18 @@ export function deactivateClinicModuleMutationOptions<TContext = unknown>(config
  * {@link /api/platform/tenants/:tenantId/modules/:code/activation}
  */
 export function useDeactivateClinicModule<TContext>(options: {
-  mutation?: UseMutationOptions<DeactivateClinicModuleStatus204, ResponseErrorConfig<DeactivateClinicModuleStatus401 | DeactivateClinicModuleStatus403 | DeactivateClinicModuleStatus404 | DeactivateClinicModuleStatus422>, DeactivateClinicModuleOptions, TContext> & { client?: QueryClient },
+  mutation?: UseMutationOptions<DeactivateClinicModuleStatus204, ResponseErrorConfig<DeactivateClinicModuleStatus400 | DeactivateClinicModuleStatus401 | DeactivateClinicModuleStatus403 | DeactivateClinicModuleStatus404 | DeactivateClinicModuleStatus422>, DeactivateClinicModuleOptions, TContext> & { client?: QueryClient },
   client?: Partial<Omit<RequestConfig, 'path' | 'query' | 'body' | 'headers' | 'url'>>,
 } = {}) {
   const { mutation = {}, client: config = {} } = options ?? {}
   const { client: queryClient, ...mutationOptions } = mutation;
   const mutationKey = mutationOptions.mutationKey ?? deactivateClinicModuleMutationKey()
 
-  const baseOptions = deactivateClinicModuleMutationOptions(config) as UseMutationOptions<DeactivateClinicModuleStatus204, ResponseErrorConfig<DeactivateClinicModuleStatus401 | DeactivateClinicModuleStatus403 | DeactivateClinicModuleStatus404 | DeactivateClinicModuleStatus422>, DeactivateClinicModuleOptions, TContext>
+  const baseOptions = deactivateClinicModuleMutationOptions(config) as UseMutationOptions<DeactivateClinicModuleStatus204, ResponseErrorConfig<DeactivateClinicModuleStatus400 | DeactivateClinicModuleStatus401 | DeactivateClinicModuleStatus403 | DeactivateClinicModuleStatus404 | DeactivateClinicModuleStatus422>, DeactivateClinicModuleOptions, TContext>
 
-  return useMutation<DeactivateClinicModuleStatus204, ResponseErrorConfig<DeactivateClinicModuleStatus401 | DeactivateClinicModuleStatus403 | DeactivateClinicModuleStatus404 | DeactivateClinicModuleStatus422>, DeactivateClinicModuleOptions, TContext>({
+  return useMutation<DeactivateClinicModuleStatus204, ResponseErrorConfig<DeactivateClinicModuleStatus400 | DeactivateClinicModuleStatus401 | DeactivateClinicModuleStatus403 | DeactivateClinicModuleStatus404 | DeactivateClinicModuleStatus422>, DeactivateClinicModuleOptions, TContext>({
     ...baseOptions,
     mutationKey,
     ...mutationOptions,
-  }, queryClient) as UseMutationResult<DeactivateClinicModuleStatus204, ResponseErrorConfig<DeactivateClinicModuleStatus401 | DeactivateClinicModuleStatus403 | DeactivateClinicModuleStatus404 | DeactivateClinicModuleStatus422>, DeactivateClinicModuleOptions, TContext>
+  }, queryClient) as UseMutationResult<DeactivateClinicModuleStatus204, ResponseErrorConfig<DeactivateClinicModuleStatus400 | DeactivateClinicModuleStatus401 | DeactivateClinicModuleStatus403 | DeactivateClinicModuleStatus404 | DeactivateClinicModuleStatus422>, DeactivateClinicModuleOptions, TContext>
 }

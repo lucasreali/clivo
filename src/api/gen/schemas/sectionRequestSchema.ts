@@ -8,7 +8,7 @@ import { fieldRequestSchema } from './fieldRequestSchema'
 
 export const sectionRequestSchema = z.object({
   fields: z.array(fieldRequestSchema),
-  name: z.string().min(1),
+  name: z.string().min(0).max(80),
 })
 
 export type SectionRequestSchemaType = z.infer<typeof sectionRequestSchema>

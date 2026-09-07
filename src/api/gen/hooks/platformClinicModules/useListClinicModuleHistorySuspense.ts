@@ -4,7 +4,7 @@
 */
 
 import type { RequestConfig, ResponseErrorConfig } from '../../.kubb/client'
-import type { ListClinicModuleHistoryStatus200, ListClinicModuleHistoryStatus401, ListClinicModuleHistoryStatus403, ListClinicModuleHistoryStatus404, ListClinicModuleHistoryStatus422 } from '../../types/platformClinicModules/ListClinicModuleHistory'
+import type { ListClinicModuleHistoryStatus200, ListClinicModuleHistoryStatus400, ListClinicModuleHistoryStatus401, ListClinicModuleHistoryStatus403, ListClinicModuleHistoryStatus404, ListClinicModuleHistoryStatus422 } from '../../types/platformClinicModules/ListClinicModuleHistory'
 import type { QueryKey, QueryClient, UseSuspenseQueryOptions, UseSuspenseQueryResult } from '@tanstack/react-query'
 import { listClinicModuleHistory } from '../../clients/platformClinicModules/listClinicModuleHistory'
 import { queryOptions, useSuspenseQuery } from '@tanstack/react-query'
@@ -15,7 +15,7 @@ type ListClinicModuleHistorySuspenseQueryKey = ReturnType<typeof listClinicModul
 
 export function listClinicModuleHistorySuspenseQueryOptions(config: Partial<Omit<RequestConfig, 'path' | 'query' | 'body' | 'headers' | 'url'>> = {}) {
   const queryKey = listClinicModuleHistorySuspenseQueryKey()
-  return queryOptions<ListClinicModuleHistoryStatus200, ResponseErrorConfig<ListClinicModuleHistoryStatus401 | ListClinicModuleHistoryStatus403 | ListClinicModuleHistoryStatus404 | ListClinicModuleHistoryStatus422>, ListClinicModuleHistoryStatus200, typeof queryKey>({
+  return queryOptions<ListClinicModuleHistoryStatus200, ResponseErrorConfig<ListClinicModuleHistoryStatus400 | ListClinicModuleHistoryStatus401 | ListClinicModuleHistoryStatus403 | ListClinicModuleHistoryStatus404 | ListClinicModuleHistoryStatus422>, ListClinicModuleHistoryStatus200, typeof queryKey>({
    queryKey,
    queryFn: async ({ signal }) => {
       return listClinicModuleHistory({ ...config, signal: config.signal ?? signal, throwOnError: true }).unwrap()
@@ -28,7 +28,7 @@ export function listClinicModuleHistorySuspenseQueryOptions(config: Partial<Omit
  * {@link /api/platform/tenants/:tenantId/modules/history}
  */
 export function useListClinicModuleHistorySuspense<TData = ListClinicModuleHistoryStatus200, TQueryKey extends QueryKey = ListClinicModuleHistorySuspenseQueryKey>(options: {
-  query?: Partial<UseSuspenseQueryOptions<ListClinicModuleHistoryStatus200, ResponseErrorConfig<ListClinicModuleHistoryStatus401 | ListClinicModuleHistoryStatus403 | ListClinicModuleHistoryStatus404 | ListClinicModuleHistoryStatus422>, TData, TQueryKey>> & { client?: QueryClient },
+  query?: Partial<UseSuspenseQueryOptions<ListClinicModuleHistoryStatus200, ResponseErrorConfig<ListClinicModuleHistoryStatus400 | ListClinicModuleHistoryStatus401 | ListClinicModuleHistoryStatus403 | ListClinicModuleHistoryStatus404 | ListClinicModuleHistoryStatus422>, TData, TQueryKey>> & { client?: QueryClient },
   client?: Partial<Omit<RequestConfig, 'path' | 'query' | 'body' | 'headers' | 'url'>>
 } = {}) {
   const { query: queryConfig = {}, client: config = {} } = options ?? {}
@@ -39,7 +39,7 @@ export function useListClinicModuleHistorySuspense<TData = ListClinicModuleHisto
    ...listClinicModuleHistorySuspenseQueryOptions(config),
    ...resolvedOptions,
    queryKey,
-  } as unknown as UseSuspenseQueryOptions, queryClient) as UseSuspenseQueryResult<TData, ResponseErrorConfig<ListClinicModuleHistoryStatus401 | ListClinicModuleHistoryStatus403 | ListClinicModuleHistoryStatus404 | ListClinicModuleHistoryStatus422>> & { queryKey: TQueryKey }
+  } as unknown as UseSuspenseQueryOptions, queryClient) as UseSuspenseQueryResult<TData, ResponseErrorConfig<ListClinicModuleHistoryStatus400 | ListClinicModuleHistoryStatus401 | ListClinicModuleHistoryStatus403 | ListClinicModuleHistoryStatus404 | ListClinicModuleHistoryStatus422>> & { queryKey: TQueryKey }
 
   queryResult.queryKey = queryKey as TQueryKey
 

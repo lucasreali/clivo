@@ -4,7 +4,7 @@
 */
 
 import type { RequestConfig, ResponseErrorConfig } from '../../.kubb/client'
-import type { GetSessionPackageOptions, GetSessionPackageStatus200, GetSessionPackageStatus401, GetSessionPackageStatus403, GetSessionPackageStatus404, GetSessionPackageStatus422 } from '../../types/sessionPackages/GetSessionPackage'
+import type { GetSessionPackageOptions, GetSessionPackageStatus200, GetSessionPackageStatus400, GetSessionPackageStatus401, GetSessionPackageStatus403, GetSessionPackageStatus404, GetSessionPackageStatus422 } from '../../types/sessionPackages/GetSessionPackage'
 import type { QueryKey, QueryClient, QueryObserverOptions, UseQueryResult } from '@tanstack/react-query'
 import { getSessionPackage } from '../../clients/sessionPackages/getSessionPackage'
 import { queryOptions, useQuery } from '@tanstack/react-query'
@@ -15,7 +15,7 @@ type GetSessionPackageQueryKey = ReturnType<typeof getSessionPackageQueryKey>
 
 export function getSessionPackageQueryOptions({ path }: GetSessionPackageOptions, config: Partial<Omit<RequestConfig, 'path' | 'query' | 'body' | 'headers' | 'url'>> = {}) {
   const queryKey = getSessionPackageQueryKey({ path })
-  return queryOptions<GetSessionPackageStatus200, ResponseErrorConfig<GetSessionPackageStatus401 | GetSessionPackageStatus403 | GetSessionPackageStatus404 | GetSessionPackageStatus422>, GetSessionPackageStatus200, typeof queryKey>({
+  return queryOptions<GetSessionPackageStatus200, ResponseErrorConfig<GetSessionPackageStatus400 | GetSessionPackageStatus401 | GetSessionPackageStatus403 | GetSessionPackageStatus404 | GetSessionPackageStatus422>, GetSessionPackageStatus200, typeof queryKey>({
    queryKey,
    queryFn: async ({ signal }) => {
       return getSessionPackage({ ...config, path, signal: config.signal ?? signal, throwOnError: true }).unwrap()
@@ -28,7 +28,7 @@ export function getSessionPackageQueryOptions({ path }: GetSessionPackageOptions
  * {@link /api/session-packages/:id}
  */
 export function useGetSessionPackage<TData = GetSessionPackageStatus200, TQueryData = GetSessionPackageStatus200, TQueryKey extends QueryKey = GetSessionPackageQueryKey>({ path }: { path: GetSessionPackageOptions['path'] | (() => GetSessionPackageOptions['path']) }, options: {
-  query?: Partial<QueryObserverOptions<GetSessionPackageStatus200, ResponseErrorConfig<GetSessionPackageStatus401 | GetSessionPackageStatus403 | GetSessionPackageStatus404 | GetSessionPackageStatus422>, TData, TQueryData, TQueryKey>> & { client?: QueryClient },
+  query?: Partial<QueryObserverOptions<GetSessionPackageStatus200, ResponseErrorConfig<GetSessionPackageStatus400 | GetSessionPackageStatus401 | GetSessionPackageStatus403 | GetSessionPackageStatus404 | GetSessionPackageStatus422>, TData, TQueryData, TQueryKey>> & { client?: QueryClient },
   client?: Partial<Omit<RequestConfig, 'path' | 'query' | 'body' | 'headers' | 'url'>>
 } = {}) {
   const { query: queryConfig = {}, client: config = {} } = options ?? {}
@@ -40,7 +40,7 @@ export function useGetSessionPackage<TData = GetSessionPackageStatus200, TQueryD
    ...getSessionPackageQueryOptions(resolvedParams, config),
    ...resolvedOptions,
    queryKey,
-  } as unknown as QueryObserverOptions, queryClient) as UseQueryResult<TData, ResponseErrorConfig<GetSessionPackageStatus401 | GetSessionPackageStatus403 | GetSessionPackageStatus404 | GetSessionPackageStatus422>> & { queryKey: TQueryKey }
+  } as unknown as QueryObserverOptions, queryClient) as UseQueryResult<TData, ResponseErrorConfig<GetSessionPackageStatus400 | GetSessionPackageStatus401 | GetSessionPackageStatus403 | GetSessionPackageStatus404 | GetSessionPackageStatus422>> & { queryKey: TQueryKey }
 
   queryResult.queryKey = queryKey as TQueryKey
 

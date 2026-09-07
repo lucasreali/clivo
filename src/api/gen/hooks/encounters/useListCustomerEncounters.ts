@@ -4,7 +4,7 @@
 */
 
 import type { RequestConfig, ResponseErrorConfig } from '../../.kubb/client'
-import type { ListCustomerEncountersOptions, ListCustomerEncountersStatus200, ListCustomerEncountersStatus401, ListCustomerEncountersStatus403, ListCustomerEncountersStatus404, ListCustomerEncountersStatus422 } from '../../types/encounters/ListCustomerEncounters'
+import type { ListCustomerEncountersOptions, ListCustomerEncountersStatus200, ListCustomerEncountersStatus400, ListCustomerEncountersStatus401, ListCustomerEncountersStatus403, ListCustomerEncountersStatus404, ListCustomerEncountersStatus422 } from '../../types/encounters/ListCustomerEncounters'
 import type { QueryKey, QueryClient, QueryObserverOptions, UseQueryResult } from '@tanstack/react-query'
 import { listCustomerEncounters } from '../../clients/encounters/listCustomerEncounters'
 import { queryOptions, useQuery } from '@tanstack/react-query'
@@ -15,7 +15,7 @@ type ListCustomerEncountersQueryKey = ReturnType<typeof listCustomerEncountersQu
 
 export function listCustomerEncountersQueryOptions({ query }: ListCustomerEncountersOptions, config: Partial<Omit<RequestConfig, 'path' | 'query' | 'body' | 'headers' | 'url'>> = {}) {
   const queryKey = listCustomerEncountersQueryKey({ query })
-  return queryOptions<ListCustomerEncountersStatus200, ResponseErrorConfig<ListCustomerEncountersStatus401 | ListCustomerEncountersStatus403 | ListCustomerEncountersStatus404 | ListCustomerEncountersStatus422>, ListCustomerEncountersStatus200, typeof queryKey>({
+  return queryOptions<ListCustomerEncountersStatus200, ResponseErrorConfig<ListCustomerEncountersStatus400 | ListCustomerEncountersStatus401 | ListCustomerEncountersStatus403 | ListCustomerEncountersStatus404 | ListCustomerEncountersStatus422>, ListCustomerEncountersStatus200, typeof queryKey>({
    queryKey,
    queryFn: async ({ signal }) => {
       return listCustomerEncounters({ ...config, query, signal: config.signal ?? signal, throwOnError: true }).unwrap()
@@ -28,7 +28,7 @@ export function listCustomerEncountersQueryOptions({ query }: ListCustomerEncoun
  * {@link /api/encounters}
  */
 export function useListCustomerEncounters<TData = ListCustomerEncountersStatus200, TQueryData = ListCustomerEncountersStatus200, TQueryKey extends QueryKey = ListCustomerEncountersQueryKey>({ query }: { query: ListCustomerEncountersOptions['query'] | (() => ListCustomerEncountersOptions['query']) }, options: {
-  query?: Partial<QueryObserverOptions<ListCustomerEncountersStatus200, ResponseErrorConfig<ListCustomerEncountersStatus401 | ListCustomerEncountersStatus403 | ListCustomerEncountersStatus404 | ListCustomerEncountersStatus422>, TData, TQueryData, TQueryKey>> & { client?: QueryClient },
+  query?: Partial<QueryObserverOptions<ListCustomerEncountersStatus200, ResponseErrorConfig<ListCustomerEncountersStatus400 | ListCustomerEncountersStatus401 | ListCustomerEncountersStatus403 | ListCustomerEncountersStatus404 | ListCustomerEncountersStatus422>, TData, TQueryData, TQueryKey>> & { client?: QueryClient },
   client?: Partial<Omit<RequestConfig, 'path' | 'query' | 'body' | 'headers' | 'url'>>
 } = {}) {
   const { query: queryConfig = {}, client: config = {} } = options ?? {}
@@ -40,7 +40,7 @@ export function useListCustomerEncounters<TData = ListCustomerEncountersStatus20
    ...listCustomerEncountersQueryOptions(resolvedParams, config),
    ...resolvedOptions,
    queryKey,
-  } as unknown as QueryObserverOptions, queryClient) as UseQueryResult<TData, ResponseErrorConfig<ListCustomerEncountersStatus401 | ListCustomerEncountersStatus403 | ListCustomerEncountersStatus404 | ListCustomerEncountersStatus422>> & { queryKey: TQueryKey }
+  } as unknown as QueryObserverOptions, queryClient) as UseQueryResult<TData, ResponseErrorConfig<ListCustomerEncountersStatus400 | ListCustomerEncountersStatus401 | ListCustomerEncountersStatus403 | ListCustomerEncountersStatus404 | ListCustomerEncountersStatus422>> & { queryKey: TQueryKey }
 
   queryResult.queryKey = queryKey as TQueryKey
 

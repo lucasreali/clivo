@@ -11,6 +11,10 @@ export const getCapabilitiesStatus200Schema = capabilitiesViewSchema
 
 export type GetCapabilitiesStatus200SchemaType = z.infer<typeof getCapabilitiesStatus200Schema>
 
+export const getCapabilitiesStatus400Schema = errorResponseSchema
+
+export type GetCapabilitiesStatus400SchemaType = z.infer<typeof getCapabilitiesStatus400Schema>
+
 export const getCapabilitiesStatus401Schema = errorResponseSchema
 
 export type GetCapabilitiesStatus401SchemaType = z.infer<typeof getCapabilitiesStatus401Schema>
@@ -31,7 +35,7 @@ export const getCapabilitiesResponseSchema = getCapabilitiesStatus200Schema
 
 export type GetCapabilitiesResponseSchemaType = z.infer<typeof getCapabilitiesResponseSchema>
 
-export const getCapabilitiesErrorSchema = z.union([getCapabilitiesStatus401Schema, getCapabilitiesStatus403Schema, getCapabilitiesStatus404Schema, getCapabilitiesStatus422Schema])
+export const getCapabilitiesErrorSchema = z.union([getCapabilitiesStatus400Schema, getCapabilitiesStatus401Schema, getCapabilitiesStatus403Schema, getCapabilitiesStatus404Schema, getCapabilitiesStatus422Schema])
 
 export type GetCapabilitiesErrorSchemaType = z.infer<typeof getCapabilitiesErrorSchema>
 
@@ -46,6 +50,7 @@ export type GetCapabilitiesOptionsSchemaType = z.infer<typeof getCapabilitiesOpt
 
 export const getCapabilitiesResponsesSchema = z.object({
   '200': getCapabilitiesStatus200Schema,
+  '400': getCapabilitiesStatus400Schema,
   '401': getCapabilitiesStatus401Schema,
   '403': getCapabilitiesStatus403Schema,
   '404': getCapabilitiesStatus404Schema,

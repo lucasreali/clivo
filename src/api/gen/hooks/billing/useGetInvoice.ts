@@ -4,7 +4,7 @@
 */
 
 import type { RequestConfig, ResponseErrorConfig } from '../../.kubb/client'
-import type { GetInvoiceOptions, GetInvoiceStatus200, GetInvoiceStatus401, GetInvoiceStatus403, GetInvoiceStatus404, GetInvoiceStatus422 } from '../../types/billing/GetInvoice'
+import type { GetInvoiceOptions, GetInvoiceStatus200, GetInvoiceStatus400, GetInvoiceStatus401, GetInvoiceStatus403, GetInvoiceStatus404, GetInvoiceStatus422 } from '../../types/billing/GetInvoice'
 import type { QueryKey, QueryClient, QueryObserverOptions, UseQueryResult } from '@tanstack/react-query'
 import { getInvoice } from '../../clients/billing/getInvoice'
 import { queryOptions, useQuery } from '@tanstack/react-query'
@@ -15,7 +15,7 @@ type GetInvoiceQueryKey = ReturnType<typeof getInvoiceQueryKey>
 
 export function getInvoiceQueryOptions({ path }: GetInvoiceOptions, config: Partial<Omit<RequestConfig, 'path' | 'query' | 'body' | 'headers' | 'url'>> = {}) {
   const queryKey = getInvoiceQueryKey({ path })
-  return queryOptions<GetInvoiceStatus200, ResponseErrorConfig<GetInvoiceStatus401 | GetInvoiceStatus403 | GetInvoiceStatus404 | GetInvoiceStatus422>, GetInvoiceStatus200, typeof queryKey>({
+  return queryOptions<GetInvoiceStatus200, ResponseErrorConfig<GetInvoiceStatus400 | GetInvoiceStatus401 | GetInvoiceStatus403 | GetInvoiceStatus404 | GetInvoiceStatus422>, GetInvoiceStatus200, typeof queryKey>({
    queryKey,
    queryFn: async ({ signal }) => {
       return getInvoice({ ...config, path, signal: config.signal ?? signal, throwOnError: true }).unwrap()
@@ -28,7 +28,7 @@ export function getInvoiceQueryOptions({ path }: GetInvoiceOptions, config: Part
  * {@link /api/invoices/:id}
  */
 export function useGetInvoice<TData = GetInvoiceStatus200, TQueryData = GetInvoiceStatus200, TQueryKey extends QueryKey = GetInvoiceQueryKey>({ path }: { path: GetInvoiceOptions['path'] | (() => GetInvoiceOptions['path']) }, options: {
-  query?: Partial<QueryObserverOptions<GetInvoiceStatus200, ResponseErrorConfig<GetInvoiceStatus401 | GetInvoiceStatus403 | GetInvoiceStatus404 | GetInvoiceStatus422>, TData, TQueryData, TQueryKey>> & { client?: QueryClient },
+  query?: Partial<QueryObserverOptions<GetInvoiceStatus200, ResponseErrorConfig<GetInvoiceStatus400 | GetInvoiceStatus401 | GetInvoiceStatus403 | GetInvoiceStatus404 | GetInvoiceStatus422>, TData, TQueryData, TQueryKey>> & { client?: QueryClient },
   client?: Partial<Omit<RequestConfig, 'path' | 'query' | 'body' | 'headers' | 'url'>>
 } = {}) {
   const { query: queryConfig = {}, client: config = {} } = options ?? {}
@@ -40,7 +40,7 @@ export function useGetInvoice<TData = GetInvoiceStatus200, TQueryData = GetInvoi
    ...getInvoiceQueryOptions(resolvedParams, config),
    ...resolvedOptions,
    queryKey,
-  } as unknown as QueryObserverOptions, queryClient) as UseQueryResult<TData, ResponseErrorConfig<GetInvoiceStatus401 | GetInvoiceStatus403 | GetInvoiceStatus404 | GetInvoiceStatus422>> & { queryKey: TQueryKey }
+  } as unknown as QueryObserverOptions, queryClient) as UseQueryResult<TData, ResponseErrorConfig<GetInvoiceStatus400 | GetInvoiceStatus401 | GetInvoiceStatus403 | GetInvoiceStatus404 | GetInvoiceStatus422>> & { queryKey: TQueryKey }
 
   queryResult.queryKey = queryKey as TQueryKey
 

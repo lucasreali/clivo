@@ -15,6 +15,10 @@ export const getClinicStatus200Schema = clinicViewSchema
 
 export type GetClinicStatus200SchemaType = z.infer<typeof getClinicStatus200Schema>
 
+export const getClinicStatus400Schema = errorResponseSchema
+
+export type GetClinicStatus400SchemaType = z.infer<typeof getClinicStatus400Schema>
+
 export const getClinicStatus401Schema = errorResponseSchema
 
 export type GetClinicStatus401SchemaType = z.infer<typeof getClinicStatus401Schema>
@@ -35,7 +39,7 @@ export const getClinicResponseSchema = getClinicStatus200Schema
 
 export type GetClinicResponseSchemaType = z.infer<typeof getClinicResponseSchema>
 
-export const getClinicErrorSchema = z.union([getClinicStatus401Schema, getClinicStatus403Schema, getClinicStatus404Schema, getClinicStatus422Schema])
+export const getClinicErrorSchema = z.union([getClinicStatus400Schema, getClinicStatus401Schema, getClinicStatus403Schema, getClinicStatus404Schema, getClinicStatus422Schema])
 
 export type GetClinicErrorSchemaType = z.infer<typeof getClinicErrorSchema>
 
@@ -56,6 +60,7 @@ export type GetClinicOptionsSchemaType = z.infer<typeof getClinicOptionsSchema>
 
 export const getClinicResponsesSchema = z.object({
   '200': getClinicStatus200Schema,
+  '400': getClinicStatus400Schema,
   '401': getClinicStatus401Schema,
   '403': getClinicStatus403Schema,
   '404': getClinicStatus404Schema,

@@ -15,6 +15,10 @@ export const getCustomerStatus200Schema = customerViewSchema
 
 export type GetCustomerStatus200SchemaType = z.infer<typeof getCustomerStatus200Schema>
 
+export const getCustomerStatus400Schema = errorResponseSchema
+
+export type GetCustomerStatus400SchemaType = z.infer<typeof getCustomerStatus400Schema>
+
 export const getCustomerStatus401Schema = errorResponseSchema
 
 export type GetCustomerStatus401SchemaType = z.infer<typeof getCustomerStatus401Schema>
@@ -35,7 +39,7 @@ export const getCustomerResponseSchema = getCustomerStatus200Schema
 
 export type GetCustomerResponseSchemaType = z.infer<typeof getCustomerResponseSchema>
 
-export const getCustomerErrorSchema = z.union([getCustomerStatus401Schema, getCustomerStatus403Schema, getCustomerStatus404Schema, getCustomerStatus422Schema])
+export const getCustomerErrorSchema = z.union([getCustomerStatus400Schema, getCustomerStatus401Schema, getCustomerStatus403Schema, getCustomerStatus404Schema, getCustomerStatus422Schema])
 
 export type GetCustomerErrorSchemaType = z.infer<typeof getCustomerErrorSchema>
 
@@ -56,6 +60,7 @@ export type GetCustomerOptionsSchemaType = z.infer<typeof getCustomerOptionsSche
 
 export const getCustomerResponsesSchema = z.object({
   '200': getCustomerStatus200Schema,
+  '400': getCustomerStatus400Schema,
   '401': getCustomerStatus401Schema,
   '403': getCustomerStatus403Schema,
   '404': getCustomerStatus404Schema,

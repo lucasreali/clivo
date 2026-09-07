@@ -17,6 +17,8 @@ export type GetServicePath = {
 
 export type GetServiceStatus200 = ServiceView;
 
+export type GetServiceStatus400 = ErrorResponse;
+
 export type GetServiceStatus401 = ErrorResponse;
 
 export type GetServiceStatus403 = ErrorResponse;
@@ -34,6 +36,7 @@ export type GetServiceOptions = {
 
 export type GetServiceResponses = {
     "200": GetServiceStatus200;
+    "400": GetServiceStatus400;
     "401": GetServiceStatus401;
     "403": GetServiceStatus403;
     "404": GetServiceStatus404;
@@ -43,4 +46,4 @@ export type GetServiceResponses = {
 /**
  * @description Union of all possible responses
 */
-export type GetServiceResponse = (GetServiceStatus200 | GetServiceStatus401 | GetServiceStatus403 | GetServiceStatus404 | GetServiceStatus422);
+export type GetServiceResponse = (GetServiceStatus200 | GetServiceStatus400 | GetServiceStatus401 | GetServiceStatus403 | GetServiceStatus404 | GetServiceStatus422);

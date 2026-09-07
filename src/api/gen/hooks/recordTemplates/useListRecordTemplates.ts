@@ -4,7 +4,7 @@
 */
 
 import type { RequestConfig, ResponseErrorConfig } from '../../.kubb/client'
-import type { ListRecordTemplatesStatus200, ListRecordTemplatesStatus401, ListRecordTemplatesStatus403, ListRecordTemplatesStatus404, ListRecordTemplatesStatus422 } from '../../types/recordTemplates/ListRecordTemplates'
+import type { ListRecordTemplatesStatus200, ListRecordTemplatesStatus400, ListRecordTemplatesStatus401, ListRecordTemplatesStatus403, ListRecordTemplatesStatus404, ListRecordTemplatesStatus422 } from '../../types/recordTemplates/ListRecordTemplates'
 import type { QueryKey, QueryClient, QueryObserverOptions, UseQueryResult } from '@tanstack/react-query'
 import { listRecordTemplates } from '../../clients/recordTemplates/listRecordTemplates'
 import { queryOptions, useQuery } from '@tanstack/react-query'
@@ -15,7 +15,7 @@ type ListRecordTemplatesQueryKey = ReturnType<typeof listRecordTemplatesQueryKey
 
 export function listRecordTemplatesQueryOptions(config: Partial<Omit<RequestConfig, 'path' | 'query' | 'body' | 'headers' | 'url'>> = {}) {
   const queryKey = listRecordTemplatesQueryKey()
-  return queryOptions<ListRecordTemplatesStatus200, ResponseErrorConfig<ListRecordTemplatesStatus401 | ListRecordTemplatesStatus403 | ListRecordTemplatesStatus404 | ListRecordTemplatesStatus422>, ListRecordTemplatesStatus200, typeof queryKey>({
+  return queryOptions<ListRecordTemplatesStatus200, ResponseErrorConfig<ListRecordTemplatesStatus400 | ListRecordTemplatesStatus401 | ListRecordTemplatesStatus403 | ListRecordTemplatesStatus404 | ListRecordTemplatesStatus422>, ListRecordTemplatesStatus200, typeof queryKey>({
    queryKey,
    queryFn: async ({ signal }) => {
       return listRecordTemplates({ ...config, signal: config.signal ?? signal, throwOnError: true }).unwrap()
@@ -28,7 +28,7 @@ export function listRecordTemplatesQueryOptions(config: Partial<Omit<RequestConf
  * {@link /api/record-templates}
  */
 export function useListRecordTemplates<TData = ListRecordTemplatesStatus200, TQueryData = ListRecordTemplatesStatus200, TQueryKey extends QueryKey = ListRecordTemplatesQueryKey>(options: {
-  query?: Partial<QueryObserverOptions<ListRecordTemplatesStatus200, ResponseErrorConfig<ListRecordTemplatesStatus401 | ListRecordTemplatesStatus403 | ListRecordTemplatesStatus404 | ListRecordTemplatesStatus422>, TData, TQueryData, TQueryKey>> & { client?: QueryClient },
+  query?: Partial<QueryObserverOptions<ListRecordTemplatesStatus200, ResponseErrorConfig<ListRecordTemplatesStatus400 | ListRecordTemplatesStatus401 | ListRecordTemplatesStatus403 | ListRecordTemplatesStatus404 | ListRecordTemplatesStatus422>, TData, TQueryData, TQueryKey>> & { client?: QueryClient },
   client?: Partial<Omit<RequestConfig, 'path' | 'query' | 'body' | 'headers' | 'url'>>
 } = {}) {
   const { query: queryConfig = {}, client: config = {} } = options ?? {}
@@ -39,7 +39,7 @@ export function useListRecordTemplates<TData = ListRecordTemplatesStatus200, TQu
    ...listRecordTemplatesQueryOptions(config),
    ...resolvedOptions,
    queryKey,
-  } as unknown as QueryObserverOptions, queryClient) as UseQueryResult<TData, ResponseErrorConfig<ListRecordTemplatesStatus401 | ListRecordTemplatesStatus403 | ListRecordTemplatesStatus404 | ListRecordTemplatesStatus422>> & { queryKey: TQueryKey }
+  } as unknown as QueryObserverOptions, queryClient) as UseQueryResult<TData, ResponseErrorConfig<ListRecordTemplatesStatus400 | ListRecordTemplatesStatus401 | ListRecordTemplatesStatus403 | ListRecordTemplatesStatus404 | ListRecordTemplatesStatus422>> & { queryKey: TQueryKey }
 
   queryResult.queryKey = queryKey as TQueryKey
 

@@ -4,7 +4,7 @@
 */
 
 import type { RequestConfig, ResponseErrorConfig } from '../../.kubb/client'
-import type { GetCurrentSessionStatus200, GetCurrentSessionStatus401, GetCurrentSessionStatus403, GetCurrentSessionStatus404, GetCurrentSessionStatus422 } from '../../types/session/GetCurrentSession'
+import type { GetCurrentSessionStatus200, GetCurrentSessionStatus400, GetCurrentSessionStatus401, GetCurrentSessionStatus403, GetCurrentSessionStatus404, GetCurrentSessionStatus422 } from '../../types/session/GetCurrentSession'
 import type { QueryKey, QueryClient, UseSuspenseQueryOptions, UseSuspenseQueryResult } from '@tanstack/react-query'
 import { getCurrentSession } from '../../clients/session/getCurrentSession'
 import { queryOptions, useSuspenseQuery } from '@tanstack/react-query'
@@ -15,7 +15,7 @@ type GetCurrentSessionSuspenseQueryKey = ReturnType<typeof getCurrentSessionSusp
 
 export function getCurrentSessionSuspenseQueryOptions(config: Partial<Omit<RequestConfig, 'path' | 'query' | 'body' | 'headers' | 'url'>> = {}) {
   const queryKey = getCurrentSessionSuspenseQueryKey()
-  return queryOptions<GetCurrentSessionStatus200, ResponseErrorConfig<GetCurrentSessionStatus401 | GetCurrentSessionStatus403 | GetCurrentSessionStatus404 | GetCurrentSessionStatus422>, GetCurrentSessionStatus200, typeof queryKey>({
+  return queryOptions<GetCurrentSessionStatus200, ResponseErrorConfig<GetCurrentSessionStatus400 | GetCurrentSessionStatus401 | GetCurrentSessionStatus403 | GetCurrentSessionStatus404 | GetCurrentSessionStatus422>, GetCurrentSessionStatus200, typeof queryKey>({
    queryKey,
    queryFn: async ({ signal }) => {
       return getCurrentSession({ ...config, signal: config.signal ?? signal, throwOnError: true }).unwrap()
@@ -28,7 +28,7 @@ export function getCurrentSessionSuspenseQueryOptions(config: Partial<Omit<Reque
  * {@link /api/session}
  */
 export function useGetCurrentSessionSuspense<TData = GetCurrentSessionStatus200, TQueryKey extends QueryKey = GetCurrentSessionSuspenseQueryKey>(options: {
-  query?: Partial<UseSuspenseQueryOptions<GetCurrentSessionStatus200, ResponseErrorConfig<GetCurrentSessionStatus401 | GetCurrentSessionStatus403 | GetCurrentSessionStatus404 | GetCurrentSessionStatus422>, TData, TQueryKey>> & { client?: QueryClient },
+  query?: Partial<UseSuspenseQueryOptions<GetCurrentSessionStatus200, ResponseErrorConfig<GetCurrentSessionStatus400 | GetCurrentSessionStatus401 | GetCurrentSessionStatus403 | GetCurrentSessionStatus404 | GetCurrentSessionStatus422>, TData, TQueryKey>> & { client?: QueryClient },
   client?: Partial<Omit<RequestConfig, 'path' | 'query' | 'body' | 'headers' | 'url'>>
 } = {}) {
   const { query: queryConfig = {}, client: config = {} } = options ?? {}
@@ -39,7 +39,7 @@ export function useGetCurrentSessionSuspense<TData = GetCurrentSessionStatus200,
    ...getCurrentSessionSuspenseQueryOptions(config),
    ...resolvedOptions,
    queryKey,
-  } as unknown as UseSuspenseQueryOptions, queryClient) as UseSuspenseQueryResult<TData, ResponseErrorConfig<GetCurrentSessionStatus401 | GetCurrentSessionStatus403 | GetCurrentSessionStatus404 | GetCurrentSessionStatus422>> & { queryKey: TQueryKey }
+  } as unknown as UseSuspenseQueryOptions, queryClient) as UseSuspenseQueryResult<TData, ResponseErrorConfig<GetCurrentSessionStatus400 | GetCurrentSessionStatus401 | GetCurrentSessionStatus403 | GetCurrentSessionStatus404 | GetCurrentSessionStatus422>> & { queryKey: TQueryKey }
 
   queryResult.queryKey = queryKey as TQueryKey
 

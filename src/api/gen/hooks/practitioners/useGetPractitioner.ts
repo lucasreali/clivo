@@ -4,7 +4,7 @@
 */
 
 import type { RequestConfig, ResponseErrorConfig } from '../../.kubb/client'
-import type { GetPractitionerOptions, GetPractitionerStatus200, GetPractitionerStatus401, GetPractitionerStatus403, GetPractitionerStatus404, GetPractitionerStatus422 } from '../../types/practitioners/GetPractitioner'
+import type { GetPractitionerOptions, GetPractitionerStatus200, GetPractitionerStatus400, GetPractitionerStatus401, GetPractitionerStatus403, GetPractitionerStatus404, GetPractitionerStatus422 } from '../../types/practitioners/GetPractitioner'
 import type { QueryKey, QueryClient, QueryObserverOptions, UseQueryResult } from '@tanstack/react-query'
 import { getPractitioner } from '../../clients/practitioners/getPractitioner'
 import { queryOptions, useQuery } from '@tanstack/react-query'
@@ -15,7 +15,7 @@ type GetPractitionerQueryKey = ReturnType<typeof getPractitionerQueryKey>
 
 export function getPractitionerQueryOptions({ path }: GetPractitionerOptions, config: Partial<Omit<RequestConfig, 'path' | 'query' | 'body' | 'headers' | 'url'>> = {}) {
   const queryKey = getPractitionerQueryKey({ path })
-  return queryOptions<GetPractitionerStatus200, ResponseErrorConfig<GetPractitionerStatus401 | GetPractitionerStatus403 | GetPractitionerStatus404 | GetPractitionerStatus422>, GetPractitionerStatus200, typeof queryKey>({
+  return queryOptions<GetPractitionerStatus200, ResponseErrorConfig<GetPractitionerStatus400 | GetPractitionerStatus401 | GetPractitionerStatus403 | GetPractitionerStatus404 | GetPractitionerStatus422>, GetPractitionerStatus200, typeof queryKey>({
    queryKey,
    queryFn: async ({ signal }) => {
       return getPractitioner({ ...config, path, signal: config.signal ?? signal, throwOnError: true }).unwrap()
@@ -28,7 +28,7 @@ export function getPractitionerQueryOptions({ path }: GetPractitionerOptions, co
  * {@link /api/practitioners/:id}
  */
 export function useGetPractitioner<TData = GetPractitionerStatus200, TQueryData = GetPractitionerStatus200, TQueryKey extends QueryKey = GetPractitionerQueryKey>({ path }: { path: GetPractitionerOptions['path'] | (() => GetPractitionerOptions['path']) }, options: {
-  query?: Partial<QueryObserverOptions<GetPractitionerStatus200, ResponseErrorConfig<GetPractitionerStatus401 | GetPractitionerStatus403 | GetPractitionerStatus404 | GetPractitionerStatus422>, TData, TQueryData, TQueryKey>> & { client?: QueryClient },
+  query?: Partial<QueryObserverOptions<GetPractitionerStatus200, ResponseErrorConfig<GetPractitionerStatus400 | GetPractitionerStatus401 | GetPractitionerStatus403 | GetPractitionerStatus404 | GetPractitionerStatus422>, TData, TQueryData, TQueryKey>> & { client?: QueryClient },
   client?: Partial<Omit<RequestConfig, 'path' | 'query' | 'body' | 'headers' | 'url'>>
 } = {}) {
   const { query: queryConfig = {}, client: config = {} } = options ?? {}
@@ -40,7 +40,7 @@ export function useGetPractitioner<TData = GetPractitionerStatus200, TQueryData 
    ...getPractitionerQueryOptions(resolvedParams, config),
    ...resolvedOptions,
    queryKey,
-  } as unknown as QueryObserverOptions, queryClient) as UseQueryResult<TData, ResponseErrorConfig<GetPractitionerStatus401 | GetPractitionerStatus403 | GetPractitionerStatus404 | GetPractitionerStatus422>> & { queryKey: TQueryKey }
+  } as unknown as QueryObserverOptions, queryClient) as UseQueryResult<TData, ResponseErrorConfig<GetPractitionerStatus400 | GetPractitionerStatus401 | GetPractitionerStatus403 | GetPractitionerStatus404 | GetPractitionerStatus422>> & { queryKey: TQueryKey }
 
   queryResult.queryKey = queryKey as TQueryKey
 

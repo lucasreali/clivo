@@ -15,6 +15,10 @@ export const completeEncounterStatus200Schema = encounterViewSchema
 
 export type CompleteEncounterStatus200SchemaType = z.infer<typeof completeEncounterStatus200Schema>
 
+export const completeEncounterStatus400Schema = errorResponseSchema
+
+export type CompleteEncounterStatus400SchemaType = z.infer<typeof completeEncounterStatus400Schema>
+
 export const completeEncounterStatus401Schema = errorResponseSchema
 
 export type CompleteEncounterStatus401SchemaType = z.infer<typeof completeEncounterStatus401Schema>
@@ -35,7 +39,7 @@ export const completeEncounterResponseSchema = completeEncounterStatus200Schema
 
 export type CompleteEncounterResponseSchemaType = z.infer<typeof completeEncounterResponseSchema>
 
-export const completeEncounterErrorSchema = z.union([completeEncounterStatus401Schema, completeEncounterStatus403Schema, completeEncounterStatus404Schema, completeEncounterStatus422Schema])
+export const completeEncounterErrorSchema = z.union([completeEncounterStatus400Schema, completeEncounterStatus401Schema, completeEncounterStatus403Schema, completeEncounterStatus404Schema, completeEncounterStatus422Schema])
 
 export type CompleteEncounterErrorSchemaType = z.infer<typeof completeEncounterErrorSchema>
 
@@ -56,6 +60,7 @@ export type CompleteEncounterOptionsSchemaType = z.infer<typeof completeEncounte
 
 export const completeEncounterResponsesSchema = z.object({
   '200': completeEncounterStatus200Schema,
+  '400': completeEncounterStatus400Schema,
   '401': completeEncounterStatus401Schema,
   '403': completeEncounterStatus403Schema,
   '404': completeEncounterStatus404Schema,

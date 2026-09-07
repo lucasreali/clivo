@@ -14,6 +14,10 @@ export const deactivateClinicModuleStatus204Schema = z.unknown()
 
 export type DeactivateClinicModuleStatus204SchemaType = z.infer<typeof deactivateClinicModuleStatus204Schema>
 
+export const deactivateClinicModuleStatus400Schema = errorResponseSchema
+
+export type DeactivateClinicModuleStatus400SchemaType = z.infer<typeof deactivateClinicModuleStatus400Schema>
+
 export const deactivateClinicModuleStatus401Schema = errorResponseSchema
 
 export type DeactivateClinicModuleStatus401SchemaType = z.infer<typeof deactivateClinicModuleStatus401Schema>
@@ -34,7 +38,7 @@ export const deactivateClinicModuleResponseSchema = deactivateClinicModuleStatus
 
 export type DeactivateClinicModuleResponseSchemaType = z.infer<typeof deactivateClinicModuleResponseSchema>
 
-export const deactivateClinicModuleErrorSchema = z.union([deactivateClinicModuleStatus401Schema, deactivateClinicModuleStatus403Schema, deactivateClinicModuleStatus404Schema, deactivateClinicModuleStatus422Schema])
+export const deactivateClinicModuleErrorSchema = z.union([deactivateClinicModuleStatus400Schema, deactivateClinicModuleStatus401Schema, deactivateClinicModuleStatus403Schema, deactivateClinicModuleStatus404Schema, deactivateClinicModuleStatus422Schema])
 
 export type DeactivateClinicModuleErrorSchemaType = z.infer<typeof deactivateClinicModuleErrorSchema>
 
@@ -55,6 +59,7 @@ export type DeactivateClinicModuleOptionsSchemaType = z.infer<typeof deactivateC
 
 export const deactivateClinicModuleResponsesSchema = z.object({
   '204': deactivateClinicModuleStatus204Schema,
+  '400': deactivateClinicModuleStatus400Schema,
   '401': deactivateClinicModuleStatus401Schema,
   '403': deactivateClinicModuleStatus403Schema,
   '404': deactivateClinicModuleStatus404Schema,

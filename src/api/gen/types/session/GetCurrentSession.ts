@@ -8,6 +8,8 @@ import type { SessionView } from '../SessionView'
 
 export type GetCurrentSessionStatus200 = SessionView;
 
+export type GetCurrentSessionStatus400 = ErrorResponse;
+
 export type GetCurrentSessionStatus401 = ErrorResponse;
 
 export type GetCurrentSessionStatus403 = ErrorResponse;
@@ -25,6 +27,7 @@ export type GetCurrentSessionOptions = {
 
 export type GetCurrentSessionResponses = {
     "200": GetCurrentSessionStatus200;
+    "400": GetCurrentSessionStatus400;
     "401": GetCurrentSessionStatus401;
     "403": GetCurrentSessionStatus403;
     "404": GetCurrentSessionStatus404;
@@ -34,4 +37,4 @@ export type GetCurrentSessionResponses = {
 /**
  * @description Union of all possible responses
 */
-export type GetCurrentSessionResponse = (GetCurrentSessionStatus200 | GetCurrentSessionStatus401 | GetCurrentSessionStatus403 | GetCurrentSessionStatus404 | GetCurrentSessionStatus422);
+export type GetCurrentSessionResponse = (GetCurrentSessionStatus200 | GetCurrentSessionStatus400 | GetCurrentSessionStatus401 | GetCurrentSessionStatus403 | GetCurrentSessionStatus404 | GetCurrentSessionStatus422);

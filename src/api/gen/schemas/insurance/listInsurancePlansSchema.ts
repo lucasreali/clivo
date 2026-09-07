@@ -11,6 +11,10 @@ export const listInsurancePlansStatus200Schema = z.array(planViewSchema)
 
 export type ListInsurancePlansStatus200SchemaType = z.infer<typeof listInsurancePlansStatus200Schema>
 
+export const listInsurancePlansStatus400Schema = errorResponseSchema
+
+export type ListInsurancePlansStatus400SchemaType = z.infer<typeof listInsurancePlansStatus400Schema>
+
 export const listInsurancePlansStatus401Schema = errorResponseSchema
 
 export type ListInsurancePlansStatus401SchemaType = z.infer<typeof listInsurancePlansStatus401Schema>
@@ -31,7 +35,7 @@ export const listInsurancePlansResponseSchema = listInsurancePlansStatus200Schem
 
 export type ListInsurancePlansResponseSchemaType = z.infer<typeof listInsurancePlansResponseSchema>
 
-export const listInsurancePlansErrorSchema = z.union([listInsurancePlansStatus401Schema, listInsurancePlansStatus403Schema, listInsurancePlansStatus404Schema, listInsurancePlansStatus422Schema])
+export const listInsurancePlansErrorSchema = z.union([listInsurancePlansStatus400Schema, listInsurancePlansStatus401Schema, listInsurancePlansStatus403Schema, listInsurancePlansStatus404Schema, listInsurancePlansStatus422Schema])
 
 export type ListInsurancePlansErrorSchemaType = z.infer<typeof listInsurancePlansErrorSchema>
 
@@ -46,6 +50,7 @@ export type ListInsurancePlansOptionsSchemaType = z.infer<typeof listInsurancePl
 
 export const listInsurancePlansResponsesSchema = z.object({
   '200': listInsurancePlansStatus200Schema,
+  '400': listInsurancePlansStatus400Schema,
   '401': listInsurancePlansStatus401Schema,
   '403': listInsurancePlansStatus403Schema,
   '404': listInsurancePlansStatus404Schema,

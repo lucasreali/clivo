@@ -19,6 +19,10 @@ export const getCommissionStatementStatus200Schema = statementViewSchema
 
 export type GetCommissionStatementStatus200SchemaType = z.infer<typeof getCommissionStatementStatus200Schema>
 
+export const getCommissionStatementStatus400Schema = errorResponseSchema
+
+export type GetCommissionStatementStatus400SchemaType = z.infer<typeof getCommissionStatementStatus400Schema>
+
 export const getCommissionStatementStatus401Schema = errorResponseSchema
 
 export type GetCommissionStatementStatus401SchemaType = z.infer<typeof getCommissionStatementStatus401Schema>
@@ -39,7 +43,7 @@ export const getCommissionStatementResponseSchema = getCommissionStatementStatus
 
 export type GetCommissionStatementResponseSchemaType = z.infer<typeof getCommissionStatementResponseSchema>
 
-export const getCommissionStatementErrorSchema = z.union([getCommissionStatementStatus401Schema, getCommissionStatementStatus403Schema, getCommissionStatementStatus404Schema, getCommissionStatementStatus422Schema])
+export const getCommissionStatementErrorSchema = z.union([getCommissionStatementStatus400Schema, getCommissionStatementStatus401Schema, getCommissionStatementStatus403Schema, getCommissionStatementStatus404Schema, getCommissionStatementStatus422Schema])
 
 export type GetCommissionStatementErrorSchemaType = z.infer<typeof getCommissionStatementErrorSchema>
 
@@ -61,6 +65,7 @@ export type GetCommissionStatementOptionsSchemaType = z.infer<typeof getCommissi
 
 export const getCommissionStatementResponsesSchema = z.object({
   '200': getCommissionStatementStatus200Schema,
+  '400': getCommissionStatementStatus400Schema,
   '401': getCommissionStatementStatus401Schema,
   '403': getCommissionStatementStatus403Schema,
   '404': getCommissionStatementStatus404Schema,

@@ -4,7 +4,7 @@
 */
 
 import type { RequestConfig, ResponseErrorConfig } from '../../.kubb/client'
-import type { GetProductOptions, GetProductStatus200, GetProductStatus401, GetProductStatus403, GetProductStatus404, GetProductStatus422 } from '../../types/inventory/GetProduct'
+import type { GetProductOptions, GetProductStatus200, GetProductStatus400, GetProductStatus401, GetProductStatus403, GetProductStatus404, GetProductStatus422 } from '../../types/inventory/GetProduct'
 import type { QueryKey, QueryClient, QueryObserverOptions, UseQueryResult } from '@tanstack/react-query'
 import { getProduct } from '../../clients/inventory/getProduct'
 import { queryOptions, useQuery } from '@tanstack/react-query'
@@ -15,7 +15,7 @@ type GetProductQueryKey = ReturnType<typeof getProductQueryKey>
 
 export function getProductQueryOptions({ path }: GetProductOptions, config: Partial<Omit<RequestConfig, 'path' | 'query' | 'body' | 'headers' | 'url'>> = {}) {
   const queryKey = getProductQueryKey({ path })
-  return queryOptions<GetProductStatus200, ResponseErrorConfig<GetProductStatus401 | GetProductStatus403 | GetProductStatus404 | GetProductStatus422>, GetProductStatus200, typeof queryKey>({
+  return queryOptions<GetProductStatus200, ResponseErrorConfig<GetProductStatus400 | GetProductStatus401 | GetProductStatus403 | GetProductStatus404 | GetProductStatus422>, GetProductStatus200, typeof queryKey>({
    queryKey,
    queryFn: async ({ signal }) => {
       return getProduct({ ...config, path, signal: config.signal ?? signal, throwOnError: true }).unwrap()
@@ -28,7 +28,7 @@ export function getProductQueryOptions({ path }: GetProductOptions, config: Part
  * {@link /api/products/:id}
  */
 export function useGetProduct<TData = GetProductStatus200, TQueryData = GetProductStatus200, TQueryKey extends QueryKey = GetProductQueryKey>({ path }: { path: GetProductOptions['path'] | (() => GetProductOptions['path']) }, options: {
-  query?: Partial<QueryObserverOptions<GetProductStatus200, ResponseErrorConfig<GetProductStatus401 | GetProductStatus403 | GetProductStatus404 | GetProductStatus422>, TData, TQueryData, TQueryKey>> & { client?: QueryClient },
+  query?: Partial<QueryObserverOptions<GetProductStatus200, ResponseErrorConfig<GetProductStatus400 | GetProductStatus401 | GetProductStatus403 | GetProductStatus404 | GetProductStatus422>, TData, TQueryData, TQueryKey>> & { client?: QueryClient },
   client?: Partial<Omit<RequestConfig, 'path' | 'query' | 'body' | 'headers' | 'url'>>
 } = {}) {
   const { query: queryConfig = {}, client: config = {} } = options ?? {}
@@ -40,7 +40,7 @@ export function useGetProduct<TData = GetProductStatus200, TQueryData = GetProdu
    ...getProductQueryOptions(resolvedParams, config),
    ...resolvedOptions,
    queryKey,
-  } as unknown as QueryObserverOptions, queryClient) as UseQueryResult<TData, ResponseErrorConfig<GetProductStatus401 | GetProductStatus403 | GetProductStatus404 | GetProductStatus422>> & { queryKey: TQueryKey }
+  } as unknown as QueryObserverOptions, queryClient) as UseQueryResult<TData, ResponseErrorConfig<GetProductStatus400 | GetProductStatus401 | GetProductStatus403 | GetProductStatus404 | GetProductStatus422>> & { queryKey: TQueryKey }
 
   queryResult.queryKey = queryKey as TQueryKey
 

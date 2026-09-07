@@ -15,6 +15,10 @@ export const listCustomerInsuranceMembershipsStatus200Schema = z.array(membershi
 
 export type ListCustomerInsuranceMembershipsStatus200SchemaType = z.infer<typeof listCustomerInsuranceMembershipsStatus200Schema>
 
+export const listCustomerInsuranceMembershipsStatus400Schema = errorResponseSchema
+
+export type ListCustomerInsuranceMembershipsStatus400SchemaType = z.infer<typeof listCustomerInsuranceMembershipsStatus400Schema>
+
 export const listCustomerInsuranceMembershipsStatus401Schema = errorResponseSchema
 
 export type ListCustomerInsuranceMembershipsStatus401SchemaType = z.infer<typeof listCustomerInsuranceMembershipsStatus401Schema>
@@ -35,7 +39,7 @@ export const listCustomerInsuranceMembershipsResponseSchema = listCustomerInsura
 
 export type ListCustomerInsuranceMembershipsResponseSchemaType = z.infer<typeof listCustomerInsuranceMembershipsResponseSchema>
 
-export const listCustomerInsuranceMembershipsErrorSchema = z.union([listCustomerInsuranceMembershipsStatus401Schema, listCustomerInsuranceMembershipsStatus403Schema, listCustomerInsuranceMembershipsStatus404Schema, listCustomerInsuranceMembershipsStatus422Schema])
+export const listCustomerInsuranceMembershipsErrorSchema = z.union([listCustomerInsuranceMembershipsStatus400Schema, listCustomerInsuranceMembershipsStatus401Schema, listCustomerInsuranceMembershipsStatus403Schema, listCustomerInsuranceMembershipsStatus404Schema, listCustomerInsuranceMembershipsStatus422Schema])
 
 export type ListCustomerInsuranceMembershipsErrorSchemaType = z.infer<typeof listCustomerInsuranceMembershipsErrorSchema>
 
@@ -56,6 +60,7 @@ export type ListCustomerInsuranceMembershipsOptionsSchemaType = z.infer<typeof l
 
 export const listCustomerInsuranceMembershipsResponsesSchema = z.object({
   '200': listCustomerInsuranceMembershipsStatus200Schema,
+  '400': listCustomerInsuranceMembershipsStatus400Schema,
   '401': listCustomerInsuranceMembershipsStatus401Schema,
   '403': listCustomerInsuranceMembershipsStatus403Schema,
   '404': listCustomerInsuranceMembershipsStatus404Schema,

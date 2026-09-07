@@ -15,6 +15,10 @@ export const deactivatePractitionerStatus200Schema = practitionerViewSchema
 
 export type DeactivatePractitionerStatus200SchemaType = z.infer<typeof deactivatePractitionerStatus200Schema>
 
+export const deactivatePractitionerStatus400Schema = errorResponseSchema
+
+export type DeactivatePractitionerStatus400SchemaType = z.infer<typeof deactivatePractitionerStatus400Schema>
+
 export const deactivatePractitionerStatus401Schema = errorResponseSchema
 
 export type DeactivatePractitionerStatus401SchemaType = z.infer<typeof deactivatePractitionerStatus401Schema>
@@ -35,7 +39,7 @@ export const deactivatePractitionerResponseSchema = deactivatePractitionerStatus
 
 export type DeactivatePractitionerResponseSchemaType = z.infer<typeof deactivatePractitionerResponseSchema>
 
-export const deactivatePractitionerErrorSchema = z.union([deactivatePractitionerStatus401Schema, deactivatePractitionerStatus403Schema, deactivatePractitionerStatus404Schema, deactivatePractitionerStatus422Schema])
+export const deactivatePractitionerErrorSchema = z.union([deactivatePractitionerStatus400Schema, deactivatePractitionerStatus401Schema, deactivatePractitionerStatus403Schema, deactivatePractitionerStatus404Schema, deactivatePractitionerStatus422Schema])
 
 export type DeactivatePractitionerErrorSchemaType = z.infer<typeof deactivatePractitionerErrorSchema>
 
@@ -56,6 +60,7 @@ export type DeactivatePractitionerOptionsSchemaType = z.infer<typeof deactivateP
 
 export const deactivatePractitionerResponsesSchema = z.object({
   '200': deactivatePractitionerStatus200Schema,
+  '400': deactivatePractitionerStatus400Schema,
   '401': deactivatePractitionerStatus401Schema,
   '403': deactivatePractitionerStatus403Schema,
   '404': deactivatePractitionerStatus404Schema,

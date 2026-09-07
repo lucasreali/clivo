@@ -4,7 +4,7 @@
 */
 
 import type { RequestConfig, ResponseErrorConfig } from '../../.kubb/client'
-import type { ListCustomerSessionPackagesOptions, ListCustomerSessionPackagesStatus200, ListCustomerSessionPackagesStatus401, ListCustomerSessionPackagesStatus403, ListCustomerSessionPackagesStatus404, ListCustomerSessionPackagesStatus422 } from '../../types/sessionPackages/ListCustomerSessionPackages'
+import type { ListCustomerSessionPackagesOptions, ListCustomerSessionPackagesStatus200, ListCustomerSessionPackagesStatus400, ListCustomerSessionPackagesStatus401, ListCustomerSessionPackagesStatus403, ListCustomerSessionPackagesStatus404, ListCustomerSessionPackagesStatus422 } from '../../types/sessionPackages/ListCustomerSessionPackages'
 import type { QueryKey, QueryClient, QueryObserverOptions, UseQueryResult } from '@tanstack/react-query'
 import { listCustomerSessionPackages } from '../../clients/sessionPackages/listCustomerSessionPackages'
 import { queryOptions, useQuery } from '@tanstack/react-query'
@@ -15,7 +15,7 @@ type ListCustomerSessionPackagesQueryKey = ReturnType<typeof listCustomerSession
 
 export function listCustomerSessionPackagesQueryOptions({ query }: ListCustomerSessionPackagesOptions, config: Partial<Omit<RequestConfig, 'path' | 'query' | 'body' | 'headers' | 'url'>> = {}) {
   const queryKey = listCustomerSessionPackagesQueryKey({ query })
-  return queryOptions<ListCustomerSessionPackagesStatus200, ResponseErrorConfig<ListCustomerSessionPackagesStatus401 | ListCustomerSessionPackagesStatus403 | ListCustomerSessionPackagesStatus404 | ListCustomerSessionPackagesStatus422>, ListCustomerSessionPackagesStatus200, typeof queryKey>({
+  return queryOptions<ListCustomerSessionPackagesStatus200, ResponseErrorConfig<ListCustomerSessionPackagesStatus400 | ListCustomerSessionPackagesStatus401 | ListCustomerSessionPackagesStatus403 | ListCustomerSessionPackagesStatus404 | ListCustomerSessionPackagesStatus422>, ListCustomerSessionPackagesStatus200, typeof queryKey>({
    queryKey,
    queryFn: async ({ signal }) => {
       return listCustomerSessionPackages({ ...config, query, signal: config.signal ?? signal, throwOnError: true }).unwrap()
@@ -28,7 +28,7 @@ export function listCustomerSessionPackagesQueryOptions({ query }: ListCustomerS
  * {@link /api/session-packages}
  */
 export function useListCustomerSessionPackages<TData = ListCustomerSessionPackagesStatus200, TQueryData = ListCustomerSessionPackagesStatus200, TQueryKey extends QueryKey = ListCustomerSessionPackagesQueryKey>({ query }: { query: ListCustomerSessionPackagesOptions['query'] | (() => ListCustomerSessionPackagesOptions['query']) }, options: {
-  query?: Partial<QueryObserverOptions<ListCustomerSessionPackagesStatus200, ResponseErrorConfig<ListCustomerSessionPackagesStatus401 | ListCustomerSessionPackagesStatus403 | ListCustomerSessionPackagesStatus404 | ListCustomerSessionPackagesStatus422>, TData, TQueryData, TQueryKey>> & { client?: QueryClient },
+  query?: Partial<QueryObserverOptions<ListCustomerSessionPackagesStatus200, ResponseErrorConfig<ListCustomerSessionPackagesStatus400 | ListCustomerSessionPackagesStatus401 | ListCustomerSessionPackagesStatus403 | ListCustomerSessionPackagesStatus404 | ListCustomerSessionPackagesStatus422>, TData, TQueryData, TQueryKey>> & { client?: QueryClient },
   client?: Partial<Omit<RequestConfig, 'path' | 'query' | 'body' | 'headers' | 'url'>>
 } = {}) {
   const { query: queryConfig = {}, client: config = {} } = options ?? {}
@@ -40,7 +40,7 @@ export function useListCustomerSessionPackages<TData = ListCustomerSessionPackag
    ...listCustomerSessionPackagesQueryOptions(resolvedParams, config),
    ...resolvedOptions,
    queryKey,
-  } as unknown as QueryObserverOptions, queryClient) as UseQueryResult<TData, ResponseErrorConfig<ListCustomerSessionPackagesStatus401 | ListCustomerSessionPackagesStatus403 | ListCustomerSessionPackagesStatus404 | ListCustomerSessionPackagesStatus422>> & { queryKey: TQueryKey }
+  } as unknown as QueryObserverOptions, queryClient) as UseQueryResult<TData, ResponseErrorConfig<ListCustomerSessionPackagesStatus400 | ListCustomerSessionPackagesStatus401 | ListCustomerSessionPackagesStatus403 | ListCustomerSessionPackagesStatus404 | ListCustomerSessionPackagesStatus422>> & { queryKey: TQueryKey }
 
   queryResult.queryKey = queryKey as TQueryKey
 

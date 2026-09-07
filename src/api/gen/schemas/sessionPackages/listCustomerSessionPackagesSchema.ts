@@ -15,6 +15,10 @@ export const listCustomerSessionPackagesStatus200Schema = z.array(packageViewSch
 
 export type ListCustomerSessionPackagesStatus200SchemaType = z.infer<typeof listCustomerSessionPackagesStatus200Schema>
 
+export const listCustomerSessionPackagesStatus400Schema = errorResponseSchema
+
+export type ListCustomerSessionPackagesStatus400SchemaType = z.infer<typeof listCustomerSessionPackagesStatus400Schema>
+
 export const listCustomerSessionPackagesStatus401Schema = errorResponseSchema
 
 export type ListCustomerSessionPackagesStatus401SchemaType = z.infer<typeof listCustomerSessionPackagesStatus401Schema>
@@ -35,7 +39,7 @@ export const listCustomerSessionPackagesResponseSchema = listCustomerSessionPack
 
 export type ListCustomerSessionPackagesResponseSchemaType = z.infer<typeof listCustomerSessionPackagesResponseSchema>
 
-export const listCustomerSessionPackagesErrorSchema = z.union([listCustomerSessionPackagesStatus401Schema, listCustomerSessionPackagesStatus403Schema, listCustomerSessionPackagesStatus404Schema, listCustomerSessionPackagesStatus422Schema])
+export const listCustomerSessionPackagesErrorSchema = z.union([listCustomerSessionPackagesStatus400Schema, listCustomerSessionPackagesStatus401Schema, listCustomerSessionPackagesStatus403Schema, listCustomerSessionPackagesStatus404Schema, listCustomerSessionPackagesStatus422Schema])
 
 export type ListCustomerSessionPackagesErrorSchemaType = z.infer<typeof listCustomerSessionPackagesErrorSchema>
 
@@ -56,6 +60,7 @@ export type ListCustomerSessionPackagesOptionsSchemaType = z.infer<typeof listCu
 
 export const listCustomerSessionPackagesResponsesSchema = z.object({
   '200': listCustomerSessionPackagesStatus200Schema,
+  '400': listCustomerSessionPackagesStatus400Schema,
   '401': listCustomerSessionPackagesStatus401Schema,
   '403': listCustomerSessionPackagesStatus403Schema,
   '404': listCustomerSessionPackagesStatus404Schema,

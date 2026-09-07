@@ -4,7 +4,7 @@
 */
 
 import type { RequestConfig, ResponseErrorConfig } from '../../.kubb/client'
-import type { ListInsurancePlansStatus200, ListInsurancePlansStatus401, ListInsurancePlansStatus403, ListInsurancePlansStatus404, ListInsurancePlansStatus422 } from '../../types/insurance/ListInsurancePlans'
+import type { ListInsurancePlansStatus200, ListInsurancePlansStatus400, ListInsurancePlansStatus401, ListInsurancePlansStatus403, ListInsurancePlansStatus404, ListInsurancePlansStatus422 } from '../../types/insurance/ListInsurancePlans'
 import type { QueryKey, QueryClient, QueryObserverOptions, UseQueryResult } from '@tanstack/react-query'
 import { listInsurancePlans } from '../../clients/insurance/listInsurancePlans'
 import { queryOptions, useQuery } from '@tanstack/react-query'
@@ -15,7 +15,7 @@ type ListInsurancePlansQueryKey = ReturnType<typeof listInsurancePlansQueryKey>
 
 export function listInsurancePlansQueryOptions(config: Partial<Omit<RequestConfig, 'path' | 'query' | 'body' | 'headers' | 'url'>> = {}) {
   const queryKey = listInsurancePlansQueryKey()
-  return queryOptions<ListInsurancePlansStatus200, ResponseErrorConfig<ListInsurancePlansStatus401 | ListInsurancePlansStatus403 | ListInsurancePlansStatus404 | ListInsurancePlansStatus422>, ListInsurancePlansStatus200, typeof queryKey>({
+  return queryOptions<ListInsurancePlansStatus200, ResponseErrorConfig<ListInsurancePlansStatus400 | ListInsurancePlansStatus401 | ListInsurancePlansStatus403 | ListInsurancePlansStatus404 | ListInsurancePlansStatus422>, ListInsurancePlansStatus200, typeof queryKey>({
    queryKey,
    queryFn: async ({ signal }) => {
       return listInsurancePlans({ ...config, signal: config.signal ?? signal, throwOnError: true }).unwrap()
@@ -28,7 +28,7 @@ export function listInsurancePlansQueryOptions(config: Partial<Omit<RequestConfi
  * {@link /api/insurance-plans}
  */
 export function useListInsurancePlans<TData = ListInsurancePlansStatus200, TQueryData = ListInsurancePlansStatus200, TQueryKey extends QueryKey = ListInsurancePlansQueryKey>(options: {
-  query?: Partial<QueryObserverOptions<ListInsurancePlansStatus200, ResponseErrorConfig<ListInsurancePlansStatus401 | ListInsurancePlansStatus403 | ListInsurancePlansStatus404 | ListInsurancePlansStatus422>, TData, TQueryData, TQueryKey>> & { client?: QueryClient },
+  query?: Partial<QueryObserverOptions<ListInsurancePlansStatus200, ResponseErrorConfig<ListInsurancePlansStatus400 | ListInsurancePlansStatus401 | ListInsurancePlansStatus403 | ListInsurancePlansStatus404 | ListInsurancePlansStatus422>, TData, TQueryData, TQueryKey>> & { client?: QueryClient },
   client?: Partial<Omit<RequestConfig, 'path' | 'query' | 'body' | 'headers' | 'url'>>
 } = {}) {
   const { query: queryConfig = {}, client: config = {} } = options ?? {}
@@ -39,7 +39,7 @@ export function useListInsurancePlans<TData = ListInsurancePlansStatus200, TQuer
    ...listInsurancePlansQueryOptions(config),
    ...resolvedOptions,
    queryKey,
-  } as unknown as QueryObserverOptions, queryClient) as UseQueryResult<TData, ResponseErrorConfig<ListInsurancePlansStatus401 | ListInsurancePlansStatus403 | ListInsurancePlansStatus404 | ListInsurancePlansStatus422>> & { queryKey: TQueryKey }
+  } as unknown as QueryObserverOptions, queryClient) as UseQueryResult<TData, ResponseErrorConfig<ListInsurancePlansStatus400 | ListInsurancePlansStatus401 | ListInsurancePlansStatus403 | ListInsurancePlansStatus404 | ListInsurancePlansStatus422>> & { queryKey: TQueryKey }
 
   queryResult.queryKey = queryKey as TQueryKey
 

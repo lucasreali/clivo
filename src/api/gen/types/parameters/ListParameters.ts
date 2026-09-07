@@ -8,6 +8,8 @@ import type { ParameterView } from '../ParameterView'
 
 export type ListParametersStatus200 = ParameterView[];
 
+export type ListParametersStatus400 = ErrorResponse;
+
 export type ListParametersStatus401 = ErrorResponse;
 
 export type ListParametersStatus403 = ErrorResponse;
@@ -25,6 +27,7 @@ export type ListParametersOptions = {
 
 export type ListParametersResponses = {
     "200": ListParametersStatus200;
+    "400": ListParametersStatus400;
     "401": ListParametersStatus401;
     "403": ListParametersStatus403;
     "404": ListParametersStatus404;
@@ -34,4 +37,4 @@ export type ListParametersResponses = {
 /**
  * @description Union of all possible responses
 */
-export type ListParametersResponse = (ListParametersStatus200 | ListParametersStatus401 | ListParametersStatus403 | ListParametersStatus404 | ListParametersStatus422);
+export type ListParametersResponse = (ListParametersStatus200 | ListParametersStatus400 | ListParametersStatus401 | ListParametersStatus403 | ListParametersStatus404 | ListParametersStatus422);

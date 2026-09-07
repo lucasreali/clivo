@@ -4,7 +4,7 @@
 */
 
 import type { RequestConfig, ResponseErrorConfig } from '../../.kubb/client'
-import type { DeactivateProductOptions, DeactivateProductStatus200, DeactivateProductStatus401, DeactivateProductStatus403, DeactivateProductStatus404, DeactivateProductStatus422 } from '../../types/inventory/DeactivateProduct'
+import type { DeactivateProductOptions, DeactivateProductStatus200, DeactivateProductStatus400, DeactivateProductStatus401, DeactivateProductStatus403, DeactivateProductStatus404, DeactivateProductStatus422 } from '../../types/inventory/DeactivateProduct'
 import type { UseMutationOptions, UseMutationResult, QueryClient } from '@tanstack/react-query'
 import { deactivateProduct } from '../../clients/inventory/deactivateProduct'
 import { mutationOptions, useMutation } from '@tanstack/react-query'
@@ -13,7 +13,7 @@ export const deactivateProductMutationKey = () => [{ url: '/api/products/:id/dea
 
 export function deactivateProductMutationOptions<TContext = unknown>(config: Partial<Omit<RequestConfig, 'path' | 'query' | 'body' | 'headers' | 'url'>> = {}) {
   const mutationKey = deactivateProductMutationKey()
-  return mutationOptions<DeactivateProductStatus200, ResponseErrorConfig<DeactivateProductStatus401 | DeactivateProductStatus403 | DeactivateProductStatus404 | DeactivateProductStatus422>, DeactivateProductOptions, TContext>({
+  return mutationOptions<DeactivateProductStatus200, ResponseErrorConfig<DeactivateProductStatus400 | DeactivateProductStatus401 | DeactivateProductStatus403 | DeactivateProductStatus404 | DeactivateProductStatus422>, DeactivateProductOptions, TContext>({
     mutationKey,
     mutationFn: async({ path }) => {
       return deactivateProduct({ ...config, path, throwOnError: true }).unwrap()
@@ -26,18 +26,18 @@ export function deactivateProductMutationOptions<TContext = unknown>(config: Par
  * {@link /api/products/:id/deactivation}
  */
 export function useDeactivateProduct<TContext>(options: {
-  mutation?: UseMutationOptions<DeactivateProductStatus200, ResponseErrorConfig<DeactivateProductStatus401 | DeactivateProductStatus403 | DeactivateProductStatus404 | DeactivateProductStatus422>, DeactivateProductOptions, TContext> & { client?: QueryClient },
+  mutation?: UseMutationOptions<DeactivateProductStatus200, ResponseErrorConfig<DeactivateProductStatus400 | DeactivateProductStatus401 | DeactivateProductStatus403 | DeactivateProductStatus404 | DeactivateProductStatus422>, DeactivateProductOptions, TContext> & { client?: QueryClient },
   client?: Partial<Omit<RequestConfig, 'path' | 'query' | 'body' | 'headers' | 'url'>>,
 } = {}) {
   const { mutation = {}, client: config = {} } = options ?? {}
   const { client: queryClient, ...mutationOptions } = mutation;
   const mutationKey = mutationOptions.mutationKey ?? deactivateProductMutationKey()
 
-  const baseOptions = deactivateProductMutationOptions(config) as UseMutationOptions<DeactivateProductStatus200, ResponseErrorConfig<DeactivateProductStatus401 | DeactivateProductStatus403 | DeactivateProductStatus404 | DeactivateProductStatus422>, DeactivateProductOptions, TContext>
+  const baseOptions = deactivateProductMutationOptions(config) as UseMutationOptions<DeactivateProductStatus200, ResponseErrorConfig<DeactivateProductStatus400 | DeactivateProductStatus401 | DeactivateProductStatus403 | DeactivateProductStatus404 | DeactivateProductStatus422>, DeactivateProductOptions, TContext>
 
-  return useMutation<DeactivateProductStatus200, ResponseErrorConfig<DeactivateProductStatus401 | DeactivateProductStatus403 | DeactivateProductStatus404 | DeactivateProductStatus422>, DeactivateProductOptions, TContext>({
+  return useMutation<DeactivateProductStatus200, ResponseErrorConfig<DeactivateProductStatus400 | DeactivateProductStatus401 | DeactivateProductStatus403 | DeactivateProductStatus404 | DeactivateProductStatus422>, DeactivateProductOptions, TContext>({
     ...baseOptions,
     mutationKey,
     ...mutationOptions,
-  }, queryClient) as UseMutationResult<DeactivateProductStatus200, ResponseErrorConfig<DeactivateProductStatus401 | DeactivateProductStatus403 | DeactivateProductStatus404 | DeactivateProductStatus422>, DeactivateProductOptions, TContext>
+  }, queryClient) as UseMutationResult<DeactivateProductStatus200, ResponseErrorConfig<DeactivateProductStatus400 | DeactivateProductStatus401 | DeactivateProductStatus403 | DeactivateProductStatus404 | DeactivateProductStatus422>, DeactivateProductOptions, TContext>
 }

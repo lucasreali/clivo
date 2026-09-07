@@ -15,6 +15,10 @@ export const listProductsStatus200Schema = z.array(productViewSchema)
 
 export type ListProductsStatus200SchemaType = z.infer<typeof listProductsStatus200Schema>
 
+export const listProductsStatus400Schema = errorResponseSchema
+
+export type ListProductsStatus400SchemaType = z.infer<typeof listProductsStatus400Schema>
+
 export const listProductsStatus401Schema = errorResponseSchema
 
 export type ListProductsStatus401SchemaType = z.infer<typeof listProductsStatus401Schema>
@@ -35,7 +39,7 @@ export const listProductsResponseSchema = listProductsStatus200Schema
 
 export type ListProductsResponseSchemaType = z.infer<typeof listProductsResponseSchema>
 
-export const listProductsErrorSchema = z.union([listProductsStatus401Schema, listProductsStatus403Schema, listProductsStatus404Schema, listProductsStatus422Schema])
+export const listProductsErrorSchema = z.union([listProductsStatus400Schema, listProductsStatus401Schema, listProductsStatus403Schema, listProductsStatus404Schema, listProductsStatus422Schema])
 
 export type ListProductsErrorSchemaType = z.infer<typeof listProductsErrorSchema>
 
@@ -56,6 +60,7 @@ export type ListProductsOptionsSchemaType = z.infer<typeof listProductsOptionsSc
 
 export const listProductsResponsesSchema = z.object({
   '200': listProductsStatus200Schema,
+  '400': listProductsStatus400Schema,
   '401': listProductsStatus401Schema,
   '403': listProductsStatus403Schema,
   '404': listProductsStatus404Schema,

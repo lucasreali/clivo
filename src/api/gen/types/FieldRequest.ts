@@ -5,23 +5,36 @@
 
 export type FieldRequest = {
     /**
-     * @minLength 1
+     * @minLength 0
+     * @maxLength 40
      * @type string
     */
     code: string;
+    /**
+     * @minLength 0
+     * @maxLength 30
+     * @type string | undefined
+    */
     component?: string;
     /**
-     * @minLength 1
+     * @minLength 0
+     * @maxLength 20
      * @type string
     */
     fieldType: string;
     /**
-     * @minLength 1
+     * @minLength 0
+     * @maxLength 80
      * @type string
     */
     label: string;
     options?: string[];
     required?: boolean;
+    /**
+     * @minLength 0
+     * @maxLength 4
+     * @type string | undefined
+    */
     requiresModule?: string;
     validation?: {
         [key: string]: unknown;

@@ -4,7 +4,7 @@
 */
 
 import type { RequestConfig, ResponseErrorConfig } from '../../.kubb/client'
-import type { GetCustomerOptions, GetCustomerStatus200, GetCustomerStatus401, GetCustomerStatus403, GetCustomerStatus404, GetCustomerStatus422 } from '../../types/customers/GetCustomer'
+import type { GetCustomerOptions, GetCustomerStatus200, GetCustomerStatus400, GetCustomerStatus401, GetCustomerStatus403, GetCustomerStatus404, GetCustomerStatus422 } from '../../types/customers/GetCustomer'
 import type { QueryKey, QueryClient, QueryObserverOptions, UseQueryResult } from '@tanstack/react-query'
 import { getCustomer } from '../../clients/customers/getCustomer'
 import { queryOptions, useQuery } from '@tanstack/react-query'
@@ -15,7 +15,7 @@ type GetCustomerQueryKey = ReturnType<typeof getCustomerQueryKey>
 
 export function getCustomerQueryOptions({ path }: GetCustomerOptions, config: Partial<Omit<RequestConfig, 'path' | 'query' | 'body' | 'headers' | 'url'>> = {}) {
   const queryKey = getCustomerQueryKey({ path })
-  return queryOptions<GetCustomerStatus200, ResponseErrorConfig<GetCustomerStatus401 | GetCustomerStatus403 | GetCustomerStatus404 | GetCustomerStatus422>, GetCustomerStatus200, typeof queryKey>({
+  return queryOptions<GetCustomerStatus200, ResponseErrorConfig<GetCustomerStatus400 | GetCustomerStatus401 | GetCustomerStatus403 | GetCustomerStatus404 | GetCustomerStatus422>, GetCustomerStatus200, typeof queryKey>({
    queryKey,
    queryFn: async ({ signal }) => {
       return getCustomer({ ...config, path, signal: config.signal ?? signal, throwOnError: true }).unwrap()
@@ -28,7 +28,7 @@ export function getCustomerQueryOptions({ path }: GetCustomerOptions, config: Pa
  * {@link /api/customers/:id}
  */
 export function useGetCustomer<TData = GetCustomerStatus200, TQueryData = GetCustomerStatus200, TQueryKey extends QueryKey = GetCustomerQueryKey>({ path }: { path: GetCustomerOptions['path'] | (() => GetCustomerOptions['path']) }, options: {
-  query?: Partial<QueryObserverOptions<GetCustomerStatus200, ResponseErrorConfig<GetCustomerStatus401 | GetCustomerStatus403 | GetCustomerStatus404 | GetCustomerStatus422>, TData, TQueryData, TQueryKey>> & { client?: QueryClient },
+  query?: Partial<QueryObserverOptions<GetCustomerStatus200, ResponseErrorConfig<GetCustomerStatus400 | GetCustomerStatus401 | GetCustomerStatus403 | GetCustomerStatus404 | GetCustomerStatus422>, TData, TQueryData, TQueryKey>> & { client?: QueryClient },
   client?: Partial<Omit<RequestConfig, 'path' | 'query' | 'body' | 'headers' | 'url'>>
 } = {}) {
   const { query: queryConfig = {}, client: config = {} } = options ?? {}
@@ -40,7 +40,7 @@ export function useGetCustomer<TData = GetCustomerStatus200, TQueryData = GetCus
    ...getCustomerQueryOptions(resolvedParams, config),
    ...resolvedOptions,
    queryKey,
-  } as unknown as QueryObserverOptions, queryClient) as UseQueryResult<TData, ResponseErrorConfig<GetCustomerStatus401 | GetCustomerStatus403 | GetCustomerStatus404 | GetCustomerStatus422>> & { queryKey: TQueryKey }
+  } as unknown as QueryObserverOptions, queryClient) as UseQueryResult<TData, ResponseErrorConfig<GetCustomerStatus400 | GetCustomerStatus401 | GetCustomerStatus403 | GetCustomerStatus404 | GetCustomerStatus422>> & { queryKey: TQueryKey }
 
   queryResult.queryKey = queryKey as TQueryKey
 

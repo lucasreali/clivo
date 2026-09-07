@@ -17,6 +17,8 @@ export type ListCustomerEncountersQuery = {
 
 export type ListCustomerEncountersStatus200 = EncounterHistoryView[];
 
+export type ListCustomerEncountersStatus400 = ErrorResponse;
+
 export type ListCustomerEncountersStatus401 = ErrorResponse;
 
 export type ListCustomerEncountersStatus403 = ErrorResponse;
@@ -34,6 +36,7 @@ export type ListCustomerEncountersOptions = {
 
 export type ListCustomerEncountersResponses = {
     "200": ListCustomerEncountersStatus200;
+    "400": ListCustomerEncountersStatus400;
     "401": ListCustomerEncountersStatus401;
     "403": ListCustomerEncountersStatus403;
     "404": ListCustomerEncountersStatus404;
@@ -43,4 +46,4 @@ export type ListCustomerEncountersResponses = {
 /**
  * @description Union of all possible responses
 */
-export type ListCustomerEncountersResponse = (ListCustomerEncountersStatus200 | ListCustomerEncountersStatus401 | ListCustomerEncountersStatus403 | ListCustomerEncountersStatus404 | ListCustomerEncountersStatus422);
+export type ListCustomerEncountersResponse = (ListCustomerEncountersStatus200 | ListCustomerEncountersStatus400 | ListCustomerEncountersStatus401 | ListCustomerEncountersStatus403 | ListCustomerEncountersStatus404 | ListCustomerEncountersStatus422);

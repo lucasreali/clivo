@@ -4,7 +4,7 @@
 */
 
 import type { RequestConfig, ResponseErrorConfig } from '../../.kubb/client'
-import type { GetProductOptions, GetProductStatus200, GetProductStatus401, GetProductStatus403, GetProductStatus404, GetProductStatus422 } from '../../types/inventory/GetProduct'
+import type { GetProductOptions, GetProductStatus200, GetProductStatus400, GetProductStatus401, GetProductStatus403, GetProductStatus404, GetProductStatus422 } from '../../types/inventory/GetProduct'
 import type { QueryKey, QueryClient, UseSuspenseQueryOptions, UseSuspenseQueryResult } from '@tanstack/react-query'
 import { getProduct } from '../../clients/inventory/getProduct'
 import { queryOptions, useSuspenseQuery } from '@tanstack/react-query'
@@ -15,7 +15,7 @@ type GetProductSuspenseQueryKey = ReturnType<typeof getProductSuspenseQueryKey>
 
 export function getProductSuspenseQueryOptions({ path }: GetProductOptions, config: Partial<Omit<RequestConfig, 'path' | 'query' | 'body' | 'headers' | 'url'>> = {}) {
   const queryKey = getProductSuspenseQueryKey({ path })
-  return queryOptions<GetProductStatus200, ResponseErrorConfig<GetProductStatus401 | GetProductStatus403 | GetProductStatus404 | GetProductStatus422>, GetProductStatus200, typeof queryKey>({
+  return queryOptions<GetProductStatus200, ResponseErrorConfig<GetProductStatus400 | GetProductStatus401 | GetProductStatus403 | GetProductStatus404 | GetProductStatus422>, GetProductStatus200, typeof queryKey>({
    queryKey,
    queryFn: async ({ signal }) => {
       return getProduct({ ...config, path, signal: config.signal ?? signal, throwOnError: true }).unwrap()
@@ -28,7 +28,7 @@ export function getProductSuspenseQueryOptions({ path }: GetProductOptions, conf
  * {@link /api/products/:id}
  */
 export function useGetProductSuspense<TData = GetProductStatus200, TQueryKey extends QueryKey = GetProductSuspenseQueryKey>({ path }: { path: GetProductOptions['path'] | (() => GetProductOptions['path']) }, options: {
-  query?: Partial<UseSuspenseQueryOptions<GetProductStatus200, ResponseErrorConfig<GetProductStatus401 | GetProductStatus403 | GetProductStatus404 | GetProductStatus422>, TData, TQueryKey>> & { client?: QueryClient },
+  query?: Partial<UseSuspenseQueryOptions<GetProductStatus200, ResponseErrorConfig<GetProductStatus400 | GetProductStatus401 | GetProductStatus403 | GetProductStatus404 | GetProductStatus422>, TData, TQueryKey>> & { client?: QueryClient },
   client?: Partial<Omit<RequestConfig, 'path' | 'query' | 'body' | 'headers' | 'url'>>
 } = {}) {
   const { query: queryConfig = {}, client: config = {} } = options ?? {}
@@ -40,7 +40,7 @@ export function useGetProductSuspense<TData = GetProductStatus200, TQueryKey ext
    ...getProductSuspenseQueryOptions(resolvedParams, config),
    ...resolvedOptions,
    queryKey,
-  } as unknown as UseSuspenseQueryOptions, queryClient) as UseSuspenseQueryResult<TData, ResponseErrorConfig<GetProductStatus401 | GetProductStatus403 | GetProductStatus404 | GetProductStatus422>> & { queryKey: TQueryKey }
+  } as unknown as UseSuspenseQueryOptions, queryClient) as UseSuspenseQueryResult<TData, ResponseErrorConfig<GetProductStatus400 | GetProductStatus401 | GetProductStatus403 | GetProductStatus404 | GetProductStatus422>> & { queryKey: TQueryKey }
 
   queryResult.queryKey = queryKey as TQueryKey
 

@@ -14,6 +14,10 @@ export const deactivateModuleStatus204Schema = z.unknown()
 
 export type DeactivateModuleStatus204SchemaType = z.infer<typeof deactivateModuleStatus204Schema>
 
+export const deactivateModuleStatus400Schema = errorResponseSchema
+
+export type DeactivateModuleStatus400SchemaType = z.infer<typeof deactivateModuleStatus400Schema>
+
 export const deactivateModuleStatus401Schema = errorResponseSchema
 
 export type DeactivateModuleStatus401SchemaType = z.infer<typeof deactivateModuleStatus401Schema>
@@ -34,7 +38,7 @@ export const deactivateModuleResponseSchema = deactivateModuleStatus204Schema
 
 export type DeactivateModuleResponseSchemaType = z.infer<typeof deactivateModuleResponseSchema>
 
-export const deactivateModuleErrorSchema = z.union([deactivateModuleStatus401Schema, deactivateModuleStatus403Schema, deactivateModuleStatus404Schema, deactivateModuleStatus422Schema])
+export const deactivateModuleErrorSchema = z.union([deactivateModuleStatus400Schema, deactivateModuleStatus401Schema, deactivateModuleStatus403Schema, deactivateModuleStatus404Schema, deactivateModuleStatus422Schema])
 
 export type DeactivateModuleErrorSchemaType = z.infer<typeof deactivateModuleErrorSchema>
 
@@ -55,6 +59,7 @@ export type DeactivateModuleOptionsSchemaType = z.infer<typeof deactivateModuleO
 
 export const deactivateModuleResponsesSchema = z.object({
   '204': deactivateModuleStatus204Schema,
+  '400': deactivateModuleStatus400Schema,
   '401': deactivateModuleStatus401Schema,
   '403': deactivateModuleStatus403Schema,
   '404': deactivateModuleStatus404Schema,

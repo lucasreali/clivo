@@ -4,7 +4,7 @@
 */
 
 import type { RequestConfig, ResponseErrorConfig } from '../../.kubb/client'
-import type { GetServiceOptions, GetServiceStatus200, GetServiceStatus401, GetServiceStatus403, GetServiceStatus404, GetServiceStatus422 } from '../../types/services/GetService'
+import type { GetServiceOptions, GetServiceStatus200, GetServiceStatus400, GetServiceStatus401, GetServiceStatus403, GetServiceStatus404, GetServiceStatus422 } from '../../types/services/GetService'
 import type { QueryKey, QueryClient, UseSuspenseQueryOptions, UseSuspenseQueryResult } from '@tanstack/react-query'
 import { getService } from '../../clients/services/getService'
 import { queryOptions, useSuspenseQuery } from '@tanstack/react-query'
@@ -15,7 +15,7 @@ type GetServiceSuspenseQueryKey = ReturnType<typeof getServiceSuspenseQueryKey>
 
 export function getServiceSuspenseQueryOptions({ path }: GetServiceOptions, config: Partial<Omit<RequestConfig, 'path' | 'query' | 'body' | 'headers' | 'url'>> = {}) {
   const queryKey = getServiceSuspenseQueryKey({ path })
-  return queryOptions<GetServiceStatus200, ResponseErrorConfig<GetServiceStatus401 | GetServiceStatus403 | GetServiceStatus404 | GetServiceStatus422>, GetServiceStatus200, typeof queryKey>({
+  return queryOptions<GetServiceStatus200, ResponseErrorConfig<GetServiceStatus400 | GetServiceStatus401 | GetServiceStatus403 | GetServiceStatus404 | GetServiceStatus422>, GetServiceStatus200, typeof queryKey>({
    queryKey,
    queryFn: async ({ signal }) => {
       return getService({ ...config, path, signal: config.signal ?? signal, throwOnError: true }).unwrap()
@@ -28,7 +28,7 @@ export function getServiceSuspenseQueryOptions({ path }: GetServiceOptions, conf
  * {@link /api/services/:id}
  */
 export function useGetServiceSuspense<TData = GetServiceStatus200, TQueryKey extends QueryKey = GetServiceSuspenseQueryKey>({ path }: { path: GetServiceOptions['path'] | (() => GetServiceOptions['path']) }, options: {
-  query?: Partial<UseSuspenseQueryOptions<GetServiceStatus200, ResponseErrorConfig<GetServiceStatus401 | GetServiceStatus403 | GetServiceStatus404 | GetServiceStatus422>, TData, TQueryKey>> & { client?: QueryClient },
+  query?: Partial<UseSuspenseQueryOptions<GetServiceStatus200, ResponseErrorConfig<GetServiceStatus400 | GetServiceStatus401 | GetServiceStatus403 | GetServiceStatus404 | GetServiceStatus422>, TData, TQueryKey>> & { client?: QueryClient },
   client?: Partial<Omit<RequestConfig, 'path' | 'query' | 'body' | 'headers' | 'url'>>
 } = {}) {
   const { query: queryConfig = {}, client: config = {} } = options ?? {}
@@ -40,7 +40,7 @@ export function useGetServiceSuspense<TData = GetServiceStatus200, TQueryKey ext
    ...getServiceSuspenseQueryOptions(resolvedParams, config),
    ...resolvedOptions,
    queryKey,
-  } as unknown as UseSuspenseQueryOptions, queryClient) as UseSuspenseQueryResult<TData, ResponseErrorConfig<GetServiceStatus401 | GetServiceStatus403 | GetServiceStatus404 | GetServiceStatus422>> & { queryKey: TQueryKey }
+  } as unknown as UseSuspenseQueryOptions, queryClient) as UseSuspenseQueryResult<TData, ResponseErrorConfig<GetServiceStatus400 | GetServiceStatus401 | GetServiceStatus403 | GetServiceStatus404 | GetServiceStatus422>> & { queryKey: TQueryKey }
 
   queryResult.queryKey = queryKey as TQueryKey
 

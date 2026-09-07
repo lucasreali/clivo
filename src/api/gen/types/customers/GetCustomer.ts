@@ -17,6 +17,8 @@ export type GetCustomerPath = {
 
 export type GetCustomerStatus200 = CustomerView;
 
+export type GetCustomerStatus400 = ErrorResponse;
+
 export type GetCustomerStatus401 = ErrorResponse;
 
 export type GetCustomerStatus403 = ErrorResponse;
@@ -34,6 +36,7 @@ export type GetCustomerOptions = {
 
 export type GetCustomerResponses = {
     "200": GetCustomerStatus200;
+    "400": GetCustomerStatus400;
     "401": GetCustomerStatus401;
     "403": GetCustomerStatus403;
     "404": GetCustomerStatus404;
@@ -43,4 +46,4 @@ export type GetCustomerResponses = {
 /**
  * @description Union of all possible responses
 */
-export type GetCustomerResponse = (GetCustomerStatus200 | GetCustomerStatus401 | GetCustomerStatus403 | GetCustomerStatus404 | GetCustomerStatus422);
+export type GetCustomerResponse = (GetCustomerStatus200 | GetCustomerStatus400 | GetCustomerStatus401 | GetCustomerStatus403 | GetCustomerStatus404 | GetCustomerStatus422);

@@ -4,7 +4,7 @@
 */
 
 import type { RequestConfig, ResponseErrorConfig } from '../../.kubb/client'
-import type { ListRecordTemplatesStatus200, ListRecordTemplatesStatus401, ListRecordTemplatesStatus403, ListRecordTemplatesStatus404, ListRecordTemplatesStatus422 } from '../../types/recordTemplates/ListRecordTemplates'
+import type { ListRecordTemplatesStatus200, ListRecordTemplatesStatus400, ListRecordTemplatesStatus401, ListRecordTemplatesStatus403, ListRecordTemplatesStatus404, ListRecordTemplatesStatus422 } from '../../types/recordTemplates/ListRecordTemplates'
 import type { QueryKey, QueryClient, UseSuspenseQueryOptions, UseSuspenseQueryResult } from '@tanstack/react-query'
 import { listRecordTemplates } from '../../clients/recordTemplates/listRecordTemplates'
 import { queryOptions, useSuspenseQuery } from '@tanstack/react-query'
@@ -15,7 +15,7 @@ type ListRecordTemplatesSuspenseQueryKey = ReturnType<typeof listRecordTemplates
 
 export function listRecordTemplatesSuspenseQueryOptions(config: Partial<Omit<RequestConfig, 'path' | 'query' | 'body' | 'headers' | 'url'>> = {}) {
   const queryKey = listRecordTemplatesSuspenseQueryKey()
-  return queryOptions<ListRecordTemplatesStatus200, ResponseErrorConfig<ListRecordTemplatesStatus401 | ListRecordTemplatesStatus403 | ListRecordTemplatesStatus404 | ListRecordTemplatesStatus422>, ListRecordTemplatesStatus200, typeof queryKey>({
+  return queryOptions<ListRecordTemplatesStatus200, ResponseErrorConfig<ListRecordTemplatesStatus400 | ListRecordTemplatesStatus401 | ListRecordTemplatesStatus403 | ListRecordTemplatesStatus404 | ListRecordTemplatesStatus422>, ListRecordTemplatesStatus200, typeof queryKey>({
    queryKey,
    queryFn: async ({ signal }) => {
       return listRecordTemplates({ ...config, signal: config.signal ?? signal, throwOnError: true }).unwrap()
@@ -28,7 +28,7 @@ export function listRecordTemplatesSuspenseQueryOptions(config: Partial<Omit<Req
  * {@link /api/record-templates}
  */
 export function useListRecordTemplatesSuspense<TData = ListRecordTemplatesStatus200, TQueryKey extends QueryKey = ListRecordTemplatesSuspenseQueryKey>(options: {
-  query?: Partial<UseSuspenseQueryOptions<ListRecordTemplatesStatus200, ResponseErrorConfig<ListRecordTemplatesStatus401 | ListRecordTemplatesStatus403 | ListRecordTemplatesStatus404 | ListRecordTemplatesStatus422>, TData, TQueryKey>> & { client?: QueryClient },
+  query?: Partial<UseSuspenseQueryOptions<ListRecordTemplatesStatus200, ResponseErrorConfig<ListRecordTemplatesStatus400 | ListRecordTemplatesStatus401 | ListRecordTemplatesStatus403 | ListRecordTemplatesStatus404 | ListRecordTemplatesStatus422>, TData, TQueryKey>> & { client?: QueryClient },
   client?: Partial<Omit<RequestConfig, 'path' | 'query' | 'body' | 'headers' | 'url'>>
 } = {}) {
   const { query: queryConfig = {}, client: config = {} } = options ?? {}
@@ -39,7 +39,7 @@ export function useListRecordTemplatesSuspense<TData = ListRecordTemplatesStatus
    ...listRecordTemplatesSuspenseQueryOptions(config),
    ...resolvedOptions,
    queryKey,
-  } as unknown as UseSuspenseQueryOptions, queryClient) as UseSuspenseQueryResult<TData, ResponseErrorConfig<ListRecordTemplatesStatus401 | ListRecordTemplatesStatus403 | ListRecordTemplatesStatus404 | ListRecordTemplatesStatus422>> & { queryKey: TQueryKey }
+  } as unknown as UseSuspenseQueryOptions, queryClient) as UseSuspenseQueryResult<TData, ResponseErrorConfig<ListRecordTemplatesStatus400 | ListRecordTemplatesStatus401 | ListRecordTemplatesStatus403 | ListRecordTemplatesStatus404 | ListRecordTemplatesStatus422>> & { queryKey: TQueryKey }
 
   queryResult.queryKey = queryKey as TQueryKey
 

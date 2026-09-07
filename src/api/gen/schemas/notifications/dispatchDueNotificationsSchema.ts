@@ -11,6 +11,10 @@ export const dispatchDueNotificationsStatus200Schema = z.array(notificationViewS
 
 export type DispatchDueNotificationsStatus200SchemaType = z.infer<typeof dispatchDueNotificationsStatus200Schema>
 
+export const dispatchDueNotificationsStatus400Schema = errorResponseSchema
+
+export type DispatchDueNotificationsStatus400SchemaType = z.infer<typeof dispatchDueNotificationsStatus400Schema>
+
 export const dispatchDueNotificationsStatus401Schema = errorResponseSchema
 
 export type DispatchDueNotificationsStatus401SchemaType = z.infer<typeof dispatchDueNotificationsStatus401Schema>
@@ -31,7 +35,7 @@ export const dispatchDueNotificationsResponseSchema = dispatchDueNotificationsSt
 
 export type DispatchDueNotificationsResponseSchemaType = z.infer<typeof dispatchDueNotificationsResponseSchema>
 
-export const dispatchDueNotificationsErrorSchema = z.union([dispatchDueNotificationsStatus401Schema, dispatchDueNotificationsStatus403Schema, dispatchDueNotificationsStatus404Schema, dispatchDueNotificationsStatus422Schema])
+export const dispatchDueNotificationsErrorSchema = z.union([dispatchDueNotificationsStatus400Schema, dispatchDueNotificationsStatus401Schema, dispatchDueNotificationsStatus403Schema, dispatchDueNotificationsStatus404Schema, dispatchDueNotificationsStatus422Schema])
 
 export type DispatchDueNotificationsErrorSchemaType = z.infer<typeof dispatchDueNotificationsErrorSchema>
 
@@ -46,6 +50,7 @@ export type DispatchDueNotificationsOptionsSchemaType = z.infer<typeof dispatchD
 
 export const dispatchDueNotificationsResponsesSchema = z.object({
   '200': dispatchDueNotificationsStatus200Schema,
+  '400': dispatchDueNotificationsStatus400Schema,
   '401': dispatchDueNotificationsStatus401Schema,
   '403': dispatchDueNotificationsStatus403Schema,
   '404': dispatchDueNotificationsStatus404Schema,

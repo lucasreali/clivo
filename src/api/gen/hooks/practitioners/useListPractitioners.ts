@@ -4,7 +4,7 @@
 */
 
 import type { RequestConfig, ResponseErrorConfig } from '../../.kubb/client'
-import type { ListPractitionersStatus200, ListPractitionersStatus401, ListPractitionersStatus403, ListPractitionersStatus404, ListPractitionersStatus422 } from '../../types/practitioners/ListPractitioners'
+import type { ListPractitionersStatus200, ListPractitionersStatus400, ListPractitionersStatus401, ListPractitionersStatus403, ListPractitionersStatus404, ListPractitionersStatus422 } from '../../types/practitioners/ListPractitioners'
 import type { QueryKey, QueryClient, QueryObserverOptions, UseQueryResult } from '@tanstack/react-query'
 import { listPractitioners } from '../../clients/practitioners/listPractitioners'
 import { queryOptions, useQuery } from '@tanstack/react-query'
@@ -15,7 +15,7 @@ type ListPractitionersQueryKey = ReturnType<typeof listPractitionersQueryKey>
 
 export function listPractitionersQueryOptions(config: Partial<Omit<RequestConfig, 'path' | 'query' | 'body' | 'headers' | 'url'>> = {}) {
   const queryKey = listPractitionersQueryKey()
-  return queryOptions<ListPractitionersStatus200, ResponseErrorConfig<ListPractitionersStatus401 | ListPractitionersStatus403 | ListPractitionersStatus404 | ListPractitionersStatus422>, ListPractitionersStatus200, typeof queryKey>({
+  return queryOptions<ListPractitionersStatus200, ResponseErrorConfig<ListPractitionersStatus400 | ListPractitionersStatus401 | ListPractitionersStatus403 | ListPractitionersStatus404 | ListPractitionersStatus422>, ListPractitionersStatus200, typeof queryKey>({
    queryKey,
    queryFn: async ({ signal }) => {
       return listPractitioners({ ...config, signal: config.signal ?? signal, throwOnError: true }).unwrap()
@@ -28,7 +28,7 @@ export function listPractitionersQueryOptions(config: Partial<Omit<RequestConfig
  * {@link /api/practitioners}
  */
 export function useListPractitioners<TData = ListPractitionersStatus200, TQueryData = ListPractitionersStatus200, TQueryKey extends QueryKey = ListPractitionersQueryKey>(options: {
-  query?: Partial<QueryObserverOptions<ListPractitionersStatus200, ResponseErrorConfig<ListPractitionersStatus401 | ListPractitionersStatus403 | ListPractitionersStatus404 | ListPractitionersStatus422>, TData, TQueryData, TQueryKey>> & { client?: QueryClient },
+  query?: Partial<QueryObserverOptions<ListPractitionersStatus200, ResponseErrorConfig<ListPractitionersStatus400 | ListPractitionersStatus401 | ListPractitionersStatus403 | ListPractitionersStatus404 | ListPractitionersStatus422>, TData, TQueryData, TQueryKey>> & { client?: QueryClient },
   client?: Partial<Omit<RequestConfig, 'path' | 'query' | 'body' | 'headers' | 'url'>>
 } = {}) {
   const { query: queryConfig = {}, client: config = {} } = options ?? {}
@@ -39,7 +39,7 @@ export function useListPractitioners<TData = ListPractitionersStatus200, TQueryD
    ...listPractitionersQueryOptions(config),
    ...resolvedOptions,
    queryKey,
-  } as unknown as QueryObserverOptions, queryClient) as UseQueryResult<TData, ResponseErrorConfig<ListPractitionersStatus401 | ListPractitionersStatus403 | ListPractitionersStatus404 | ListPractitionersStatus422>> & { queryKey: TQueryKey }
+  } as unknown as QueryObserverOptions, queryClient) as UseQueryResult<TData, ResponseErrorConfig<ListPractitionersStatus400 | ListPractitionersStatus401 | ListPractitionersStatus403 | ListPractitionersStatus404 | ListPractitionersStatus422>> & { queryKey: TQueryKey }
 
   queryResult.queryKey = queryKey as TQueryKey
 

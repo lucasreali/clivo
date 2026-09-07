@@ -11,6 +11,8 @@ export type ActivateClinicModulePath = {
 
 export type ActivateClinicModuleStatus204 = unknown;
 
+export type ActivateClinicModuleStatus400 = ErrorResponse;
+
 export type ActivateClinicModuleStatus401 = ErrorResponse;
 
 export type ActivateClinicModuleStatus403 = ErrorResponse;
@@ -28,6 +30,7 @@ export type ActivateClinicModuleOptions = {
 
 export type ActivateClinicModuleResponses = {
     "204": ActivateClinicModuleStatus204;
+    "400": ActivateClinicModuleStatus400;
     "401": ActivateClinicModuleStatus401;
     "403": ActivateClinicModuleStatus403;
     "404": ActivateClinicModuleStatus404;
@@ -37,4 +40,4 @@ export type ActivateClinicModuleResponses = {
 /**
  * @description Union of all possible responses
 */
-export type ActivateClinicModuleResponse = (ActivateClinicModuleStatus204 | ActivateClinicModuleStatus401 | ActivateClinicModuleStatus403 | ActivateClinicModuleStatus404 | ActivateClinicModuleStatus422);
+export type ActivateClinicModuleResponse = (ActivateClinicModuleStatus204 | ActivateClinicModuleStatus400 | ActivateClinicModuleStatus401 | ActivateClinicModuleStatus403 | ActivateClinicModuleStatus404 | ActivateClinicModuleStatus422);

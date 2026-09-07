@@ -4,7 +4,7 @@
 */
 
 import type { RequestConfig, ResponseErrorConfig } from '../../.kubb/client'
-import type { GetAuditTrailOptions, GetAuditTrailStatus200, GetAuditTrailStatus401, GetAuditTrailStatus403, GetAuditTrailStatus404, GetAuditTrailStatus422 } from '../../types/auditTrail/GetAuditTrail'
+import type { GetAuditTrailOptions, GetAuditTrailStatus200, GetAuditTrailStatus400, GetAuditTrailStatus401, GetAuditTrailStatus403, GetAuditTrailStatus404, GetAuditTrailStatus422 } from '../../types/auditTrail/GetAuditTrail'
 import type { QueryKey, QueryClient, QueryObserverOptions, UseQueryResult } from '@tanstack/react-query'
 import { getAuditTrail } from '../../clients/auditTrail/getAuditTrail'
 import { queryOptions, useQuery } from '@tanstack/react-query'
@@ -15,7 +15,7 @@ type GetAuditTrailQueryKey = ReturnType<typeof getAuditTrailQueryKey>
 
 export function getAuditTrailQueryOptions({ query }: GetAuditTrailOptions, config: Partial<Omit<RequestConfig, 'path' | 'query' | 'body' | 'headers' | 'url'>> = {}) {
   const queryKey = getAuditTrailQueryKey({ query })
-  return queryOptions<GetAuditTrailStatus200, ResponseErrorConfig<GetAuditTrailStatus401 | GetAuditTrailStatus403 | GetAuditTrailStatus404 | GetAuditTrailStatus422>, GetAuditTrailStatus200, typeof queryKey>({
+  return queryOptions<GetAuditTrailStatus200, ResponseErrorConfig<GetAuditTrailStatus400 | GetAuditTrailStatus401 | GetAuditTrailStatus403 | GetAuditTrailStatus404 | GetAuditTrailStatus422>, GetAuditTrailStatus200, typeof queryKey>({
    queryKey,
    queryFn: async ({ signal }) => {
       return getAuditTrail({ ...config, query, signal: config.signal ?? signal, throwOnError: true }).unwrap()
@@ -28,7 +28,7 @@ export function getAuditTrailQueryOptions({ query }: GetAuditTrailOptions, confi
  * {@link /api/audit-trail}
  */
 export function useGetAuditTrail<TData = GetAuditTrailStatus200, TQueryData = GetAuditTrailStatus200, TQueryKey extends QueryKey = GetAuditTrailQueryKey>({ query }: { query: GetAuditTrailOptions['query'] | (() => GetAuditTrailOptions['query']) }, options: {
-  query?: Partial<QueryObserverOptions<GetAuditTrailStatus200, ResponseErrorConfig<GetAuditTrailStatus401 | GetAuditTrailStatus403 | GetAuditTrailStatus404 | GetAuditTrailStatus422>, TData, TQueryData, TQueryKey>> & { client?: QueryClient },
+  query?: Partial<QueryObserverOptions<GetAuditTrailStatus200, ResponseErrorConfig<GetAuditTrailStatus400 | GetAuditTrailStatus401 | GetAuditTrailStatus403 | GetAuditTrailStatus404 | GetAuditTrailStatus422>, TData, TQueryData, TQueryKey>> & { client?: QueryClient },
   client?: Partial<Omit<RequestConfig, 'path' | 'query' | 'body' | 'headers' | 'url'>>
 } = {}) {
   const { query: queryConfig = {}, client: config = {} } = options ?? {}
@@ -40,7 +40,7 @@ export function useGetAuditTrail<TData = GetAuditTrailStatus200, TQueryData = Ge
    ...getAuditTrailQueryOptions(resolvedParams, config),
    ...resolvedOptions,
    queryKey,
-  } as unknown as QueryObserverOptions, queryClient) as UseQueryResult<TData, ResponseErrorConfig<GetAuditTrailStatus401 | GetAuditTrailStatus403 | GetAuditTrailStatus404 | GetAuditTrailStatus422>> & { queryKey: TQueryKey }
+  } as unknown as QueryObserverOptions, queryClient) as UseQueryResult<TData, ResponseErrorConfig<GetAuditTrailStatus400 | GetAuditTrailStatus401 | GetAuditTrailStatus403 | GetAuditTrailStatus404 | GetAuditTrailStatus422>> & { queryKey: TQueryKey }
 
   queryResult.queryKey = queryKey as TQueryKey
 

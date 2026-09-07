@@ -7,10 +7,16 @@ import type { SectionRequest } from './SectionRequest'
 
 export type RecordTemplateRequest = {
     /**
-     * @minLength 1
+     * @minLength 0
+     * @maxLength 120
      * @type string
     */
     name: string;
+    /**
+     * @minLength 0
+     * @maxLength 4
+     * @type string | undefined
+    */
     requiresModule?: string;
     sections: SectionRequest[];
 };

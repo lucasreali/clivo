@@ -15,6 +15,10 @@ export const getInvoiceStatus200Schema = invoiceViewSchema
 
 export type GetInvoiceStatus200SchemaType = z.infer<typeof getInvoiceStatus200Schema>
 
+export const getInvoiceStatus400Schema = errorResponseSchema
+
+export type GetInvoiceStatus400SchemaType = z.infer<typeof getInvoiceStatus400Schema>
+
 export const getInvoiceStatus401Schema = errorResponseSchema
 
 export type GetInvoiceStatus401SchemaType = z.infer<typeof getInvoiceStatus401Schema>
@@ -35,7 +39,7 @@ export const getInvoiceResponseSchema = getInvoiceStatus200Schema
 
 export type GetInvoiceResponseSchemaType = z.infer<typeof getInvoiceResponseSchema>
 
-export const getInvoiceErrorSchema = z.union([getInvoiceStatus401Schema, getInvoiceStatus403Schema, getInvoiceStatus404Schema, getInvoiceStatus422Schema])
+export const getInvoiceErrorSchema = z.union([getInvoiceStatus400Schema, getInvoiceStatus401Schema, getInvoiceStatus403Schema, getInvoiceStatus404Schema, getInvoiceStatus422Schema])
 
 export type GetInvoiceErrorSchemaType = z.infer<typeof getInvoiceErrorSchema>
 
@@ -56,6 +60,7 @@ export type GetInvoiceOptionsSchemaType = z.infer<typeof getInvoiceOptionsSchema
 
 export const getInvoiceResponsesSchema = z.object({
   '200': getInvoiceStatus200Schema,
+  '400': getInvoiceStatus400Schema,
   '401': getInvoiceStatus401Schema,
   '403': getInvoiceStatus403Schema,
   '404': getInvoiceStatus404Schema,

@@ -11,6 +11,10 @@ export const listRecordTemplatesStatus200Schema = z.array(recordTemplateViewSche
 
 export type ListRecordTemplatesStatus200SchemaType = z.infer<typeof listRecordTemplatesStatus200Schema>
 
+export const listRecordTemplatesStatus400Schema = errorResponseSchema
+
+export type ListRecordTemplatesStatus400SchemaType = z.infer<typeof listRecordTemplatesStatus400Schema>
+
 export const listRecordTemplatesStatus401Schema = errorResponseSchema
 
 export type ListRecordTemplatesStatus401SchemaType = z.infer<typeof listRecordTemplatesStatus401Schema>
@@ -31,7 +35,7 @@ export const listRecordTemplatesResponseSchema = listRecordTemplatesStatus200Sch
 
 export type ListRecordTemplatesResponseSchemaType = z.infer<typeof listRecordTemplatesResponseSchema>
 
-export const listRecordTemplatesErrorSchema = z.union([listRecordTemplatesStatus401Schema, listRecordTemplatesStatus403Schema, listRecordTemplatesStatus404Schema, listRecordTemplatesStatus422Schema])
+export const listRecordTemplatesErrorSchema = z.union([listRecordTemplatesStatus400Schema, listRecordTemplatesStatus401Schema, listRecordTemplatesStatus403Schema, listRecordTemplatesStatus404Schema, listRecordTemplatesStatus422Schema])
 
 export type ListRecordTemplatesErrorSchemaType = z.infer<typeof listRecordTemplatesErrorSchema>
 
@@ -46,6 +50,7 @@ export type ListRecordTemplatesOptionsSchemaType = z.infer<typeof listRecordTemp
 
 export const listRecordTemplatesResponsesSchema = z.object({
   '200': listRecordTemplatesStatus200Schema,
+  '400': listRecordTemplatesStatus400Schema,
   '401': listRecordTemplatesStatus401Schema,
   '403': listRecordTemplatesStatus403Schema,
   '404': listRecordTemplatesStatus404Schema,

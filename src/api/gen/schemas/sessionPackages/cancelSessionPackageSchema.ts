@@ -15,6 +15,10 @@ export const cancelSessionPackageStatus200Schema = packageViewSchema
 
 export type CancelSessionPackageStatus200SchemaType = z.infer<typeof cancelSessionPackageStatus200Schema>
 
+export const cancelSessionPackageStatus400Schema = errorResponseSchema
+
+export type CancelSessionPackageStatus400SchemaType = z.infer<typeof cancelSessionPackageStatus400Schema>
+
 export const cancelSessionPackageStatus401Schema = errorResponseSchema
 
 export type CancelSessionPackageStatus401SchemaType = z.infer<typeof cancelSessionPackageStatus401Schema>
@@ -35,7 +39,7 @@ export const cancelSessionPackageResponseSchema = cancelSessionPackageStatus200S
 
 export type CancelSessionPackageResponseSchemaType = z.infer<typeof cancelSessionPackageResponseSchema>
 
-export const cancelSessionPackageErrorSchema = z.union([cancelSessionPackageStatus401Schema, cancelSessionPackageStatus403Schema, cancelSessionPackageStatus404Schema, cancelSessionPackageStatus422Schema])
+export const cancelSessionPackageErrorSchema = z.union([cancelSessionPackageStatus400Schema, cancelSessionPackageStatus401Schema, cancelSessionPackageStatus403Schema, cancelSessionPackageStatus404Schema, cancelSessionPackageStatus422Schema])
 
 export type CancelSessionPackageErrorSchemaType = z.infer<typeof cancelSessionPackageErrorSchema>
 
@@ -56,6 +60,7 @@ export type CancelSessionPackageOptionsSchemaType = z.infer<typeof cancelSession
 
 export const cancelSessionPackageResponsesSchema = z.object({
   '200': cancelSessionPackageStatus200Schema,
+  '400': cancelSessionPackageStatus400Schema,
   '401': cancelSessionPackageStatus401Schema,
   '403': cancelSessionPackageStatus403Schema,
   '404': cancelSessionPackageStatus404Schema,

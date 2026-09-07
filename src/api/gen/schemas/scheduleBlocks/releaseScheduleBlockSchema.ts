@@ -14,6 +14,10 @@ export const releaseScheduleBlockStatus204Schema = z.unknown()
 
 export type ReleaseScheduleBlockStatus204SchemaType = z.infer<typeof releaseScheduleBlockStatus204Schema>
 
+export const releaseScheduleBlockStatus400Schema = errorResponseSchema
+
+export type ReleaseScheduleBlockStatus400SchemaType = z.infer<typeof releaseScheduleBlockStatus400Schema>
+
 export const releaseScheduleBlockStatus401Schema = errorResponseSchema
 
 export type ReleaseScheduleBlockStatus401SchemaType = z.infer<typeof releaseScheduleBlockStatus401Schema>
@@ -34,7 +38,7 @@ export const releaseScheduleBlockResponseSchema = releaseScheduleBlockStatus204S
 
 export type ReleaseScheduleBlockResponseSchemaType = z.infer<typeof releaseScheduleBlockResponseSchema>
 
-export const releaseScheduleBlockErrorSchema = z.union([releaseScheduleBlockStatus401Schema, releaseScheduleBlockStatus403Schema, releaseScheduleBlockStatus404Schema, releaseScheduleBlockStatus422Schema])
+export const releaseScheduleBlockErrorSchema = z.union([releaseScheduleBlockStatus400Schema, releaseScheduleBlockStatus401Schema, releaseScheduleBlockStatus403Schema, releaseScheduleBlockStatus404Schema, releaseScheduleBlockStatus422Schema])
 
 export type ReleaseScheduleBlockErrorSchemaType = z.infer<typeof releaseScheduleBlockErrorSchema>
 
@@ -55,6 +59,7 @@ export type ReleaseScheduleBlockOptionsSchemaType = z.infer<typeof releaseSchedu
 
 export const releaseScheduleBlockResponsesSchema = z.object({
   '204': releaseScheduleBlockStatus204Schema,
+  '400': releaseScheduleBlockStatus400Schema,
   '401': releaseScheduleBlockStatus401Schema,
   '403': releaseScheduleBlockStatus403Schema,
   '404': releaseScheduleBlockStatus404Schema,

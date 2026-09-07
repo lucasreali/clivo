@@ -15,6 +15,10 @@ export const getPractitionerStatus200Schema = practitionerViewSchema
 
 export type GetPractitionerStatus200SchemaType = z.infer<typeof getPractitionerStatus200Schema>
 
+export const getPractitionerStatus400Schema = errorResponseSchema
+
+export type GetPractitionerStatus400SchemaType = z.infer<typeof getPractitionerStatus400Schema>
+
 export const getPractitionerStatus401Schema = errorResponseSchema
 
 export type GetPractitionerStatus401SchemaType = z.infer<typeof getPractitionerStatus401Schema>
@@ -35,7 +39,7 @@ export const getPractitionerResponseSchema = getPractitionerStatus200Schema
 
 export type GetPractitionerResponseSchemaType = z.infer<typeof getPractitionerResponseSchema>
 
-export const getPractitionerErrorSchema = z.union([getPractitionerStatus401Schema, getPractitionerStatus403Schema, getPractitionerStatus404Schema, getPractitionerStatus422Schema])
+export const getPractitionerErrorSchema = z.union([getPractitionerStatus400Schema, getPractitionerStatus401Schema, getPractitionerStatus403Schema, getPractitionerStatus404Schema, getPractitionerStatus422Schema])
 
 export type GetPractitionerErrorSchemaType = z.infer<typeof getPractitionerErrorSchema>
 
@@ -56,6 +60,7 @@ export type GetPractitionerOptionsSchemaType = z.infer<typeof getPractitionerOpt
 
 export const getPractitionerResponsesSchema = z.object({
   '200': getPractitionerStatus200Schema,
+  '400': getPractitionerStatus400Schema,
   '401': getPractitionerStatus401Schema,
   '403': getPractitionerStatus403Schema,
   '404': getPractitionerStatus404Schema,

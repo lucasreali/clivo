@@ -4,7 +4,7 @@
 */
 
 import type { RequestConfig, ResponseErrorConfig } from '../../.kubb/client'
-import type { DeactivatePractitionerOptions, DeactivatePractitionerStatus200, DeactivatePractitionerStatus401, DeactivatePractitionerStatus403, DeactivatePractitionerStatus404, DeactivatePractitionerStatus422 } from '../../types/practitioners/DeactivatePractitioner'
+import type { DeactivatePractitionerOptions, DeactivatePractitionerStatus200, DeactivatePractitionerStatus400, DeactivatePractitionerStatus401, DeactivatePractitionerStatus403, DeactivatePractitionerStatus404, DeactivatePractitionerStatus422 } from '../../types/practitioners/DeactivatePractitioner'
 import type { UseMutationOptions, UseMutationResult, QueryClient } from '@tanstack/react-query'
 import { deactivatePractitioner } from '../../clients/practitioners/deactivatePractitioner'
 import { mutationOptions, useMutation } from '@tanstack/react-query'
@@ -13,7 +13,7 @@ export const deactivatePractitionerMutationKey = () => [{ url: '/api/practitione
 
 export function deactivatePractitionerMutationOptions<TContext = unknown>(config: Partial<Omit<RequestConfig, 'path' | 'query' | 'body' | 'headers' | 'url'>> = {}) {
   const mutationKey = deactivatePractitionerMutationKey()
-  return mutationOptions<DeactivatePractitionerStatus200, ResponseErrorConfig<DeactivatePractitionerStatus401 | DeactivatePractitionerStatus403 | DeactivatePractitionerStatus404 | DeactivatePractitionerStatus422>, DeactivatePractitionerOptions, TContext>({
+  return mutationOptions<DeactivatePractitionerStatus200, ResponseErrorConfig<DeactivatePractitionerStatus400 | DeactivatePractitionerStatus401 | DeactivatePractitionerStatus403 | DeactivatePractitionerStatus404 | DeactivatePractitionerStatus422>, DeactivatePractitionerOptions, TContext>({
     mutationKey,
     mutationFn: async({ path }) => {
       return deactivatePractitioner({ ...config, path, throwOnError: true }).unwrap()
@@ -26,18 +26,18 @@ export function deactivatePractitionerMutationOptions<TContext = unknown>(config
  * {@link /api/practitioners/:id/deactivation}
  */
 export function useDeactivatePractitioner<TContext>(options: {
-  mutation?: UseMutationOptions<DeactivatePractitionerStatus200, ResponseErrorConfig<DeactivatePractitionerStatus401 | DeactivatePractitionerStatus403 | DeactivatePractitionerStatus404 | DeactivatePractitionerStatus422>, DeactivatePractitionerOptions, TContext> & { client?: QueryClient },
+  mutation?: UseMutationOptions<DeactivatePractitionerStatus200, ResponseErrorConfig<DeactivatePractitionerStatus400 | DeactivatePractitionerStatus401 | DeactivatePractitionerStatus403 | DeactivatePractitionerStatus404 | DeactivatePractitionerStatus422>, DeactivatePractitionerOptions, TContext> & { client?: QueryClient },
   client?: Partial<Omit<RequestConfig, 'path' | 'query' | 'body' | 'headers' | 'url'>>,
 } = {}) {
   const { mutation = {}, client: config = {} } = options ?? {}
   const { client: queryClient, ...mutationOptions } = mutation;
   const mutationKey = mutationOptions.mutationKey ?? deactivatePractitionerMutationKey()
 
-  const baseOptions = deactivatePractitionerMutationOptions(config) as UseMutationOptions<DeactivatePractitionerStatus200, ResponseErrorConfig<DeactivatePractitionerStatus401 | DeactivatePractitionerStatus403 | DeactivatePractitionerStatus404 | DeactivatePractitionerStatus422>, DeactivatePractitionerOptions, TContext>
+  const baseOptions = deactivatePractitionerMutationOptions(config) as UseMutationOptions<DeactivatePractitionerStatus200, ResponseErrorConfig<DeactivatePractitionerStatus400 | DeactivatePractitionerStatus401 | DeactivatePractitionerStatus403 | DeactivatePractitionerStatus404 | DeactivatePractitionerStatus422>, DeactivatePractitionerOptions, TContext>
 
-  return useMutation<DeactivatePractitionerStatus200, ResponseErrorConfig<DeactivatePractitionerStatus401 | DeactivatePractitionerStatus403 | DeactivatePractitionerStatus404 | DeactivatePractitionerStatus422>, DeactivatePractitionerOptions, TContext>({
+  return useMutation<DeactivatePractitionerStatus200, ResponseErrorConfig<DeactivatePractitionerStatus400 | DeactivatePractitionerStatus401 | DeactivatePractitionerStatus403 | DeactivatePractitionerStatus404 | DeactivatePractitionerStatus422>, DeactivatePractitionerOptions, TContext>({
     ...baseOptions,
     mutationKey,
     ...mutationOptions,
-  }, queryClient) as UseMutationResult<DeactivatePractitionerStatus200, ResponseErrorConfig<DeactivatePractitionerStatus401 | DeactivatePractitionerStatus403 | DeactivatePractitionerStatus404 | DeactivatePractitionerStatus422>, DeactivatePractitionerOptions, TContext>
+  }, queryClient) as UseMutationResult<DeactivatePractitionerStatus200, ResponseErrorConfig<DeactivatePractitionerStatus400 | DeactivatePractitionerStatus401 | DeactivatePractitionerStatus403 | DeactivatePractitionerStatus404 | DeactivatePractitionerStatus422>, DeactivatePractitionerOptions, TContext>
 }

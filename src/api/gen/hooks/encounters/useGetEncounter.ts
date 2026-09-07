@@ -4,7 +4,7 @@
 */
 
 import type { RequestConfig, ResponseErrorConfig } from '../../.kubb/client'
-import type { GetEncounterOptions, GetEncounterStatus200, GetEncounterStatus401, GetEncounterStatus403, GetEncounterStatus404, GetEncounterStatus422 } from '../../types/encounters/GetEncounter'
+import type { GetEncounterOptions, GetEncounterStatus200, GetEncounterStatus400, GetEncounterStatus401, GetEncounterStatus403, GetEncounterStatus404, GetEncounterStatus422 } from '../../types/encounters/GetEncounter'
 import type { QueryKey, QueryClient, QueryObserverOptions, UseQueryResult } from '@tanstack/react-query'
 import { getEncounter } from '../../clients/encounters/getEncounter'
 import { queryOptions, useQuery } from '@tanstack/react-query'
@@ -15,7 +15,7 @@ type GetEncounterQueryKey = ReturnType<typeof getEncounterQueryKey>
 
 export function getEncounterQueryOptions({ path }: GetEncounterOptions, config: Partial<Omit<RequestConfig, 'path' | 'query' | 'body' | 'headers' | 'url'>> = {}) {
   const queryKey = getEncounterQueryKey({ path })
-  return queryOptions<GetEncounterStatus200, ResponseErrorConfig<GetEncounterStatus401 | GetEncounterStatus403 | GetEncounterStatus404 | GetEncounterStatus422>, GetEncounterStatus200, typeof queryKey>({
+  return queryOptions<GetEncounterStatus200, ResponseErrorConfig<GetEncounterStatus400 | GetEncounterStatus401 | GetEncounterStatus403 | GetEncounterStatus404 | GetEncounterStatus422>, GetEncounterStatus200, typeof queryKey>({
    queryKey,
    queryFn: async ({ signal }) => {
       return getEncounter({ ...config, path, signal: config.signal ?? signal, throwOnError: true }).unwrap()
@@ -28,7 +28,7 @@ export function getEncounterQueryOptions({ path }: GetEncounterOptions, config: 
  * {@link /api/encounters/:id}
  */
 export function useGetEncounter<TData = GetEncounterStatus200, TQueryData = GetEncounterStatus200, TQueryKey extends QueryKey = GetEncounterQueryKey>({ path }: { path: GetEncounterOptions['path'] | (() => GetEncounterOptions['path']) }, options: {
-  query?: Partial<QueryObserverOptions<GetEncounterStatus200, ResponseErrorConfig<GetEncounterStatus401 | GetEncounterStatus403 | GetEncounterStatus404 | GetEncounterStatus422>, TData, TQueryData, TQueryKey>> & { client?: QueryClient },
+  query?: Partial<QueryObserverOptions<GetEncounterStatus200, ResponseErrorConfig<GetEncounterStatus400 | GetEncounterStatus401 | GetEncounterStatus403 | GetEncounterStatus404 | GetEncounterStatus422>, TData, TQueryData, TQueryKey>> & { client?: QueryClient },
   client?: Partial<Omit<RequestConfig, 'path' | 'query' | 'body' | 'headers' | 'url'>>
 } = {}) {
   const { query: queryConfig = {}, client: config = {} } = options ?? {}
@@ -40,7 +40,7 @@ export function useGetEncounter<TData = GetEncounterStatus200, TQueryData = GetE
    ...getEncounterQueryOptions(resolvedParams, config),
    ...resolvedOptions,
    queryKey,
-  } as unknown as QueryObserverOptions, queryClient) as UseQueryResult<TData, ResponseErrorConfig<GetEncounterStatus401 | GetEncounterStatus403 | GetEncounterStatus404 | GetEncounterStatus422>> & { queryKey: TQueryKey }
+  } as unknown as QueryObserverOptions, queryClient) as UseQueryResult<TData, ResponseErrorConfig<GetEncounterStatus400 | GetEncounterStatus401 | GetEncounterStatus403 | GetEncounterStatus404 | GetEncounterStatus422>> & { queryKey: TQueryKey }
 
   queryResult.queryKey = queryKey as TQueryKey
 

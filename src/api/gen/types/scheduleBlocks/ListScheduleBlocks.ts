@@ -23,6 +23,8 @@ export type ListScheduleBlocksQuery = {
 
 export type ListScheduleBlocksStatus200 = ScheduleBlockView[];
 
+export type ListScheduleBlocksStatus400 = ErrorResponse;
+
 export type ListScheduleBlocksStatus401 = ErrorResponse;
 
 export type ListScheduleBlocksStatus403 = ErrorResponse;
@@ -40,6 +42,7 @@ export type ListScheduleBlocksOptions = {
 
 export type ListScheduleBlocksResponses = {
     "200": ListScheduleBlocksStatus200;
+    "400": ListScheduleBlocksStatus400;
     "401": ListScheduleBlocksStatus401;
     "403": ListScheduleBlocksStatus403;
     "404": ListScheduleBlocksStatus404;
@@ -49,4 +52,4 @@ export type ListScheduleBlocksResponses = {
 /**
  * @description Union of all possible responses
 */
-export type ListScheduleBlocksResponse = (ListScheduleBlocksStatus200 | ListScheduleBlocksStatus401 | ListScheduleBlocksStatus403 | ListScheduleBlocksStatus404 | ListScheduleBlocksStatus422);
+export type ListScheduleBlocksResponse = (ListScheduleBlocksStatus200 | ListScheduleBlocksStatus400 | ListScheduleBlocksStatus401 | ListScheduleBlocksStatus403 | ListScheduleBlocksStatus404 | ListScheduleBlocksStatus422);

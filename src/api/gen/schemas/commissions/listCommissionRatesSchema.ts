@@ -11,6 +11,10 @@ export const listCommissionRatesStatus200Schema = z.array(rateViewSchema)
 
 export type ListCommissionRatesStatus200SchemaType = z.infer<typeof listCommissionRatesStatus200Schema>
 
+export const listCommissionRatesStatus400Schema = errorResponseSchema
+
+export type ListCommissionRatesStatus400SchemaType = z.infer<typeof listCommissionRatesStatus400Schema>
+
 export const listCommissionRatesStatus401Schema = errorResponseSchema
 
 export type ListCommissionRatesStatus401SchemaType = z.infer<typeof listCommissionRatesStatus401Schema>
@@ -31,7 +35,7 @@ export const listCommissionRatesResponseSchema = listCommissionRatesStatus200Sch
 
 export type ListCommissionRatesResponseSchemaType = z.infer<typeof listCommissionRatesResponseSchema>
 
-export const listCommissionRatesErrorSchema = z.union([listCommissionRatesStatus401Schema, listCommissionRatesStatus403Schema, listCommissionRatesStatus404Schema, listCommissionRatesStatus422Schema])
+export const listCommissionRatesErrorSchema = z.union([listCommissionRatesStatus400Schema, listCommissionRatesStatus401Schema, listCommissionRatesStatus403Schema, listCommissionRatesStatus404Schema, listCommissionRatesStatus422Schema])
 
 export type ListCommissionRatesErrorSchemaType = z.infer<typeof listCommissionRatesErrorSchema>
 
@@ -46,6 +50,7 @@ export type ListCommissionRatesOptionsSchemaType = z.infer<typeof listCommission
 
 export const listCommissionRatesResponsesSchema = z.object({
   '200': listCommissionRatesStatus200Schema,
+  '400': listCommissionRatesStatus400Schema,
   '401': listCommissionRatesStatus401Schema,
   '403': listCommissionRatesStatus403Schema,
   '404': listCommissionRatesStatus404Schema,

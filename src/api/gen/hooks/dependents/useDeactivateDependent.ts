@@ -4,7 +4,7 @@
 */
 
 import type { RequestConfig, ResponseErrorConfig } from '../../.kubb/client'
-import type { DeactivateDependentOptions, DeactivateDependentStatus200, DeactivateDependentStatus401, DeactivateDependentStatus403, DeactivateDependentStatus404, DeactivateDependentStatus422 } from '../../types/dependents/DeactivateDependent'
+import type { DeactivateDependentOptions, DeactivateDependentStatus200, DeactivateDependentStatus400, DeactivateDependentStatus401, DeactivateDependentStatus403, DeactivateDependentStatus404, DeactivateDependentStatus422 } from '../../types/dependents/DeactivateDependent'
 import type { UseMutationOptions, UseMutationResult, QueryClient } from '@tanstack/react-query'
 import { deactivateDependent } from '../../clients/dependents/deactivateDependent'
 import { mutationOptions, useMutation } from '@tanstack/react-query'
@@ -13,7 +13,7 @@ export const deactivateDependentMutationKey = () => [{ url: '/api/dependents/:id
 
 export function deactivateDependentMutationOptions<TContext = unknown>(config: Partial<Omit<RequestConfig, 'path' | 'query' | 'body' | 'headers' | 'url'>> = {}) {
   const mutationKey = deactivateDependentMutationKey()
-  return mutationOptions<DeactivateDependentStatus200, ResponseErrorConfig<DeactivateDependentStatus401 | DeactivateDependentStatus403 | DeactivateDependentStatus404 | DeactivateDependentStatus422>, DeactivateDependentOptions, TContext>({
+  return mutationOptions<DeactivateDependentStatus200, ResponseErrorConfig<DeactivateDependentStatus400 | DeactivateDependentStatus401 | DeactivateDependentStatus403 | DeactivateDependentStatus404 | DeactivateDependentStatus422>, DeactivateDependentOptions, TContext>({
     mutationKey,
     mutationFn: async({ path }) => {
       return deactivateDependent({ ...config, path, throwOnError: true }).unwrap()
@@ -26,18 +26,18 @@ export function deactivateDependentMutationOptions<TContext = unknown>(config: P
  * {@link /api/dependents/:id/deactivation}
  */
 export function useDeactivateDependent<TContext>(options: {
-  mutation?: UseMutationOptions<DeactivateDependentStatus200, ResponseErrorConfig<DeactivateDependentStatus401 | DeactivateDependentStatus403 | DeactivateDependentStatus404 | DeactivateDependentStatus422>, DeactivateDependentOptions, TContext> & { client?: QueryClient },
+  mutation?: UseMutationOptions<DeactivateDependentStatus200, ResponseErrorConfig<DeactivateDependentStatus400 | DeactivateDependentStatus401 | DeactivateDependentStatus403 | DeactivateDependentStatus404 | DeactivateDependentStatus422>, DeactivateDependentOptions, TContext> & { client?: QueryClient },
   client?: Partial<Omit<RequestConfig, 'path' | 'query' | 'body' | 'headers' | 'url'>>,
 } = {}) {
   const { mutation = {}, client: config = {} } = options ?? {}
   const { client: queryClient, ...mutationOptions } = mutation;
   const mutationKey = mutationOptions.mutationKey ?? deactivateDependentMutationKey()
 
-  const baseOptions = deactivateDependentMutationOptions(config) as UseMutationOptions<DeactivateDependentStatus200, ResponseErrorConfig<DeactivateDependentStatus401 | DeactivateDependentStatus403 | DeactivateDependentStatus404 | DeactivateDependentStatus422>, DeactivateDependentOptions, TContext>
+  const baseOptions = deactivateDependentMutationOptions(config) as UseMutationOptions<DeactivateDependentStatus200, ResponseErrorConfig<DeactivateDependentStatus400 | DeactivateDependentStatus401 | DeactivateDependentStatus403 | DeactivateDependentStatus404 | DeactivateDependentStatus422>, DeactivateDependentOptions, TContext>
 
-  return useMutation<DeactivateDependentStatus200, ResponseErrorConfig<DeactivateDependentStatus401 | DeactivateDependentStatus403 | DeactivateDependentStatus404 | DeactivateDependentStatus422>, DeactivateDependentOptions, TContext>({
+  return useMutation<DeactivateDependentStatus200, ResponseErrorConfig<DeactivateDependentStatus400 | DeactivateDependentStatus401 | DeactivateDependentStatus403 | DeactivateDependentStatus404 | DeactivateDependentStatus422>, DeactivateDependentOptions, TContext>({
     ...baseOptions,
     mutationKey,
     ...mutationOptions,
-  }, queryClient) as UseMutationResult<DeactivateDependentStatus200, ResponseErrorConfig<DeactivateDependentStatus401 | DeactivateDependentStatus403 | DeactivateDependentStatus404 | DeactivateDependentStatus422>, DeactivateDependentOptions, TContext>
+  }, queryClient) as UseMutationResult<DeactivateDependentStatus200, ResponseErrorConfig<DeactivateDependentStatus400 | DeactivateDependentStatus401 | DeactivateDependentStatus403 | DeactivateDependentStatus404 | DeactivateDependentStatus422>, DeactivateDependentOptions, TContext>
 }

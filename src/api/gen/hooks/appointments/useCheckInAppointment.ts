@@ -4,7 +4,7 @@
 */
 
 import type { RequestConfig, ResponseErrorConfig } from '../../.kubb/client'
-import type { CheckInAppointmentOptions, CheckInAppointmentStatus200, CheckInAppointmentStatus401, CheckInAppointmentStatus403, CheckInAppointmentStatus404, CheckInAppointmentStatus422 } from '../../types/appointments/CheckInAppointment'
+import type { CheckInAppointmentOptions, CheckInAppointmentStatus200, CheckInAppointmentStatus400, CheckInAppointmentStatus401, CheckInAppointmentStatus403, CheckInAppointmentStatus404, CheckInAppointmentStatus422 } from '../../types/appointments/CheckInAppointment'
 import type { UseMutationOptions, UseMutationResult, QueryClient } from '@tanstack/react-query'
 import { checkInAppointment } from '../../clients/appointments/checkInAppointment'
 import { mutationOptions, useMutation } from '@tanstack/react-query'
@@ -13,7 +13,7 @@ export const checkInAppointmentMutationKey = () => [{ url: '/api/appointments/:i
 
 export function checkInAppointmentMutationOptions<TContext = unknown>(config: Partial<Omit<RequestConfig, 'path' | 'query' | 'body' | 'headers' | 'url'>> = {}) {
   const mutationKey = checkInAppointmentMutationKey()
-  return mutationOptions<CheckInAppointmentStatus200, ResponseErrorConfig<CheckInAppointmentStatus401 | CheckInAppointmentStatus403 | CheckInAppointmentStatus404 | CheckInAppointmentStatus422>, CheckInAppointmentOptions, TContext>({
+  return mutationOptions<CheckInAppointmentStatus200, ResponseErrorConfig<CheckInAppointmentStatus400 | CheckInAppointmentStatus401 | CheckInAppointmentStatus403 | CheckInAppointmentStatus404 | CheckInAppointmentStatus422>, CheckInAppointmentOptions, TContext>({
     mutationKey,
     mutationFn: async({ path }) => {
       return checkInAppointment({ ...config, path, throwOnError: true }).unwrap()
@@ -26,18 +26,18 @@ export function checkInAppointmentMutationOptions<TContext = unknown>(config: Pa
  * {@link /api/appointments/:id/arrival}
  */
 export function useCheckInAppointment<TContext>(options: {
-  mutation?: UseMutationOptions<CheckInAppointmentStatus200, ResponseErrorConfig<CheckInAppointmentStatus401 | CheckInAppointmentStatus403 | CheckInAppointmentStatus404 | CheckInAppointmentStatus422>, CheckInAppointmentOptions, TContext> & { client?: QueryClient },
+  mutation?: UseMutationOptions<CheckInAppointmentStatus200, ResponseErrorConfig<CheckInAppointmentStatus400 | CheckInAppointmentStatus401 | CheckInAppointmentStatus403 | CheckInAppointmentStatus404 | CheckInAppointmentStatus422>, CheckInAppointmentOptions, TContext> & { client?: QueryClient },
   client?: Partial<Omit<RequestConfig, 'path' | 'query' | 'body' | 'headers' | 'url'>>,
 } = {}) {
   const { mutation = {}, client: config = {} } = options ?? {}
   const { client: queryClient, ...mutationOptions } = mutation;
   const mutationKey = mutationOptions.mutationKey ?? checkInAppointmentMutationKey()
 
-  const baseOptions = checkInAppointmentMutationOptions(config) as UseMutationOptions<CheckInAppointmentStatus200, ResponseErrorConfig<CheckInAppointmentStatus401 | CheckInAppointmentStatus403 | CheckInAppointmentStatus404 | CheckInAppointmentStatus422>, CheckInAppointmentOptions, TContext>
+  const baseOptions = checkInAppointmentMutationOptions(config) as UseMutationOptions<CheckInAppointmentStatus200, ResponseErrorConfig<CheckInAppointmentStatus400 | CheckInAppointmentStatus401 | CheckInAppointmentStatus403 | CheckInAppointmentStatus404 | CheckInAppointmentStatus422>, CheckInAppointmentOptions, TContext>
 
-  return useMutation<CheckInAppointmentStatus200, ResponseErrorConfig<CheckInAppointmentStatus401 | CheckInAppointmentStatus403 | CheckInAppointmentStatus404 | CheckInAppointmentStatus422>, CheckInAppointmentOptions, TContext>({
+  return useMutation<CheckInAppointmentStatus200, ResponseErrorConfig<CheckInAppointmentStatus400 | CheckInAppointmentStatus401 | CheckInAppointmentStatus403 | CheckInAppointmentStatus404 | CheckInAppointmentStatus422>, CheckInAppointmentOptions, TContext>({
     ...baseOptions,
     mutationKey,
     ...mutationOptions,
-  }, queryClient) as UseMutationResult<CheckInAppointmentStatus200, ResponseErrorConfig<CheckInAppointmentStatus401 | CheckInAppointmentStatus403 | CheckInAppointmentStatus404 | CheckInAppointmentStatus422>, CheckInAppointmentOptions, TContext>
+  }, queryClient) as UseMutationResult<CheckInAppointmentStatus200, ResponseErrorConfig<CheckInAppointmentStatus400 | CheckInAppointmentStatus401 | CheckInAppointmentStatus403 | CheckInAppointmentStatus404 | CheckInAppointmentStatus422>, CheckInAppointmentOptions, TContext>
 }

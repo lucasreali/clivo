@@ -4,7 +4,7 @@
 */
 
 import type { RequestConfig, ResponseErrorConfig } from '../../.kubb/client'
-import type { ListClinicModulesStatus200, ListClinicModulesStatus401, ListClinicModulesStatus403, ListClinicModulesStatus404, ListClinicModulesStatus422 } from '../../types/platformClinicModules/ListClinicModules'
+import type { ListClinicModulesStatus200, ListClinicModulesStatus400, ListClinicModulesStatus401, ListClinicModulesStatus403, ListClinicModulesStatus404, ListClinicModulesStatus422 } from '../../types/platformClinicModules/ListClinicModules'
 import type { QueryKey, QueryClient, UseSuspenseQueryOptions, UseSuspenseQueryResult } from '@tanstack/react-query'
 import { listClinicModules } from '../../clients/platformClinicModules/listClinicModules'
 import { queryOptions, useSuspenseQuery } from '@tanstack/react-query'
@@ -15,7 +15,7 @@ type ListClinicModulesSuspenseQueryKey = ReturnType<typeof listClinicModulesSusp
 
 export function listClinicModulesSuspenseQueryOptions(config: Partial<Omit<RequestConfig, 'path' | 'query' | 'body' | 'headers' | 'url'>> = {}) {
   const queryKey = listClinicModulesSuspenseQueryKey()
-  return queryOptions<ListClinicModulesStatus200, ResponseErrorConfig<ListClinicModulesStatus401 | ListClinicModulesStatus403 | ListClinicModulesStatus404 | ListClinicModulesStatus422>, ListClinicModulesStatus200, typeof queryKey>({
+  return queryOptions<ListClinicModulesStatus200, ResponseErrorConfig<ListClinicModulesStatus400 | ListClinicModulesStatus401 | ListClinicModulesStatus403 | ListClinicModulesStatus404 | ListClinicModulesStatus422>, ListClinicModulesStatus200, typeof queryKey>({
    queryKey,
    queryFn: async ({ signal }) => {
       return listClinicModules({ ...config, signal: config.signal ?? signal, throwOnError: true }).unwrap()
@@ -28,7 +28,7 @@ export function listClinicModulesSuspenseQueryOptions(config: Partial<Omit<Reque
  * {@link /api/platform/tenants/:tenantId/modules}
  */
 export function useListClinicModulesSuspense<TData = ListClinicModulesStatus200, TQueryKey extends QueryKey = ListClinicModulesSuspenseQueryKey>(options: {
-  query?: Partial<UseSuspenseQueryOptions<ListClinicModulesStatus200, ResponseErrorConfig<ListClinicModulesStatus401 | ListClinicModulesStatus403 | ListClinicModulesStatus404 | ListClinicModulesStatus422>, TData, TQueryKey>> & { client?: QueryClient },
+  query?: Partial<UseSuspenseQueryOptions<ListClinicModulesStatus200, ResponseErrorConfig<ListClinicModulesStatus400 | ListClinicModulesStatus401 | ListClinicModulesStatus403 | ListClinicModulesStatus404 | ListClinicModulesStatus422>, TData, TQueryKey>> & { client?: QueryClient },
   client?: Partial<Omit<RequestConfig, 'path' | 'query' | 'body' | 'headers' | 'url'>>
 } = {}) {
   const { query: queryConfig = {}, client: config = {} } = options ?? {}
@@ -39,7 +39,7 @@ export function useListClinicModulesSuspense<TData = ListClinicModulesStatus200,
    ...listClinicModulesSuspenseQueryOptions(config),
    ...resolvedOptions,
    queryKey,
-  } as unknown as UseSuspenseQueryOptions, queryClient) as UseSuspenseQueryResult<TData, ResponseErrorConfig<ListClinicModulesStatus401 | ListClinicModulesStatus403 | ListClinicModulesStatus404 | ListClinicModulesStatus422>> & { queryKey: TQueryKey }
+  } as unknown as UseSuspenseQueryOptions, queryClient) as UseSuspenseQueryResult<TData, ResponseErrorConfig<ListClinicModulesStatus400 | ListClinicModulesStatus401 | ListClinicModulesStatus403 | ListClinicModulesStatus404 | ListClinicModulesStatus422>> & { queryKey: TQueryKey }
 
   queryResult.queryKey = queryKey as TQueryKey
 

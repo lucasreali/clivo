@@ -4,7 +4,7 @@
 */
 
 import type { RequestConfig, ResponseErrorConfig } from '../../.kubb/client'
-import type { SelectBatchForDispatchOptions, SelectBatchForDispatchStatus200, SelectBatchForDispatchStatus401, SelectBatchForDispatchStatus403, SelectBatchForDispatchStatus404, SelectBatchForDispatchStatus422 } from '../../types/batches/SelectBatchForDispatch'
+import type { SelectBatchForDispatchOptions, SelectBatchForDispatchStatus200, SelectBatchForDispatchStatus400, SelectBatchForDispatchStatus401, SelectBatchForDispatchStatus403, SelectBatchForDispatchStatus404, SelectBatchForDispatchStatus422 } from '../../types/batches/SelectBatchForDispatch'
 import type { QueryKey, QueryClient, QueryObserverOptions, UseQueryResult } from '@tanstack/react-query'
 import { selectBatchForDispatch } from '../../clients/batches/selectBatchForDispatch'
 import { queryOptions, useQuery } from '@tanstack/react-query'
@@ -15,7 +15,7 @@ type SelectBatchForDispatchQueryKey = ReturnType<typeof selectBatchForDispatchQu
 
 export function selectBatchForDispatchQueryOptions({ path, query }: SelectBatchForDispatchOptions, config: Partial<Omit<RequestConfig, 'path' | 'query' | 'body' | 'headers' | 'url'>> = {}) {
   const queryKey = selectBatchForDispatchQueryKey({ path, query })
-  return queryOptions<SelectBatchForDispatchStatus200, ResponseErrorConfig<SelectBatchForDispatchStatus401 | SelectBatchForDispatchStatus403 | SelectBatchForDispatchStatus404 | SelectBatchForDispatchStatus422>, SelectBatchForDispatchStatus200, typeof queryKey>({
+  return queryOptions<SelectBatchForDispatchStatus200, ResponseErrorConfig<SelectBatchForDispatchStatus400 | SelectBatchForDispatchStatus401 | SelectBatchForDispatchStatus403 | SelectBatchForDispatchStatus404 | SelectBatchForDispatchStatus422>, SelectBatchForDispatchStatus200, typeof queryKey>({
    queryKey,
    queryFn: async ({ signal }) => {
       return selectBatchForDispatch({ ...config, path, query, signal: config.signal ?? signal, throwOnError: true }).unwrap()
@@ -28,7 +28,7 @@ export function selectBatchForDispatchQueryOptions({ path, query }: SelectBatchF
  * {@link /api/products/:productId/batches/selection}
  */
 export function useSelectBatchForDispatch<TData = SelectBatchForDispatchStatus200, TQueryData = SelectBatchForDispatchStatus200, TQueryKey extends QueryKey = SelectBatchForDispatchQueryKey>({ path, query }: { path: SelectBatchForDispatchOptions['path'] | (() => SelectBatchForDispatchOptions['path']); query: SelectBatchForDispatchOptions['query'] | (() => SelectBatchForDispatchOptions['query']) }, options: {
-  query?: Partial<QueryObserverOptions<SelectBatchForDispatchStatus200, ResponseErrorConfig<SelectBatchForDispatchStatus401 | SelectBatchForDispatchStatus403 | SelectBatchForDispatchStatus404 | SelectBatchForDispatchStatus422>, TData, TQueryData, TQueryKey>> & { client?: QueryClient },
+  query?: Partial<QueryObserverOptions<SelectBatchForDispatchStatus200, ResponseErrorConfig<SelectBatchForDispatchStatus400 | SelectBatchForDispatchStatus401 | SelectBatchForDispatchStatus403 | SelectBatchForDispatchStatus404 | SelectBatchForDispatchStatus422>, TData, TQueryData, TQueryKey>> & { client?: QueryClient },
   client?: Partial<Omit<RequestConfig, 'path' | 'query' | 'body' | 'headers' | 'url'>>
 } = {}) {
   const { query: queryConfig = {}, client: config = {} } = options ?? {}
@@ -40,7 +40,7 @@ export function useSelectBatchForDispatch<TData = SelectBatchForDispatchStatus20
    ...selectBatchForDispatchQueryOptions(resolvedParams, config),
    ...resolvedOptions,
    queryKey,
-  } as unknown as QueryObserverOptions, queryClient) as UseQueryResult<TData, ResponseErrorConfig<SelectBatchForDispatchStatus401 | SelectBatchForDispatchStatus403 | SelectBatchForDispatchStatus404 | SelectBatchForDispatchStatus422>> & { queryKey: TQueryKey }
+  } as unknown as QueryObserverOptions, queryClient) as UseQueryResult<TData, ResponseErrorConfig<SelectBatchForDispatchStatus400 | SelectBatchForDispatchStatus401 | SelectBatchForDispatchStatus403 | SelectBatchForDispatchStatus404 | SelectBatchForDispatchStatus422>> & { queryKey: TQueryKey }
 
   queryResult.queryKey = queryKey as TQueryKey
 

@@ -4,7 +4,7 @@
 */
 
 import type { RequestConfig, ResponseErrorConfig } from '../../.kubb/client'
-import type { ListUsersStatus200, ListUsersStatus401, ListUsersStatus403, ListUsersStatus404, ListUsersStatus422 } from '../../types/users/ListUsers'
+import type { ListUsersStatus200, ListUsersStatus400, ListUsersStatus401, ListUsersStatus403, ListUsersStatus404, ListUsersStatus422 } from '../../types/users/ListUsers'
 import type { QueryKey, QueryClient, UseSuspenseQueryOptions, UseSuspenseQueryResult } from '@tanstack/react-query'
 import { listUsers } from '../../clients/users/listUsers'
 import { queryOptions, useSuspenseQuery } from '@tanstack/react-query'
@@ -15,7 +15,7 @@ type ListUsersSuspenseQueryKey = ReturnType<typeof listUsersSuspenseQueryKey>
 
 export function listUsersSuspenseQueryOptions(config: Partial<Omit<RequestConfig, 'path' | 'query' | 'body' | 'headers' | 'url'>> = {}) {
   const queryKey = listUsersSuspenseQueryKey()
-  return queryOptions<ListUsersStatus200, ResponseErrorConfig<ListUsersStatus401 | ListUsersStatus403 | ListUsersStatus404 | ListUsersStatus422>, ListUsersStatus200, typeof queryKey>({
+  return queryOptions<ListUsersStatus200, ResponseErrorConfig<ListUsersStatus400 | ListUsersStatus401 | ListUsersStatus403 | ListUsersStatus404 | ListUsersStatus422>, ListUsersStatus200, typeof queryKey>({
    queryKey,
    queryFn: async ({ signal }) => {
       return listUsers({ ...config, signal: config.signal ?? signal, throwOnError: true }).unwrap()
@@ -28,7 +28,7 @@ export function listUsersSuspenseQueryOptions(config: Partial<Omit<RequestConfig
  * {@link /api/users}
  */
 export function useListUsersSuspense<TData = ListUsersStatus200, TQueryKey extends QueryKey = ListUsersSuspenseQueryKey>(options: {
-  query?: Partial<UseSuspenseQueryOptions<ListUsersStatus200, ResponseErrorConfig<ListUsersStatus401 | ListUsersStatus403 | ListUsersStatus404 | ListUsersStatus422>, TData, TQueryKey>> & { client?: QueryClient },
+  query?: Partial<UseSuspenseQueryOptions<ListUsersStatus200, ResponseErrorConfig<ListUsersStatus400 | ListUsersStatus401 | ListUsersStatus403 | ListUsersStatus404 | ListUsersStatus422>, TData, TQueryKey>> & { client?: QueryClient },
   client?: Partial<Omit<RequestConfig, 'path' | 'query' | 'body' | 'headers' | 'url'>>
 } = {}) {
   const { query: queryConfig = {}, client: config = {} } = options ?? {}
@@ -39,7 +39,7 @@ export function useListUsersSuspense<TData = ListUsersStatus200, TQueryKey exten
    ...listUsersSuspenseQueryOptions(config),
    ...resolvedOptions,
    queryKey,
-  } as unknown as UseSuspenseQueryOptions, queryClient) as UseSuspenseQueryResult<TData, ResponseErrorConfig<ListUsersStatus401 | ListUsersStatus403 | ListUsersStatus404 | ListUsersStatus422>> & { queryKey: TQueryKey }
+  } as unknown as UseSuspenseQueryOptions, queryClient) as UseSuspenseQueryResult<TData, ResponseErrorConfig<ListUsersStatus400 | ListUsersStatus401 | ListUsersStatus403 | ListUsersStatus404 | ListUsersStatus422>> & { queryKey: TQueryKey }
 
   queryResult.queryKey = queryKey as TQueryKey
 

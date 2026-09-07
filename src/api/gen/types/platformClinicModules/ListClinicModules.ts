@@ -8,6 +8,8 @@ import type { PlatformModuleView } from '../PlatformModuleView'
 
 export type ListClinicModulesStatus200 = PlatformModuleView[];
 
+export type ListClinicModulesStatus400 = ErrorResponse;
+
 export type ListClinicModulesStatus401 = ErrorResponse;
 
 export type ListClinicModulesStatus403 = ErrorResponse;
@@ -25,6 +27,7 @@ export type ListClinicModulesOptions = {
 
 export type ListClinicModulesResponses = {
     "200": ListClinicModulesStatus200;
+    "400": ListClinicModulesStatus400;
     "401": ListClinicModulesStatus401;
     "403": ListClinicModulesStatus403;
     "404": ListClinicModulesStatus404;
@@ -34,4 +37,4 @@ export type ListClinicModulesResponses = {
 /**
  * @description Union of all possible responses
 */
-export type ListClinicModulesResponse = (ListClinicModulesStatus200 | ListClinicModulesStatus401 | ListClinicModulesStatus403 | ListClinicModulesStatus404 | ListClinicModulesStatus422);
+export type ListClinicModulesResponse = (ListClinicModulesStatus200 | ListClinicModulesStatus400 | ListClinicModulesStatus401 | ListClinicModulesStatus403 | ListClinicModulesStatus404 | ListClinicModulesStatus422);

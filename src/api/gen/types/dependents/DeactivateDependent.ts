@@ -17,6 +17,8 @@ export type DeactivateDependentPath = {
 
 export type DeactivateDependentStatus200 = DependentView;
 
+export type DeactivateDependentStatus400 = ErrorResponse;
+
 export type DeactivateDependentStatus401 = ErrorResponse;
 
 export type DeactivateDependentStatus403 = ErrorResponse;
@@ -34,6 +36,7 @@ export type DeactivateDependentOptions = {
 
 export type DeactivateDependentResponses = {
     "200": DeactivateDependentStatus200;
+    "400": DeactivateDependentStatus400;
     "401": DeactivateDependentStatus401;
     "403": DeactivateDependentStatus403;
     "404": DeactivateDependentStatus404;
@@ -43,4 +46,4 @@ export type DeactivateDependentResponses = {
 /**
  * @description Union of all possible responses
 */
-export type DeactivateDependentResponse = (DeactivateDependentStatus200 | DeactivateDependentStatus401 | DeactivateDependentStatus403 | DeactivateDependentStatus404 | DeactivateDependentStatus422);
+export type DeactivateDependentResponse = (DeactivateDependentStatus200 | DeactivateDependentStatus400 | DeactivateDependentStatus401 | DeactivateDependentStatus403 | DeactivateDependentStatus404 | DeactivateDependentStatus422);

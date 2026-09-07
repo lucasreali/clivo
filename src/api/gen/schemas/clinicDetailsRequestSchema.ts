@@ -9,7 +9,7 @@ export const clinicDetailsRequestSchema = z.object({
   legalName: z.string().min(0).max(160).optional(),
   name: z.string().min(0).max(120),
   segment: z.string().min(0).max(60).optional(),
-  taxId: z.string().min(0).max(14).optional(),
+  taxId: z.string().min(0).max(18).optional(),
 })
 
 export type ClinicDetailsRequestSchemaType = z.infer<typeof clinicDetailsRequestSchema>

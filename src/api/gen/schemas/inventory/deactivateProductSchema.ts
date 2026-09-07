@@ -15,6 +15,10 @@ export const deactivateProductStatus200Schema = productViewSchema
 
 export type DeactivateProductStatus200SchemaType = z.infer<typeof deactivateProductStatus200Schema>
 
+export const deactivateProductStatus400Schema = errorResponseSchema
+
+export type DeactivateProductStatus400SchemaType = z.infer<typeof deactivateProductStatus400Schema>
+
 export const deactivateProductStatus401Schema = errorResponseSchema
 
 export type DeactivateProductStatus401SchemaType = z.infer<typeof deactivateProductStatus401Schema>
@@ -35,7 +39,7 @@ export const deactivateProductResponseSchema = deactivateProductStatus200Schema
 
 export type DeactivateProductResponseSchemaType = z.infer<typeof deactivateProductResponseSchema>
 
-export const deactivateProductErrorSchema = z.union([deactivateProductStatus401Schema, deactivateProductStatus403Schema, deactivateProductStatus404Schema, deactivateProductStatus422Schema])
+export const deactivateProductErrorSchema = z.union([deactivateProductStatus400Schema, deactivateProductStatus401Schema, deactivateProductStatus403Schema, deactivateProductStatus404Schema, deactivateProductStatus422Schema])
 
 export type DeactivateProductErrorSchemaType = z.infer<typeof deactivateProductErrorSchema>
 
@@ -56,6 +60,7 @@ export type DeactivateProductOptionsSchemaType = z.infer<typeof deactivateProduc
 
 export const deactivateProductResponsesSchema = z.object({
   '200': deactivateProductStatus200Schema,
+  '400': deactivateProductStatus400Schema,
   '401': deactivateProductStatus401Schema,
   '403': deactivateProductStatus403Schema,
   '404': deactivateProductStatus404Schema,

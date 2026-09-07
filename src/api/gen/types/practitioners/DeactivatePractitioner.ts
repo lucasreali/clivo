@@ -17,6 +17,8 @@ export type DeactivatePractitionerPath = {
 
 export type DeactivatePractitionerStatus200 = PractitionerView;
 
+export type DeactivatePractitionerStatus400 = ErrorResponse;
+
 export type DeactivatePractitionerStatus401 = ErrorResponse;
 
 export type DeactivatePractitionerStatus403 = ErrorResponse;
@@ -34,6 +36,7 @@ export type DeactivatePractitionerOptions = {
 
 export type DeactivatePractitionerResponses = {
     "200": DeactivatePractitionerStatus200;
+    "400": DeactivatePractitionerStatus400;
     "401": DeactivatePractitionerStatus401;
     "403": DeactivatePractitionerStatus403;
     "404": DeactivatePractitionerStatus404;
@@ -43,4 +46,4 @@ export type DeactivatePractitionerResponses = {
 /**
  * @description Union of all possible responses
 */
-export type DeactivatePractitionerResponse = (DeactivatePractitionerStatus200 | DeactivatePractitionerStatus401 | DeactivatePractitionerStatus403 | DeactivatePractitionerStatus404 | DeactivatePractitionerStatus422);
+export type DeactivatePractitionerResponse = (DeactivatePractitionerStatus200 | DeactivatePractitionerStatus400 | DeactivatePractitionerStatus401 | DeactivatePractitionerStatus403 | DeactivatePractitionerStatus404 | DeactivatePractitionerStatus422);

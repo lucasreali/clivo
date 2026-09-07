@@ -17,6 +17,8 @@ export type GetClinicPath = {
 
 export type GetClinicStatus200 = ClinicView;
 
+export type GetClinicStatus400 = ErrorResponse;
+
 export type GetClinicStatus401 = ErrorResponse;
 
 export type GetClinicStatus403 = ErrorResponse;
@@ -34,6 +36,7 @@ export type GetClinicOptions = {
 
 export type GetClinicResponses = {
     "200": GetClinicStatus200;
+    "400": GetClinicStatus400;
     "401": GetClinicStatus401;
     "403": GetClinicStatus403;
     "404": GetClinicStatus404;
@@ -43,4 +46,4 @@ export type GetClinicResponses = {
 /**
  * @description Union of all possible responses
 */
-export type GetClinicResponse = (GetClinicStatus200 | GetClinicStatus401 | GetClinicStatus403 | GetClinicStatus404 | GetClinicStatus422);
+export type GetClinicResponse = (GetClinicStatus200 | GetClinicStatus400 | GetClinicStatus401 | GetClinicStatus403 | GetClinicStatus404 | GetClinicStatus422);

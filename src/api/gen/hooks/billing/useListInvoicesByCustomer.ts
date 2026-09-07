@@ -4,7 +4,7 @@
 */
 
 import type { RequestConfig, ResponseErrorConfig } from '../../.kubb/client'
-import type { ListInvoicesByCustomerOptions, ListInvoicesByCustomerStatus200, ListInvoicesByCustomerStatus401, ListInvoicesByCustomerStatus403, ListInvoicesByCustomerStatus404, ListInvoicesByCustomerStatus422 } from '../../types/billing/ListInvoicesByCustomer'
+import type { ListInvoicesByCustomerOptions, ListInvoicesByCustomerStatus200, ListInvoicesByCustomerStatus400, ListInvoicesByCustomerStatus401, ListInvoicesByCustomerStatus403, ListInvoicesByCustomerStatus404, ListInvoicesByCustomerStatus422 } from '../../types/billing/ListInvoicesByCustomer'
 import type { QueryKey, QueryClient, QueryObserverOptions, UseQueryResult } from '@tanstack/react-query'
 import { listInvoicesByCustomer } from '../../clients/billing/listInvoicesByCustomer'
 import { queryOptions, useQuery } from '@tanstack/react-query'
@@ -15,7 +15,7 @@ type ListInvoicesByCustomerQueryKey = ReturnType<typeof listInvoicesByCustomerQu
 
 export function listInvoicesByCustomerQueryOptions({ query }: ListInvoicesByCustomerOptions, config: Partial<Omit<RequestConfig, 'path' | 'query' | 'body' | 'headers' | 'url'>> = {}) {
   const queryKey = listInvoicesByCustomerQueryKey({ query })
-  return queryOptions<ListInvoicesByCustomerStatus200, ResponseErrorConfig<ListInvoicesByCustomerStatus401 | ListInvoicesByCustomerStatus403 | ListInvoicesByCustomerStatus404 | ListInvoicesByCustomerStatus422>, ListInvoicesByCustomerStatus200, typeof queryKey>({
+  return queryOptions<ListInvoicesByCustomerStatus200, ResponseErrorConfig<ListInvoicesByCustomerStatus400 | ListInvoicesByCustomerStatus401 | ListInvoicesByCustomerStatus403 | ListInvoicesByCustomerStatus404 | ListInvoicesByCustomerStatus422>, ListInvoicesByCustomerStatus200, typeof queryKey>({
    queryKey,
    queryFn: async ({ signal }) => {
       return listInvoicesByCustomer({ ...config, query, signal: config.signal ?? signal, throwOnError: true }).unwrap()
@@ -28,7 +28,7 @@ export function listInvoicesByCustomerQueryOptions({ query }: ListInvoicesByCust
  * {@link /api/invoices}
  */
 export function useListInvoicesByCustomer<TData = ListInvoicesByCustomerStatus200, TQueryData = ListInvoicesByCustomerStatus200, TQueryKey extends QueryKey = ListInvoicesByCustomerQueryKey>({ query }: { query: ListInvoicesByCustomerOptions['query'] | (() => ListInvoicesByCustomerOptions['query']) }, options: {
-  query?: Partial<QueryObserverOptions<ListInvoicesByCustomerStatus200, ResponseErrorConfig<ListInvoicesByCustomerStatus401 | ListInvoicesByCustomerStatus403 | ListInvoicesByCustomerStatus404 | ListInvoicesByCustomerStatus422>, TData, TQueryData, TQueryKey>> & { client?: QueryClient },
+  query?: Partial<QueryObserverOptions<ListInvoicesByCustomerStatus200, ResponseErrorConfig<ListInvoicesByCustomerStatus400 | ListInvoicesByCustomerStatus401 | ListInvoicesByCustomerStatus403 | ListInvoicesByCustomerStatus404 | ListInvoicesByCustomerStatus422>, TData, TQueryData, TQueryKey>> & { client?: QueryClient },
   client?: Partial<Omit<RequestConfig, 'path' | 'query' | 'body' | 'headers' | 'url'>>
 } = {}) {
   const { query: queryConfig = {}, client: config = {} } = options ?? {}
@@ -40,7 +40,7 @@ export function useListInvoicesByCustomer<TData = ListInvoicesByCustomerStatus20
    ...listInvoicesByCustomerQueryOptions(resolvedParams, config),
    ...resolvedOptions,
    queryKey,
-  } as unknown as QueryObserverOptions, queryClient) as UseQueryResult<TData, ResponseErrorConfig<ListInvoicesByCustomerStatus401 | ListInvoicesByCustomerStatus403 | ListInvoicesByCustomerStatus404 | ListInvoicesByCustomerStatus422>> & { queryKey: TQueryKey }
+  } as unknown as QueryObserverOptions, queryClient) as UseQueryResult<TData, ResponseErrorConfig<ListInvoicesByCustomerStatus400 | ListInvoicesByCustomerStatus401 | ListInvoicesByCustomerStatus403 | ListInvoicesByCustomerStatus404 | ListInvoicesByCustomerStatus422>> & { queryKey: TQueryKey }
 
   queryResult.queryKey = queryKey as TQueryKey
 

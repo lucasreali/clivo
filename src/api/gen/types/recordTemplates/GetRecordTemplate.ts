@@ -17,6 +17,8 @@ export type GetRecordTemplatePath = {
 
 export type GetRecordTemplateStatus200 = RecordTemplateView;
 
+export type GetRecordTemplateStatus400 = ErrorResponse;
+
 export type GetRecordTemplateStatus401 = ErrorResponse;
 
 export type GetRecordTemplateStatus403 = ErrorResponse;
@@ -34,6 +36,7 @@ export type GetRecordTemplateOptions = {
 
 export type GetRecordTemplateResponses = {
     "200": GetRecordTemplateStatus200;
+    "400": GetRecordTemplateStatus400;
     "401": GetRecordTemplateStatus401;
     "403": GetRecordTemplateStatus403;
     "404": GetRecordTemplateStatus404;
@@ -43,4 +46,4 @@ export type GetRecordTemplateResponses = {
 /**
  * @description Union of all possible responses
 */
-export type GetRecordTemplateResponse = (GetRecordTemplateStatus200 | GetRecordTemplateStatus401 | GetRecordTemplateStatus403 | GetRecordTemplateStatus404 | GetRecordTemplateStatus422);
+export type GetRecordTemplateResponse = (GetRecordTemplateStatus200 | GetRecordTemplateStatus400 | GetRecordTemplateStatus401 | GetRecordTemplateStatus403 | GetRecordTemplateStatus404 | GetRecordTemplateStatus422);

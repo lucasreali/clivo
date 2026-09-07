@@ -11,6 +11,10 @@ export const getCurrentSessionStatus200Schema = sessionViewSchema
 
 export type GetCurrentSessionStatus200SchemaType = z.infer<typeof getCurrentSessionStatus200Schema>
 
+export const getCurrentSessionStatus400Schema = errorResponseSchema
+
+export type GetCurrentSessionStatus400SchemaType = z.infer<typeof getCurrentSessionStatus400Schema>
+
 export const getCurrentSessionStatus401Schema = errorResponseSchema
 
 export type GetCurrentSessionStatus401SchemaType = z.infer<typeof getCurrentSessionStatus401Schema>
@@ -31,7 +35,7 @@ export const getCurrentSessionResponseSchema = getCurrentSessionStatus200Schema
 
 export type GetCurrentSessionResponseSchemaType = z.infer<typeof getCurrentSessionResponseSchema>
 
-export const getCurrentSessionErrorSchema = z.union([getCurrentSessionStatus401Schema, getCurrentSessionStatus403Schema, getCurrentSessionStatus404Schema, getCurrentSessionStatus422Schema])
+export const getCurrentSessionErrorSchema = z.union([getCurrentSessionStatus400Schema, getCurrentSessionStatus401Schema, getCurrentSessionStatus403Schema, getCurrentSessionStatus404Schema, getCurrentSessionStatus422Schema])
 
 export type GetCurrentSessionErrorSchemaType = z.infer<typeof getCurrentSessionErrorSchema>
 
@@ -46,6 +50,7 @@ export type GetCurrentSessionOptionsSchemaType = z.infer<typeof getCurrentSessio
 
 export const getCurrentSessionResponsesSchema = z.object({
   '200': getCurrentSessionStatus200Schema,
+  '400': getCurrentSessionStatus400Schema,
   '401': getCurrentSessionStatus401Schema,
   '403': getCurrentSessionStatus403Schema,
   '404': getCurrentSessionStatus404Schema,

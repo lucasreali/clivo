@@ -15,6 +15,10 @@ export const getRecordTemplateStatus200Schema = recordTemplateViewSchema
 
 export type GetRecordTemplateStatus200SchemaType = z.infer<typeof getRecordTemplateStatus200Schema>
 
+export const getRecordTemplateStatus400Schema = errorResponseSchema
+
+export type GetRecordTemplateStatus400SchemaType = z.infer<typeof getRecordTemplateStatus400Schema>
+
 export const getRecordTemplateStatus401Schema = errorResponseSchema
 
 export type GetRecordTemplateStatus401SchemaType = z.infer<typeof getRecordTemplateStatus401Schema>
@@ -35,7 +39,7 @@ export const getRecordTemplateResponseSchema = getRecordTemplateStatus200Schema
 
 export type GetRecordTemplateResponseSchemaType = z.infer<typeof getRecordTemplateResponseSchema>
 
-export const getRecordTemplateErrorSchema = z.union([getRecordTemplateStatus401Schema, getRecordTemplateStatus403Schema, getRecordTemplateStatus404Schema, getRecordTemplateStatus422Schema])
+export const getRecordTemplateErrorSchema = z.union([getRecordTemplateStatus400Schema, getRecordTemplateStatus401Schema, getRecordTemplateStatus403Schema, getRecordTemplateStatus404Schema, getRecordTemplateStatus422Schema])
 
 export type GetRecordTemplateErrorSchemaType = z.infer<typeof getRecordTemplateErrorSchema>
 
@@ -56,6 +60,7 @@ export type GetRecordTemplateOptionsSchemaType = z.infer<typeof getRecordTemplat
 
 export const getRecordTemplateResponsesSchema = z.object({
   '200': getRecordTemplateStatus200Schema,
+  '400': getRecordTemplateStatus400Schema,
   '401': getRecordTemplateStatus401Schema,
   '403': getRecordTemplateStatus403Schema,
   '404': getRecordTemplateStatus404Schema,

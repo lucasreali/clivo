@@ -4,7 +4,7 @@
 */
 
 import type { RequestConfig, ResponseErrorConfig } from '../../.kubb/client'
-import type { ActivateModuleOptions, ActivateModuleStatus204, ActivateModuleStatus401, ActivateModuleStatus403, ActivateModuleStatus404, ActivateModuleStatus422 } from '../../types/modules/ActivateModule'
+import type { ActivateModuleOptions, ActivateModuleStatus204, ActivateModuleStatus400, ActivateModuleStatus401, ActivateModuleStatus403, ActivateModuleStatus404, ActivateModuleStatus422 } from '../../types/modules/ActivateModule'
 import type { UseMutationOptions, UseMutationResult, QueryClient } from '@tanstack/react-query'
 import { activateModule } from '../../clients/modules/activateModule'
 import { mutationOptions, useMutation } from '@tanstack/react-query'
@@ -13,7 +13,7 @@ export const activateModuleMutationKey = () => [{ url: '/api/modules/:code/activ
 
 export function activateModuleMutationOptions<TContext = unknown>(config: Partial<Omit<RequestConfig, 'path' | 'query' | 'body' | 'headers' | 'url'>> = {}) {
   const mutationKey = activateModuleMutationKey()
-  return mutationOptions<ActivateModuleStatus204, ResponseErrorConfig<ActivateModuleStatus401 | ActivateModuleStatus403 | ActivateModuleStatus404 | ActivateModuleStatus422>, ActivateModuleOptions, TContext>({
+  return mutationOptions<ActivateModuleStatus204, ResponseErrorConfig<ActivateModuleStatus400 | ActivateModuleStatus401 | ActivateModuleStatus403 | ActivateModuleStatus404 | ActivateModuleStatus422>, ActivateModuleOptions, TContext>({
     mutationKey,
     mutationFn: async({ path }) => {
       return activateModule({ ...config, path, throwOnError: true }).unwrap()
@@ -26,18 +26,18 @@ export function activateModuleMutationOptions<TContext = unknown>(config: Partia
  * {@link /api/modules/:code/activation}
  */
 export function useActivateModule<TContext>(options: {
-  mutation?: UseMutationOptions<ActivateModuleStatus204, ResponseErrorConfig<ActivateModuleStatus401 | ActivateModuleStatus403 | ActivateModuleStatus404 | ActivateModuleStatus422>, ActivateModuleOptions, TContext> & { client?: QueryClient },
+  mutation?: UseMutationOptions<ActivateModuleStatus204, ResponseErrorConfig<ActivateModuleStatus400 | ActivateModuleStatus401 | ActivateModuleStatus403 | ActivateModuleStatus404 | ActivateModuleStatus422>, ActivateModuleOptions, TContext> & { client?: QueryClient },
   client?: Partial<Omit<RequestConfig, 'path' | 'query' | 'body' | 'headers' | 'url'>>,
 } = {}) {
   const { mutation = {}, client: config = {} } = options ?? {}
   const { client: queryClient, ...mutationOptions } = mutation;
   const mutationKey = mutationOptions.mutationKey ?? activateModuleMutationKey()
 
-  const baseOptions = activateModuleMutationOptions(config) as UseMutationOptions<ActivateModuleStatus204, ResponseErrorConfig<ActivateModuleStatus401 | ActivateModuleStatus403 | ActivateModuleStatus404 | ActivateModuleStatus422>, ActivateModuleOptions, TContext>
+  const baseOptions = activateModuleMutationOptions(config) as UseMutationOptions<ActivateModuleStatus204, ResponseErrorConfig<ActivateModuleStatus400 | ActivateModuleStatus401 | ActivateModuleStatus403 | ActivateModuleStatus404 | ActivateModuleStatus422>, ActivateModuleOptions, TContext>
 
-  return useMutation<ActivateModuleStatus204, ResponseErrorConfig<ActivateModuleStatus401 | ActivateModuleStatus403 | ActivateModuleStatus404 | ActivateModuleStatus422>, ActivateModuleOptions, TContext>({
+  return useMutation<ActivateModuleStatus204, ResponseErrorConfig<ActivateModuleStatus400 | ActivateModuleStatus401 | ActivateModuleStatus403 | ActivateModuleStatus404 | ActivateModuleStatus422>, ActivateModuleOptions, TContext>({
     ...baseOptions,
     mutationKey,
     ...mutationOptions,
-  }, queryClient) as UseMutationResult<ActivateModuleStatus204, ResponseErrorConfig<ActivateModuleStatus401 | ActivateModuleStatus403 | ActivateModuleStatus404 | ActivateModuleStatus422>, ActivateModuleOptions, TContext>
+  }, queryClient) as UseMutationResult<ActivateModuleStatus204, ResponseErrorConfig<ActivateModuleStatus400 | ActivateModuleStatus401 | ActivateModuleStatus403 | ActivateModuleStatus404 | ActivateModuleStatus422>, ActivateModuleOptions, TContext>
 }

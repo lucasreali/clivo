@@ -17,6 +17,8 @@ export type GetProductPath = {
 
 export type GetProductStatus200 = ProductView;
 
+export type GetProductStatus400 = ErrorResponse;
+
 export type GetProductStatus401 = ErrorResponse;
 
 export type GetProductStatus403 = ErrorResponse;
@@ -34,6 +36,7 @@ export type GetProductOptions = {
 
 export type GetProductResponses = {
     "200": GetProductStatus200;
+    "400": GetProductStatus400;
     "401": GetProductStatus401;
     "403": GetProductStatus403;
     "404": GetProductStatus404;
@@ -43,4 +46,4 @@ export type GetProductResponses = {
 /**
  * @description Union of all possible responses
 */
-export type GetProductResponse = (GetProductStatus200 | GetProductStatus401 | GetProductStatus403 | GetProductStatus404 | GetProductStatus422);
+export type GetProductResponse = (GetProductStatus200 | GetProductStatus400 | GetProductStatus401 | GetProductStatus403 | GetProductStatus404 | GetProductStatus422);

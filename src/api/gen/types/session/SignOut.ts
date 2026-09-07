@@ -7,6 +7,8 @@ import type { ErrorResponse } from '../ErrorResponse'
 
 export type SignOutStatus204 = unknown;
 
+export type SignOutStatus400 = ErrorResponse;
+
 export type SignOutStatus401 = ErrorResponse;
 
 export type SignOutStatus403 = ErrorResponse;
@@ -24,6 +26,7 @@ export type SignOutOptions = {
 
 export type SignOutResponses = {
     "204": SignOutStatus204;
+    "400": SignOutStatus400;
     "401": SignOutStatus401;
     "403": SignOutStatus403;
     "404": SignOutStatus404;
@@ -33,4 +36,4 @@ export type SignOutResponses = {
 /**
  * @description Union of all possible responses
 */
-export type SignOutResponse = (SignOutStatus204 | SignOutStatus401 | SignOutStatus403 | SignOutStatus404 | SignOutStatus422);
+export type SignOutResponse = (SignOutStatus204 | SignOutStatus400 | SignOutStatus401 | SignOutStatus403 | SignOutStatus404 | SignOutStatus422);

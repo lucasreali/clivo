@@ -4,7 +4,7 @@
 */
 
 import type { RequestConfig, ResponseErrorConfig } from '../../.kubb/client'
-import type { GetCapabilitiesStatus200, GetCapabilitiesStatus401, GetCapabilitiesStatus403, GetCapabilitiesStatus404, GetCapabilitiesStatus422 } from '../../types/capabilities/GetCapabilities'
+import type { GetCapabilitiesStatus200, GetCapabilitiesStatus400, GetCapabilitiesStatus401, GetCapabilitiesStatus403, GetCapabilitiesStatus404, GetCapabilitiesStatus422 } from '../../types/capabilities/GetCapabilities'
 import type { QueryKey, QueryClient, QueryObserverOptions, UseQueryResult } from '@tanstack/react-query'
 import { getCapabilities } from '../../clients/capabilities/getCapabilities'
 import { queryOptions, useQuery } from '@tanstack/react-query'
@@ -15,7 +15,7 @@ type GetCapabilitiesQueryKey = ReturnType<typeof getCapabilitiesQueryKey>
 
 export function getCapabilitiesQueryOptions(config: Partial<Omit<RequestConfig, 'path' | 'query' | 'body' | 'headers' | 'url'>> = {}) {
   const queryKey = getCapabilitiesQueryKey()
-  return queryOptions<GetCapabilitiesStatus200, ResponseErrorConfig<GetCapabilitiesStatus401 | GetCapabilitiesStatus403 | GetCapabilitiesStatus404 | GetCapabilitiesStatus422>, GetCapabilitiesStatus200, typeof queryKey>({
+  return queryOptions<GetCapabilitiesStatus200, ResponseErrorConfig<GetCapabilitiesStatus400 | GetCapabilitiesStatus401 | GetCapabilitiesStatus403 | GetCapabilitiesStatus404 | GetCapabilitiesStatus422>, GetCapabilitiesStatus200, typeof queryKey>({
    queryKey,
    queryFn: async ({ signal }) => {
       return getCapabilities({ ...config, signal: config.signal ?? signal, throwOnError: true }).unwrap()
@@ -28,7 +28,7 @@ export function getCapabilitiesQueryOptions(config: Partial<Omit<RequestConfig, 
  * {@link /api/capabilities}
  */
 export function useGetCapabilities<TData = GetCapabilitiesStatus200, TQueryData = GetCapabilitiesStatus200, TQueryKey extends QueryKey = GetCapabilitiesQueryKey>(options: {
-  query?: Partial<QueryObserverOptions<GetCapabilitiesStatus200, ResponseErrorConfig<GetCapabilitiesStatus401 | GetCapabilitiesStatus403 | GetCapabilitiesStatus404 | GetCapabilitiesStatus422>, TData, TQueryData, TQueryKey>> & { client?: QueryClient },
+  query?: Partial<QueryObserverOptions<GetCapabilitiesStatus200, ResponseErrorConfig<GetCapabilitiesStatus400 | GetCapabilitiesStatus401 | GetCapabilitiesStatus403 | GetCapabilitiesStatus404 | GetCapabilitiesStatus422>, TData, TQueryData, TQueryKey>> & { client?: QueryClient },
   client?: Partial<Omit<RequestConfig, 'path' | 'query' | 'body' | 'headers' | 'url'>>
 } = {}) {
   const { query: queryConfig = {}, client: config = {} } = options ?? {}
@@ -39,7 +39,7 @@ export function useGetCapabilities<TData = GetCapabilitiesStatus200, TQueryData 
    ...getCapabilitiesQueryOptions(config),
    ...resolvedOptions,
    queryKey,
-  } as unknown as QueryObserverOptions, queryClient) as UseQueryResult<TData, ResponseErrorConfig<GetCapabilitiesStatus401 | GetCapabilitiesStatus403 | GetCapabilitiesStatus404 | GetCapabilitiesStatus422>> & { queryKey: TQueryKey }
+  } as unknown as QueryObserverOptions, queryClient) as UseQueryResult<TData, ResponseErrorConfig<GetCapabilitiesStatus400 | GetCapabilitiesStatus401 | GetCapabilitiesStatus403 | GetCapabilitiesStatus404 | GetCapabilitiesStatus422>> & { queryKey: TQueryKey }
 
   queryResult.queryKey = queryKey as TQueryKey
 

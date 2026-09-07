@@ -4,7 +4,7 @@
 */
 
 import type { RequestConfig, ResponseErrorConfig } from '../../.kubb/client'
-import type { GetCommissionStatementOptions, GetCommissionStatementStatus200, GetCommissionStatementStatus401, GetCommissionStatementStatus403, GetCommissionStatementStatus404, GetCommissionStatementStatus422 } from '../../types/commissions/GetCommissionStatement'
+import type { GetCommissionStatementOptions, GetCommissionStatementStatus200, GetCommissionStatementStatus400, GetCommissionStatementStatus401, GetCommissionStatementStatus403, GetCommissionStatementStatus404, GetCommissionStatementStatus422 } from '../../types/commissions/GetCommissionStatement'
 import type { QueryKey, QueryClient, QueryObserverOptions, UseQueryResult } from '@tanstack/react-query'
 import { getCommissionStatement } from '../../clients/commissions/getCommissionStatement'
 import { queryOptions, useQuery } from '@tanstack/react-query'
@@ -15,7 +15,7 @@ type GetCommissionStatementQueryKey = ReturnType<typeof getCommissionStatementQu
 
 export function getCommissionStatementQueryOptions({ query }: GetCommissionStatementOptions, config: Partial<Omit<RequestConfig, 'path' | 'query' | 'body' | 'headers' | 'url'>> = {}) {
   const queryKey = getCommissionStatementQueryKey({ query })
-  return queryOptions<GetCommissionStatementStatus200, ResponseErrorConfig<GetCommissionStatementStatus401 | GetCommissionStatementStatus403 | GetCommissionStatementStatus404 | GetCommissionStatementStatus422>, GetCommissionStatementStatus200, typeof queryKey>({
+  return queryOptions<GetCommissionStatementStatus200, ResponseErrorConfig<GetCommissionStatementStatus400 | GetCommissionStatementStatus401 | GetCommissionStatementStatus403 | GetCommissionStatementStatus404 | GetCommissionStatementStatus422>, GetCommissionStatementStatus200, typeof queryKey>({
    queryKey,
    queryFn: async ({ signal }) => {
       return getCommissionStatement({ ...config, query, signal: config.signal ?? signal, throwOnError: true }).unwrap()
@@ -28,7 +28,7 @@ export function getCommissionStatementQueryOptions({ query }: GetCommissionState
  * {@link /api/commissions}
  */
 export function useGetCommissionStatement<TData = GetCommissionStatementStatus200, TQueryData = GetCommissionStatementStatus200, TQueryKey extends QueryKey = GetCommissionStatementQueryKey>({ query }: { query: GetCommissionStatementOptions['query'] | (() => GetCommissionStatementOptions['query']) }, options: {
-  query?: Partial<QueryObserverOptions<GetCommissionStatementStatus200, ResponseErrorConfig<GetCommissionStatementStatus401 | GetCommissionStatementStatus403 | GetCommissionStatementStatus404 | GetCommissionStatementStatus422>, TData, TQueryData, TQueryKey>> & { client?: QueryClient },
+  query?: Partial<QueryObserverOptions<GetCommissionStatementStatus200, ResponseErrorConfig<GetCommissionStatementStatus400 | GetCommissionStatementStatus401 | GetCommissionStatementStatus403 | GetCommissionStatementStatus404 | GetCommissionStatementStatus422>, TData, TQueryData, TQueryKey>> & { client?: QueryClient },
   client?: Partial<Omit<RequestConfig, 'path' | 'query' | 'body' | 'headers' | 'url'>>
 } = {}) {
   const { query: queryConfig = {}, client: config = {} } = options ?? {}
@@ -40,7 +40,7 @@ export function useGetCommissionStatement<TData = GetCommissionStatementStatus20
    ...getCommissionStatementQueryOptions(resolvedParams, config),
    ...resolvedOptions,
    queryKey,
-  } as unknown as QueryObserverOptions, queryClient) as UseQueryResult<TData, ResponseErrorConfig<GetCommissionStatementStatus401 | GetCommissionStatementStatus403 | GetCommissionStatementStatus404 | GetCommissionStatementStatus422>> & { queryKey: TQueryKey }
+  } as unknown as QueryObserverOptions, queryClient) as UseQueryResult<TData, ResponseErrorConfig<GetCommissionStatementStatus400 | GetCommissionStatementStatus401 | GetCommissionStatementStatus403 | GetCommissionStatementStatus404 | GetCommissionStatementStatus422>> & { queryKey: TQueryKey }
 
   queryResult.queryKey = queryKey as TQueryKey
 

@@ -8,6 +8,8 @@ import type { NotificationView } from '../NotificationView'
 
 export type DispatchDueNotificationsStatus200 = NotificationView[];
 
+export type DispatchDueNotificationsStatus400 = ErrorResponse;
+
 export type DispatchDueNotificationsStatus401 = ErrorResponse;
 
 export type DispatchDueNotificationsStatus403 = ErrorResponse;
@@ -25,6 +27,7 @@ export type DispatchDueNotificationsOptions = {
 
 export type DispatchDueNotificationsResponses = {
     "200": DispatchDueNotificationsStatus200;
+    "400": DispatchDueNotificationsStatus400;
     "401": DispatchDueNotificationsStatus401;
     "403": DispatchDueNotificationsStatus403;
     "404": DispatchDueNotificationsStatus404;
@@ -34,4 +37,4 @@ export type DispatchDueNotificationsResponses = {
 /**
  * @description Union of all possible responses
 */
-export type DispatchDueNotificationsResponse = (DispatchDueNotificationsStatus200 | DispatchDueNotificationsStatus401 | DispatchDueNotificationsStatus403 | DispatchDueNotificationsStatus404 | DispatchDueNotificationsStatus422);
+export type DispatchDueNotificationsResponse = (DispatchDueNotificationsStatus200 | DispatchDueNotificationsStatus400 | DispatchDueNotificationsStatus401 | DispatchDueNotificationsStatus403 | DispatchDueNotificationsStatus404 | DispatchDueNotificationsStatus422);

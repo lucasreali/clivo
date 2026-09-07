@@ -4,7 +4,7 @@
 */
 
 import type { RequestConfig, ResponseErrorConfig } from '../../.kubb/client'
-import type { DeactivateModuleOptions, DeactivateModuleStatus204, DeactivateModuleStatus401, DeactivateModuleStatus403, DeactivateModuleStatus404, DeactivateModuleStatus422 } from '../../types/modules/DeactivateModule'
+import type { DeactivateModuleOptions, DeactivateModuleStatus204, DeactivateModuleStatus400, DeactivateModuleStatus401, DeactivateModuleStatus403, DeactivateModuleStatus404, DeactivateModuleStatus422 } from '../../types/modules/DeactivateModule'
 import type { UseMutationOptions, UseMutationResult, QueryClient } from '@tanstack/react-query'
 import { deactivateModule } from '../../clients/modules/deactivateModule'
 import { mutationOptions, useMutation } from '@tanstack/react-query'
@@ -13,7 +13,7 @@ export const deactivateModuleMutationKey = () => [{ url: '/api/modules/:code/act
 
 export function deactivateModuleMutationOptions<TContext = unknown>(config: Partial<Omit<RequestConfig, 'path' | 'query' | 'body' | 'headers' | 'url'>> = {}) {
   const mutationKey = deactivateModuleMutationKey()
-  return mutationOptions<DeactivateModuleStatus204, ResponseErrorConfig<DeactivateModuleStatus401 | DeactivateModuleStatus403 | DeactivateModuleStatus404 | DeactivateModuleStatus422>, DeactivateModuleOptions, TContext>({
+  return mutationOptions<DeactivateModuleStatus204, ResponseErrorConfig<DeactivateModuleStatus400 | DeactivateModuleStatus401 | DeactivateModuleStatus403 | DeactivateModuleStatus404 | DeactivateModuleStatus422>, DeactivateModuleOptions, TContext>({
     mutationKey,
     mutationFn: async({ path }) => {
       return deactivateModule({ ...config, path, throwOnError: true }).unwrap()
@@ -26,18 +26,18 @@ export function deactivateModuleMutationOptions<TContext = unknown>(config: Part
  * {@link /api/modules/:code/activation}
  */
 export function useDeactivateModule<TContext>(options: {
-  mutation?: UseMutationOptions<DeactivateModuleStatus204, ResponseErrorConfig<DeactivateModuleStatus401 | DeactivateModuleStatus403 | DeactivateModuleStatus404 | DeactivateModuleStatus422>, DeactivateModuleOptions, TContext> & { client?: QueryClient },
+  mutation?: UseMutationOptions<DeactivateModuleStatus204, ResponseErrorConfig<DeactivateModuleStatus400 | DeactivateModuleStatus401 | DeactivateModuleStatus403 | DeactivateModuleStatus404 | DeactivateModuleStatus422>, DeactivateModuleOptions, TContext> & { client?: QueryClient },
   client?: Partial<Omit<RequestConfig, 'path' | 'query' | 'body' | 'headers' | 'url'>>,
 } = {}) {
   const { mutation = {}, client: config = {} } = options ?? {}
   const { client: queryClient, ...mutationOptions } = mutation;
   const mutationKey = mutationOptions.mutationKey ?? deactivateModuleMutationKey()
 
-  const baseOptions = deactivateModuleMutationOptions(config) as UseMutationOptions<DeactivateModuleStatus204, ResponseErrorConfig<DeactivateModuleStatus401 | DeactivateModuleStatus403 | DeactivateModuleStatus404 | DeactivateModuleStatus422>, DeactivateModuleOptions, TContext>
+  const baseOptions = deactivateModuleMutationOptions(config) as UseMutationOptions<DeactivateModuleStatus204, ResponseErrorConfig<DeactivateModuleStatus400 | DeactivateModuleStatus401 | DeactivateModuleStatus403 | DeactivateModuleStatus404 | DeactivateModuleStatus422>, DeactivateModuleOptions, TContext>
 
-  return useMutation<DeactivateModuleStatus204, ResponseErrorConfig<DeactivateModuleStatus401 | DeactivateModuleStatus403 | DeactivateModuleStatus404 | DeactivateModuleStatus422>, DeactivateModuleOptions, TContext>({
+  return useMutation<DeactivateModuleStatus204, ResponseErrorConfig<DeactivateModuleStatus400 | DeactivateModuleStatus401 | DeactivateModuleStatus403 | DeactivateModuleStatus404 | DeactivateModuleStatus422>, DeactivateModuleOptions, TContext>({
     ...baseOptions,
     mutationKey,
     ...mutationOptions,
-  }, queryClient) as UseMutationResult<DeactivateModuleStatus204, ResponseErrorConfig<DeactivateModuleStatus401 | DeactivateModuleStatus403 | DeactivateModuleStatus404 | DeactivateModuleStatus422>, DeactivateModuleOptions, TContext>
+  }, queryClient) as UseMutationResult<DeactivateModuleStatus204, ResponseErrorConfig<DeactivateModuleStatus400 | DeactivateModuleStatus401 | DeactivateModuleStatus403 | DeactivateModuleStatus404 | DeactivateModuleStatus422>, DeactivateModuleOptions, TContext>
 }

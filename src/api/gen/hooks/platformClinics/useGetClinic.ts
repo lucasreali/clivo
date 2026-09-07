@@ -4,7 +4,7 @@
 */
 
 import type { RequestConfig, ResponseErrorConfig } from '../../.kubb/client'
-import type { GetClinicOptions, GetClinicStatus200, GetClinicStatus401, GetClinicStatus403, GetClinicStatus404, GetClinicStatus422 } from '../../types/platformClinics/GetClinic'
+import type { GetClinicOptions, GetClinicStatus200, GetClinicStatus400, GetClinicStatus401, GetClinicStatus403, GetClinicStatus404, GetClinicStatus422 } from '../../types/platformClinics/GetClinic'
 import type { QueryKey, QueryClient, QueryObserverOptions, UseQueryResult } from '@tanstack/react-query'
 import { getClinic } from '../../clients/platformClinics/getClinic'
 import { queryOptions, useQuery } from '@tanstack/react-query'
@@ -15,7 +15,7 @@ type GetClinicQueryKey = ReturnType<typeof getClinicQueryKey>
 
 export function getClinicQueryOptions({ path }: GetClinicOptions, config: Partial<Omit<RequestConfig, 'path' | 'query' | 'body' | 'headers' | 'url'>> = {}) {
   const queryKey = getClinicQueryKey({ path })
-  return queryOptions<GetClinicStatus200, ResponseErrorConfig<GetClinicStatus401 | GetClinicStatus403 | GetClinicStatus404 | GetClinicStatus422>, GetClinicStatus200, typeof queryKey>({
+  return queryOptions<GetClinicStatus200, ResponseErrorConfig<GetClinicStatus400 | GetClinicStatus401 | GetClinicStatus403 | GetClinicStatus404 | GetClinicStatus422>, GetClinicStatus200, typeof queryKey>({
    queryKey,
    queryFn: async ({ signal }) => {
       return getClinic({ ...config, path, signal: config.signal ?? signal, throwOnError: true }).unwrap()
@@ -28,7 +28,7 @@ export function getClinicQueryOptions({ path }: GetClinicOptions, config: Partia
  * {@link /api/platform/tenants/:tenantId}
  */
 export function useGetClinic<TData = GetClinicStatus200, TQueryData = GetClinicStatus200, TQueryKey extends QueryKey = GetClinicQueryKey>({ path }: { path: GetClinicOptions['path'] | (() => GetClinicOptions['path']) }, options: {
-  query?: Partial<QueryObserverOptions<GetClinicStatus200, ResponseErrorConfig<GetClinicStatus401 | GetClinicStatus403 | GetClinicStatus404 | GetClinicStatus422>, TData, TQueryData, TQueryKey>> & { client?: QueryClient },
+  query?: Partial<QueryObserverOptions<GetClinicStatus200, ResponseErrorConfig<GetClinicStatus400 | GetClinicStatus401 | GetClinicStatus403 | GetClinicStatus404 | GetClinicStatus422>, TData, TQueryData, TQueryKey>> & { client?: QueryClient },
   client?: Partial<Omit<RequestConfig, 'path' | 'query' | 'body' | 'headers' | 'url'>>
 } = {}) {
   const { query: queryConfig = {}, client: config = {} } = options ?? {}
@@ -40,7 +40,7 @@ export function useGetClinic<TData = GetClinicStatus200, TQueryData = GetClinicS
    ...getClinicQueryOptions(resolvedParams, config),
    ...resolvedOptions,
    queryKey,
-  } as unknown as QueryObserverOptions, queryClient) as UseQueryResult<TData, ResponseErrorConfig<GetClinicStatus401 | GetClinicStatus403 | GetClinicStatus404 | GetClinicStatus422>> & { queryKey: TQueryKey }
+  } as unknown as QueryObserverOptions, queryClient) as UseQueryResult<TData, ResponseErrorConfig<GetClinicStatus400 | GetClinicStatus401 | GetClinicStatus403 | GetClinicStatus404 | GetClinicStatus422>> & { queryKey: TQueryKey }
 
   queryResult.queryKey = queryKey as TQueryKey
 

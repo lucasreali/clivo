@@ -23,6 +23,8 @@ export type GetCommissionStatementQuery = {
 
 export type GetCommissionStatementStatus200 = StatementView;
 
+export type GetCommissionStatementStatus400 = ErrorResponse;
+
 export type GetCommissionStatementStatus401 = ErrorResponse;
 
 export type GetCommissionStatementStatus403 = ErrorResponse;
@@ -40,6 +42,7 @@ export type GetCommissionStatementOptions = {
 
 export type GetCommissionStatementResponses = {
     "200": GetCommissionStatementStatus200;
+    "400": GetCommissionStatementStatus400;
     "401": GetCommissionStatementStatus401;
     "403": GetCommissionStatementStatus403;
     "404": GetCommissionStatementStatus404;
@@ -49,4 +52,4 @@ export type GetCommissionStatementResponses = {
 /**
  * @description Union of all possible responses
 */
-export type GetCommissionStatementResponse = (GetCommissionStatementStatus200 | GetCommissionStatementStatus401 | GetCommissionStatementStatus403 | GetCommissionStatementStatus404 | GetCommissionStatementStatus422);
+export type GetCommissionStatementResponse = (GetCommissionStatementStatus200 | GetCommissionStatementStatus400 | GetCommissionStatementStatus401 | GetCommissionStatementStatus403 | GetCommissionStatementStatus404 | GetCommissionStatementStatus422);

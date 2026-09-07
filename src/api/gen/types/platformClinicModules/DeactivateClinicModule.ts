@@ -11,6 +11,8 @@ export type DeactivateClinicModulePath = {
 
 export type DeactivateClinicModuleStatus204 = unknown;
 
+export type DeactivateClinicModuleStatus400 = ErrorResponse;
+
 export type DeactivateClinicModuleStatus401 = ErrorResponse;
 
 export type DeactivateClinicModuleStatus403 = ErrorResponse;
@@ -28,6 +30,7 @@ export type DeactivateClinicModuleOptions = {
 
 export type DeactivateClinicModuleResponses = {
     "204": DeactivateClinicModuleStatus204;
+    "400": DeactivateClinicModuleStatus400;
     "401": DeactivateClinicModuleStatus401;
     "403": DeactivateClinicModuleStatus403;
     "404": DeactivateClinicModuleStatus404;
@@ -37,4 +40,4 @@ export type DeactivateClinicModuleResponses = {
 /**
  * @description Union of all possible responses
 */
-export type DeactivateClinicModuleResponse = (DeactivateClinicModuleStatus204 | DeactivateClinicModuleStatus401 | DeactivateClinicModuleStatus403 | DeactivateClinicModuleStatus404 | DeactivateClinicModuleStatus422);
+export type DeactivateClinicModuleResponse = (DeactivateClinicModuleStatus204 | DeactivateClinicModuleStatus400 | DeactivateClinicModuleStatus401 | DeactivateClinicModuleStatus403 | DeactivateClinicModuleStatus404 | DeactivateClinicModuleStatus422);

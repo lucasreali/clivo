@@ -4,7 +4,7 @@
 */
 
 import type { RequestConfig, ResponseErrorConfig } from '../../.kubb/client'
-import type { ListScheduleBlocksOptions, ListScheduleBlocksStatus200, ListScheduleBlocksStatus401, ListScheduleBlocksStatus403, ListScheduleBlocksStatus404, ListScheduleBlocksStatus422 } from '../../types/scheduleBlocks/ListScheduleBlocks'
+import type { ListScheduleBlocksOptions, ListScheduleBlocksStatus200, ListScheduleBlocksStatus400, ListScheduleBlocksStatus401, ListScheduleBlocksStatus403, ListScheduleBlocksStatus404, ListScheduleBlocksStatus422 } from '../../types/scheduleBlocks/ListScheduleBlocks'
 import type { QueryKey, QueryClient, QueryObserverOptions, UseQueryResult } from '@tanstack/react-query'
 import { listScheduleBlocks } from '../../clients/scheduleBlocks/listScheduleBlocks'
 import { queryOptions, useQuery } from '@tanstack/react-query'
@@ -15,7 +15,7 @@ type ListScheduleBlocksQueryKey = ReturnType<typeof listScheduleBlocksQueryKey>
 
 export function listScheduleBlocksQueryOptions({ query }: ListScheduleBlocksOptions, config: Partial<Omit<RequestConfig, 'path' | 'query' | 'body' | 'headers' | 'url'>> = {}) {
   const queryKey = listScheduleBlocksQueryKey({ query })
-  return queryOptions<ListScheduleBlocksStatus200, ResponseErrorConfig<ListScheduleBlocksStatus401 | ListScheduleBlocksStatus403 | ListScheduleBlocksStatus404 | ListScheduleBlocksStatus422>, ListScheduleBlocksStatus200, typeof queryKey>({
+  return queryOptions<ListScheduleBlocksStatus200, ResponseErrorConfig<ListScheduleBlocksStatus400 | ListScheduleBlocksStatus401 | ListScheduleBlocksStatus403 | ListScheduleBlocksStatus404 | ListScheduleBlocksStatus422>, ListScheduleBlocksStatus200, typeof queryKey>({
    queryKey,
    queryFn: async ({ signal }) => {
       return listScheduleBlocks({ ...config, query, signal: config.signal ?? signal, throwOnError: true }).unwrap()
@@ -28,7 +28,7 @@ export function listScheduleBlocksQueryOptions({ query }: ListScheduleBlocksOpti
  * {@link /api/schedule-blocks}
  */
 export function useListScheduleBlocks<TData = ListScheduleBlocksStatus200, TQueryData = ListScheduleBlocksStatus200, TQueryKey extends QueryKey = ListScheduleBlocksQueryKey>({ query }: { query: ListScheduleBlocksOptions['query'] | (() => ListScheduleBlocksOptions['query']) }, options: {
-  query?: Partial<QueryObserverOptions<ListScheduleBlocksStatus200, ResponseErrorConfig<ListScheduleBlocksStatus401 | ListScheduleBlocksStatus403 | ListScheduleBlocksStatus404 | ListScheduleBlocksStatus422>, TData, TQueryData, TQueryKey>> & { client?: QueryClient },
+  query?: Partial<QueryObserverOptions<ListScheduleBlocksStatus200, ResponseErrorConfig<ListScheduleBlocksStatus400 | ListScheduleBlocksStatus401 | ListScheduleBlocksStatus403 | ListScheduleBlocksStatus404 | ListScheduleBlocksStatus422>, TData, TQueryData, TQueryKey>> & { client?: QueryClient },
   client?: Partial<Omit<RequestConfig, 'path' | 'query' | 'body' | 'headers' | 'url'>>
 } = {}) {
   const { query: queryConfig = {}, client: config = {} } = options ?? {}
@@ -40,7 +40,7 @@ export function useListScheduleBlocks<TData = ListScheduleBlocksStatus200, TQuer
    ...listScheduleBlocksQueryOptions(resolvedParams, config),
    ...resolvedOptions,
    queryKey,
-  } as unknown as QueryObserverOptions, queryClient) as UseQueryResult<TData, ResponseErrorConfig<ListScheduleBlocksStatus401 | ListScheduleBlocksStatus403 | ListScheduleBlocksStatus404 | ListScheduleBlocksStatus422>> & { queryKey: TQueryKey }
+  } as unknown as QueryObserverOptions, queryClient) as UseQueryResult<TData, ResponseErrorConfig<ListScheduleBlocksStatus400 | ListScheduleBlocksStatus401 | ListScheduleBlocksStatus403 | ListScheduleBlocksStatus404 | ListScheduleBlocksStatus422>> & { queryKey: TQueryKey }
 
   queryResult.queryKey = queryKey as TQueryKey
 

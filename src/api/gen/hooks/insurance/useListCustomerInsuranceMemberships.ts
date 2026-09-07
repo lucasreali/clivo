@@ -4,7 +4,7 @@
 */
 
 import type { RequestConfig, ResponseErrorConfig } from '../../.kubb/client'
-import type { ListCustomerInsuranceMembershipsOptions, ListCustomerInsuranceMembershipsStatus200, ListCustomerInsuranceMembershipsStatus401, ListCustomerInsuranceMembershipsStatus403, ListCustomerInsuranceMembershipsStatus404, ListCustomerInsuranceMembershipsStatus422 } from '../../types/insurance/ListCustomerInsuranceMemberships'
+import type { ListCustomerInsuranceMembershipsOptions, ListCustomerInsuranceMembershipsStatus200, ListCustomerInsuranceMembershipsStatus400, ListCustomerInsuranceMembershipsStatus401, ListCustomerInsuranceMembershipsStatus403, ListCustomerInsuranceMembershipsStatus404, ListCustomerInsuranceMembershipsStatus422 } from '../../types/insurance/ListCustomerInsuranceMemberships'
 import type { QueryKey, QueryClient, QueryObserverOptions, UseQueryResult } from '@tanstack/react-query'
 import { listCustomerInsuranceMemberships } from '../../clients/insurance/listCustomerInsuranceMemberships'
 import { queryOptions, useQuery } from '@tanstack/react-query'
@@ -15,7 +15,7 @@ type ListCustomerInsuranceMembershipsQueryKey = ReturnType<typeof listCustomerIn
 
 export function listCustomerInsuranceMembershipsQueryOptions({ query }: ListCustomerInsuranceMembershipsOptions, config: Partial<Omit<RequestConfig, 'path' | 'query' | 'body' | 'headers' | 'url'>> = {}) {
   const queryKey = listCustomerInsuranceMembershipsQueryKey({ query })
-  return queryOptions<ListCustomerInsuranceMembershipsStatus200, ResponseErrorConfig<ListCustomerInsuranceMembershipsStatus401 | ListCustomerInsuranceMembershipsStatus403 | ListCustomerInsuranceMembershipsStatus404 | ListCustomerInsuranceMembershipsStatus422>, ListCustomerInsuranceMembershipsStatus200, typeof queryKey>({
+  return queryOptions<ListCustomerInsuranceMembershipsStatus200, ResponseErrorConfig<ListCustomerInsuranceMembershipsStatus400 | ListCustomerInsuranceMembershipsStatus401 | ListCustomerInsuranceMembershipsStatus403 | ListCustomerInsuranceMembershipsStatus404 | ListCustomerInsuranceMembershipsStatus422>, ListCustomerInsuranceMembershipsStatus200, typeof queryKey>({
    queryKey,
    queryFn: async ({ signal }) => {
       return listCustomerInsuranceMemberships({ ...config, query, signal: config.signal ?? signal, throwOnError: true }).unwrap()
@@ -28,7 +28,7 @@ export function listCustomerInsuranceMembershipsQueryOptions({ query }: ListCust
  * {@link /api/insurance-memberships}
  */
 export function useListCustomerInsuranceMemberships<TData = ListCustomerInsuranceMembershipsStatus200, TQueryData = ListCustomerInsuranceMembershipsStatus200, TQueryKey extends QueryKey = ListCustomerInsuranceMembershipsQueryKey>({ query }: { query: ListCustomerInsuranceMembershipsOptions['query'] | (() => ListCustomerInsuranceMembershipsOptions['query']) }, options: {
-  query?: Partial<QueryObserverOptions<ListCustomerInsuranceMembershipsStatus200, ResponseErrorConfig<ListCustomerInsuranceMembershipsStatus401 | ListCustomerInsuranceMembershipsStatus403 | ListCustomerInsuranceMembershipsStatus404 | ListCustomerInsuranceMembershipsStatus422>, TData, TQueryData, TQueryKey>> & { client?: QueryClient },
+  query?: Partial<QueryObserverOptions<ListCustomerInsuranceMembershipsStatus200, ResponseErrorConfig<ListCustomerInsuranceMembershipsStatus400 | ListCustomerInsuranceMembershipsStatus401 | ListCustomerInsuranceMembershipsStatus403 | ListCustomerInsuranceMembershipsStatus404 | ListCustomerInsuranceMembershipsStatus422>, TData, TQueryData, TQueryKey>> & { client?: QueryClient },
   client?: Partial<Omit<RequestConfig, 'path' | 'query' | 'body' | 'headers' | 'url'>>
 } = {}) {
   const { query: queryConfig = {}, client: config = {} } = options ?? {}
@@ -40,7 +40,7 @@ export function useListCustomerInsuranceMemberships<TData = ListCustomerInsuranc
    ...listCustomerInsuranceMembershipsQueryOptions(resolvedParams, config),
    ...resolvedOptions,
    queryKey,
-  } as unknown as QueryObserverOptions, queryClient) as UseQueryResult<TData, ResponseErrorConfig<ListCustomerInsuranceMembershipsStatus401 | ListCustomerInsuranceMembershipsStatus403 | ListCustomerInsuranceMembershipsStatus404 | ListCustomerInsuranceMembershipsStatus422>> & { queryKey: TQueryKey }
+  } as unknown as QueryObserverOptions, queryClient) as UseQueryResult<TData, ResponseErrorConfig<ListCustomerInsuranceMembershipsStatus400 | ListCustomerInsuranceMembershipsStatus401 | ListCustomerInsuranceMembershipsStatus403 | ListCustomerInsuranceMembershipsStatus404 | ListCustomerInsuranceMembershipsStatus422>> & { queryKey: TQueryKey }
 
   queryResult.queryKey = queryKey as TQueryKey
 

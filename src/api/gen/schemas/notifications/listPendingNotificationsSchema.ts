@@ -11,6 +11,10 @@ export const listPendingNotificationsStatus200Schema = z.array(notificationViewS
 
 export type ListPendingNotificationsStatus200SchemaType = z.infer<typeof listPendingNotificationsStatus200Schema>
 
+export const listPendingNotificationsStatus400Schema = errorResponseSchema
+
+export type ListPendingNotificationsStatus400SchemaType = z.infer<typeof listPendingNotificationsStatus400Schema>
+
 export const listPendingNotificationsStatus401Schema = errorResponseSchema
 
 export type ListPendingNotificationsStatus401SchemaType = z.infer<typeof listPendingNotificationsStatus401Schema>
@@ -31,7 +35,7 @@ export const listPendingNotificationsResponseSchema = listPendingNotificationsSt
 
 export type ListPendingNotificationsResponseSchemaType = z.infer<typeof listPendingNotificationsResponseSchema>
 
-export const listPendingNotificationsErrorSchema = z.union([listPendingNotificationsStatus401Schema, listPendingNotificationsStatus403Schema, listPendingNotificationsStatus404Schema, listPendingNotificationsStatus422Schema])
+export const listPendingNotificationsErrorSchema = z.union([listPendingNotificationsStatus400Schema, listPendingNotificationsStatus401Schema, listPendingNotificationsStatus403Schema, listPendingNotificationsStatus404Schema, listPendingNotificationsStatus422Schema])
 
 export type ListPendingNotificationsErrorSchemaType = z.infer<typeof listPendingNotificationsErrorSchema>
 
@@ -46,6 +50,7 @@ export type ListPendingNotificationsOptionsSchemaType = z.infer<typeof listPendi
 
 export const listPendingNotificationsResponsesSchema = z.object({
   '200': listPendingNotificationsStatus200Schema,
+  '400': listPendingNotificationsStatus400Schema,
   '401': listPendingNotificationsStatus401Schema,
   '403': listPendingNotificationsStatus403Schema,
   '404': listPendingNotificationsStatus404Schema,

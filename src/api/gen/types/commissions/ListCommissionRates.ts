@@ -8,6 +8,8 @@ import type { RateView } from '../RateView'
 
 export type ListCommissionRatesStatus200 = RateView[];
 
+export type ListCommissionRatesStatus400 = ErrorResponse;
+
 export type ListCommissionRatesStatus401 = ErrorResponse;
 
 export type ListCommissionRatesStatus403 = ErrorResponse;
@@ -25,6 +27,7 @@ export type ListCommissionRatesOptions = {
 
 export type ListCommissionRatesResponses = {
     "200": ListCommissionRatesStatus200;
+    "400": ListCommissionRatesStatus400;
     "401": ListCommissionRatesStatus401;
     "403": ListCommissionRatesStatus403;
     "404": ListCommissionRatesStatus404;
@@ -34,4 +37,4 @@ export type ListCommissionRatesResponses = {
 /**
  * @description Union of all possible responses
 */
-export type ListCommissionRatesResponse = (ListCommissionRatesStatus200 | ListCommissionRatesStatus401 | ListCommissionRatesStatus403 | ListCommissionRatesStatus404 | ListCommissionRatesStatus422);
+export type ListCommissionRatesResponse = (ListCommissionRatesStatus200 | ListCommissionRatesStatus400 | ListCommissionRatesStatus401 | ListCommissionRatesStatus403 | ListCommissionRatesStatus404 | ListCommissionRatesStatus422);

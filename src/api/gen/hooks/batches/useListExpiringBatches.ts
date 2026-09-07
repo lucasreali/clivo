@@ -4,7 +4,7 @@
 */
 
 import type { RequestConfig, ResponseErrorConfig } from '../../.kubb/client'
-import type { ListExpiringBatchesOptions, ListExpiringBatchesStatus200, ListExpiringBatchesStatus401, ListExpiringBatchesStatus403, ListExpiringBatchesStatus404, ListExpiringBatchesStatus422 } from '../../types/batches/ListExpiringBatches'
+import type { ListExpiringBatchesOptions, ListExpiringBatchesStatus200, ListExpiringBatchesStatus400, ListExpiringBatchesStatus401, ListExpiringBatchesStatus403, ListExpiringBatchesStatus404, ListExpiringBatchesStatus422 } from '../../types/batches/ListExpiringBatches'
 import type { QueryKey, QueryClient, QueryObserverOptions, UseQueryResult } from '@tanstack/react-query'
 import { listExpiringBatches } from '../../clients/batches/listExpiringBatches'
 import { queryOptions, useQuery } from '@tanstack/react-query'
@@ -15,7 +15,7 @@ type ListExpiringBatchesQueryKey = ReturnType<typeof listExpiringBatchesQueryKey
 
 export function listExpiringBatchesQueryOptions({ query }: ListExpiringBatchesOptions = {}, config: Partial<Omit<RequestConfig, 'path' | 'query' | 'body' | 'headers' | 'url'>> = {}) {
   const queryKey = listExpiringBatchesQueryKey({ query })
-  return queryOptions<ListExpiringBatchesStatus200, ResponseErrorConfig<ListExpiringBatchesStatus401 | ListExpiringBatchesStatus403 | ListExpiringBatchesStatus404 | ListExpiringBatchesStatus422>, ListExpiringBatchesStatus200, typeof queryKey>({
+  return queryOptions<ListExpiringBatchesStatus200, ResponseErrorConfig<ListExpiringBatchesStatus400 | ListExpiringBatchesStatus401 | ListExpiringBatchesStatus403 | ListExpiringBatchesStatus404 | ListExpiringBatchesStatus422>, ListExpiringBatchesStatus200, typeof queryKey>({
    queryKey,
    queryFn: async ({ signal }) => {
       return listExpiringBatches({ ...config, query, signal: config.signal ?? signal, throwOnError: true }).unwrap()
@@ -28,7 +28,7 @@ export function listExpiringBatchesQueryOptions({ query }: ListExpiringBatchesOp
  * {@link /api/batches/expiring}
  */
 export function useListExpiringBatches<TData = ListExpiringBatchesStatus200, TQueryData = ListExpiringBatchesStatus200, TQueryKey extends QueryKey = ListExpiringBatchesQueryKey>({ query }: { query?: ListExpiringBatchesOptions['query'] | (() => ListExpiringBatchesOptions['query']) } = {}, options: {
-  query?: Partial<QueryObserverOptions<ListExpiringBatchesStatus200, ResponseErrorConfig<ListExpiringBatchesStatus401 | ListExpiringBatchesStatus403 | ListExpiringBatchesStatus404 | ListExpiringBatchesStatus422>, TData, TQueryData, TQueryKey>> & { client?: QueryClient },
+  query?: Partial<QueryObserverOptions<ListExpiringBatchesStatus200, ResponseErrorConfig<ListExpiringBatchesStatus400 | ListExpiringBatchesStatus401 | ListExpiringBatchesStatus403 | ListExpiringBatchesStatus404 | ListExpiringBatchesStatus422>, TData, TQueryData, TQueryKey>> & { client?: QueryClient },
   client?: Partial<Omit<RequestConfig, 'path' | 'query' | 'body' | 'headers' | 'url'>>
 } = {}) {
   const { query: queryConfig = {}, client: config = {} } = options ?? {}
@@ -40,7 +40,7 @@ export function useListExpiringBatches<TData = ListExpiringBatchesStatus200, TQu
    ...listExpiringBatchesQueryOptions(resolvedParams, config),
    ...resolvedOptions,
    queryKey,
-  } as unknown as QueryObserverOptions, queryClient) as UseQueryResult<TData, ResponseErrorConfig<ListExpiringBatchesStatus401 | ListExpiringBatchesStatus403 | ListExpiringBatchesStatus404 | ListExpiringBatchesStatus422>> & { queryKey: TQueryKey }
+  } as unknown as QueryObserverOptions, queryClient) as UseQueryResult<TData, ResponseErrorConfig<ListExpiringBatchesStatus400 | ListExpiringBatchesStatus401 | ListExpiringBatchesStatus403 | ListExpiringBatchesStatus404 | ListExpiringBatchesStatus422>> & { queryKey: TQueryKey }
 
   queryResult.queryKey = queryKey as TQueryKey
 

@@ -7,7 +7,7 @@ import * as z from 'zod'
 
 export const batchRequestSchema = z.object({
   code: z.string().min(1),
-  expiresOn: z.iso.date().optional(),
+  expiresOn: z.iso.date(),
   manufacturer: z.string().optional(),
   quantity: z.number(),
 })
