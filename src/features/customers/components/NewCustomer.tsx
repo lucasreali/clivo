@@ -1,15 +1,19 @@
+import { zodResolver } from "@hookform/resolvers/zod";
 import { useNavigate } from "@tanstack/react-router";
 import { useState } from "react";
+import { useForm } from "react-hook-form";
 import { useRecordCustomerConsent, useRegisterCustomer } from "#/api/gen/hooks";
 import { Page } from "#/features/navigation/components/AppShell";
 import { TopBar } from "#/features/navigation/components/TopBar";
-import { messageOf, violationsOf } from "#/shared/api-error";
+import { messageOf } from "#/shared/api-error";
+import { showViolations } from "#/shared/form/violations";
 import { Button } from "#/shared/ui/Button";
 import { Callout } from "#/shared/ui/Callout";
 import { Checkbox } from "#/shared/ui/Field";
 import { Panel } from "#/shared/ui/Panel";
 import {
 	type CustomerDraft,
+	customerSchema,
 	EMPTY_DRAFT,
 	requestOf,
 } from "../model/customer-draft";
@@ -19,28 +23,21 @@ const CONSENT_PURPOSE = "Prontuário, agendamento e cobrança";
 const CONSENT_SOURCE = "RECEPTION";
 
 export function NewCustomer() {
-	const [draft, setDraft] = useState<CustomerDraft>(EMPTY_DRAFT);
 	const [consented, setConsented] = useState(false);
 	const navigate = useNavigate();
 	const consent = useRecordCustomerConsent();
 
+	const form = useForm<CustomerDraft>({
+		resolver: zodResolver(customerSchema),
+		mode: "onTouched",
+		defaultValues: EMPTY_DRAFT,
+	});
+
 	const register = useRegisterCustomer({
-		mutation: {
-			onSuccess: async (customer) => {
-				await grantConsent(customer.id as string);
-				await navigate({
-					to: "/clientes/$customerId",
-					params: { customerId: String(customer.id) },
-				});
-			},
-		},
+		mutation: { onError: (error) => showViolations(error, form.setError) },
 	});
 
 	async function grantConsent(customerId: string) {
-		if (!consented) {
-			return;
-		}
-
 		await consent.mutateAsync({
 			path: { id: customerId },
 			body: {
@@ -51,23 +48,32 @@ export function NewCustomer() {
 		});
 	}
 
-	function submit(event: React.FormEvent) {
-		event.preventDefault();
-		register.mutate({ body: requestOf(draft) });
-	}
+	const submit = form.handleSubmit((values) =>
+		register.mutate(
+			{ body: requestOf(values) },
+			{
+				onSuccess: async (customer) => {
+					const customerId = customer.id as string;
+					if (consented) {
+						await grantConsent(customerId);
+					}
+					await navigate({
+						to: "/clientes/$customerId",
+						params: { customerId },
+					});
+				},
+			},
+		),
+	);
 
 	return (
 		<>
 			<TopBar title="Novo cliente" meta="Clientes › Cadastro" />
 
 			<Page>
-				<form onSubmit={submit} className="flex flex-col gap-4">
+				<form onSubmit={submit} noValidate className="flex flex-col gap-4">
 					<Panel className="p-5">
-						<CustomerFields
-							draft={draft}
-							errors={violationsOf(register.error)}
-							onChange={(patch) => setDraft({ ...draft, ...patch })}
-						/>
+						<CustomerFields control={form.control} />
 					</Panel>
 
 					<Panel className="flex flex-col gap-3 p-5">

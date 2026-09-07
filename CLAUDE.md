@@ -94,7 +94,8 @@ plain JSON numbers, not bigint) — keep that override when touching the config.
 
 Errors surface as `ResponseError`; read them through `messageOf`, `violationsOf`
 and `statusOf` in `src/shared/api-error.ts` rather than inspecting the error
-shape inline. Generated query keys are objects (`{ url, params }`), so
+shape inline. In a form, hand the failure to `showViolations` instead, which
+moves each field violation onto its input. Generated query keys are objects (`{ url, params }`), so
 invalidation predicates match on `queryKey[0].url` — see
 `useAppointmentRefresh` in `src/features/appointments/hooks/use-appointment-actions.ts`.
 
@@ -111,6 +112,14 @@ invalidation predicates match on `queryKey[0].url` — see
 - Domain models in `model/` are classes with private constructors and static
   `from(...)` factories exposing behavior, not getters (`Capabilities`,
   `Modules`, `Parameters`).
+- **Forms are react-hook-form + zod.** The schema lives beside the draft type in
+  `model/` (`customerSchema`, `clinicSchema`) and is built from the reusable
+  field rules in `src/shared/form/schema.ts`; screens render
+  `FormTextField`/`FormSelectField` from `src/shared/form/fields.tsx` and never
+  wire an input by hand. Documents mask as the typist goes (`maskNationalId`,
+  `maskTaxId`, `maskPhone`, `maskPostalCode` in `shared/format/document.ts`) and
+  are sent to the API as bare digits. CPF and CNPJ check digits are verified in
+  `src/shared/validation/document.ts` — the API validates neither.
 - User-visible strings are Portuguese; commit messages, comments and identifiers
   are English.
 

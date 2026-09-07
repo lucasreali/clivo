@@ -1,49 +1,54 @@
+import { zodResolver } from "@hookform/resolvers/zod";
 import { useNavigate } from "@tanstack/react-router";
-import { useState } from "react";
+import { useForm } from "react-hook-form";
 import { Page } from "#/features/navigation/components/AppShell";
 import { TopBar } from "#/features/navigation/components/TopBar";
-import { messageOf, violationsOf } from "#/shared/api-error";
+import { messageOf } from "#/shared/api-error";
+import { FormTextField } from "#/shared/form/fields";
+import { showViolations } from "#/shared/form/violations";
+import { maskTaxId } from "#/shared/format/document";
 import { Button } from "#/shared/ui/Button";
 import { Callout } from "#/shared/ui/Callout";
-import { Field, TextInput } from "#/shared/ui/Field";
 import { Panel, PanelHeader } from "#/shared/ui/Panel";
 import { useClinicOnboarding } from "../hooks/use-clinics";
 import {
 	type ClinicDraft,
+	clinicSchema,
 	EMPTY_CLINIC_DRAFT,
-	isReadyToOpen,
 	newClinicRequestOf,
 } from "../model/clinic-draft";
 
 export function NewClinic() {
-	const [draft, setDraft] = useState<ClinicDraft>(EMPTY_CLINIC_DRAFT);
 	const navigate = useNavigate();
+
+	const form = useForm<ClinicDraft>({
+		resolver: zodResolver(clinicSchema),
+		mode: "onTouched",
+		defaultValues: EMPTY_CLINIC_DRAFT,
+	});
+
 	const onboarding = useClinicOnboarding();
 
-	const errors = violationsOf(onboarding.error);
-	const patch = (change: Partial<ClinicDraft>) =>
-		setDraft({ ...draft, ...change });
-
-	function submit(event: React.FormEvent) {
-		event.preventDefault();
+	const submit = form.handleSubmit((values) =>
 		onboarding.mutate(
-			{ body: newClinicRequestOf(draft) },
+			{ body: newClinicRequestOf(values) },
 			{
+				onError: (error) => showViolations(error, form.setError),
 				onSuccess: (provisioned) =>
 					navigate({
 						to: "/console/clinicas/$tenantId/modulos",
 						params: { tenantId: String(provisioned.clinic?.id) },
 					}),
 			},
-		);
-	}
+		),
+	);
 
 	return (
 		<>
 			<TopBar title="Nova clínica" meta="Console · Clínicas · cadastro" />
 
 			<Page>
-				<form onSubmit={submit} className="flex flex-col gap-4">
+				<form onSubmit={submit} noValidate className="flex flex-col gap-4">
 					<div className="grid grid-cols-[1.7fr_1fr] items-start gap-4">
 						<div className="flex flex-col gap-4">
 							<Panel>
@@ -52,86 +57,41 @@ export function NewClinic() {
 									hint="Identificação do inquilino nesta instância."
 								/>
 								<div className="grid grid-cols-2 gap-5 p-5">
-									<Field
+									<FormTextField
+										control={form.control}
+										name="name"
 										label="Nome da clínica"
 										required
-										error={errors.name}
 										hint="Como a clínica aparece nas telas e nos relatórios."
-									>
-										{(id) => (
-											<TextInput
-												id={id}
-												value={draft.name}
-												onChange={(event) =>
-													patch({ name: event.target.value })
-												}
-												required
-											/>
-										)}
-									</Field>
-
-									<Field
+									/>
+									<FormTextField
+										control={form.control}
+										name="code"
 										label="Código único"
 										required
-										error={errors.code}
-										hint="Usado em URLs, exportações e chamados de suporte. Letras e números, sem acento. Não poderá ser alterado depois."
-									>
-										{(id) => (
-											<TextInput
-												id={id}
-												value={draft.code}
-												onChange={(event) =>
-													patch({ code: event.target.value.toUpperCase() })
-												}
-												maxLength={20}
-												required
-											/>
-										)}
-									</Field>
-
-									<Field label="Razão social" error={errors.legalName}>
-										{(id) => (
-											<TextInput
-												id={id}
-												value={draft.legalName}
-												onChange={(event) =>
-													patch({ legalName: event.target.value })
-												}
-											/>
-										)}
-									</Field>
-
-									<Field
+										maxLength={12}
+										placeholder="SORRNOR"
+										hint="Usado em URLs, exportações e chamados de suporte. De 4 a 12 letras e números, sem acento. Não poderá ser alterado depois."
+									/>
+									<FormTextField
+										control={form.control}
+										name="legalName"
+										label="Razão social"
+									/>
+									<FormTextField
+										control={form.control}
+										name="taxId"
 										label="CNPJ"
-										error={errors.taxId}
-										hint="Somente os 14 dígitos; a pontuação é descartada."
-									>
-										{(id) => (
-											<TextInput
-												id={id}
-												value={draft.taxId}
-												onChange={(event) =>
-													patch({ taxId: event.target.value })
-												}
-											/>
-										)}
-									</Field>
-
-									<Field
+										mask={maskTaxId}
+										inputMode="numeric"
+										placeholder="00.000.000/0000-00"
+									/>
+									<FormTextField
+										control={form.control}
+										name="segment"
 										label="Segmento"
-										error={errors.segment}
 										hint="Odontologia, fisioterapia, veterinária… orienta a implantação, não trava a configuração."
-									>
-										{(id) => (
-											<TextInput
-												id={id}
-												value={draft.segment}
-												onChange={(event) =>
-													patch({ segment: event.target.value })
-												}
-											/>
-										)}
-									</Field>
+									/>
 								</div>
 							</Panel>
 
@@ -141,53 +101,29 @@ export function NewClinic() {
 									hint="Sem este usuário a clínica nasce inacessível: ninguém do lado do cliente consegue entrar nem criar outros usuários."
 								/>
 								<div className="grid grid-cols-2 gap-5 p-5">
-									<Field label="Nome" required error={errors.managerName}>
-										{(id) => (
-											<TextInput
-												id={id}
-												value={draft.managerName}
-												onChange={(event) =>
-													patch({ managerName: event.target.value })
-												}
-												required
-											/>
-										)}
-									</Field>
-
-									<Field label="E-mail" required error={errors.managerEmail}>
-										{(id) => (
-											<TextInput
-												id={id}
-												type="email"
-												value={draft.managerEmail}
-												onChange={(event) =>
-													patch({ managerEmail: event.target.value })
-												}
-												required
-											/>
-										)}
-									</Field>
-
-									<Field
-										label="Senha inicial"
+									<FormTextField
+										control={form.control}
+										name="managerName"
+										label="Nome"
 										required
-										error={errors.managerPassword}
+									/>
+									<FormTextField
+										control={form.control}
+										name="managerEmail"
+										label="E-mail"
+										type="email"
+										inputMode="email"
+										required
+									/>
+									<FormTextField
+										control={form.control}
+										name="managerPassword"
+										label="Senha inicial"
+										type="password"
+										autoComplete="new-password"
+										required
 										hint="Mínimo de 8 caracteres. Combine a troca no primeiro acesso."
-									>
-										{(id) => (
-											<TextInput
-												id={id}
-												type="password"
-												autoComplete="new-password"
-												value={draft.managerPassword}
-												onChange={(event) =>
-													patch({ managerPassword: event.target.value })
-												}
-												minLength={8}
-												required
-											/>
-										)}
-									</Field>
+									/>
 								</div>
 							</Panel>
 						</div>
@@ -223,10 +159,7 @@ export function NewClinic() {
 						>
 							Cancelar
 						</Button>
-						<Button
-							type="submit"
-							disabled={onboarding.isPending || !isReadyToOpen(draft)}
-						>
+						<Button type="submit" disabled={onboarding.isPending}>
 							{onboarding.isPending ? "Criando…" : "Criar clínica"}
 						</Button>
 					</div>

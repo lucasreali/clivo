@@ -97,7 +97,11 @@ new branch in a screen.** If you find yourself writing
 - **Domain models are classes with behaviour**, not bags of getters. `Modules`
   answers `isActive`; it does not expose its array.
 - **Errors** — every mutation surfaces `messageOf(error)` in a `Callout`, and
-  forms map field violations through `violationsOf(error)`.
+  forms hand the failure to `showViolations`, which puts each field violation on
+  its own input.
+- **Forms** — react-hook-form drives the state, a zod schema in the feature's
+  `model/` states the rules, and `shared/form/` holds the bound inputs. The API
+  checks neither CPF nor CNPJ, so the client owns those check digits.
 - **Copy is Portuguese, code and docs are English.**
 
 ## Rendering mode and the API origin

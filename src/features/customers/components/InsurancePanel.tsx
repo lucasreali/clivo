@@ -1,22 +1,38 @@
-import { useState } from "react";
+import { zodResolver } from "@hookform/resolvers/zod";
+import { useForm } from "react-hook-form";
+import * as z from "zod";
 import {
 	useEnrolInsuranceMembership,
 	useListCustomerInsuranceMemberships,
 	useListInsurancePlans,
 } from "#/api/gen/hooks";
 import { messageOf } from "#/shared/api-error";
+import { FormSelectField, FormTextField } from "#/shared/form/fields";
+import { requiredText } from "#/shared/form/schema";
+import { showViolations } from "#/shared/form/violations";
 import { Button } from "#/shared/ui/Button";
 import { Callout } from "#/shared/ui/Callout";
-import { Field, Select, TextInput } from "#/shared/ui/Field";
 import { Panel, PanelHeader } from "#/shared/ui/Panel";
 
 type InsurancePanelProps = {
 	customerId: string;
 };
 
+const membershipSchema = z.object({
+	planId: requiredText("Escolha a operadora."),
+	memberNumber: z.string(),
+});
+
+type MembershipDraft = z.infer<typeof membershipSchema>;
+
+const EMPTY: MembershipDraft = { planId: "", memberNumber: "" };
+
 export function InsurancePanel({ customerId }: InsurancePanelProps) {
-	const [planId, setPlanId] = useState("");
-	const [memberNumber, setMemberNumber] = useState("");
+	const form = useForm<MembershipDraft>({
+		resolver: zodResolver(membershipSchema),
+		mode: "onTouched",
+		defaultValues: EMPTY,
+	});
 
 	const memberships = useListCustomerInsuranceMemberships({
 		query: { customerId },
@@ -25,19 +41,17 @@ export function InsurancePanel({ customerId }: InsurancePanelProps) {
 
 	const enrol = useEnrolInsuranceMembership({
 		mutation: {
+			onError: (error) => showViolations(error, form.setError),
 			onSuccess: async () => {
-				setMemberNumber("");
+				form.reset(EMPTY);
 				await memberships.refetch();
 			},
 		},
 	});
 
-	function submit(event: React.FormEvent) {
-		event.preventDefault();
-		enrol.mutate({
-			body: { customerId, planId, memberNumber },
-		});
-	}
+	const submit = form.handleSubmit((values) =>
+		enrol.mutate({ body: { customerId, ...values } }),
+	);
 
 	return (
 		<Panel>
@@ -64,37 +78,32 @@ export function InsurancePanel({ customerId }: InsurancePanelProps) {
 
 			<form
 				onSubmit={submit}
-				className="flex items-end gap-3 border-t border-line bg-surface px-4 py-3"
+				noValidate
+				className="flex items-start gap-3 border-t border-line bg-surface px-4 py-3"
 			>
-				<Field label="Operadora">
-					{(id) => (
-						<Select
-							id={id}
-							value={planId}
-							onChange={(event) => setPlanId(event.target.value)}
-							required
-						>
-							<option value="">Selecione</option>
-							{(plans.data ?? []).map((plan) => (
-								<option key={plan.id} value={plan.id}>
-									{plan.name}
-								</option>
-							))}
-						</Select>
-					)}
-				</Field>
-				<Field label="Número da carteirinha">
-					{(id) => (
-						<TextInput
-							id={id}
-							value={memberNumber}
-							onChange={(event) => setMemberNumber(event.target.value)}
-						/>
-					)}
-				</Field>
-				<Button type="submit" disabled={!planId || enrol.isPending}>
-					Vincular
-				</Button>
+				<FormSelectField
+					control={form.control}
+					name="planId"
+					label="Operadora"
+					required
+				>
+					<option value="">Selecione</option>
+					{(plans.data ?? []).map((plan) => (
+						<option key={plan.id} value={plan.id}>
+							{plan.name}
+						</option>
+					))}
+				</FormSelectField>
+				<FormTextField
+					control={form.control}
+					name="memberNumber"
+					label="Número da carteirinha"
+				/>
+				<div className="pt-6">
+					<Button type="submit" disabled={enrol.isPending}>
+						Vincular
+					</Button>
+				</div>
 			</form>
 
 			{enrol.isError ? (

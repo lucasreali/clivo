@@ -1,27 +1,45 @@
-import { useState } from "react";
+import { zodResolver } from "@hookform/resolvers/zod";
+import { useForm } from "react-hook-form";
+import * as z from "zod";
 import { useRegisterPlatformAdministrator } from "#/api/gen/hooks";
 import { Page } from "#/features/navigation/components/AppShell";
 import { TopBar } from "#/features/navigation/components/TopBar";
-import { messageOf, violationsOf } from "#/shared/api-error";
+import { messageOf } from "#/shared/api-error";
+import { FormTextField } from "#/shared/form/fields";
+import { password, requiredEmail, requiredText } from "#/shared/form/schema";
+import { showViolations } from "#/shared/form/violations";
 import { Button } from "#/shared/ui/Button";
 import { Callout } from "#/shared/ui/Callout";
-import { Field, TextInput } from "#/shared/ui/Field";
 import { Panel, PanelHeader } from "#/shared/ui/Panel";
 
-const EMPTY = { name: "", email: "", password: "" };
+const administratorSchema = z.object({
+	name: requiredText("Informe o nome."),
+	email: requiredEmail,
+	password: password(),
+});
+
+type AdministratorDraft = z.infer<typeof administratorSchema>;
+
+const EMPTY: AdministratorDraft = { name: "", email: "", password: "" };
 
 export function Administrators() {
-	const [draft, setDraft] = useState(EMPTY);
+	const form = useForm<AdministratorDraft>({
+		resolver: zodResolver(administratorSchema),
+		mode: "onTouched",
+		defaultValues: EMPTY,
+	});
+
 	const register = useRegisterPlatformAdministrator();
 
-	const errors = violationsOf(register.error);
-	const patch = (change: Partial<typeof EMPTY>) =>
-		setDraft({ ...draft, ...change });
-
-	function submit(event: React.FormEvent) {
-		event.preventDefault();
-		register.mutate({ body: draft }, { onSuccess: () => setDraft(EMPTY) });
-	}
+	const submit = form.handleSubmit((values) =>
+		register.mutate(
+			{ body: values },
+			{
+				onError: (error) => showViolations(error, form.setError),
+				onSuccess: () => form.reset(EMPTY),
+			},
+		),
+	);
 
 	return (
 		<>
@@ -33,7 +51,7 @@ export function Administrators() {
 			<Page>
 				<div className="grid grid-cols-[1fr_1fr] items-start gap-4">
 					<Panel className="p-5">
-						<form onSubmit={submit} className="flex flex-col gap-5">
+						<form onSubmit={submit} noValidate className="flex flex-col gap-5">
 							<div className="flex flex-col gap-1">
 								<span className="text-[13.5px] font-semibold text-ink">
 									Adicionar administrador
@@ -43,49 +61,31 @@ export function Administrators() {
 								</span>
 							</div>
 
-							<Field label="Nome" required error={errors.name}>
-								{(id) => (
-									<TextInput
-										id={id}
-										value={draft.name}
-										onChange={(event) => patch({ name: event.target.value })}
-										required
-									/>
-								)}
-							</Field>
-
-							<Field label="E-mail" required error={errors.email}>
-								{(id) => (
-									<TextInput
-										id={id}
-										type="email"
-										value={draft.email}
-										onChange={(event) => patch({ email: event.target.value })}
-										required
-									/>
-								)}
-							</Field>
-
-							<Field
-								label="Senha inicial"
+							<FormTextField
+								control={form.control}
+								name="name"
+								label="Nome"
 								required
-								error={errors.password}
+							/>
+
+							<FormTextField
+								control={form.control}
+								name="email"
+								label="E-mail"
+								type="email"
+								inputMode="email"
+								required
+							/>
+
+							<FormTextField
+								control={form.control}
+								name="password"
+								label="Senha inicial"
+								type="password"
+								autoComplete="new-password"
+								required
 								hint="Mínimo de 8 caracteres. Combine a troca no primeiro acesso."
-							>
-								{(id) => (
-									<TextInput
-										id={id}
-										type="password"
-										autoComplete="new-password"
-										value={draft.password}
-										onChange={(event) =>
-											patch({ password: event.target.value })
-										}
-										minLength={8}
-										required
-									/>
-								)}
-							</Field>
+							/>
 
 							{register.isError ? (
 								<Callout tone="danger">{messageOf(register.error)}</Callout>

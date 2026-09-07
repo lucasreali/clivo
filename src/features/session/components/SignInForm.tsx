@@ -1,15 +1,28 @@
+import { zodResolver } from "@hookform/resolvers/zod";
 import { useQueryClient } from "@tanstack/react-query";
 import { useNavigate } from "@tanstack/react-router";
-import { useState } from "react";
+import { useForm } from "react-hook-form";
+import * as z from "zod";
 import { useSignIn } from "#/api/gen/hooks";
 import { messageOf } from "#/shared/api-error";
+import { FormTextField } from "#/shared/form/fields";
+import { requiredEmail, requiredText } from "#/shared/form/schema";
 import { Button } from "#/shared/ui/Button";
 import { Callout } from "#/shared/ui/Callout";
-import { Field, TextInput } from "#/shared/ui/Field";
+
+const credentialsSchema = z.object({
+	email: requiredEmail,
+	password: requiredText("Informe a senha."),
+});
+
+type Credentials = z.infer<typeof credentialsSchema>;
 
 export function SignInForm() {
-	const [email, setEmail] = useState("");
-	const [password, setPassword] = useState("");
+	const form = useForm<Credentials>({
+		resolver: zodResolver(credentialsSchema),
+		mode: "onTouched",
+		defaultValues: { email: "", password: "" },
+	});
 	const queryClient = useQueryClient();
 	const navigate = useNavigate();
 
@@ -22,14 +35,12 @@ export function SignInForm() {
 		},
 	});
 
-	function submit(event: React.FormEvent) {
-		event.preventDefault();
-		signIn.mutate({ body: { email, password } });
-	}
+	const submit = form.handleSubmit((values) => signIn.mutate({ body: values }));
 
 	return (
 		<form
 			onSubmit={submit}
+			noValidate
 			className="flex w-[400px] flex-col gap-5 rounded-xl border border-line bg-panel p-7"
 		>
 			<div className="flex flex-col gap-1.5">
@@ -42,31 +53,24 @@ export function SignInForm() {
 				</span>
 			</div>
 
-			<Field label="E-mail" required>
-				{(id) => (
-					<TextInput
-						id={id}
-						type="email"
-						autoComplete="username"
-						value={email}
-						onChange={(event) => setEmail(event.target.value)}
-						required
-					/>
-				)}
-			</Field>
+			<FormTextField
+				control={form.control}
+				name="email"
+				label="E-mail"
+				type="email"
+				inputMode="email"
+				autoComplete="username"
+				required
+			/>
 
-			<Field label="Senha" required>
-				{(id) => (
-					<TextInput
-						id={id}
-						type="password"
-						autoComplete="current-password"
-						value={password}
-						onChange={(event) => setPassword(event.target.value)}
-						required
-					/>
-				)}
-			</Field>
+			<FormTextField
+				control={form.control}
+				name="password"
+				label="Senha"
+				type="password"
+				autoComplete="current-password"
+				required
+			/>
 
 			{signIn.isError ? (
 				<Callout tone="danger">{messageOf(signIn.error)}</Callout>

@@ -32,13 +32,13 @@ export function Field({ label, required, hint, error, children }: FieldProps) {
 	);
 }
 
-type InputProps = React.InputHTMLAttributes<HTMLInputElement>;
+type InputProps = React.ComponentProps<"input">;
 
 export function TextInput({ className, ...rest }: InputProps) {
 	return <input className={cn(CONTROL, className)} {...rest} />;
 }
 
-type TextAreaProps = React.TextareaHTMLAttributes<HTMLTextAreaElement>;
+type TextAreaProps = React.ComponentProps<"textarea">;
 
 export function TextArea({ className, ...rest }: TextAreaProps) {
 	return (
@@ -53,7 +53,7 @@ export function TextArea({ className, ...rest }: TextAreaProps) {
 	);
 }
 
-type SelectProps = React.SelectHTMLAttributes<HTMLSelectElement>;
+type SelectProps = React.ComponentProps<"select">;
 
 export function Select({ className, ...rest }: SelectProps) {
 	return <select className={cn(CONTROL, "pr-8", className)} {...rest} />;

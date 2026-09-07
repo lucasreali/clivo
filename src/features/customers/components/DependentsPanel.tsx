@@ -1,42 +1,56 @@
-import { useState } from "react";
+import { zodResolver } from "@hookform/resolvers/zod";
+import { useForm } from "react-hook-form";
+import * as z from "zod";
 import {
 	useListCustomerDependents,
 	useRegisterDependent,
 } from "#/api/gen/hooks";
 import { messageOf } from "#/shared/api-error";
+import { FormTextField } from "#/shared/form/fields";
+import { requiredText } from "#/shared/form/schema";
+import { showViolations } from "#/shared/form/violations";
 import { Button } from "#/shared/ui/Button";
 import { Callout } from "#/shared/ui/Callout";
-import { Field, TextInput } from "#/shared/ui/Field";
 import { Panel, PanelHeader } from "#/shared/ui/Panel";
 
 type DependentsPanelProps = {
 	customerId: string;
 };
 
+const dependentSchema = z.object({
+	name: requiredText("Informe o nome do dependente."),
+	type: requiredText("Informe o tipo."),
+	birthDate: z.string(),
+});
+
+type DependentDraft = z.infer<typeof dependentSchema>;
+
+const EMPTY: DependentDraft = { name: "", type: "", birthDate: "" };
+
 export function DependentsPanel({ customerId }: DependentsPanelProps) {
-	const [name, setName] = useState("");
-	const [type, setType] = useState("");
-	const [birthDate, setBirthDate] = useState("");
+	const form = useForm<DependentDraft>({
+		resolver: zodResolver(dependentSchema),
+		mode: "onTouched",
+		defaultValues: EMPTY,
+	});
 
 	const dependents = useListCustomerDependents({ path: { customerId } });
 	const register = useRegisterDependent({
 		mutation: {
+			onError: (error) => showViolations(error, form.setError),
 			onSuccess: async () => {
-				setName("");
-				setType("");
-				setBirthDate("");
+				form.reset(EMPTY);
 				await dependents.refetch();
 			},
 		},
 	});
 
-	function submit(event: React.FormEvent) {
-		event.preventDefault();
+	const submit = form.handleSubmit((values) =>
 		register.mutate({
 			path: { customerId },
-			body: { name, type, birthDate: birthDate || undefined },
-		});
-	}
+			body: { ...values, birthDate: values.birthDate || undefined },
+		}),
+	);
 
 	return (
 		<Panel>
@@ -62,41 +76,33 @@ export function DependentsPanel({ customerId }: DependentsPanelProps) {
 
 			<form
 				onSubmit={submit}
-				className="flex items-end gap-3 border-t border-line bg-surface px-4 py-3"
+				noValidate
+				className="flex items-start gap-3 border-t border-line bg-surface px-4 py-3"
 			>
-				<Field label="Nome">
-					{(id) => (
-						<TextInput
-							id={id}
-							value={name}
-							onChange={(event) => setName(event.target.value)}
-							required
-						/>
-					)}
-				</Field>
-				<Field label="Tipo" hint="Ex.: filho, cônjuge, animal.">
-					{(id) => (
-						<TextInput
-							id={id}
-							value={type}
-							onChange={(event) => setType(event.target.value)}
-							required
-						/>
-					)}
-				</Field>
-				<Field label="Nascimento">
-					{(id) => (
-						<TextInput
-							id={id}
-							type="date"
-							value={birthDate}
-							onChange={(event) => setBirthDate(event.target.value)}
-						/>
-					)}
-				</Field>
-				<Button type="submit" disabled={register.isPending}>
-					Adicionar
-				</Button>
+				<FormTextField
+					control={form.control}
+					name="name"
+					label="Nome"
+					required
+				/>
+				<FormTextField
+					control={form.control}
+					name="type"
+					label="Tipo"
+					required
+					hint="Ex.: filho, cônjuge, animal."
+				/>
+				<FormTextField
+					control={form.control}
+					name="birthDate"
+					label="Nascimento"
+					type="date"
+				/>
+				<div className="pt-6">
+					<Button type="submit" disabled={register.isPending}>
+						Adicionar
+					</Button>
+				</div>
 			</form>
 
 			{register.isError ? (
