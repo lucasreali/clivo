@@ -4,9 +4,6 @@
 */
 
 export type ModuleView = {
-    active?: boolean;
     code?: string;
-    description?: string;
     name?: string;
-    requiresModule?: string;
 };

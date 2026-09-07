@@ -6,11 +6,8 @@
 import * as z from 'zod'
 
 export const moduleViewSchema = z.object({
-  active: z.boolean().optional(),
   code: z.string().optional(),
-  description: z.string().optional(),
   name: z.string().optional(),
-  requiresModule: z.string().optional(),
 })
 
 export type ModuleViewSchemaType = z.infer<typeof moduleViewSchema>
