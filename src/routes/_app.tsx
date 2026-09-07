@@ -1,6 +1,7 @@
 import { createFileRoute, Outlet, redirect } from "@tanstack/react-router";
 import { getCurrentSessionQueryOptions } from "#/api/gen/hooks";
 import { AppShell } from "#/features/navigation/components/AppShell";
+import { labelOfRole } from "#/features/settings/model/role";
 import { statusOf } from "#/shared/api-error";
 
 export const Route = createFileRoute("/_app")({
@@ -25,7 +26,11 @@ function AppLayout() {
 	const { session } = Route.useRouteContext();
 
 	return (
-		<AppShell user={session.name ?? "Equipe"} role={session.role ?? "Clínica"}>
+		<AppShell
+			user={session.name ?? "Equipe"}
+			role={labelOfRole(session.role)}
+			clinic={session.clinic?.name ?? "Clínica"}
+		>
 			<Outlet />
 		</AppShell>
 	);

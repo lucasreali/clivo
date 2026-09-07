@@ -6,9 +6,10 @@ import { NAVIGATION, type NavigationItem } from "../model/navigation";
 type SidebarProps = {
 	user: string;
 	role: string;
+	clinic: string;
 };
 
-export function Sidebar({ user, role }: SidebarProps) {
+export function Sidebar({ user, role, clinic }: SidebarProps) {
 	const { capabilities } = useCapabilities();
 	const items = NAVIGATION.filter(
 		(item) => !item.requires || capabilities.modules.reaches(item.requires),
@@ -18,8 +19,11 @@ export function Sidebar({ user, role }: SidebarProps) {
 		<aside className="flex h-full w-[220px] shrink-0 flex-col border-r border-line bg-panel">
 			<div className="flex h-16 shrink-0 items-center gap-2 border-b border-line px-5">
 				<span className="h-2.5 w-2.5 rounded-sm bg-brand" />
-				<span className="text-[17px] font-semibold tracking-[1.6px] text-ink">
-					CLIVO
+				<span className="flex min-w-0 flex-col leading-tight">
+					<span className="text-[17px] font-semibold tracking-[1.6px] text-ink">
+						CLIVO
+					</span>
+					<span className="truncate text-[11px] text-muted">{clinic}</span>
 				</span>
 			</div>
 

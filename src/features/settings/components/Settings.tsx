@@ -1,19 +1,28 @@
+import { useGetCurrentSession } from "#/api/gen/hooks";
 import { Page } from "#/features/navigation/components/AppShell";
 import { TopBar } from "#/features/navigation/components/TopBar";
-import { ModulesPanel } from "./ModulesPanel";
+import { manages } from "../model/role";
 import { ParametersPanel } from "./ParametersPanel";
+import { TeamPanel } from "./TeamPanel";
 
 export function Settings() {
+	const session = useGetCurrentSession();
+	const isManager = manages(session.data?.role);
+
 	return (
 		<>
 			<TopBar
 				title="Configurações da clínica"
-				meta="Módulos contratados e parâmetros da unidade"
+				meta={
+					isManager
+						? "Parâmetros da unidade e acessos da equipe"
+						: "Parâmetros da unidade"
+				}
 			/>
 
 			<Page>
 				<ParametersPanel />
-				<ModulesPanel />
+				{isManager ? <TeamPanel /> : null}
 			</Page>
 		</>
 	);
