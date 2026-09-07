@@ -65,7 +65,7 @@ export function Checkbox({ label, className, ...rest }: CheckboxProps) {
 	return (
 		<label
 			className={cn(
-				"flex items-start gap-2.5 text-[12.5px] text-ink",
+				"flex cursor-pointer items-start gap-2.5 text-[12.5px] text-ink",
 				className,
 			)}
 		>

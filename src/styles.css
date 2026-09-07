@@ -38,26 +38,39 @@
 	--radius-field: 8px;
 }
 
-html,
-body {
-	height: 100%;
-}
+/* Layered so a utility class wins: unlayered rules outrank every Tailwind
+   layer, and a bare `a { color }` would repaint links that carry `buttonClass`
+   in the brand colour their own background already uses. */
+@layer base {
+	html,
+	body {
+		height: 100%;
+	}
 
-body {
-	background: var(--color-canvas);
-	color: var(--color-ink);
-	-webkit-font-smoothing: antialiased;
-}
+	body {
+		background: var(--color-canvas);
+		color: var(--color-ink);
+		-webkit-font-smoothing: antialiased;
+	}
 
-a {
-	color: var(--color-brand);
-	text-decoration: none;
-}
+	a {
+		color: var(--color-brand);
+		text-decoration: none;
+	}
 
-a:hover {
-	color: var(--color-brand-ink);
-}
+	a:hover {
+		color: var(--color-brand-ink);
+	}
 
-::placeholder {
-	color: var(--color-faint);
+	::placeholder {
+		color: var(--color-faint);
+	}
+
+	/* Tailwind's preflight resets buttons to `cursor: default`. Restoring the
+	   pointer here reaches every button, not only the ones built on `Button`. */
+	button:not(:disabled),
+	[role="button"]:not(:disabled),
+	input[type="checkbox"]:not(:disabled) {
+		cursor: pointer;
+	}
 }
