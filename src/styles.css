@@ -8,7 +8,9 @@
 	--color-surface: #faf9f6;
 	--color-panel: #ffffff;
 	--color-line: #dddbd2;
+	--color-line-soft: #edebe3;
 	--color-line-strong: #c9c7bc;
+	--color-row-hover: #f8f7f2;
 
 	--color-ink: #2c2c2a;
 	--color-muted: #5f5e5a;
@@ -18,6 +20,7 @@
 	--color-brand-hover: #178a66;
 	--color-brand-ink: #12764f;
 	--color-brand-soft: #e8f5ef;
+	--color-brand-tint: #f7fcfa;
 
 	--color-warn: #b4740e;
 	--color-warn-ink: #8a5a0b;
@@ -86,4 +89,12 @@
 	::-webkit-calendar-picker-indicator {
 		cursor: pointer;
 	}
+}
+
+@utility stripes {
+	background: repeating-linear-gradient(
+		135deg,
+		var(--color-line-strong) 0 4px,
+		var(--color-neutral-soft) 4px 8px
+	);
 }

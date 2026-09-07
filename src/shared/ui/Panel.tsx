@@ -8,7 +8,7 @@ type PanelProps = {
 export function Panel({ className, children }: PanelProps) {
 	return (
 		<section
-			className={cn("rounded-[10px] border border-line bg-panel", className)}
+			className={cn("rounded-field border border-line bg-panel", className)}
 		>
 			{children}
 		</section>

@@ -22,7 +22,7 @@ type PageProps = {
 
 export function Page({ children }: PageProps) {
 	return (
-		<main className="flex min-h-0 flex-1 flex-col gap-4 overflow-y-auto p-6">
+		<main className="flex min-h-0 flex-1 flex-col gap-4 overflow-y-auto px-6 py-5">
 			{children}
 		</main>
 	);
