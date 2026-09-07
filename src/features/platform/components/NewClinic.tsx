@@ -1,10 +1,8 @@
-import { zodResolver } from "@hookform/resolvers/zod";
 import { useNavigate } from "@tanstack/react-router";
-import { useForm } from "react-hook-form";
 import { Page } from "#/features/navigation/components/AppShell";
 import { TopBar } from "#/features/navigation/components/TopBar";
 import { messageOf } from "#/shared/api-error";
-import { FormTextField } from "#/shared/form/fields";
+import { submitHandler, useAppForm, validatedBy } from "#/shared/form/app-form";
 import { showViolations } from "#/shared/form/violations";
 import { maskTaxId } from "#/shared/format/document";
 import { Button } from "#/shared/ui/Button";
@@ -12,7 +10,6 @@ import { Callout } from "#/shared/ui/Callout";
 import { Panel, PanelHeader } from "#/shared/ui/Panel";
 import { useClinicOnboarding } from "../hooks/use-clinics";
 import {
-	type ClinicDraft,
 	clinicSchema,
 	EMPTY_CLINIC_DRAFT,
 	newClinicRequestOf,
@@ -20,35 +17,35 @@ import {
 
 export function NewClinic() {
 	const navigate = useNavigate();
-
-	const form = useForm<ClinicDraft>({
-		resolver: zodResolver(clinicSchema),
-		mode: "onTouched",
-		defaultValues: EMPTY_CLINIC_DRAFT,
-	});
-
 	const onboarding = useClinicOnboarding();
 
-	const submit = form.handleSubmit((values) =>
-		onboarding.mutate(
-			{ body: newClinicRequestOf(values) },
-			{
-				onError: (error) => showViolations(error, form.setError),
-				onSuccess: (provisioned) =>
-					navigate({
-						to: "/console/clinicas/$tenantId/modulos",
-						params: { tenantId: String(provisioned.clinic?.id) },
-					}),
-			},
-		),
-	);
+	const form = useAppForm({
+		defaultValues: EMPTY_CLINIC_DRAFT,
+		...validatedBy(clinicSchema),
+		onSubmit: ({ value }) =>
+			onboarding.mutate(
+				{ body: newClinicRequestOf(value) },
+				{
+					onError: (error) => showViolations(error, form),
+					onSuccess: (provisioned) =>
+						navigate({
+							to: "/console/clinicas/$tenantId/modulos",
+							params: { tenantId: String(provisioned.clinic?.id) },
+						}),
+				},
+			),
+	});
 
 	return (
 		<>
 			<TopBar title="Nova clínica" meta="Console · Clínicas · cadastro" />
 
 			<Page>
-				<form onSubmit={submit} noValidate className="flex flex-col gap-4">
+				<form
+					onSubmit={submitHandler(form)}
+					noValidate
+					className="flex flex-col gap-4"
+				>
 					<div className="grid grid-cols-[1.7fr_1fr] items-start gap-4">
 						<div className="flex flex-col gap-4">
 							<Panel>
@@ -57,33 +54,37 @@ export function NewClinic() {
 									hint="Identificação do inquilino nesta instância."
 								/>
 								<div className="grid grid-cols-2 gap-5 p-5">
-									<FormTextField
-										control={form.control}
-										name="name"
-										label="Nome da clínica"
-										required
-										hint="Como a clínica aparece nas telas e nos relatórios."
-									/>
-									<FormTextField
-										control={form.control}
-										name="legalName"
-										label="Razão social"
-									/>
-									<FormTextField
-										control={form.control}
-										name="taxId"
-										label="CNPJ"
-										mask={maskTaxId}
-										inputMode="numeric"
-										placeholder="00.000.000/0000-00"
-										hint="Identifica a clínica na plataforma: um CNPJ pertence a uma única clínica."
-									/>
-									<FormTextField
-										control={form.control}
-										name="segment"
-										label="Segmento"
-										hint="Odontologia, fisioterapia, veterinária… orienta a implantação, não trava a configuração."
-									/>
+									<form.AppField name="name">
+										{(field) => (
+											<field.TextField
+												label="Nome da clínica"
+												required
+												hint="Como a clínica aparece nas telas e nos relatórios."
+											/>
+										)}
+									</form.AppField>
+									<form.AppField name="legalName">
+										{(field) => <field.TextField label="Razão social" />}
+									</form.AppField>
+									<form.AppField name="taxId">
+										{(field) => (
+											<field.TextField
+												label="CNPJ"
+												mask={maskTaxId}
+												inputMode="numeric"
+												placeholder="00.000.000/0000-00"
+												hint="Identifica a clínica na plataforma: um CNPJ pertence a uma única clínica."
+											/>
+										)}
+									</form.AppField>
+									<form.AppField name="segment">
+										{(field) => (
+											<field.TextField
+												label="Segmento"
+												hint="Odontologia, fisioterapia, veterinária… orienta a implantação, não trava a configuração."
+											/>
+										)}
+									</form.AppField>
 								</div>
 							</Panel>
 
@@ -93,29 +94,30 @@ export function NewClinic() {
 									hint="Sem este usuário a clínica nasce inacessível: ninguém do lado do cliente consegue entrar nem criar outros usuários."
 								/>
 								<div className="grid grid-cols-2 gap-5 p-5">
-									<FormTextField
-										control={form.control}
-										name="managerName"
-										label="Nome"
-										required
-									/>
-									<FormTextField
-										control={form.control}
-										name="managerEmail"
-										label="E-mail"
-										type="email"
-										inputMode="email"
-										required
-									/>
-									<FormTextField
-										control={form.control}
-										name="managerPassword"
-										label="Senha inicial"
-										type="password"
-										autoComplete="new-password"
-										required
-										hint="Mínimo de 8 caracteres. Combine a troca no primeiro acesso."
-									/>
+									<form.AppField name="managerName">
+										{(field) => <field.TextField label="Nome" required />}
+									</form.AppField>
+									<form.AppField name="managerEmail">
+										{(field) => (
+											<field.TextField
+												label="E-mail"
+												type="email"
+												inputMode="email"
+												required
+											/>
+										)}
+									</form.AppField>
+									<form.AppField name="managerPassword">
+										{(field) => (
+											<field.TextField
+												label="Senha inicial"
+												type="password"
+												autoComplete="new-password"
+												required
+												hint="Mínimo de 8 caracteres. Combine a troca no primeiro acesso."
+											/>
+										)}
+									</form.AppField>
 								</div>
 							</Panel>
 						</div>

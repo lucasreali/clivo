@@ -4,6 +4,7 @@ import { QueryClientProvider } from "@tanstack/react-query";
 import { ReactQueryDevtoolsPanel } from "@tanstack/react-query-devtools";
 import {
 	createRootRouteWithContext,
+	type ErrorComponentProps,
 	HeadContent,
 	Outlet,
 	Scripts,
@@ -33,7 +34,7 @@ export const Route = createRootRouteWithContext<RouterContext>()({
 	notFoundComponent: NotFound,
 });
 
-function RootError({ error }: { error: Error }) {
+function RootError({ error }: ErrorComponentProps) {
 	return (
 		<Centered title="Não foi possível carregar a tela">
 			<p className="m-0 text-[13px] leading-relaxed text-muted">

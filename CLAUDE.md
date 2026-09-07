@@ -113,13 +113,22 @@ invalidation predicates match on `queryKey[0].url` — see
 - Domain models in `model/` are classes with private constructors and static
   `from(...)` factories exposing behavior, not getters (`Capabilities`,
   `Modules`, `Parameters`).
-- **Forms are react-hook-form + zod.** The schema lives beside the draft type in
+- **Forms are TanStack Form + zod.** The schema lives beside the draft type in
   `model/` (`customerSchema`, `clinicSchema`) and is built from the reusable
-  field rules in `src/shared/form/schema.ts`; screens render
-  `FormTextField`/`FormSelectField`/`FormComboboxField` from
-  `src/shared/form/fields.tsx` and never wire an input by hand. A choice made by
-  typing a name is a `FormComboboxField`, not a search box beside a select — it
-  filters the list it was given, or delegates upstream through `onSearch`. Documents mask as the typist goes (`maskNationalId`,
+  field rules in `src/shared/form/schema.ts`. Screens build the form with
+  `useAppForm` from `src/shared/form/app-form.ts`, spread `validatedBy(schema)`
+  into the options (nothing is judged until the field is left; from the first
+  submit on, every keystroke re-checks it), submit through
+  `submitHandler(form)`, and render each input as
+  `<form.AppField name="…">{(field) => <field.TextField … />}</form.AppField>`,
+  never wiring an input by hand. The field components
+  (`TextField`, `TextAreaField`, `SelectField`, `CheckboxField`,
+  `ComboboxField`) live in `src/shared/form/fields.tsx` and reach their field
+  through the context created in `src/shared/form/context.ts`; a group of fields
+  shared by two screens is a `withForm(...)` component (`CustomerFields`). A
+  choice made by typing a name is a `ComboboxField`, not a search box beside a
+  select — it filters the list it was given, or delegates upstream through
+  `onSearch`. Documents mask as the typist goes (`maskNationalId`,
   `maskTaxId`, `maskPhone`, `maskPostalCode` in `shared/format/document.ts`) and
   are sent to the API as bare digits. CPF and CNPJ check digits are verified in
   `src/shared/validation/document.ts` — the API validates neither.

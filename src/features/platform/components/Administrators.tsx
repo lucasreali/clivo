@@ -1,11 +1,9 @@
-import { zodResolver } from "@hookform/resolvers/zod";
-import { useForm } from "react-hook-form";
 import * as z from "zod";
 import { useRegisterPlatformAdministrator } from "#/api/gen/hooks";
 import { Page } from "#/features/navigation/components/AppShell";
 import { TopBar } from "#/features/navigation/components/TopBar";
 import { messageOf } from "#/shared/api-error";
-import { FormTextField } from "#/shared/form/fields";
+import { submitHandler, useAppForm, validatedBy } from "#/shared/form/app-form";
 import { password, requiredEmail, requiredText } from "#/shared/form/schema";
 import { showViolations } from "#/shared/form/violations";
 import { Button } from "#/shared/ui/Button";
@@ -23,23 +21,20 @@ type AdministratorDraft = z.infer<typeof administratorSchema>;
 const EMPTY: AdministratorDraft = { name: "", email: "", password: "" };
 
 export function Administrators() {
-	const form = useForm<AdministratorDraft>({
-		resolver: zodResolver(administratorSchema),
-		mode: "onTouched",
-		defaultValues: EMPTY,
-	});
-
 	const register = useRegisterPlatformAdministrator();
 
-	const submit = form.handleSubmit((values) =>
-		register.mutate(
-			{ body: values },
-			{
-				onError: (error) => showViolations(error, form.setError),
-				onSuccess: () => form.reset(EMPTY),
-			},
-		),
-	);
+	const form = useAppForm({
+		defaultValues: EMPTY,
+		...validatedBy(administratorSchema),
+		onSubmit: ({ value }) =>
+			register.mutate(
+				{ body: value },
+				{
+					onError: (error) => showViolations(error, form),
+					onSuccess: () => form.reset(EMPTY),
+				},
+			),
+	});
 
 	return (
 		<>
@@ -51,7 +46,11 @@ export function Administrators() {
 			<Page>
 				<div className="grid grid-cols-[1fr_1fr] items-start gap-4">
 					<Panel className="p-5">
-						<form onSubmit={submit} noValidate className="flex flex-col gap-5">
+						<form
+							onSubmit={submitHandler(form)}
+							noValidate
+							className="flex flex-col gap-5"
+						>
 							<div className="flex flex-col gap-1">
 								<span className="text-[13.5px] font-semibold text-ink">
 									Adicionar administrador
@@ -61,31 +60,32 @@ export function Administrators() {
 								</span>
 							</div>
 
-							<FormTextField
-								control={form.control}
-								name="name"
-								label="Nome"
-								required
-							/>
+							<form.AppField name="name">
+								{(field) => <field.TextField label="Nome" required />}
+							</form.AppField>
 
-							<FormTextField
-								control={form.control}
-								name="email"
-								label="E-mail"
-								type="email"
-								inputMode="email"
-								required
-							/>
+							<form.AppField name="email">
+								{(field) => (
+									<field.TextField
+										label="E-mail"
+										type="email"
+										inputMode="email"
+										required
+									/>
+								)}
+							</form.AppField>
 
-							<FormTextField
-								control={form.control}
-								name="password"
-								label="Senha inicial"
-								type="password"
-								autoComplete="new-password"
-								required
-								hint="Mínimo de 8 caracteres. Combine a troca no primeiro acesso."
-							/>
+							<form.AppField name="password">
+								{(field) => (
+									<field.TextField
+										label="Senha inicial"
+										type="password"
+										autoComplete="new-password"
+										required
+										hint="Mínimo de 8 caracteres. Combine a troca no primeiro acesso."
+									/>
+								)}
+							</form.AppField>
 
 							{register.isError ? (
 								<Callout tone="danger">{messageOf(register.error)}</Callout>

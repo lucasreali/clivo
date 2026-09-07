@@ -1,21 +1,19 @@
-import { zodResolver } from "@hookform/resolvers/zod";
 import { useQueryClient } from "@tanstack/react-query";
 import { Link } from "@tanstack/react-router";
 import { useEffect, useState } from "react";
-import { useForm } from "react-hook-form";
 import { useDescribeCustomer, useGetCustomer } from "#/api/gen/hooks";
 import { ModuleGate } from "#/features/capabilities/components/ModuleGate";
 import { MODULE } from "#/features/capabilities/model/module-code";
 import { Page } from "#/features/navigation/components/AppShell";
 import { AppTopBar } from "#/features/navigation/components/AppTopBar";
 import { messageOf } from "#/shared/api-error";
+import { submitHandler, useAppForm, validatedBy } from "#/shared/form/app-form";
 import { showViolations } from "#/shared/form/violations";
 import { Badge } from "#/shared/ui/Badge";
 import { Button, buttonClass } from "#/shared/ui/Button";
 import { Callout } from "#/shared/ui/Callout";
 import { Panel } from "#/shared/ui/Panel";
 import {
-	type CustomerDraft,
 	customerSchema,
 	draftOf,
 	EMPTY_DRAFT,
@@ -36,17 +34,18 @@ export function CustomerDetail({ customerId }: CustomerDetailProps) {
 	const queryClient = useQueryClient();
 
 	const customer = useGetCustomer({ path: { id: customerId } });
-	const form = useForm<CustomerDraft>({
-		resolver: zodResolver(customerSchema),
-		mode: "onTouched",
-		defaultValues: EMPTY_DRAFT,
+	const describe = useDescribeCustomer({
+		mutation: { onSuccess: () => queryClient.invalidateQueries() },
 	});
 
-	const describe = useDescribeCustomer({
-		mutation: {
-			onError: (error) => showViolations(error, form.setError),
-			onSuccess: () => queryClient.invalidateQueries(),
-		},
+	const form = useAppForm({
+		defaultValues: EMPTY_DRAFT,
+		...validatedBy(customerSchema),
+		onSubmit: ({ value }) =>
+			describe.mutate(
+				{ path: { id: customerId }, body: requestOf(value) },
+				{ onError: (error) => showViolations(error, form) },
+			),
 	});
 
 	const { reset } = form;
@@ -55,10 +54,6 @@ export function CustomerDetail({ customerId }: CustomerDetailProps) {
 			reset(draftOf(customer.data));
 		}
 	}, [customer.data, reset]);
-
-	const save = form.handleSubmit((values) =>
-		describe.mutate({ path: { id: customerId }, body: requestOf(values) }),
-	);
 
 	if (!customer.data) {
 		return <Page>Carregando cadastro…</Page>;
@@ -84,7 +79,11 @@ export function CustomerDetail({ customerId }: CustomerDetailProps) {
 
 			<Page>
 				<div className="grid grid-cols-[1.7fr_1fr] items-start gap-4">
-					<form onSubmit={save} noValidate className="flex flex-col gap-4">
+					<form
+						onSubmit={submitHandler(form)}
+						noValidate
+						className="flex flex-col gap-4"
+					>
 						<Panel className="p-5">
 							<div className="mb-5 flex items-center justify-between">
 								<Badge tone={situation.tone}>{situation.label}</Badge>
@@ -97,7 +96,7 @@ export function CustomerDetail({ customerId }: CustomerDetailProps) {
 								</Button>
 							</div>
 
-							<CustomerFields control={form.control} lockNationalId />
+							<CustomerFields form={form} lockNationalId />
 						</Panel>
 
 						{describe.isError ? (

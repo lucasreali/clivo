@@ -1,6 +1,4 @@
-import { zodResolver } from "@hookform/resolvers/zod";
 import { useState } from "react";
-import { useForm } from "react-hook-form";
 import {
 	useListPractitioners,
 	useListServices,
@@ -8,7 +6,7 @@ import {
 	useSearchCustomers,
 } from "#/api/gen/hooks";
 import { messageOf } from "#/shared/api-error";
-import { FormComboboxField, FormTextField } from "#/shared/form/fields";
+import { submitHandler, useAppForm, validatedBy } from "#/shared/form/app-form";
 import { nationalId, phone } from "#/shared/format/document";
 import { Button } from "#/shared/ui/Button";
 import { Callout } from "#/shared/ui/Callout";
@@ -17,7 +15,6 @@ import type { Option } from "#/shared/ui/options";
 import { useDebounced } from "#/shared/use-debounced";
 import { useAppointmentRefresh } from "../hooks/use-appointment-actions";
 import {
-	type AppointmentDraft,
 	appointmentRequestOf,
 	appointmentSchema,
 	emptyAppointmentDraft,
@@ -35,12 +32,6 @@ export function NewAppointmentDialog({
 	const [search, setSearch] = useState("");
 	const term = useDebounced(search);
 
-	const form = useForm<AppointmentDraft>({
-		resolver: zodResolver(appointmentSchema),
-		mode: "onTouched",
-		defaultValues: emptyAppointmentDraft(day),
-	});
-
 	const customers = useSearchCustomers({ query: { name: term } });
 	const practitioners = useListPractitioners();
 	const services = useListServices();
@@ -55,9 +46,12 @@ export function NewAppointmentDialog({
 		},
 	});
 
-	const submit = form.handleSubmit((values) =>
-		schedule.mutate({ body: appointmentRequestOf(values) }),
-	);
+	const form = useAppForm({
+		defaultValues: emptyAppointmentDraft(day),
+		...validatedBy(appointmentSchema),
+		onSubmit: ({ value }) =>
+			schedule.mutate({ body: appointmentRequestOf(value) }),
+	});
 
 	const patients: Option[] = (customers.data ?? []).map((customer) => ({
 		value: String(customer.id),
@@ -102,59 +96,57 @@ export function NewAppointmentDialog({
 		>
 			<form
 				id="new-appointment"
-				onSubmit={submit}
+				onSubmit={submitHandler(form)}
 				noValidate
 				className="flex flex-col gap-4"
 			>
-				<FormComboboxField
-					control={form.control}
-					name="customerId"
-					label="Paciente"
-					required
-					options={patients}
-					onSearch={setSearch}
-					isLoading={customers.isFetching}
-					placeholder="Digite o nome do paciente"
-					emptyMessage={
-						search
-							? `Nenhum paciente encontrado para “${search}”.`
-							: "Digite parte do nome para buscar."
-					}
-				/>
+				<form.AppField name="customerId">
+					{(field) => (
+						<field.ComboboxField
+							label="Paciente"
+							required
+							options={patients}
+							onSearch={setSearch}
+							isLoading={customers.isFetching}
+							placeholder="Digite o nome do paciente"
+							emptyMessage={
+								search
+									? `Nenhum paciente encontrado para “${search}”.`
+									: "Digite parte do nome para buscar."
+							}
+						/>
+					)}
+				</form.AppField>
 
-				<FormComboboxField
-					control={form.control}
-					name="practitionerId"
-					label="Profissional"
-					required
-					options={practitionerOptions}
-					placeholder="Selecione"
-				/>
+				<form.AppField name="practitionerId">
+					{(field) => (
+						<field.ComboboxField
+							label="Profissional"
+							required
+							options={practitionerOptions}
+							placeholder="Selecione"
+						/>
+					)}
+				</form.AppField>
 
-				<FormComboboxField
-					control={form.control}
-					name="serviceId"
-					label="Serviço"
-					required
-					options={serviceOptions}
-					placeholder="Selecione"
-				/>
+				<form.AppField name="serviceId">
+					{(field) => (
+						<field.ComboboxField
+							label="Serviço"
+							required
+							options={serviceOptions}
+							placeholder="Selecione"
+						/>
+					)}
+				</form.AppField>
 
 				<div className="grid grid-cols-2 gap-3">
-					<FormTextField
-						control={form.control}
-						name="date"
-						label="Data"
-						type="date"
-						required
-					/>
-					<FormTextField
-						control={form.control}
-						name="time"
-						label="Hora"
-						type="time"
-						required
-					/>
+					<form.AppField name="date">
+						{(field) => <field.TextField label="Data" type="date" required />}
+					</form.AppField>
+					<form.AppField name="time">
+						{(field) => <field.TextField label="Hora" type="time" required />}
+					</form.AppField>
 				</div>
 
 				{schedule.isError ? (

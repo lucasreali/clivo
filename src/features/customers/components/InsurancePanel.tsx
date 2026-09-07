@@ -1,5 +1,3 @@
-import { zodResolver } from "@hookform/resolvers/zod";
-import { useForm } from "react-hook-form";
 import * as z from "zod";
 import {
 	useEnrolInsuranceMembership,
@@ -7,7 +5,7 @@ import {
 	useListInsurancePlans,
 } from "#/api/gen/hooks";
 import { messageOf } from "#/shared/api-error";
-import { FormSelectField, FormTextField } from "#/shared/form/fields";
+import { submitHandler, useAppForm, validatedBy } from "#/shared/form/app-form";
 import { requiredText } from "#/shared/form/schema";
 import { showViolations } from "#/shared/form/violations";
 import { Button } from "#/shared/ui/Button";
@@ -28,30 +26,27 @@ type MembershipDraft = z.infer<typeof membershipSchema>;
 const EMPTY: MembershipDraft = { planId: "", memberNumber: "" };
 
 export function InsurancePanel({ customerId }: InsurancePanelProps) {
-	const form = useForm<MembershipDraft>({
-		resolver: zodResolver(membershipSchema),
-		mode: "onTouched",
-		defaultValues: EMPTY,
-	});
-
 	const memberships = useListCustomerInsuranceMemberships({
 		query: { customerId },
 	});
 	const plans = useListInsurancePlans();
+	const enrol = useEnrolInsuranceMembership();
 
-	const enrol = useEnrolInsuranceMembership({
-		mutation: {
-			onError: (error) => showViolations(error, form.setError),
-			onSuccess: async () => {
-				form.reset(EMPTY);
-				await memberships.refetch();
-			},
-		},
+	const form = useAppForm({
+		defaultValues: EMPTY,
+		...validatedBy(membershipSchema),
+		onSubmit: ({ value }) =>
+			enrol.mutate(
+				{ body: { customerId, ...value } },
+				{
+					onError: (error) => showViolations(error, form),
+					onSuccess: async () => {
+						form.reset(EMPTY);
+						await memberships.refetch();
+					},
+				},
+			),
 	});
-
-	const submit = form.handleSubmit((values) =>
-		enrol.mutate({ body: { customerId, ...values } }),
-	);
 
 	return (
 		<Panel>
@@ -77,25 +72,25 @@ export function InsurancePanel({ customerId }: InsurancePanelProps) {
 			</ul>
 
 			<form
-				onSubmit={submit}
+				onSubmit={submitHandler(form)}
 				noValidate
 				className="flex items-start gap-3 border-t border-line bg-surface px-4 py-3"
 			>
-				<FormSelectField
-					control={form.control}
-					name="planId"
-					label="Operadora"
-					required
-					options={(plans.data ?? []).map((plan) => ({
-						value: String(plan.id),
-						label: plan.name ?? "Sem nome",
-					}))}
-				/>
-				<FormTextField
-					control={form.control}
-					name="memberNumber"
-					label="Número da carteirinha"
-				/>
+				<form.AppField name="planId">
+					{(field) => (
+						<field.SelectField
+							label="Operadora"
+							required
+							options={(plans.data ?? []).map((plan) => ({
+								value: String(plan.id),
+								label: plan.name ?? "Sem nome",
+							}))}
+						/>
+					)}
+				</form.AppField>
+				<form.AppField name="memberNumber">
+					{(field) => <field.TextField label="Número da carteirinha" />}
+				</form.AppField>
 				<div className="pt-6">
 					<Button type="submit" disabled={enrol.isPending}>
 						Vincular

@@ -1,12 +1,10 @@
-import { zodResolver } from "@hookform/resolvers/zod";
-import { useForm } from "react-hook-form";
 import * as z from "zod";
 import {
 	useListCustomerDependents,
 	useRegisterDependent,
 } from "#/api/gen/hooks";
 import { messageOf } from "#/shared/api-error";
-import { FormTextField } from "#/shared/form/fields";
+import { submitHandler, useAppForm, validatedBy } from "#/shared/form/app-form";
 import { requiredText } from "#/shared/form/schema";
 import { showViolations } from "#/shared/form/violations";
 import { Button } from "#/shared/ui/Button";
@@ -28,29 +26,27 @@ type DependentDraft = z.infer<typeof dependentSchema>;
 const EMPTY: DependentDraft = { name: "", type: "", birthDate: "" };
 
 export function DependentsPanel({ customerId }: DependentsPanelProps) {
-	const form = useForm<DependentDraft>({
-		resolver: zodResolver(dependentSchema),
-		mode: "onTouched",
-		defaultValues: EMPTY,
-	});
-
 	const dependents = useListCustomerDependents({ path: { customerId } });
-	const register = useRegisterDependent({
-		mutation: {
-			onError: (error) => showViolations(error, form.setError),
-			onSuccess: async () => {
-				form.reset(EMPTY);
-				await dependents.refetch();
-			},
-		},
-	});
+	const register = useRegisterDependent();
 
-	const submit = form.handleSubmit((values) =>
-		register.mutate({
-			path: { customerId },
-			body: { ...values, birthDate: values.birthDate || undefined },
-		}),
-	);
+	const form = useAppForm({
+		defaultValues: EMPTY,
+		...validatedBy(dependentSchema),
+		onSubmit: ({ value }) =>
+			register.mutate(
+				{
+					path: { customerId },
+					body: { ...value, birthDate: value.birthDate || undefined },
+				},
+				{
+					onError: (error) => showViolations(error, form),
+					onSuccess: async () => {
+						form.reset(EMPTY);
+						await dependents.refetch();
+					},
+				},
+			),
+	});
 
 	return (
 		<Panel>
@@ -75,29 +71,25 @@ export function DependentsPanel({ customerId }: DependentsPanelProps) {
 			</ul>
 
 			<form
-				onSubmit={submit}
+				onSubmit={submitHandler(form)}
 				noValidate
 				className="flex items-start gap-3 border-t border-line bg-surface px-4 py-3"
 			>
-				<FormTextField
-					control={form.control}
-					name="name"
-					label="Nome"
-					required
-				/>
-				<FormTextField
-					control={form.control}
-					name="type"
-					label="Tipo"
-					required
-					hint="Ex.: filho, cônjuge, animal."
-				/>
-				<FormTextField
-					control={form.control}
-					name="birthDate"
-					label="Nascimento"
-					type="date"
-				/>
+				<form.AppField name="name">
+					{(field) => <field.TextField label="Nome" required />}
+				</form.AppField>
+				<form.AppField name="type">
+					{(field) => (
+						<field.TextField
+							label="Tipo"
+							required
+							hint="Ex.: filho, cônjuge, animal."
+						/>
+					)}
+				</form.AppField>
+				<form.AppField name="birthDate">
+					{(field) => <field.TextField label="Nascimento" type="date" />}
+				</form.AppField>
 				<div className="pt-6">
 					<Button type="submit" disabled={register.isPending}>
 						Adicionar

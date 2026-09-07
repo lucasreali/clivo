@@ -1,11 +1,9 @@
-import { zodResolver } from "@hookform/resolvers/zod";
 import { useQueryClient } from "@tanstack/react-query";
 import { useNavigate } from "@tanstack/react-router";
-import { useForm } from "react-hook-form";
 import * as z from "zod";
 import { useSignIn } from "#/api/gen/hooks";
 import { messageOf } from "#/shared/api-error";
-import { FormTextField } from "#/shared/form/fields";
+import { submitHandler, useAppForm, validatedBy } from "#/shared/form/app-form";
 import { requiredEmail, requiredText } from "#/shared/form/schema";
 import { Button } from "#/shared/ui/Button";
 import { Callout } from "#/shared/ui/Callout";
@@ -15,14 +13,7 @@ const credentialsSchema = z.object({
 	password: requiredText("Informe a senha."),
 });
 
-type Credentials = z.infer<typeof credentialsSchema>;
-
 export function ConsoleSignIn() {
-	const form = useForm<Credentials>({
-		resolver: zodResolver(credentialsSchema),
-		mode: "onTouched",
-		defaultValues: { email: "", password: "" },
-	});
 	const queryClient = useQueryClient();
 	const navigate = useNavigate();
 
@@ -35,11 +26,15 @@ export function ConsoleSignIn() {
 		},
 	});
 
-	const submit = form.handleSubmit((values) => signIn.mutate({ body: values }));
+	const form = useAppForm({
+		defaultValues: { email: "", password: "" },
+		...validatedBy(credentialsSchema),
+		onSubmit: ({ value }) => signIn.mutate({ body: value }),
+	});
 
 	return (
 		<form
-			onSubmit={submit}
+			onSubmit={submitHandler(form)}
 			noValidate
 			className="flex w-[400px] flex-col gap-5 rounded-xl border border-line bg-panel p-7"
 		>
@@ -65,24 +60,28 @@ export function ConsoleSignIn() {
 				</Callout>
 			) : null}
 
-			<FormTextField
-				control={form.control}
-				name="email"
-				label="E-mail"
-				type="email"
-				inputMode="email"
-				autoComplete="username"
-				required
-			/>
+			<form.AppField name="email">
+				{(field) => (
+					<field.TextField
+						label="E-mail"
+						type="email"
+						inputMode="email"
+						autoComplete="username"
+						required
+					/>
+				)}
+			</form.AppField>
 
-			<FormTextField
-				control={form.control}
-				name="password"
-				label="Senha"
-				type="password"
-				autoComplete="current-password"
-				required
-			/>
+			<form.AppField name="password">
+				{(field) => (
+					<field.TextField
+						label="Senha"
+						type="password"
+						autoComplete="current-password"
+						required
+					/>
+				)}
+			</form.AppField>
 
 			<Button type="submit" disabled={signIn.isPending} className="h-[38px]">
 				{signIn.isPending ? "Entrando…" : "Entrar"}
