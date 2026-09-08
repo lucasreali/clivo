@@ -13,7 +13,7 @@ import { TONE_TEXT } from "#/shared/ui/tone";
 import { summarise } from "../model/day-summary";
 import { AppointmentRow } from "./AppointmentRow";
 import { CancelAppointmentDialog } from "./CancelAppointmentDialog";
-import { NewAppointmentDialog } from "./NewAppointmentDialog";
+import { NewAppointmentDrawer } from "./NewAppointmentDrawer";
 import { RescheduleAppointmentDialog } from "./RescheduleAppointmentDialog";
 
 type Dialog =
@@ -154,7 +154,7 @@ export function DayPanel() {
 			</Page>
 
 			{dialog?.kind === "create" ? (
-				<NewAppointmentDialog day={day} onClose={() => setDialog(null)} />
+				<NewAppointmentDrawer day={day} onClose={() => setDialog(null)} />
 			) : null}
 			{dialog?.kind === "cancel" ? (
 				<CancelAppointmentDialog

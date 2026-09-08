@@ -6,11 +6,16 @@ import {
 	useSearchCustomers,
 } from "#/api/gen/hooks";
 import { messageOf } from "#/shared/api-error";
-import { submitHandler, useAppForm, validatedBy } from "#/shared/form/app-form";
+import {
+	submitHandler,
+	useAppForm,
+	useIsDirty,
+	validatedBy,
+} from "#/shared/form/app-form";
 import { nationalId, phone } from "#/shared/format/document";
 import { Button } from "#/shared/ui/Button";
 import { Callout } from "#/shared/ui/Callout";
-import { Modal } from "#/shared/ui/Modal";
+import { Drawer } from "#/shared/ui/Drawer";
 import type { Option } from "#/shared/ui/options";
 import { useDebounced } from "#/shared/use-debounced";
 import { useAppointmentRefresh } from "../hooks/use-appointment-actions";
@@ -20,15 +25,15 @@ import {
 	emptyAppointmentDraft,
 } from "../model/appointment-draft";
 
-type NewAppointmentDialogProps = {
+type NewAppointmentDrawerProps = {
 	day: string;
 	onClose: () => void;
 };
 
-export function NewAppointmentDialog({
+export function NewAppointmentDrawer({
 	day,
 	onClose,
-}: NewAppointmentDialogProps) {
+}: NewAppointmentDrawerProps) {
 	const [search, setSearch] = useState("");
 	const term = useDebounced(search);
 
@@ -53,6 +58,8 @@ export function NewAppointmentDialog({
 			schedule.mutate({ body: appointmentRequestOf(value) }),
 	});
 
+	const isDirty = useIsDirty(form);
+
 	const patients: Option[] = (customers.data ?? []).map((customer) => ({
 		value: String(customer.id),
 		label: customer.name ?? "Sem nome",
@@ -76,22 +83,20 @@ export function NewAppointmentDialog({
 	}));
 
 	return (
-		<Modal
+		<Drawer
 			title="Novo agendamento"
+			subtitle="A agenda do dia continua visível atrás deste painel."
 			onClose={onClose}
+			isDirty={isDirty}
+			width="max-w-[460px]"
 			footer={
-				<>
-					<Button variant="secondary" onClick={onClose}>
-						Cancelar
-					</Button>
-					<Button
-						type="submit"
-						form="new-appointment"
-						disabled={schedule.isPending}
-					>
-						Salvar agendamento
-					</Button>
-				</>
+				<Button
+					type="submit"
+					form="new-appointment"
+					disabled={schedule.isPending}
+				>
+					Salvar agendamento
+				</Button>
 			}
 		>
 			<form
@@ -155,7 +160,7 @@ export function NewAppointmentDialog({
 					</Callout>
 				) : null}
 			</form>
-		</Modal>
+		</Drawer>
 	);
 }
 

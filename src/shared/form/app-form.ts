@@ -3,6 +3,7 @@ import {
 	createFormHook,
 	revalidateLogic,
 	type StandardSchemaV1,
+	useStore,
 } from "@tanstack/react-form";
 import { fieldContext, formContext } from "./context";
 import {
@@ -45,4 +46,8 @@ export function submitHandler(form: AnyFormApi) {
 		event.preventDefault();
 		form.handleSubmit();
 	};
+}
+
+export function useIsDirty(form: AnyFormApi) {
+	return useStore(form.store, (state) => state.isDirty);
 }

@@ -23,7 +23,7 @@ import { Select } from "#/shared/ui/Select";
 import { TONE_BLOCK, TONE_DOT, type Tone } from "#/shared/ui/tone";
 import { describeStatus } from "../model/appointment-status";
 import { appointmentAt, blockAt, daysOfWeek, slotsOfDay } from "../model/week";
-import { NewAppointmentDialog } from "./NewAppointmentDialog";
+import { NewAppointmentDrawer } from "./NewAppointmentDrawer";
 
 const SLOTS = slotsOfDay();
 const GRID = "grid-cols-[62px_repeat(6,1fr)]";
@@ -146,7 +146,7 @@ export function WeekAgenda() {
 			</Page>
 
 			{creating ? (
-				<NewAppointmentDialog day={monday} onClose={() => setCreating(false)} />
+				<NewAppointmentDrawer day={monday} onClose={() => setCreating(false)} />
 			) : null}
 		</>
 	);
