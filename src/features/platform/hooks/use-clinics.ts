@@ -1,4 +1,5 @@
 import { useQueryClient } from "@tanstack/react-query";
+import { useMemo } from "react";
 import {
 	useActivateClinic,
 	useDeactivateClinic,
@@ -9,9 +10,13 @@ import { ClinicCatalog } from "../model/clinic-catalog";
 
 export function useClinicCatalog() {
 	const clinics = useListClinics();
+	const catalog = useMemo(
+		() => ClinicCatalog.from(clinics.data),
+		[clinics.data],
+	);
 
 	return {
-		catalog: ClinicCatalog.from(clinics.data),
+		catalog,
 		isPending: clinics.isPending,
 		error: clinics.error,
 	};

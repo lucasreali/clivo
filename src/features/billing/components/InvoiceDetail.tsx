@@ -5,7 +5,11 @@ import {
 	useGetInvoice,
 	useSettleInvoice,
 } from "#/api/gen/hooks";
-import type { PaymentRequestMethodEnumKey } from "#/api/gen/types";
+import type {
+	LineView,
+	PaymentRequestMethodEnumKey,
+	PaymentView,
+} from "#/api/gen/types";
 import { Page } from "#/features/navigation/components/AppShell";
 import { AppTopBar } from "#/features/navigation/components/AppTopBar";
 import { messageOf } from "#/shared/api-error";
@@ -14,7 +18,10 @@ import { money } from "#/shared/format/money";
 import { Badge } from "#/shared/ui/Badge";
 import { Button } from "#/shared/ui/Button";
 import { Callout } from "#/shared/ui/Callout";
+import { columnsFor, DataTable } from "#/shared/ui/DataTable";
+import { EmptyState } from "#/shared/ui/EmptyState";
 import { Field, TextInput } from "#/shared/ui/Field";
+import { NumberInput } from "#/shared/ui/NumberInput";
 import { Panel, PanelHeader } from "#/shared/ui/Panel";
 import { Select } from "#/shared/ui/Select";
 import { describeInvoiceStatus } from "../model/invoice-status";
@@ -26,6 +33,59 @@ const METHODS: { value: PaymentRequestMethodEnumKey; label: string }[] = [
 	{ value: "CREDIT", label: "Cartão de crédito" },
 	{ value: "INSURANCE", label: "Convênio" },
 ];
+
+const lineColumn = columnsFor<LineView>();
+
+const LINE_COLUMNS = lineColumn.columns([
+	lineColumn.accessor("description", { header: "Descrição" }),
+	lineColumn.accessor("quantity", {
+		header: "Qtd.",
+		meta: { width: "80px" },
+		cell: ({ getValue }) => (
+			<span className="text-muted">{getValue() ?? 1}</span>
+		),
+	}),
+	lineColumn.accessor("unitPrice", {
+		header: "Valor unitário",
+		meta: { width: "22%" },
+		cell: ({ getValue }) => (
+			<span className="text-muted">{money(getValue())}</span>
+		),
+	}),
+	lineColumn.accessor((line) => (line.unitPrice ?? 0) * (line.quantity ?? 1), {
+		id: "total",
+		header: "Total",
+		meta: { width: "22%", align: "right" },
+		cell: ({ getValue }) => (
+			<span className="font-medium text-ink">{money(getValue())}</span>
+		),
+	}),
+]);
+
+const paymentColumn = columnsFor<PaymentView>();
+
+const PAYMENT_COLUMNS = paymentColumn.columns([
+	paymentColumn.accessor("method", { header: "Forma" }),
+	paymentColumn.accessor("paidAt", {
+		header: "Recebido em",
+		meta: { width: "45%" },
+		cell: ({ getValue }) => (
+			<span className="text-[12px] text-muted">
+				{dateTimeLabel(getValue())}
+			</span>
+		),
+	}),
+	paymentColumn.accessor("amount", {
+		header: "Valor",
+		meta: { width: "120px", align: "right" },
+		cell: ({ row }) => (
+			<span className="font-medium text-ink">
+				{money(row.original.amount)}
+				{row.original.refunded ? " · estornado" : ""}
+			</span>
+		),
+	}),
+]);
 
 type InvoiceDetailProps = {
 	invoiceId: string;
@@ -63,26 +123,17 @@ export function InvoiceDetail({ invoiceId }: InvoiceDetailProps) {
 								actions={<Badge tone={status.tone}>{status.label}</Badge>}
 							/>
 
-							<div className="grid grid-cols-[2.4fr_80px_1fr_1fr] gap-3 border-b border-line bg-surface px-4 py-2.5 text-[11.5px] font-semibold text-muted uppercase">
-								<span>Descrição</span>
-								<span>Qtd.</span>
-								<span>Valor unitário</span>
-								<span className="text-right">Total</span>
-							</div>
-
-							{(invoice.data.lines ?? []).map((line) => (
-								<div
-									key={`${line.serviceId}-${line.description}`}
-									className="grid grid-cols-[2.4fr_80px_1fr_1fr] gap-3 border-b border-line px-4 py-3 text-[13px] last:border-b-0"
-								>
-									<span className="text-ink">{line.description}</span>
-									<span className="text-muted">{line.quantity ?? 1}</span>
-									<span className="text-muted">{money(line.unitPrice)}</span>
-									<span className="text-right font-medium text-ink">
-										{money((line.unitPrice ?? 0) * (line.quantity ?? 1))}
-									</span>
-								</div>
-							))}
+							<DataTable
+								columns={LINE_COLUMNS}
+								rows={invoice.data.lines ?? []}
+								rowId={(line) => `${line.serviceId}-${line.description}`}
+								empty={
+									<EmptyState
+										title="Nenhum item lançado"
+										description="Os itens do atendimento aparecem aqui assim que a ficha é concluída."
+									/>
+								}
+							/>
 
 							<dl className="m-0 flex flex-col gap-1.5 border-t border-line bg-surface px-4 py-3 text-[13px]">
 								<Total label="Subtotal" value={invoice.data.grossAmount} />
@@ -102,26 +153,17 @@ export function InvoiceDetail({ invoiceId }: InvoiceDetailProps) {
 
 						<Panel>
 							<PanelHeader title="Pagamentos registrados" />
-							{(invoice.data.payments ?? []).length === 0 ? (
-								<p className="m-0 px-4 py-6 text-center text-[12.5px] text-muted">
-									Nenhum recebimento registrado.
-								</p>
-							) : null}
-							{(invoice.data.payments ?? []).map((payment) => (
-								<div
-									key={payment.id}
-									className="flex items-center justify-between border-b border-line px-4 py-2.5 text-[13px] last:border-b-0"
-								>
-									<span className="text-ink">{payment.method}</span>
-									<span className="text-[12px] text-muted">
-										{dateTimeLabel(payment.paidAt)}
-									</span>
-									<span className="font-medium text-ink">
-										{money(payment.amount)}
-										{payment.refunded ? " · estornado" : ""}
-									</span>
-								</div>
-							))}
+							<DataTable
+								columns={PAYMENT_COLUMNS}
+								rows={invoice.data.payments ?? []}
+								rowId={(payment) => String(payment.id)}
+								empty={
+									<EmptyState
+										title="Nenhum recebimento registrado"
+										description="Os recebimentos aparecem aqui assim que um pagamento é lançado."
+									/>
+								}
+							/>
 						</Panel>
 					</div>
 
@@ -211,12 +253,12 @@ function SettleForm({
 				</Field>
 				<Field label="Valor recebido" required>
 					{(id) => (
-						<TextInput
+						<NumberInput
 							id={id}
-							type="number"
-							step="0.01"
+							min={0}
+							step={0.01}
 							value={amount}
-							onChange={(event) => setAmount(event.target.value)}
+							onChange={setAmount}
 						/>
 					)}
 				</Field>
@@ -250,12 +292,12 @@ function DiscountForm({ onApply, isPending, error }: DiscountFormProps) {
 			<form onSubmit={submit} className="flex flex-col gap-3 p-4">
 				<Field label="Valor do desconto" required>
 					{(id) => (
-						<TextInput
+						<NumberInput
 							id={id}
-							type="number"
-							step="0.01"
+							min={0}
+							step={0.01}
 							value={amount}
-							onChange={(event) => setAmount(event.target.value)}
+							onChange={setAmount}
 						/>
 					)}
 				</Field>

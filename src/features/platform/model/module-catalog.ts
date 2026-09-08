@@ -7,8 +7,8 @@ export class ModuleCatalog {
 		return new ModuleCatalog(items ?? []);
 	}
 
-	map<T>(project: (module: PlatformModuleView) => T) {
-		return this.items.map(project);
+	listed() {
+		return this.items;
 	}
 
 	total() {

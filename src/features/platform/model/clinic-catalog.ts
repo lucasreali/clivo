@@ -28,8 +28,8 @@ export class ClinicCatalog {
 		return this.items.length === 0;
 	}
 
-	map<T>(project: (clinic: ClinicView) => T) {
-		return this.items.map(project);
+	listed() {
+		return this.items;
 	}
 }
 

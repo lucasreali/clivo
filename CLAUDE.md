@@ -69,8 +69,8 @@ the generated axios clients as their `baseURL`.
   (framework-free domain logic and value objects, e.g. `Capabilities`,
   `Modules`, `Parameters`).
 - `src/shared/` — `ui/` design-system primitives (`Panel`, `Field`, `Button`,
-  `Badge`, `Modal`, `Drawer`, `Menu`, `Select`, `Combobox`, `EmptyState`,
-  `Avatar`, plus `cn` and the `Tone` palette),
+  `Badge`, `Modal`, `Drawer`, `Menu`, `Select`, `Combobox`, `DataTable`,
+  `EmptyState`, `Avatar`, plus `cn` and the `Tone` palette),
   `format/` pt-BR formatters for dates, money, national ids and names, and
   `api-error.ts`.
 - `src/api/` — `client.ts` sets `withCredentials` (the API authenticates with a
@@ -120,6 +120,18 @@ invalidation predicates match on `queryKey[0].url` — see
   render in a portal, so a list panel no longer has to leave room for them.
   Purely visual primitives (`Panel`, `Badge`, `Callout`, `EmptyState`, `Avatar`)
   stay hand-written; adopting a part that adds no behavior is ceremony.
+- **Every tabular listing is `DataTable`** (`src/shared/ui/DataTable.tsx`), the
+  single wrapper over [TanStack Table](https://tanstack.com/table) v9 — features
+  never import `@tanstack/react-table`. A screen builds its columns with
+  `columnsFor<Row>()` and hands them to `<DataTable columns rows rowId />`; the
+  primitive owns the semantic `<table>` markup, the header styling, click-to-sort
+  headers, the pager and the pending/empty slots. Column layout travels in the
+  column's `meta` (`{ width, align }`), applied through a `<colgroup>` on a
+  `table-fixed` table — never a `grid-cols-[…]` string beside the rows. Columns
+  that close over screen state (an editor, a row action) are built by a
+  `columnsSomething(...)` function called in the component; the rest are a module
+  constant. `pageSize` opts a list into pagination; without it every row renders.
+  Sorting is client-side because the API neither pages nor sorts.
 - Icons come from `@phosphor-icons/react` — never hand-written inline `<svg>`.
   Import the named component, give it an explicit `size` and
   `aria-hidden="true"`, and let it inherit the color through a semantic text

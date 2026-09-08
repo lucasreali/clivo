@@ -1,4 +1,5 @@
 import { useMutation, useQuery, useQueryClient } from "@tanstack/react-query";
+import { useMemo } from "react";
 import {
 	activateClinicModule,
 	clinicModuleHistoryQueryOptions,
@@ -11,6 +12,10 @@ import { ModuleCatalog } from "../model/module-catalog";
 export function useClinicModules(tenantId: string) {
 	const queryClient = useQueryClient();
 	const modules = useQuery(clinicModulesQueryOptions(tenantId));
+	const catalog = useMemo(
+		() => ModuleCatalog.from(modules.data),
+		[modules.data],
+	);
 	const history = useQuery(clinicModuleHistoryQueryOptions(tenantId));
 
 	const refresh = () =>
@@ -28,7 +33,7 @@ export function useClinicModules(tenantId: string) {
 	});
 
 	return {
-		catalog: ModuleCatalog.from(modules.data),
+		catalog,
 		history: history.data ?? [],
 		isPending: modules.isPending,
 		isSaving: activate.isPending || deactivate.isPending,

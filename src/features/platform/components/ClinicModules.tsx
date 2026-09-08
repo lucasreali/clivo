@@ -6,6 +6,7 @@ import { dateTimeLabel } from "#/shared/format/date";
 import { Badge } from "#/shared/ui/Badge";
 import { Button } from "#/shared/ui/Button";
 import { Callout } from "#/shared/ui/Callout";
+import { columnsFor, DataTable } from "#/shared/ui/DataTable";
 import { EmptyState } from "#/shared/ui/EmptyState";
 import { Panel, PanelHeader } from "#/shared/ui/Panel";
 import { useClinicModules } from "../hooks/use-clinic-modules";
@@ -16,7 +17,49 @@ import { ClinicLifecycleActions } from "./ClinicLifecycleActions";
 import { ClinicTopBar } from "./ClinicTopBar";
 import { ModuleDecisionDialog } from "./ModuleDecisionDialog";
 
-const COLUMNS = "grid-cols-[1.4fr_2fr_150px_120px]";
+const column = columnsFor<PlatformModuleView>();
+
+function columnsToggling(
+	catalog: ModuleCatalog,
+	isSaving: boolean,
+	onToggle: (module: PlatformModuleView) => void,
+) {
+	return column.columns([
+		column.accessor("name", {
+			header: "Módulo",
+			meta: { width: "25%" },
+			cell: ({ row }) => <ModuleName module={row.original} />,
+		}),
+		column.accessor("description", {
+			header: "Efeito na clínica",
+			cell: ({ row }) => (
+				<ModuleEffect module={row.original} catalog={catalog} />
+			),
+		}),
+		column.accessor("active", {
+			header: "Situação",
+			meta: { width: "150px" },
+			cell: ({ getValue }) => (
+				<Badge tone={getValue() ? "brand" : "neutral"}>
+					{getValue() ? "Ativo" : "Desligado"}
+				</Badge>
+			),
+		}),
+		column.display({
+			id: "actions",
+			meta: { width: "120px", align: "right" },
+			cell: ({ row }) => (
+				<Button
+					variant="ghost"
+					onClick={() => onToggle(row.original)}
+					disabled={isSaving}
+				>
+					{row.original.active ? "Desligar" : "Ligar"}
+				</Button>
+			),
+		}),
+	]);
+}
 
 export function ClinicModules({ tenantId }: { tenantId: string }) {
 	const [decision, setDecision] = useState<ModuleDecision>();
@@ -32,6 +75,8 @@ export function ClinicModules({ tenantId }: { tenantId: string }) {
 
 		modules.activate(module.code ?? "");
 	}
+
+	const columns = columnsToggling(catalog, modules.isSaving, toggle);
 
 	return (
 		<>
@@ -50,30 +95,19 @@ export function ClinicModules({ tenantId }: { tenantId: string }) {
 							hint="Neste console o catálogo inteiro aparece sempre: o que está desligado é informação, não ruído."
 						/>
 
-						<div
-							className={`grid ${COLUMNS} gap-3 border-b border-line bg-surface px-4 py-2.5 text-[11.5px] font-semibold text-muted uppercase`}
-						>
-							<span>Módulo</span>
-							<span>Efeito na clínica</span>
-							<span>Situação</span>
-							<span />
-						</div>
-
-						{modules.isPending ? (
-							<p className="px-4 py-10 text-center text-[12.5px] text-muted">
-								Carregando módulos…
-							</p>
-						) : null}
-
-						{catalog.map((module) => (
-							<ModuleRow
-								key={module.code}
-								module={module}
-								catalog={catalog}
-								isSaving={modules.isSaving}
-								onToggle={() => toggle(module)}
-							/>
-						))}
+						<DataTable
+							columns={columns}
+							rows={catalog.listed()}
+							rowId={(module) => module.code ?? ""}
+							isPending={modules.isPending}
+							pendingLabel="Carregando módulos…"
+							empty={
+								<EmptyState
+									title="Nenhum módulo no catálogo"
+									description="A plataforma ainda não publicou nenhum módulo para esta instância."
+								/>
+							}
+						/>
 
 						{modules.error ? (
 							<div className="p-4">
@@ -132,44 +166,33 @@ export function ClinicModules({ tenantId }: { tenantId: string }) {
 	);
 }
 
-type ModuleRowProps = {
+function ModuleName({ module }: { module: PlatformModuleView }) {
+	return (
+		<div className="flex min-w-0 flex-col">
+			<span className="truncate font-medium text-ink">{module.name}</span>
+			<span className="font-mono text-[11.5px] text-muted">{module.code}</span>
+		</div>
+	);
+}
+
+type ModuleEffectProps = {
 	module: PlatformModuleView;
 	catalog: ModuleCatalog;
-	isSaving: boolean;
-	onToggle: () => void;
 };
 
-function ModuleRow({ module, catalog, isSaving, onToggle }: ModuleRowProps) {
+function ModuleEffect({ module, catalog }: ModuleEffectProps) {
 	const missing = catalog.missingDependencyOf(module);
 
 	return (
-		<div
-			className={`grid ${COLUMNS} items-center gap-3 border-b border-line px-4 py-3 text-[13px] last:border-b-0`}
-		>
-			<div className="flex min-w-0 flex-col">
-				<span className="truncate font-medium text-ink">{module.name}</span>
-				<span className="font-mono text-[11.5px] text-muted">
-					{module.code}
+		<div className="flex min-w-0 flex-col">
+			<span className="text-[12.5px] leading-relaxed text-muted">
+				{module.description}
+			</span>
+			{missing ? (
+				<span className="text-[11.5px] text-warn-ink">
+					Depende de {missing.name}, que está desligado.
 				</span>
-			</div>
-			<div className="flex min-w-0 flex-col">
-				<span className="text-[12.5px] leading-relaxed text-muted">
-					{module.description}
-				</span>
-				{missing ? (
-					<span className="text-[11.5px] text-warn-ink">
-						Depende de {missing.name}, que está desligado.
-					</span>
-				) : null}
-			</div>
-			<Badge tone={module.active ? "brand" : "neutral"}>
-				{module.active ? "Ativo" : "Desligado"}
-			</Badge>
-			<div className="flex justify-end">
-				<Button variant="ghost" onClick={onToggle} disabled={isSaving}>
-					{module.active ? "Desligar" : "Ligar"}
-				</Button>
-			</div>
+			) : null}
 		</div>
 	);
 }
