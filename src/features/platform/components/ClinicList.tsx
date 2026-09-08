@@ -1,11 +1,13 @@
 import { Link } from "@tanstack/react-router";
-import { useState } from "react";
+import { useMemo, useState } from "react";
+import type { ClinicView } from "#/api/gen/types";
 import { Page } from "#/features/navigation/components/AppShell";
 import { TopBar } from "#/features/navigation/components/TopBar";
 import { shortDate } from "#/shared/format/date";
 import { taxId } from "#/shared/format/document";
 import { Badge } from "#/shared/ui/Badge";
 import { buttonClass } from "#/shared/ui/Button";
+import { columnsFor, DataTable } from "#/shared/ui/DataTable";
 import { EmptyState } from "#/shared/ui/EmptyState";
 import { TextInput } from "#/shared/ui/Field";
 import { Panel } from "#/shared/ui/Panel";
@@ -16,14 +18,68 @@ import {
 	describeClinicStatus,
 } from "../model/clinic-status";
 
-const COLUMNS = "grid-cols-[2fr_170px_140px_1fr_110px_90px]";
+const column = columnsFor<ClinicView>();
+
+const COLUMNS = column.columns([
+	column.accessor("name", {
+		header: "Nome",
+		cell: ({ row }) => <ClinicName clinic={row.original} />,
+	}),
+	column.accessor("taxId", {
+		header: "CNPJ",
+		meta: { width: "170px" },
+		cell: ({ getValue }) => (
+			<span className="font-mono text-[12px] text-muted">
+				{taxId(getValue())}
+			</span>
+		),
+	}),
+	column.accessor("status", {
+		header: "Situação",
+		meta: { width: "140px" },
+		cell: ({ getValue }) => {
+			const situation = describeClinicStatus(getValue());
+			return <Badge tone={situation.tone}>{situation.label}</Badge>;
+		},
+	}),
+	column.accessor("segment", {
+		header: "Segmento",
+		meta: { width: "18%" },
+		cell: ({ getValue }) => (
+			<span className="truncate text-muted">{getValue() ?? "—"}</span>
+		),
+	}),
+	column.accessor("createdAt", {
+		header: "Entrada",
+		meta: { width: "110px" },
+		cell: ({ getValue }) => (
+			<span className="text-muted">{shortDate(getValue())}</span>
+		),
+	}),
+	column.display({
+		id: "actions",
+		meta: { width: "90px", align: "right" },
+		cell: ({ row }) => (
+			<Link
+				to="/console/clinicas/$tenantId/modulos"
+				params={{ tenantId: String(row.original.id) }}
+				className="text-[12.5px] font-semibold text-brand-ink"
+			>
+				Abrir
+			</Link>
+		),
+	}),
+]);
 
 export function ClinicList() {
 	const [search, setSearch] = useState("");
 	const [status, setStatus] = useState("");
 	const { catalog, isPending } = useClinicCatalog();
 
-	const shown = catalog.matching(search, status);
+	const shown = useMemo(
+		() => catalog.matching(search, status),
+		[catalog, search, status],
+	);
 
 	return (
 		<>
@@ -65,68 +121,34 @@ export function ClinicList() {
 						</span>
 					</div>
 
-					<div
-						className={`grid ${COLUMNS} gap-3 border-b border-line bg-surface px-4 py-2.5 text-[11.5px] font-semibold text-muted uppercase`}
-					>
-						<span>Nome</span>
-						<span>CNPJ</span>
-						<span>Situação</span>
-						<span>Segmento</span>
-						<span>Entrada</span>
-						<span />
-					</div>
-
-					{isPending ? (
-						<p className="px-4 py-10 text-center text-[12.5px] text-muted">
-							Carregando clínicas…
-						</p>
-					) : null}
-
-					{!isPending && shown.isEmpty() ? (
-						<EmptyClinics search={search} platformIsEmpty={catalog.isEmpty()} />
-					) : null}
-
-					{shown.map((clinic) => {
-						const situation = describeClinicStatus(clinic.status);
-
-						return (
-							<div
-								key={clinic.id}
-								className={`grid ${COLUMNS} items-center gap-3 border-b border-line px-4 py-3 text-[13px] last:border-b-0`}
-							>
-								<div className="flex min-w-0 flex-col">
-									<span className="truncate font-medium text-ink">
-										{clinic.name}
-									</span>
-									<span className="truncate text-[11.5px] text-muted">
-										{clinic.legalName ?? "Sem razão social cadastrada"}
-									</span>
-								</div>
-								<span className="font-mono text-[12px] text-muted">
-									{taxId(clinic.taxId)}
-								</span>
-								<Badge tone={situation.tone}>{situation.label}</Badge>
-								<span className="truncate text-muted">
-									{clinic.segment ?? "—"}
-								</span>
-								<span className="text-muted">
-									{shortDate(clinic.createdAt)}
-								</span>
-								<div className="flex justify-end">
-									<Link
-										to="/console/clinicas/$tenantId/modulos"
-										params={{ tenantId: String(clinic.id) }}
-										className="text-[12.5px] font-semibold text-brand-ink"
-									>
-										Abrir
-									</Link>
-								</div>
-							</div>
-						);
-					})}
+					<DataTable
+						columns={COLUMNS}
+						rows={shown.listed()}
+						rowId={(clinic) => String(clinic.id)}
+						isPending={isPending}
+						pendingLabel="Carregando clínicas…"
+						pageSize={12}
+						empty={
+							<EmptyClinics
+								search={search}
+								platformIsEmpty={catalog.isEmpty()}
+							/>
+						}
+					/>
 				</Panel>
 			</Page>
 		</>
+	);
+}
+
+function ClinicName({ clinic }: { clinic: ClinicView }) {
+	return (
+		<div className="flex min-w-0 flex-col">
+			<span className="truncate font-medium text-ink">{clinic.name}</span>
+			<span className="truncate text-[11.5px] text-muted">
+				{clinic.legalName ?? "Sem razão social cadastrada"}
+			</span>
+		</div>
 	);
 }
 

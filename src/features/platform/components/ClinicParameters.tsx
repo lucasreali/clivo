@@ -1,15 +1,54 @@
 import { useState } from "react";
+import type { ParameterView } from "#/api/gen/types";
 import { Page } from "#/features/navigation/components/AppShell";
 import { ParameterControl } from "#/features/settings/components/ParameterControl";
 import { messageOf } from "#/shared/api-error";
 import { Button } from "#/shared/ui/Button";
 import { Callout } from "#/shared/ui/Callout";
+import { columnsFor, DataTable } from "#/shared/ui/DataTable";
 import { EmptyState } from "#/shared/ui/EmptyState";
 import { Panel, PanelHeader } from "#/shared/ui/Panel";
 import { useClinicParameters } from "../hooks/use-clinic-parameters";
 import { ClinicTopBar } from "./ClinicTopBar";
 
-const COLUMNS = "grid-cols-[1.7fr_150px_1fr]";
+const column = columnsFor<ParameterView>();
+
+function columnsEditing(
+	edited: Record<string, string>,
+	onEdit: (code: string, value: string) => void,
+) {
+	return column.columns([
+		column.display({
+			id: "control",
+			header: "Parâmetro e valor",
+			cell: ({ row }) => (
+				<ParameterControl
+					parameter={row.original}
+					value={edited[row.original.code ?? ""] ?? row.original.value ?? ""}
+					onChange={(value) => onEdit(row.original.code ?? "", value)}
+				/>
+			),
+		}),
+		column.accessor("code", {
+			header: "Código",
+			meta: { width: "150px" },
+			cell: ({ getValue }) => (
+				<span className="block pt-1.5 font-mono text-[12px] text-muted">
+					{getValue()}
+				</span>
+			),
+		}),
+		column.accessor("value", {
+			header: "Valor vigente",
+			meta: { width: "25%" },
+			cell: ({ getValue }) => (
+				<span className="block pt-1.5 text-[12.5px] text-muted">
+					{getValue() ?? "—"}
+				</span>
+			),
+		}),
+	]);
+}
 
 export function ClinicParameters({ tenantId }: { tenantId: string }) {
 	const [edited, setEdited] = useState<Record<string, string>>({});
@@ -47,49 +86,22 @@ export function ClinicParameters({ tenantId }: { tenantId: string }) {
 						hint="A regra existe em todas as clínicas; o valor é desta unidade."
 					/>
 
-					<div
-						className={`grid ${COLUMNS} gap-4 border-b border-line bg-surface px-4 py-2.5 text-[11.5px] font-semibold text-muted uppercase`}
-					>
-						<span>Parâmetro e valor</span>
-						<span>Código</span>
-						<span>Valor vigente</span>
-					</div>
-
-					{parameters.isPending ? (
-						<p className="px-4 py-10 text-center text-[12.5px] text-muted">
-							Carregando parâmetros…
-						</p>
-					) : null}
-
-					{!parameters.isPending && parameters.parameters.length === 0 ? (
-						<EmptyState
-							title="Nenhum parâmetro em vigor"
-							description="Parâmetro que depende de módulo inativo não aparece aqui. Ligue o módulo correspondente para trazer as linhas de volta com os valores anteriores."
-						/>
-					) : null}
-
-					{parameters.parameters.map((parameter) => {
-						const code = parameter.code ?? "";
-
-						return (
-							<div
-								key={code}
-								className={`grid ${COLUMNS} items-start gap-4 border-b border-line px-4 py-4 last:border-b-0`}
-							>
-								<ParameterControl
-									parameter={parameter}
-									value={edited[code] ?? parameter.value ?? ""}
-									onChange={(value) => setEdited({ ...edited, [code]: value })}
-								/>
-								<span className="pt-1.5 font-mono text-[12px] text-muted">
-									{code}
-								</span>
-								<span className="pt-1.5 text-[12.5px] text-muted">
-									{parameter.value ?? "—"}
-								</span>
-							</div>
-						);
-					})}
+					<DataTable
+						columns={columnsEditing(edited, (code, value) =>
+							setEdited({ ...edited, [code]: value }),
+						)}
+						rows={parameters.parameters}
+						rowId={(parameter) => parameter.code ?? ""}
+						isPending={parameters.isPending}
+						pendingLabel="Carregando parâmetros…"
+						verticalAlign="top"
+						empty={
+							<EmptyState
+								title="Nenhum parâmetro em vigor"
+								description="Parâmetro que depende de módulo inativo não aparece aqui. Ligue o módulo correspondente para trazer as linhas de volta com os valores anteriores."
+							/>
+						}
+					/>
 
 					<div className="border-t border-line px-4 py-3">
 						<Callout tone="neutral">
