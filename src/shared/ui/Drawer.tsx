@@ -95,7 +95,7 @@ export function Drawer({
 							!isCompact && width,
 						)}
 					>
-						<header className="flex items-start justify-between gap-4 border-line border-b px-5 py-4">
+						<header className="flex shrink-0 items-start justify-between gap-4 border-line border-b px-5 py-4">
 							<div className="flex flex-col gap-0.5">
 								<DrawerPrimitive.Title className="font-semibold text-[15px] text-ink">
 									{title}
@@ -113,7 +113,7 @@ export function Drawer({
 								<X size={16} aria-hidden="true" />
 							</DrawerPrimitive.Close>
 						</header>
-						<div className="flex flex-col gap-4 overflow-y-auto px-5 py-4">
+						<div className="flex min-h-0 grow flex-col gap-4 overflow-y-auto px-5 py-4">
 							{children}
 						</div>
 						{isDiscarding ? (
@@ -137,7 +137,7 @@ function DrawerFooter({ children }: { children?: React.ReactNode }) {
 	}
 
 	return (
-		<footer className="flex items-center justify-end gap-2 border-line border-t bg-surface px-5 py-3">
+		<footer className="flex shrink-0 items-center justify-end gap-2 border-line border-t bg-surface px-5 py-3">
 			{children}
 		</footer>
 	);
@@ -150,7 +150,7 @@ type DiscardPromptProps = {
 
 function DiscardPrompt({ onKeep, onDiscard }: DiscardPromptProps) {
 	return (
-		<footer className="flex flex-wrap items-center justify-between gap-3 border-line border-t bg-surface px-5 py-3">
+		<footer className="flex shrink-0 flex-wrap items-center justify-between gap-3 border-line border-t bg-surface px-5 py-3">
 			<span className="text-[12.5px] text-muted">
 				As alterações ainda não foram salvas.
 			</span>
