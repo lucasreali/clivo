@@ -89,6 +89,7 @@ function DeactivationRefusal({
 	return (
 		<Modal
 			title={`${module.name} não pode ser desligado`}
+			dismissal="guarded"
 			subtitle="A ordem é obrigatória e o console não a inverte automaticamente."
 			onClose={onClose}
 			footer={
@@ -141,6 +142,7 @@ function DeactivationConfirmation({
 	return (
 		<Modal
 			title={`Desligar ${module.name}?`}
+			dismissal="guarded"
 			subtitle="Os dados não são apagados — deixam de ser acessíveis enquanto o módulo estiver desligado."
 			onClose={onClose}
 			footer={

@@ -56,6 +56,7 @@ function SuspensionDialog({ lifecycle, onClose }: SuspensionDialogProps) {
 	return (
 		<Modal
 			title="Suspender a clínica"
+			dismissal="guarded"
 			subtitle="Os registros são preservados; ninguém do lado do cliente consegue entrar enquanto a suspensão durar."
 			onClose={onClose}
 			footer={

@@ -43,6 +43,7 @@ export function CancelAppointmentDialog({
 	return (
 		<Modal
 			title={`Cancelar agendamento de ${appointment.customerName ?? "cliente"}?`}
+			dismissal="guarded"
 			subtitle={`${appointment.serviceName ?? "Atendimento"} · ${appointment.practitionerName ?? ""} · ${shortDate(appointment.start)} às ${clockTime(appointment.start)}`}
 			onClose={onClose}
 			footer={

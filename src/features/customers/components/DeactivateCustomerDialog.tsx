@@ -49,6 +49,7 @@ export function DeactivateCustomerDialog({
 	return (
 		<Modal
 			title={`Inativar ${customer.name ?? "cliente"}?`}
+			dismissal="guarded"
 			onClose={onClose}
 			footer={
 				<>
