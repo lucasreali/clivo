@@ -49,8 +49,7 @@ function SuspensionDialog({ lifecycle, onClose }: SuspensionDialogProps) {
 	const [reason, setReason] = useState("");
 
 	function confirm() {
-		lifecycle.deactivate(reason);
-		onClose();
+		lifecycle.deactivate(reason, onClose);
 	}
 
 	return (

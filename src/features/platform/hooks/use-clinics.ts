@@ -26,8 +26,11 @@ export function useClinicLifecycle(tenantId: string) {
 
 	return {
 		activate: () => activate.mutate({ path: { tenantId } }),
-		deactivate: (reason: string) =>
-			deactivate.mutate({ path: { tenantId }, body: { reason } }),
+		deactivate: (reason: string, onSuspended: () => void) =>
+			deactivate.mutate(
+				{ path: { tenantId }, body: { reason } },
+				{ onSuccess: onSuspended },
+			),
 		isPending: activate.isPending || deactivate.isPending,
 		error: activate.error ?? deactivate.error,
 	};
