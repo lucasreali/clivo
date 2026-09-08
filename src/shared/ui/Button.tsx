@@ -1,3 +1,4 @@
+import { Button as ButtonPrimitive } from "@base-ui/react/button";
 import type { ButtonHTMLAttributes } from "react";
 import { cn } from "./cn";
 
@@ -34,6 +35,10 @@ export function Button({
 	...rest
 }: ButtonProps) {
 	return (
-		<button type={type} className={buttonClass(variant, className)} {...rest} />
+		<ButtonPrimitive
+			type={type}
+			className={buttonClass(variant, className)}
+			{...rest}
+		/>
 	);
 }

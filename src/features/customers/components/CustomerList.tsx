@@ -1,3 +1,4 @@
+import { MagnifyingGlass, X } from "@phosphor-icons/react";
 import { Link } from "@tanstack/react-router";
 import { useState } from "react";
 import { useSearchCustomers } from "#/api/gen/hooks";
@@ -200,19 +201,11 @@ function SearchBox({ value, onChange }: SearchBoxProps) {
 				value ? "border-brand" : "border-line",
 			)}
 		>
-			<svg
-				width="14"
-				height="14"
-				viewBox="0 0 16 16"
-				fill="none"
-				stroke={value ? "#1D9E75" : "#8B8A83"}
-				strokeWidth="1.5"
-				strokeLinecap="round"
+			<MagnifyingGlass
+				size={14}
+				className={cn("shrink-0", value ? "text-brand" : "text-faint")}
 				aria-hidden="true"
-			>
-				<circle cx="7" cy="7" r="4.4" />
-				<path d="M10.3 10.3L14 14" />
-			</svg>
+			/>
 			<input
 				value={value}
 				onChange={(event) => onChange(event.target.value)}
@@ -225,9 +218,9 @@ function SearchBox({ value, onChange }: SearchBoxProps) {
 					type="button"
 					onClick={() => onChange("")}
 					aria-label="Limpar busca"
-					className="text-[14px] text-faint hover:text-ink"
+					className="text-faint hover:text-ink"
 				>
-					×
+					<X size={14} aria-hidden="true" />
 				</button>
 			) : null}
 		</div>

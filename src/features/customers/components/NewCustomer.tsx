@@ -84,7 +84,7 @@ export function NewCustomer() {
 						</p>
 						<Checkbox
 							checked={consented}
-							onChange={(event) => setConsented(event.target.checked)}
+							onCheckedChange={setConsented}
 							label="O cliente leu e concordou com o termo de tratamento de dados, assinado presencialmente na recepção."
 						/>
 					</Panel>

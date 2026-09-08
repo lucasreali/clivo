@@ -36,7 +36,7 @@ export function SheetFieldControl({
 		return (
 			<Checkbox
 				checked={value === true}
-				onChange={(event) => onChange(event.target.checked)}
+				onCheckedChange={onChange}
 				label={label}
 			/>
 		);
@@ -51,8 +51,8 @@ export function SheetFieldControl({
 							<Checkbox
 								key={option}
 								checked={asList(value).includes(option)}
-								onChange={(event) =>
-									onChange(toggle(asList(value), option, event.target.checked))
+								onCheckedChange={(checked) =>
+									onChange(toggle(asList(value), option, checked))
 								}
 								label={option}
 							/>

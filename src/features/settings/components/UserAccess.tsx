@@ -38,8 +38,8 @@ export function UserAccess({ user }: { user: UserView }) {
 						checked={reached.includes(module.code ?? "")}
 						disabled={access.isSaving || granted.isPending}
 						label={module.name ?? module.code}
-						onChange={(event) =>
-							event.target.checked
+						onCheckedChange={(checked) =>
+							checked
 								? access.grant(module.code ?? "")
 								: access.revoke(module.code ?? "")
 						}

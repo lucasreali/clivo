@@ -25,7 +25,7 @@ export function ParameterControl({
 		return (
 			<Checkbox
 				checked={value === "true"}
-				onChange={(event) => onChange(String(event.target.checked))}
+				onCheckedChange={(checked) => onChange(String(checked))}
 				label={label}
 			/>
 		);
@@ -42,10 +42,8 @@ export function ParameterControl({
 							<Checkbox
 								key={option}
 								checked={items.includes(option)}
-								onChange={(event) =>
-									onChange(
-										itemsAsValue(toggle(items, option, event.target.checked)),
-									)
+								onCheckedChange={(checked) =>
+									onChange(itemsAsValue(toggle(items, option, checked)))
 								}
 								label={option}
 							/>

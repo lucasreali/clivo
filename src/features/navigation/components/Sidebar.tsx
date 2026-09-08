@@ -1,8 +1,11 @@
+import type { Icon } from "@phosphor-icons/react";
 import { Link } from "@tanstack/react-router";
 import { useState } from "react";
 import { useCapabilities } from "#/features/capabilities/hooks/use-capabilities";
 import { SessionDialog } from "#/features/session/components/SessionDialog";
 import { Avatar } from "#/shared/ui/Avatar";
+import { cn } from "#/shared/ui/cn";
+import { Logo } from "#/shared/ui/Logo";
 import { announcePending } from "#/shared/ui/pending";
 import { NAVIGATION, type NavigationItem } from "../model/navigation";
 
@@ -25,10 +28,7 @@ export function Sidebar({ user, role, clinic }: SidebarProps) {
 	return (
 		<aside className="flex h-full w-[220px] shrink-0 flex-col border-r border-line bg-panel">
 			<div className="flex h-16 shrink-0 items-center gap-2 border-b border-line px-5">
-				<span className="h-2.5 w-2.5 rounded-sm bg-brand" />
-				<span className="text-[17px] font-semibold tracking-[1.6px] text-ink">
-					CLIVO
-				</span>
+				<Logo />
 			</div>
 
 			<nav className="flex flex-col gap-0.5 px-2.5 py-3.5">
@@ -72,7 +72,7 @@ function SidebarEntry({ item }: { item: NavigationItem }) {
 				onClick={() => announcePending(item.label)}
 				className={ENTRY}
 			>
-				<SidebarIcon path={item.icon} isActive={false} />
+				<SidebarIcon icon={item.icon} isActive={false} />
 				<span>{item.label}</span>
 			</button>
 		);
@@ -90,7 +90,7 @@ function SidebarEntry({ item }: { item: NavigationItem }) {
 		>
 			{({ isActive }) => (
 				<>
-					<SidebarIcon path={item.icon} isActive={isActive} />
+					<SidebarIcon icon={item.icon} isActive={isActive} />
 					<span>{item.label}</span>
 				</>
 			)}
@@ -98,20 +98,18 @@ function SidebarEntry({ item }: { item: NavigationItem }) {
 	);
 }
 
-function SidebarIcon({ path, isActive }: { path: string; isActive: boolean }) {
+function SidebarIcon({
+	icon: Glyph,
+	isActive,
+}: {
+	icon: Icon;
+	isActive: boolean;
+}) {
 	return (
-		<svg
-			width="16"
-			height="16"
-			viewBox="0 0 16 16"
-			fill="none"
-			stroke={isActive ? "#1D9E75" : "#8B8A83"}
-			strokeWidth="1.4"
-			strokeLinecap="round"
-			strokeLinejoin="round"
+		<Glyph
+			size={16}
+			className={cn("shrink-0", isActive ? "text-brand" : "text-faint")}
 			aria-hidden="true"
-		>
-			<path d={path} />
-		</svg>
+		/>
 	);
 }

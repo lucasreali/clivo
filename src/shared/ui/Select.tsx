@@ -1,7 +1,13 @@
-import { useId, useState } from "react";
+import { Select as SelectPrimitive } from "@base-ui/react/select";
+import { CaretDown } from "@phosphor-icons/react";
 import { cn } from "./cn";
 import { CONTROL } from "./control";
-import { type Option, OptionItem, OptionList, OptionNotice } from "./options";
+import {
+	OPTION_ITEM,
+	OPTION_NOTICE,
+	OPTION_POPUP,
+	type Option,
+} from "./options";
 
 type SelectProps = {
 	id?: string;
@@ -33,120 +39,68 @@ export function Select({
 	ref,
 	...rest
 }: SelectProps) {
-	const listId = useId();
-	const [isOpen, setIsOpen] = useState(false);
-	const [highlighted, setHighlighted] = useState(0);
-
-	const chosen = options.find((option) => option.value === value);
-	const active = options[highlighted];
-
-	function open() {
-		setHighlighted(Math.max(options.indexOf(chosen ?? options[0]), 0));
-		setIsOpen(true);
-	}
-
-	function choose(option: Option) {
-		onChange(option.value);
-		setIsOpen(false);
-	}
-
-	function move(step: number) {
-		setHighlighted((current) =>
-			Math.min(Math.max(current + step, 0), Math.max(options.length - 1, 0)),
-		);
-	}
-
-	function onKeyDown(event: React.KeyboardEvent<HTMLButtonElement>) {
-		if (event.key === "Escape") {
-			setIsOpen(false);
-			return;
-		}
-		if (event.key === "ArrowDown" || event.key === "ArrowUp") {
-			event.preventDefault();
-			if (!isOpen) {
-				open();
-				return;
-			}
-			move(event.key === "ArrowDown" ? 1 : -1);
-			return;
-		}
-		if ((event.key === "Enter" || event.key === " ") && isOpen && active) {
-			event.preventDefault();
-			choose(active);
-		}
-	}
-
 	return (
-		<div className="relative">
-			<input type="hidden" name={name} value={value} />
-			<button
+		<SelectPrimitive.Root
+			items={options as Option[]}
+			name={name}
+			disabled={disabled}
+			value={value === "" ? null : value}
+			onValueChange={(chosen) =>
+				onChange(chosen === null ? "" : String(chosen))
+			}
+		>
+			<SelectPrimitive.Trigger
 				id={id}
 				ref={ref}
-				type="button"
-				role="combobox"
-				aria-expanded={isOpen}
-				aria-controls={listId}
-				aria-activedescendant={
-					isOpen && active ? `${listId}-${active.value}` : undefined
-				}
-				disabled={disabled}
+				onBlur={onBlur}
 				className={cn(
 					CONTROL,
 					"flex items-center justify-between gap-2 text-left",
 					className,
 				)}
-				onClick={() => (isOpen ? setIsOpen(false) : open())}
-				onKeyDown={onKeyDown}
-				onBlur={() => {
-					setIsOpen(false);
-					onBlur?.();
-				}}
 				{...rest}
 			>
-				<span className={cn("truncate", !chosen && "text-faint")}>
-					{chosen?.label ?? placeholder}
-				</span>
-				<Chevron />
-			</button>
+				<SelectPrimitive.Value
+					className="truncate data-placeholder:text-faint"
+					placeholder={placeholder}
+				/>
+				<SelectPrimitive.Icon className="shrink-0 text-faint">
+					<CaretDown size={10} aria-hidden="true" />
+				</SelectPrimitive.Icon>
+			</SelectPrimitive.Trigger>
 
-			{isOpen ? (
-				<OptionList id={listId}>
-					{options.length === 0 ? (
-						<OptionNotice>{emptyMessage}</OptionNotice>
-					) : null}
+			<SelectPrimitive.Portal>
+				<SelectPrimitive.Positioner
+					sideOffset={4}
+					alignItemWithTrigger={false}
+					className="z-50 outline-none"
+				>
+					<SelectPrimitive.Popup
+						className={cn(OPTION_POPUP, "min-w-[var(--anchor-width)]")}
+					>
+						{options.length === 0 ? (
+							<p className={OPTION_NOTICE}>{emptyMessage}</p>
+						) : null}
 
-					{options.map((option, position) => (
-						<OptionItem
-							key={option.value}
-							id={`${listId}-${option.value}`}
-							option={option}
-							chosen={option.value === value}
-							highlighted={position === highlighted}
-							onHighlight={() => setHighlighted(position)}
-							onChoose={() => choose(option)}
-						/>
-					))}
-				</OptionList>
-			) : null}
-		</div>
-	);
-}
-
-function Chevron() {
-	return (
-		<svg
-			width="10"
-			height="10"
-			viewBox="0 0 12 12"
-			fill="none"
-			stroke="currentColor"
-			strokeWidth="1.6"
-			strokeLinecap="round"
-			strokeLinejoin="round"
-			className="shrink-0 text-faint"
-			aria-hidden="true"
-		>
-			<path d="M2.5 4.5L6 8L9.5 4.5" />
-		</svg>
+						{options.map((option) => (
+							<SelectPrimitive.Item
+								key={option.value}
+								value={option.value}
+								className={OPTION_ITEM}
+							>
+								<SelectPrimitive.ItemText className="font-medium">
+									{option.label}
+								</SelectPrimitive.ItemText>
+								{option.hint ? (
+									<span className="text-[11.5px] text-muted">
+										{option.hint}
+									</span>
+								) : null}
+							</SelectPrimitive.Item>
+						))}
+					</SelectPrimitive.Popup>
+				</SelectPrimitive.Positioner>
+			</SelectPrimitive.Portal>
+		</SelectPrimitive.Root>
 	);
 }

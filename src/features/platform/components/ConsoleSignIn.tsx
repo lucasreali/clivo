@@ -7,6 +7,7 @@ import { submitHandler, useAppForm, validatedBy } from "#/shared/form/app-form";
 import { requiredEmail, requiredText } from "#/shared/form/schema";
 import { Button } from "#/shared/ui/Button";
 import { Callout } from "#/shared/ui/Callout";
+import { Logo } from "#/shared/ui/Logo";
 
 const credentialsSchema = z.object({
 	email: requiredEmail,
@@ -39,10 +40,9 @@ export function ConsoleSignIn() {
 			className="flex w-[400px] flex-col gap-5 rounded-xl border border-line bg-panel p-7"
 		>
 			<div className="flex flex-col gap-1.5">
-				<span className="flex items-center gap-2 text-[20px] font-semibold tracking-[1.6px] text-ink">
-					<span className="h-2.5 w-2.5 rounded-sm bg-brand" />
-					CLIVO
-					<span className="ml-1 rounded border border-line px-1.5 py-0.5 text-[10px] font-medium tracking-[1.1px] text-muted">
+				<span className="flex items-center gap-2">
+					<Logo size="lg" />
+					<span className="rounded border border-line px-1.5 py-0.5 text-[10px] font-medium tracking-[1.1px] text-muted">
 						CONSOLE
 					</span>
 				</span>

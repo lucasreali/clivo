@@ -2,6 +2,8 @@ import { Link, useParams } from "@tanstack/react-router";
 import { useGetClinic } from "#/api/gen/hooks";
 import { taxId } from "#/shared/format/document";
 import { initialsOf } from "#/shared/format/name";
+import { cn } from "#/shared/ui/cn";
+import { Logo } from "#/shared/ui/Logo";
 import {
 	CLINIC_NAVIGATION,
 	CONSOLE_NAVIGATION,
@@ -19,10 +21,7 @@ export function ConsoleRail({ user, role }: ConsoleRailProps) {
 	return (
 		<aside className="flex h-full w-[220px] shrink-0 flex-col border-r border-line bg-panel">
 			<div className="flex h-16 shrink-0 items-center gap-2 border-b border-line px-5">
-				<span className="h-2.5 w-2.5 rounded-sm bg-brand" />
-				<span className="text-[17px] font-semibold tracking-[1.6px] text-ink">
-					CLIVO
-				</span>
+				<Logo />
 				<span className="ml-auto rounded border border-line px-1.5 py-0.5 text-[9.5px] font-medium tracking-[1.1px] text-muted">
 					CONSOLE
 				</span>
@@ -100,19 +99,11 @@ function RailLink({ item, exact = false, params }: RailLinkProps) {
 		>
 			{({ isActive }) => (
 				<>
-					<svg
-						width="15"
-						height="15"
-						viewBox="0 0 16 16"
-						fill="none"
-						stroke={isActive ? "#1D9E75" : "#8B8A83"}
-						strokeWidth="1.4"
-						strokeLinecap="round"
-						strokeLinejoin="round"
+					<item.icon
+						size={15}
+						className={cn("shrink-0", isActive ? "text-brand" : "text-faint")}
 						aria-hidden="true"
-					>
-						<path d={item.icon} />
-					</svg>
+					/>
 					<span>{item.label}</span>
 				</>
 			)}

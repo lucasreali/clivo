@@ -1,3 +1,4 @@
+import { CaretLeft, CaretRight } from "@phosphor-icons/react";
 import { useQueries } from "@tanstack/react-query";
 import { useState } from "react";
 import {
@@ -221,19 +222,19 @@ function WeekPager({ monday, onChange }: WeekPagerProps) {
 	);
 }
 
-const ARROW_PATH = {
-	previous: { d: "M10 3.5L5.5 8l4.5 4.5", border: "border-r" },
-	next: { d: "M6 3.5L10.5 8 6 12.5", border: "border-l" },
+const PAGER = {
+	previous: { icon: CaretLeft, border: "border-r" },
+	next: { icon: CaretRight, border: "border-l" },
 } as const;
 
 type PagerArrowProps = {
 	label: string;
-	direction: keyof typeof ARROW_PATH;
+	direction: keyof typeof PAGER;
 	onClick: () => void;
 };
 
 function PagerArrow({ label, direction, onClick }: PagerArrowProps) {
-	const arrow = ARROW_PATH[direction];
+	const { icon: Glyph, border } = PAGER[direction];
 
 	return (
 		<button
@@ -242,22 +243,10 @@ function PagerArrow({ label, direction, onClick }: PagerArrowProps) {
 			onClick={onClick}
 			className={cn(
 				"flex h-full w-[34px] shrink-0 items-center justify-center border-line text-muted hover:text-ink",
-				arrow.border,
+				border,
 			)}
 		>
-			<svg
-				width="16"
-				height="16"
-				viewBox="0 0 16 16"
-				fill="none"
-				stroke="currentColor"
-				strokeWidth="1.6"
-				strokeLinecap="round"
-				strokeLinejoin="round"
-				aria-hidden="true"
-			>
-				<path d={arrow.d} />
-			</svg>
+			<Glyph size={16} aria-hidden="true" />
 		</button>
 	);
 }

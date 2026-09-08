@@ -1,7 +1,12 @@
-import { useId, useState } from "react";
+import { Combobox as ComboboxPrimitive } from "@base-ui/react/combobox";
 import { cn } from "./cn";
 import { CONTROL } from "./control";
-import { type Option, OptionItem, OptionList, OptionNotice } from "./options";
+import {
+	OPTION_ITEM,
+	OPTION_NOTICE,
+	OPTION_POPUP,
+	type Option,
+} from "./options";
 
 type ComboboxProps = {
 	id?: string;
@@ -34,110 +39,76 @@ export function Combobox({
 	className,
 	ref,
 }: ComboboxProps) {
-	const listId = useId();
-	const [query, setQuery] = useState("");
-	const [isOpen, setIsOpen] = useState(false);
-	const [highlighted, setHighlighted] = useState(0);
-
-	const chosen = options.find((option) => option.value === value);
-	// A field that searches upstream already receives the matches; one that was
-	// handed the whole list narrows it here, so typing filters either way.
-	const visible = onSearch ? options : options.filter(matching(query));
-	const active = visible[highlighted];
-
-	function open(term: string) {
-		setQuery(term);
-		setIsOpen(true);
-		setHighlighted(0);
-		onSearch?.(term);
-	}
-
-	function choose(option: Option) {
-		onChange(option.value);
-		setQuery("");
-		setIsOpen(false);
-	}
-
-	function move(step: number) {
-		setHighlighted((current) =>
-			Math.min(Math.max(current + step, 0), Math.max(visible.length - 1, 0)),
-		);
-	}
-
-	function onKeyDown(event: React.KeyboardEvent<HTMLInputElement>) {
-		if (event.key === "ArrowDown" || event.key === "ArrowUp") {
-			event.preventDefault();
-			setIsOpen(true);
-			move(event.key === "ArrowDown" ? 1 : -1);
-			return;
-		}
-		if (event.key === "Enter" && isOpen && active) {
-			event.preventDefault();
-			choose(active);
-			return;
-		}
-		if (event.key === "Escape") {
-			setIsOpen(false);
-		}
-	}
+	const chosen = options.find((option) => option.value === value) ?? null;
 
 	return (
-		<div className="relative">
-			<input
+		<ComboboxPrimitive.Root<Option>
+			items={options as Option[]}
+			name={name}
+			value={chosen}
+			disabled={disabled}
+			// A field that searches upstream already receives the matches; one that was
+			// handed the whole list narrows it here, so typing filters either way.
+			filter={onSearch ? null : matching}
+			itemToStringLabel={(option) => option.label}
+			itemToStringValue={(option) => option.value}
+			isItemEqualToValue={(option, selected) =>
+				option.value === selected?.value
+			}
+			onValueChange={(option) => onChange(option?.value ?? "")}
+			onInputValueChange={(term) => onSearch?.(term)}
+		>
+			<ComboboxPrimitive.Input
 				id={id}
-				name={name}
 				ref={ref}
-				type="text"
-				role="combobox"
-				autoComplete="off"
-				aria-expanded={isOpen}
-				aria-controls={listId}
-				aria-autocomplete="list"
-				aria-activedescendant={
-					isOpen && active ? `${listId}-${active.value}` : undefined
-				}
-				disabled={disabled}
 				placeholder={placeholder}
+				onBlur={onBlur}
 				className={cn(CONTROL, className)}
-				value={isOpen ? query : (chosen?.label ?? "")}
-				onChange={(event) => open(event.target.value)}
-				onFocus={() => open("")}
-				onClick={() => setIsOpen(true)}
-				onKeyDown={onKeyDown}
-				onBlur={() => {
-					setIsOpen(false);
-					onBlur?.();
-				}}
 			/>
 
-			{isOpen ? (
-				<OptionList id={listId}>
-					{isLoading ? <OptionNotice>Buscando…</OptionNotice> : null}
+			<ComboboxPrimitive.Portal>
+				<ComboboxPrimitive.Positioner
+					sideOffset={4}
+					className="z-50 outline-none"
+				>
+					<ComboboxPrimitive.Popup
+						className={cn(OPTION_POPUP, "w-[var(--anchor-width)]")}
+					>
+						{isLoading ? <p className={OPTION_NOTICE}>Buscando…</p> : null}
 
-					{!isLoading && visible.length === 0 ? (
-						<OptionNotice>{emptyMessage}</OptionNotice>
-					) : null}
+						{isLoading ? null : (
+							<ComboboxPrimitive.Empty className={OPTION_NOTICE}>
+								{emptyMessage}
+							</ComboboxPrimitive.Empty>
+						)}
 
-					{visible.map((option, position) => (
-						<OptionItem
-							key={option.value}
-							id={`${listId}-${option.value}`}
-							option={option}
-							chosen={option.value === value}
-							highlighted={position === highlighted}
-							onHighlight={() => setHighlighted(position)}
-							onChoose={() => choose(option)}
-						/>
-					))}
-				</OptionList>
-			) : null}
-		</div>
+						<ComboboxPrimitive.List>
+							{(option: Option) => (
+								<ComboboxPrimitive.Item
+									key={option.value}
+									value={option}
+									className={OPTION_ITEM}
+								>
+									<span className="font-medium">{option.label}</span>
+									{option.hint ? (
+										<span className="text-[11.5px] text-muted">
+											{option.hint}
+										</span>
+									) : null}
+								</ComboboxPrimitive.Item>
+							)}
+						</ComboboxPrimitive.List>
+					</ComboboxPrimitive.Popup>
+				</ComboboxPrimitive.Positioner>
+			</ComboboxPrimitive.Portal>
+		</ComboboxPrimitive.Root>
 	);
 }
 
-function matching(query: string) {
+function matching(option: Option, query: string) {
 	const wanted = query.trim().toLowerCase();
-	return (option: Option) =>
+	return (
 		wanted === "" ||
-		`${option.label} ${option.hint ?? ""}`.toLowerCase().includes(wanted);
+		`${option.label} ${option.hint ?? ""}`.toLowerCase().includes(wanted)
+	);
 }

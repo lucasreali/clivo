@@ -159,7 +159,7 @@ export function CheckboxField({ label, disabled }: CheckboxFieldProps) {
 				disabled={disabled}
 				checked={Boolean(field.state.value)}
 				onBlur={field.handleBlur}
-				onChange={(event) => field.handleChange(event.target.checked)}
+				onCheckedChange={(checked) => field.handleChange(checked)}
 				label={label}
 			/>
 			{error ? (
