@@ -1,8 +1,8 @@
 import { Checkbox as CheckboxPrimitive } from "@base-ui/react/checkbox";
 import { Field as FieldPrimitive } from "@base-ui/react/field";
 import { Input } from "@base-ui/react/input";
-import { Check } from "@phosphor-icons/react";
-import { useId } from "react";
+import { Check, Eye, EyeSlash } from "@phosphor-icons/react";
+import { useId, useState } from "react";
 import { cn } from "./cn";
 import { CONTROL } from "./control";
 
@@ -46,8 +46,38 @@ export function Field({ label, required, hint, error, children }: FieldProps) {
 
 type InputProps = React.ComponentProps<"input">;
 
-export function TextInput({ className, ...rest }: InputProps) {
-	return <Input className={cn(CONTROL, className)} {...rest} />;
+export function TextInput({ className, type, ...rest }: InputProps) {
+	if (type === "password") {
+		return <PasswordInput className={className} {...rest} />;
+	}
+
+	return <Input type={type} className={cn(CONTROL, className)} {...rest} />;
+}
+
+function PasswordInput({ className, disabled, ...rest }: InputProps) {
+	const [revealed, setRevealed] = useState(false);
+	const Icon = revealed ? EyeSlash : Eye;
+
+	return (
+		<div className="relative flex items-center">
+			<Input
+				{...rest}
+				disabled={disabled}
+				type={revealed ? "text" : "password"}
+				className={cn(CONTROL, "pr-10", className)}
+			/>
+			<button
+				type="button"
+				disabled={disabled}
+				onClick={() => setRevealed(!revealed)}
+				aria-label={revealed ? "Ocultar senha" : "Mostrar senha"}
+				aria-pressed={revealed}
+				className="absolute right-3 flex text-faint hover:text-ink disabled:text-line"
+			>
+				<Icon size={16} aria-hidden="true" />
+			</button>
+		</div>
+	);
 }
 
 type TextAreaProps = React.ComponentProps<"textarea">;
