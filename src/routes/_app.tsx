@@ -1,26 +1,12 @@
-import { createFileRoute, Outlet, redirect } from "@tanstack/react-router";
-import { getCurrentSessionQueryOptions } from "#/api/gen/hooks";
+import { createFileRoute, Outlet } from "@tanstack/react-router";
 import { AppShell } from "#/features/navigation/components/AppShell";
+import { requireClinicSession } from "#/features/session/route/guard";
 import { labelOfRole } from "#/features/settings/model/role";
-import { statusOf } from "#/shared/api-error";
 
 export const Route = createFileRoute("/_app")({
-	beforeLoad: async ({ context }) => {
-		const session = await context.queryClient
-			.ensureQueryData(getCurrentSessionQueryOptions())
-			.catch(rejectUnauthenticated);
-
-		return { session };
-	},
+	beforeLoad: ({ context }) => requireClinicSession(context),
 	component: AppLayout,
 });
-
-function rejectUnauthenticated(error: unknown): never {
-	if (statusOf(error) === 401) {
-		throw redirect({ to: "/login" });
-	}
-	throw error;
-}
 
 function AppLayout() {
 	const { session } = Route.useRouteContext();

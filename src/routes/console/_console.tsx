@@ -1,25 +1,11 @@
-import { createFileRoute, Outlet, redirect } from "@tanstack/react-router";
-import { getCurrentSessionQueryOptions } from "#/api/gen/hooks";
+import { createFileRoute, Outlet } from "@tanstack/react-router";
 import { ConsoleShell } from "#/features/platform/components/ConsoleShell";
-import { statusOf } from "#/shared/api-error";
+import { requireConsoleSession } from "#/features/session/route/guard";
 
 export const Route = createFileRoute("/console/_console")({
-	beforeLoad: async ({ context }) => {
-		const session = await context.queryClient
-			.ensureQueryData(getCurrentSessionQueryOptions())
-			.catch(rejectUnauthenticated);
-
-		return { session };
-	},
+	beforeLoad: ({ context }) => requireConsoleSession(context),
 	component: ConsoleLayout,
 });
-
-function rejectUnauthenticated(error: unknown): never {
-	if (statusOf(error) === 401) {
-		throw redirect({ to: "/console/entrar" });
-	}
-	throw error;
-}
 
 function ConsoleLayout() {
 	const { session } = Route.useRouteContext();
