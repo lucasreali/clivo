@@ -2,7 +2,7 @@ import type { Icon } from "@phosphor-icons/react";
 import { Link } from "@tanstack/react-router";
 import { useState } from "react";
 import { useCapabilities } from "#/features/capabilities/hooks/use-capabilities";
-import { SessionDialog } from "#/features/session/components/SessionDialog";
+import { SessionDrawer } from "#/features/session/components/SessionDrawer";
 import { Avatar } from "#/shared/ui/Avatar";
 import { cn } from "#/shared/ui/cn";
 import { Logo } from "#/shared/ui/Logo";
@@ -53,7 +53,7 @@ export function Sidebar({ user, role, clinic }: SidebarProps) {
 			</button>
 
 			{isAccountOpen ? (
-				<SessionDialog
+				<SessionDrawer
 					user={user}
 					role={role}
 					clinic={clinic}

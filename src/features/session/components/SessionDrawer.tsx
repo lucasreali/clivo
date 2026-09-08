@@ -1,44 +1,41 @@
+import { useState } from "react";
 import { messageOf } from "#/shared/api-error";
 import { Avatar } from "#/shared/ui/Avatar";
 import { Button } from "#/shared/ui/Button";
 import { Callout } from "#/shared/ui/Callout";
-import { Modal } from "#/shared/ui/Modal";
+import { Drawer } from "#/shared/ui/Drawer";
 import { useSignOutAction } from "../hooks/use-session";
 
-type SessionDialogProps = {
+type SessionDrawerProps = {
 	user: string;
 	role: string;
 	clinic: string;
 	onClose: () => void;
 };
 
-export function SessionDialog({
+export function SessionDrawer({
 	user,
 	role,
 	clinic,
 	onClose,
-}: SessionDialogProps) {
+}: SessionDrawerProps) {
+	const [isConfirming, setIsConfirming] = useState(false);
 	const signOut = useSignOutAction();
 
 	return (
-		<Modal
+		<Drawer
 			title="Minha conta"
 			subtitle="Dados da sessão aberta neste navegador."
 			onClose={onClose}
-			width="max-w-[420px]"
+			side="left"
 			footer={
-				<>
-					<Button variant="secondary" onClick={onClose}>
-						Fechar
-					</Button>
-					<Button
-						variant="danger"
-						onClick={() => signOut.mutate(undefined)}
-						disabled={signOut.isPending}
-					>
-						{signOut.isPending ? "Saindo…" : "Sair da conta"}
-					</Button>
-				</>
+				<SignOutAction
+					isConfirming={isConfirming}
+					isPending={signOut.isPending}
+					onAsk={() => setIsConfirming(true)}
+					onKeep={() => setIsConfirming(false)}
+					onConfirm={() => signOut.mutate(undefined)}
+				/>
 			}
 		>
 			<div className="flex items-center gap-3">
@@ -65,7 +62,45 @@ export function SessionDialog({
 			{signOut.isError ? (
 				<Callout tone="danger">{messageOf(signOut.error)}</Callout>
 			) : null}
-		</Modal>
+		</Drawer>
+	);
+}
+
+type SignOutActionProps = {
+	isConfirming: boolean;
+	isPending: boolean;
+	onAsk: () => void;
+	onKeep: () => void;
+	onConfirm: () => void;
+};
+
+function SignOutAction({
+	isConfirming,
+	isPending,
+	onAsk,
+	onKeep,
+	onConfirm,
+}: SignOutActionProps) {
+	if (!isConfirming) {
+		return (
+			<Button variant="danger" onClick={onAsk}>
+				Sair da conta
+			</Button>
+		);
+	}
+
+	return (
+		<>
+			<span className="mr-auto text-[12.5px] text-muted">
+				Encerrar a sessão?
+			</span>
+			<Button variant="secondary" autoFocus onClick={onKeep}>
+				Continuar conectado
+			</Button>
+			<Button variant="danger" onClick={onConfirm} disabled={isPending}>
+				{isPending ? "Saindo…" : "Confirmar saída"}
+			</Button>
+		</>
 	);
 }
 
