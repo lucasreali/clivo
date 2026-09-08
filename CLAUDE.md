@@ -69,8 +69,8 @@ the generated axios clients as their `baseURL`.
   (framework-free domain logic and value objects, e.g. `Capabilities`,
   `Modules`, `Parameters`).
 - `src/shared/` — `ui/` design-system primitives (`Panel`, `Field`, `Button`,
-  `Badge`, `Modal`, `EmptyState`, `Avatar`, `Combobox`, plus `cn` and the `Tone`
-  palette),
+  `Badge`, `Modal`, `Drawer`, `Menu`, `Select`, `Combobox`, `EmptyState`,
+  `Avatar`, plus `cn` and the `Tone` palette),
   `format/` pt-BR formatters for dates, money, national ids and names, and
   `api-error.ts`.
 - `src/api/` — `client.ts` sets `withCredentials` (the API authenticates with a
@@ -110,6 +110,21 @@ invalidation predicates match on `queryKey[0].url` — see
   use the semantic tokens (`bg-surface`, `text-muted`, `border-line`,
   `bg-brand-soft`, …) and the `Tone` scale in `src/shared/ui/tone.ts` rather than
   raw palette colors.
+- Behavior-carrying primitives wrap [Base UI](https://base-ui.com)
+  (`@base-ui/react`), the headless library that owns focus, keyboard and
+  popup positioning: `Modal` and `Drawer` (Dialog, Drawer), `Menu`, `Select`,
+  `Combobox`, `Field`/`TextInput`/`Checkbox` (Field, Input, Checkbox), `Button`
+  and the `Toaster` in `pending.tsx` (Toast). Features import from
+  `#/shared/ui`, never from `@base-ui/react` — a new variation point extends a
+  wrapper, and the wrapper is the only place that knows the library. Popups
+  render in a portal, so a list panel no longer has to leave room for them.
+  Purely visual primitives (`Panel`, `Badge`, `Callout`, `EmptyState`, `Avatar`)
+  stay hand-written; adopting a part that adds no behavior is ceremony.
+- Icons come from `@phosphor-icons/react` — never hand-written inline `<svg>`.
+  Import the named component, give it an explicit `size` and
+  `aria-hidden="true"`, and let it inherit the color through a semantic text
+  token (`text-faint`, `text-brand`) instead of a `color` prop. Navigation
+  models hold the icon *component* (`icon: Icon`), not a path string.
 - Domain models in `model/` are classes with private constructors and static
   `from(...)` factories exposing behavior, not getters (`Capabilities`,
   `Modules`, `Parameters`).
