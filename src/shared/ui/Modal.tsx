@@ -1,6 +1,11 @@
-import { Dialog } from "@base-ui/react/dialog";
+import {
+	Dialog,
+	type DialogRootChangeEventDetails,
+} from "@base-ui/react/dialog";
 import { X } from "@phosphor-icons/react";
 import { cn } from "./cn";
+
+export type ModalDismissal = "free" | "guarded";
 
 type ModalProps = {
 	title: string;
@@ -9,6 +14,7 @@ type ModalProps = {
 	footer?: React.ReactNode;
 	children: React.ReactNode;
 	width?: string;
+	dismissal?: ModalDismissal;
 };
 
 export function Modal({
@@ -18,9 +24,30 @@ export function Modal({
 	footer,
 	children,
 	width = "max-w-[520px]",
+	dismissal = "free",
 }: ModalProps) {
+	const isGuarded = dismissal === "guarded";
+
+	function closeUnlessGuarded(
+		isOpen: boolean,
+		details: DialogRootChangeEventDetails,
+	) {
+		if (isOpen) {
+			return;
+		}
+		if (isGuarded && details.reason === "escape-key") {
+			details.cancel();
+			return;
+		}
+		onClose();
+	}
+
 	return (
-		<Dialog.Root open onOpenChange={(isOpen) => !isOpen && onClose()}>
+		<Dialog.Root
+			open
+			disablePointerDismissal={isGuarded}
+			onOpenChange={closeUnlessGuarded}
+		>
 			<Dialog.Portal>
 				<Dialog.Backdrop className="fixed inset-0 z-50 bg-[rgba(44,44,42,0.38)] transition-opacity data-ending-style:opacity-0 data-starting-style:opacity-0" />
 				<Dialog.Popup

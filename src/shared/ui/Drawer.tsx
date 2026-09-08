@@ -1,10 +1,16 @@
-import { Drawer as DrawerPrimitive } from "@base-ui/react/drawer";
+import {
+	Drawer as DrawerPrimitive,
+	type DrawerRootChangeEventDetails,
+} from "@base-ui/react/drawer";
 import { X } from "@phosphor-icons/react";
+import { useState } from "react";
+import { useIsCompactViewport } from "../use-viewport";
+import { Button } from "./Button";
 import { cn } from "./cn";
 
 type DrawerSide = "right" | "left" | "bottom";
 
-const SIDES = {
+const PLACEMENTS = {
 	right: {
 		swipe: "right",
 		viewport: "items-stretch justify-end",
@@ -23,6 +29,12 @@ const SIDES = {
 		popup:
 			"max-h-[85dvh] w-full translate-y-(--drawer-swipe-movement-y) rounded-t-xl border-line border-t data-ending-style:translate-y-full data-starting-style:translate-y-full",
 	},
+	sheet: {
+		swipe: "down",
+		viewport: "items-end justify-center",
+		popup:
+			"h-[92dvh] w-full translate-y-(--drawer-swipe-movement-y) rounded-t-xl border-line border-t data-ending-style:translate-y-full data-starting-style:translate-y-full",
+	},
 } as const;
 
 type DrawerProps = {
@@ -33,6 +45,7 @@ type DrawerProps = {
 	children: React.ReactNode;
 	side?: DrawerSide;
 	width?: string;
+	isDirty?: boolean;
 };
 
 export function Drawer({
@@ -43,14 +56,32 @@ export function Drawer({
 	children,
 	side = "right",
 	width = "max-w-[420px]",
+	isDirty = false,
 }: DrawerProps) {
-	const placement = SIDES[side];
+	const [isDiscarding, setIsDiscarding] = useState(false);
+	const isCompact = useIsCompactViewport();
+	const placement = PLACEMENTS[isCompact ? "sheet" : side];
+
+	function closeUnlessDirty(
+		isOpen: boolean,
+		details: DrawerRootChangeEventDetails,
+	) {
+		if (isOpen) {
+			return;
+		}
+		if (isDirty) {
+			details.cancel();
+			setIsDiscarding(true);
+			return;
+		}
+		onClose();
+	}
 
 	return (
 		<DrawerPrimitive.Root
 			open
 			swipeDirection={placement.swipe}
-			onOpenChange={(isOpen) => !isOpen && onClose()}
+			onOpenChange={closeUnlessDirty}
 		>
 			<DrawerPrimitive.Portal>
 				<DrawerPrimitive.Backdrop className="fixed inset-0 z-50 bg-[rgba(44,44,42,0.38)] transition-opacity data-ending-style:opacity-0 data-starting-style:opacity-0" />
@@ -61,7 +92,7 @@ export function Drawer({
 						className={cn(
 							"flex flex-col overflow-hidden bg-panel shadow-[0_24px_60px_rgba(44,44,42,0.2)] outline-none transition-transform duration-300 ease-out",
 							placement.popup,
-							width,
+							!isCompact && width,
 						)}
 					>
 						<header className="flex items-start justify-between gap-4 border-line border-b px-5 py-4">
@@ -85,14 +116,52 @@ export function Drawer({
 						<div className="flex flex-col gap-4 overflow-y-auto px-5 py-4">
 							{children}
 						</div>
-						{footer ? (
-							<footer className="flex items-center justify-end gap-2 border-line border-t bg-surface px-5 py-3">
-								{footer}
-							</footer>
-						) : null}
+						{isDiscarding ? (
+							<DiscardPrompt
+								onKeep={() => setIsDiscarding(false)}
+								onDiscard={onClose}
+							/>
+						) : (
+							<DrawerFooter>{footer}</DrawerFooter>
+						)}
 					</DrawerPrimitive.Popup>
 				</DrawerPrimitive.Viewport>
 			</DrawerPrimitive.Portal>
 		</DrawerPrimitive.Root>
+	);
+}
+
+function DrawerFooter({ children }: { children?: React.ReactNode }) {
+	if (!children) {
+		return null;
+	}
+
+	return (
+		<footer className="flex items-center justify-end gap-2 border-line border-t bg-surface px-5 py-3">
+			{children}
+		</footer>
+	);
+}
+
+type DiscardPromptProps = {
+	onKeep: () => void;
+	onDiscard: () => void;
+};
+
+function DiscardPrompt({ onKeep, onDiscard }: DiscardPromptProps) {
+	return (
+		<footer className="flex flex-wrap items-center justify-between gap-3 border-line border-t bg-surface px-5 py-3">
+			<span className="text-[12.5px] text-muted">
+				As alterações ainda não foram salvas.
+			</span>
+			<span className="flex gap-2">
+				<Button variant="secondary" autoFocus onClick={onKeep}>
+					Continuar editando
+				</Button>
+				<Button variant="danger" onClick={onDiscard}>
+					Descartar
+				</Button>
+			</span>
+		</footer>
 	);
 }
