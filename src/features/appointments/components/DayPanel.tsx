@@ -14,9 +14,9 @@ import { summarise } from "../model/day-summary";
 import { AppointmentRow } from "./AppointmentRow";
 import { CancelAppointmentDialog } from "./CancelAppointmentDialog";
 import { NewAppointmentDrawer } from "./NewAppointmentDrawer";
-import { RescheduleAppointmentDialog } from "./RescheduleAppointmentDialog";
+import { RescheduleAppointmentDrawer } from "./RescheduleAppointmentDrawer";
 
-type Dialog =
+type Overlay =
 	| { kind: "create" }
 	| { kind: "cancel"; appointment: AppointmentView }
 	| { kind: "reschedule"; appointment: AppointmentView }
@@ -30,7 +30,7 @@ const CHIP =
 export function DayPanel() {
 	const [day, setDay] = useState(today());
 	const [practitioner, setPractitioner] = useState("");
-	const [dialog, setDialog] = useState<Dialog>(null);
+	const [overlay, setOverlay] = useState<Overlay>(null);
 
 	const panel = useGetDayPanel({ query: { day } });
 	const practitioners = useListPractitioners();
@@ -48,7 +48,7 @@ export function DayPanel() {
 				actions={
 					<>
 						<DayPager day={day} onChange={setDay} />
-						<Button onClick={() => setDialog({ kind: "create" })}>
+						<Button onClick={() => setOverlay({ kind: "create" })}>
 							+ Novo agendamento
 						</Button>
 					</>
@@ -132,7 +132,7 @@ export function DayPanel() {
 							title="Nenhum atendimento neste dia"
 							description="Escolha outra data ou crie um novo agendamento para esta agenda."
 							actions={
-								<Button onClick={() => setDialog({ kind: "create" })}>
+								<Button onClick={() => setOverlay({ kind: "create" })}>
 									Novo agendamento
 								</Button>
 							}
@@ -144,28 +144,28 @@ export function DayPanel() {
 							key={appointment.id}
 							appointment={appointment}
 							columns={COLUMNS}
-							onCancel={() => setDialog({ kind: "cancel", appointment })}
+							onCancel={() => setOverlay({ kind: "cancel", appointment })}
 							onReschedule={() =>
-								setDialog({ kind: "reschedule", appointment })
+								setOverlay({ kind: "reschedule", appointment })
 							}
 						/>
 					))}
 				</Panel>
 			</Page>
 
-			{dialog?.kind === "create" ? (
-				<NewAppointmentDrawer day={day} onClose={() => setDialog(null)} />
+			{overlay?.kind === "create" ? (
+				<NewAppointmentDrawer day={day} onClose={() => setOverlay(null)} />
 			) : null}
-			{dialog?.kind === "cancel" ? (
+			{overlay?.kind === "cancel" ? (
 				<CancelAppointmentDialog
-					appointment={dialog.appointment}
-					onClose={() => setDialog(null)}
+					appointment={overlay.appointment}
+					onClose={() => setOverlay(null)}
 				/>
 			) : null}
-			{dialog?.kind === "reschedule" ? (
-				<RescheduleAppointmentDialog
-					appointment={dialog.appointment}
-					onClose={() => setDialog(null)}
+			{overlay?.kind === "reschedule" ? (
+				<RescheduleAppointmentDrawer
+					appointment={overlay.appointment}
+					onClose={() => setOverlay(null)}
 				/>
 			) : null}
 		</>

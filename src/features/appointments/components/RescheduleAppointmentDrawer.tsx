@@ -4,22 +4,25 @@ import { messageOf } from "#/shared/api-error";
 import { clockTime, isoDay, toInstant } from "#/shared/format/date";
 import { Button } from "#/shared/ui/Button";
 import { Callout } from "#/shared/ui/Callout";
+import { Drawer } from "#/shared/ui/Drawer";
 import { Field, TextInput } from "#/shared/ui/Field";
-import { Modal } from "#/shared/ui/Modal";
 import { useAppointmentActions } from "../hooks/use-appointment-actions";
 
-type RescheduleAppointmentDialogProps = {
+type RescheduleAppointmentDrawerProps = {
 	appointment: AppointmentView;
 	onClose: () => void;
 };
 
-export function RescheduleAppointmentDialog({
+export function RescheduleAppointmentDrawer({
 	appointment,
 	onClose,
-}: RescheduleAppointmentDialogProps) {
-	const start = new Date(appointment.start ?? Date.now());
-	const [day, setDay] = useState(isoDay(start));
-	const [time, setTime] = useState(clockTime(appointment.start));
+}: RescheduleAppointmentDrawerProps) {
+	const scheduled = {
+		day: isoDay(new Date(appointment.start ?? Date.now())),
+		time: clockTime(appointment.start),
+	};
+	const [day, setDay] = useState(scheduled.day);
+	const [time, setTime] = useState(scheduled.time);
 	const { reschedule } = useAppointmentActions();
 
 	function confirm() {
@@ -33,22 +36,18 @@ export function RescheduleAppointmentDialog({
 	}
 
 	return (
-		<Modal
+		<Drawer
 			title="Reagendar atendimento"
 			subtitle={`${appointment.customerName ?? ""} · ${appointment.serviceName ?? ""} · ${appointment.practitionerName ?? ""}`}
 			onClose={onClose}
+			isDirty={day !== scheduled.day || time !== scheduled.time}
 			footer={
-				<>
-					<Button variant="secondary" onClick={onClose}>
-						Descartar alterações
-					</Button>
-					<Button onClick={confirm} disabled={reschedule.isPending}>
-						Salvar novo horário
-					</Button>
-				</>
+				<Button onClick={confirm} disabled={reschedule.isPending}>
+					Salvar novo horário
+				</Button>
 			}
 		>
-			<div className="grid grid-cols-2 gap-3">
+			<div className="grid gap-3">
 				<Field label="Nova data" required>
 					{(id) => (
 						<TextInput
@@ -79,6 +78,6 @@ export function RescheduleAppointmentDialog({
 			{reschedule.isError ? (
 				<Callout tone="danger">{messageOf(reschedule.error)}</Callout>
 			) : null}
-		</Modal>
+		</Drawer>
 	);
 }
