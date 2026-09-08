@@ -1,5 +1,6 @@
 import type { SheetField } from "#/api/gen/types";
 import { Checkbox, Field, TextArea, TextInput } from "#/shared/ui/Field";
+import { NumberInput } from "#/shared/ui/NumberInput";
 import { Select } from "#/shared/ui/Select";
 import { MarkedRegionsField } from "./MarkedRegionsField";
 
@@ -85,6 +86,21 @@ export function SheetFieldControl({
 		);
 	}
 
+	if (field.fieldType === "INTEGER" || field.fieldType === "DECIMAL") {
+		return (
+			<Field label={label} required={field.required}>
+				{(id) => (
+					<NumberInput
+						id={id}
+						step={field.fieldType === "DECIMAL" ? 0.01 : 1}
+						value={String(value ?? "")}
+						onChange={onChange}
+					/>
+				)}
+			</Field>
+		);
+	}
+
 	if (field.fieldType === "LONG_TEXT") {
 		return (
 			<Field label={label} required={field.required}>
@@ -114,13 +130,7 @@ export function SheetFieldControl({
 }
 
 function inputTypeOf(fieldType: string | undefined) {
-	if (fieldType === "DATE") {
-		return "date";
-	}
-	if (fieldType === "INTEGER" || fieldType === "DECIMAL") {
-		return "number";
-	}
-	return "text";
+	return fieldType === "DATE" ? "date" : "text";
 }
 
 function asChart(value: unknown): Record<string, string> {

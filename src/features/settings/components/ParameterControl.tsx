@@ -5,6 +5,7 @@ import {
 	selectedItems,
 } from "#/features/capabilities/model/parameter-editor";
 import { Checkbox, Field, TextInput } from "#/shared/ui/Field";
+import { NumberInput } from "#/shared/ui/NumberInput";
 import { Select } from "#/shared/ui/Select";
 
 type ParameterControlProps = {
@@ -76,14 +77,13 @@ export function ParameterControl({
 		return (
 			<Field label={label} hint={parameter.accepts}>
 				{(id) => (
-					<TextInput
+					<NumberInput
 						id={id}
-						type="number"
 						min={editor.min}
 						max={editor.max}
 						step={editor.integer ? 1 : 0.01}
 						value={value}
-						onChange={(event) => onChange(event.target.value)}
+						onChange={onChange}
 					/>
 				)}
 			</Field>
