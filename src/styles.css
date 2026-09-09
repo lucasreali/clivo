@@ -39,6 +39,13 @@
 	--color-neutral-soft: #f0efe9;
 
 	--radius-field: 8px;
+
+	--ease-drawer: cubic-bezier(0.32, 0.72, 0, 1);
+	--ease-pop: cubic-bezier(0.16, 1, 0.3, 1);
+
+	--duration-drawer: 400ms;
+	--duration-overlay: 200ms;
+	--duration-popup: 140ms;
 }
 
 /* Layered so a utility class wins: unlayered rules outrank every Tailwind
@@ -88,6 +95,19 @@
 	::file-selector-button,
 	::-webkit-calendar-picker-indicator {
 		cursor: pointer;
+	}
+
+	/* Near zero rather than zero: a popup unmounts on the end of its own exit
+	   transition, and a transition of no duration never announces one. */
+	@media (prefers-reduced-motion: reduce) {
+		*,
+		::before,
+		::after {
+			animation-duration: 1ms !important;
+			animation-iteration-count: 1 !important;
+			transition-duration: 1ms !important;
+			scroll-behavior: auto !important;
+		}
 	}
 }
 

@@ -1,5 +1,6 @@
 import { Menu as MenuPrimitive } from "@base-ui/react/menu";
 import { cn } from "./cn";
+import { POPUP_MOTION } from "./motion";
 
 type MenuProps = {
 	label: string;
@@ -17,7 +18,12 @@ export function Menu({ label, children }: MenuProps) {
 			</MenuPrimitive.Trigger>
 			<MenuPrimitive.Portal>
 				<MenuPrimitive.Positioner align="end" sideOffset={4} className="z-50">
-					<MenuPrimitive.Popup className="flex w-[184px] flex-col rounded-field border border-line bg-panel py-1 shadow-[0_8px_24px_rgba(44,44,42,0.12)] outline-none transition-[opacity,scale] data-ending-style:scale-95 data-ending-style:opacity-0 data-starting-style:scale-95 data-starting-style:opacity-0">
+					<MenuPrimitive.Popup
+						className={cn(
+							"flex w-[184px] flex-col rounded-field border border-line bg-panel py-1 shadow-[0_8px_24px_rgba(44,44,42,0.12)] outline-none",
+							POPUP_MOTION,
+						)}
+					>
 						{children}
 					</MenuPrimitive.Popup>
 				</MenuPrimitive.Positioner>
