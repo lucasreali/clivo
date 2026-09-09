@@ -3,7 +3,11 @@
 * Do not edit manually.
 */
 
+import type { AttendedCustomerView } from './AttendedCustomerView'
+import type { AttendingPractitionerView } from './AttendingPractitionerView'
+import type { ProvidedServiceView } from './ProvidedServiceView'
 import type { RecordSheet } from './RecordSheet'
+import type { SignatureView } from './SignatureView'
 
 export type EncounterView = {
     /**
@@ -18,13 +22,7 @@ export type EncounterView = {
      * @type string | undefined
     */
     completedAt?: string;
-    /**
-     * @description
-     * Format: `uuid`
-     * @type string | undefined
-    */
-    customerId?: string;
-    customerName?: string;
+    customer?: AttendedCustomerView;
     /**
      * @description
      * Format: `uuid`
@@ -33,19 +31,14 @@ export type EncounterView = {
     id?: string;
     /**
      * @description
-     * Format: `uuid`
+     * Format: `date-time`
      * @type string | undefined
     */
-    practitionerId?: string;
-    practitionerName?: string;
-    /**
-     * @description
-     * Format: `uuid`
-     * @type string | undefined
-    */
-    serviceId?: string;
-    serviceName?: string;
+    lastSavedAt?: string;
+    practitioner?: AttendingPractitionerView;
+    service?: ProvidedServiceView;
     sheet?: RecordSheet;
+    signedBy?: SignatureView;
     /**
      * @description
      * Format: `date-time`

@@ -63,6 +63,8 @@ export { getDependentSuspenseQueryKey, getDependentSuspenseQueryOptions, useGetD
 export { listCustomerDependentsQueryKey, listCustomerDependentsQueryOptions, useListCustomerDependents } from './dependents/useListCustomerDependents'
 export { listCustomerDependentsSuspenseQueryKey, listCustomerDependentsSuspenseQueryOptions, useListCustomerDependentsSuspense } from './dependents/useListCustomerDependentsSuspense'
 export { registerDependentMutationKey, registerDependentMutationOptions, useRegisterDependent } from './dependents/useRegisterDependent'
+export { compareEncounterRecordQueryKey, compareEncounterRecordQueryOptions, useCompareEncounterRecord } from './encounters/useCompareEncounterRecord'
+export { compareEncounterRecordSuspenseQueryKey, compareEncounterRecordSuspenseQueryOptions, useCompareEncounterRecordSuspense } from './encounters/useCompareEncounterRecordSuspense'
 export { completeEncounterMutationKey, completeEncounterMutationOptions, useCompleteEncounter } from './encounters/useCompleteEncounter'
 export { fillEncounterRecordMutationKey, fillEncounterRecordMutationOptions, useFillEncounterRecord } from './encounters/useFillEncounterRecord'
 export { getEncounterQueryKey, getEncounterQueryOptions, useGetEncounter } from './encounters/useGetEncounter'

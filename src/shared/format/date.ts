@@ -63,3 +63,15 @@ export function dateTimeLabel(instant: string | undefined) {
 export function toInstant(day: string, time: string) {
 	return `${day}T${time}:00`;
 }
+
+export function ageLabel(birthDate: string | undefined) {
+	if (!birthDate) {
+		return undefined;
+	}
+	const born = new Date(`${birthDate}T12:00:00`);
+	const now = new Date();
+	const years = now.getFullYear() - born.getFullYear();
+	const anniversary = new Date(born);
+	anniversary.setFullYear(now.getFullYear());
+	return `${now < anniversary ? years - 1 : years} anos`;
+}

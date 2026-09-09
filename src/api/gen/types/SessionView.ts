@@ -3,10 +3,10 @@
 * Do not edit manually.
 */
 
-import type { ClinicView } from './ClinicView'
+import type { SignedInClinicView } from './SignedInClinicView'
 
 export type SessionView = {
-    clinic?: ClinicView;
+    clinic?: SignedInClinicView;
     name?: string;
     role?: string;
     /**

@@ -4,9 +4,10 @@
 */
 
 import * as z from 'zod'
+import { recordValueSchema } from './recordValueSchema'
 
 export const recordFillingRequestSchema = z.object({
-  values: z.object({}).catchall(z.unknown()).optional(),
+  values: z.object({}).catchall(recordValueSchema).optional(),
 })
 
 export type RecordFillingRequestSchemaType = z.infer<typeof recordFillingRequestSchema>

@@ -1,3 +1,4 @@
+export { compareEncounterRecord } from './compareEncounterRecord'
 export { completeEncounter } from './completeEncounter'
 export { fillEncounterRecord } from './fillEncounterRecord'
 export { getEncounter } from './getEncounter'

@@ -3,10 +3,10 @@
 * Do not edit manually.
 */
 
-import type { ModuleView } from './ModuleView'
-import type { ParameterView } from './ParameterView'
+import type { ActiveModuleView } from './ActiveModuleView'
+import type { EffectiveParameterView } from './EffectiveParameterView'
 
 export type CapabilitiesView = {
-    modules?: ModuleView[];
-    parameters?: ParameterView[];
+    modules?: ActiveModuleView[];
+    parameters?: EffectiveParameterView[];
 };

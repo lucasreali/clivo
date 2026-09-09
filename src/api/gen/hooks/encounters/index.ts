@@ -1,3 +1,5 @@
+export { compareEncounterRecordQueryKey, compareEncounterRecordQueryOptions, useCompareEncounterRecord } from './useCompareEncounterRecord'
+export { compareEncounterRecordSuspenseQueryKey, compareEncounterRecordSuspenseQueryOptions, useCompareEncounterRecordSuspense } from './useCompareEncounterRecordSuspense'
 export { completeEncounterMutationKey, completeEncounterMutationOptions, useCompleteEncounter } from './useCompleteEncounter'
 export { fillEncounterRecordMutationKey, fillEncounterRecordMutationOptions, useFillEncounterRecord } from './useFillEncounterRecord'
 export { getEncounterQueryKey, getEncounterQueryOptions, useGetEncounter } from './useGetEncounter'

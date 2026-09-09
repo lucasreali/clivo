@@ -3,13 +3,13 @@
 * Do not edit manually.
 */
 
-import type { AlertView } from './AlertView'
 import type { CountsView } from './CountsView'
 import type { EncounterHistoryView } from './EncounterHistoryView'
+import type { StandingAlertView } from './StandingAlertView'
 import type { SummaryView } from './SummaryView'
 
 export type CustomerHistoryView = {
-    alerts?: AlertView[];
+    alerts?: StandingAlertView[];
     counts?: CountsView;
     /**
      * @description

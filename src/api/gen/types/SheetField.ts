@@ -4,13 +4,19 @@
 */
 
 import type { ComponentDescriptor } from './ComponentDescriptor'
+import type { MarkedRegionState } from './MarkedRegionState'
+import type { RecordValue } from './RecordValue'
 
 export type SheetField = {
     code?: string;
     descriptor?: ComponentDescriptor;
     fieldType?: string;
     label?: string;
+    markings?: MarkedRegionState[];
     options?: string[];
     required?: boolean;
-    value?: unknown;
+    /**
+     * @description One value of a record field. A plain field holds text or a number; a field that carries a ComponentDescriptor holds the list of markings drawn on its regions. Read `SheetField.fieldType` and the presence of `SheetField.descriptor` to know which shape applies.
+    */
+    value?: RecordValue;
 };

@@ -3,7 +3,7 @@
 * Do not edit manually.
 */
 
-export type ModuleView = {
+export type EffectiveParameterView = {
     code?: string;
-    name?: string;
+    value?: string;
 };

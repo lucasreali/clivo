@@ -6,9 +6,10 @@
 import * as z from 'zod'
 
 export const componentMarkSchema = z.object({
+  appliesTo: z.enum(['REGION', 'PART', 'ANY']).optional().describe('What this condition may be marked on. REGION demands `parts` be empty                                 (a whole tooth is absent, crowned, implanted); PART demands at least one                                 part (a caries sits on a face); ANY accepts either.'),
   code: z.string().optional(),
   label: z.string().optional(),
-  rendering: z.string().optional(),
-})
+  rendering: z.string().optional().describe('Colour the legend draws this condition in, as a CSS hex value.'),
+}).describe('One condition a special component accepts, with the colour the legend draws it in.')
 
 export type ComponentMarkSchemaType = z.infer<typeof componentMarkSchema>
