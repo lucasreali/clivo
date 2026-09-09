@@ -5,15 +5,18 @@
 
 import * as z from 'zod'
 import { componentDescriptorSchema } from './componentDescriptorSchema'
+import { markedRegionStateSchema } from './markedRegionStateSchema'
+import { recordValueSchema } from './recordValueSchema'
 
 export const sheetFieldSchema = z.object({
   code: z.string().optional(),
   descriptor: componentDescriptorSchema.optional(),
   fieldType: z.string().optional(),
   label: z.string().optional(),
+  markings: z.array(markedRegionStateSchema).optional(),
   options: z.array(z.string()).optional(),
   required: z.boolean().optional(),
-  value: z.unknown().optional(),
+  value: recordValueSchema.optional().describe('One value of a record field. A plain field holds text or a number; a field that carries a ComponentDescriptor holds the list of markings drawn on its regions. Read `SheetField.fieldType` and the presence of `SheetField.descriptor` to know which shape applies.'),
 })
 
 export type SheetFieldSchemaType = z.infer<typeof sheetFieldSchema>

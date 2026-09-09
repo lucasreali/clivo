@@ -3,8 +3,29 @@
 * Do not edit manually.
 */
 
+export const componentMarkAppliesToEnum = {
+    REGION: "REGION",
+    PART: "PART",
+    ANY: "ANY"
+} as const;
+
+export type ComponentMarkAppliesToEnumKey = (typeof componentMarkAppliesToEnum)[keyof typeof componentMarkAppliesToEnum];
+
+/**
+ * @description One condition a special component accepts, with the colour the legend draws it in.
+ * @type object
+*/
 export type ComponentMark = {
+    /**
+     * @description What this condition may be marked on. REGION demands `parts` be empty                                 (a whole tooth is absent, crowned, implanted); PART demands at least one                                 part (a caries sits on a face); ANY accepts either.
+     * @type string | undefined
+    */
+    appliesTo?: ComponentMarkAppliesToEnumKey;
     code?: string;
     label?: string;
+    /**
+     * @description Colour the legend draws this condition in, as a CSS hex value.
+     * @type string | undefined
+    */
     rendering?: string;
 };

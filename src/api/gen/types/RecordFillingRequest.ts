@@ -3,8 +3,10 @@
 * Do not edit manually.
 */
 
+import type { RecordValue } from './RecordValue'
+
 export type RecordFillingRequest = {
     values?: {
-        [key: string]: unknown;
+        [key: string]: RecordValue;
     };
 };

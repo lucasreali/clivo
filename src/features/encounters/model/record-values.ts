@@ -1,10 +1,12 @@
-import type { RecordSheet, SheetField } from "#/api/gen/types";
+import type { RecordSheet, RecordValue, SheetField } from "#/api/gen/types";
 
-export type RecordValues = Record<string, unknown>;
+export type RecordValues = Record<string, RecordValue>;
 
 export function valuesOf(sheet: RecordSheet | undefined): RecordValues {
 	return Object.fromEntries(
-		fieldsOf(sheet).map((field) => [field.code, field.value]),
+		fieldsOf(sheet)
+			.filter((field) => field.value !== undefined)
+			.map((field) => [field.code, field.value as RecordValue]),
 	);
 }
 
@@ -21,12 +23,19 @@ export function missingRequired(
 		.map((field) => field.label ?? field.code ?? "");
 }
 
-function isBlank(value: unknown) {
+/**
+ * The API refuses a blank answer on a typed field, so an emptied control has to
+ * leave the payload instead of travelling as "".
+ */
+export function answered(values: RecordValues): RecordValues {
+	return Object.fromEntries(
+		Object.entries(values).filter(([, value]) => !isBlank(value)),
+	);
+}
+
+function isBlank(value: RecordValue | undefined) {
 	if (value === undefined || value === null || value === "") {
 		return true;
 	}
-	if (Array.isArray(value)) {
-		return value.length === 0;
-	}
-	return false;
+	return Array.isArray(value) && value.length === 0;
 }

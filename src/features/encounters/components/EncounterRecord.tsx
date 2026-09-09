@@ -5,20 +5,24 @@ import {
 	useFillEncounterRecord,
 	useGetEncounter,
 } from "#/api/gen/hooks";
+import type { EncounterView, SheetSection } from "#/api/gen/types";
 import { Page } from "#/features/navigation/components/AppShell";
 import { AppTopBar } from "#/features/navigation/components/AppTopBar";
 import { messageOf } from "#/shared/api-error";
-import { dateTimeLabel } from "#/shared/format/date";
-import { Badge } from "#/shared/ui/Badge";
+import { clockTime, shortDate } from "#/shared/format/date";
 import { Button } from "#/shared/ui/Button";
 import { Callout } from "#/shared/ui/Callout";
 import { Panel, PanelHeader } from "#/shared/ui/Panel";
+import { usePreviousEncounters } from "../hooks/use-previous-encounters";
 import {
+	answered,
 	missingRequired,
 	type RecordValues,
 	valuesOf,
 } from "../model/record-values";
+import { EncounterHeader } from "./EncounterHeader";
 import { SheetFieldControl } from "./fields/SheetFieldControl";
+import { RecordComparison } from "./RecordComparison";
 
 type EncounterRecordProps = {
 	encounterId: string;
@@ -26,6 +30,7 @@ type EncounterRecordProps = {
 
 export function EncounterRecord({ encounterId }: EncounterRecordProps) {
 	const [values, setValues] = useState<RecordValues>({});
+	const [comparedTo, setComparedTo] = useState<string>();
 	const queryClient = useQueryClient();
 
 	const encounter = useGetEncounter({ path: { id: encounterId } });
@@ -33,6 +38,10 @@ export function EncounterRecord({ encounterId }: EncounterRecordProps) {
 	const complete = useCompleteEncounter({
 		mutation: { onSuccess: () => queryClient.invalidateQueries() },
 	});
+	const previous = usePreviousEncounters(
+		encounter.data?.customer?.id,
+		encounterId,
+	);
 
 	useEffect(() => {
 		if (encounter.data) {
@@ -45,17 +54,58 @@ export function EncounterRecord({ encounterId }: EncounterRecordProps) {
 	}
 
 	const sheet = encounter.data.sheet;
+	const sections = sheet?.sections ?? [];
 	const pending = missingRequired(sheet, values);
 	const open = encounter.data.status === "DRAFT";
+	const lastVisit = previous[0];
 
 	function save() {
-		fill.mutate({ path: { id: encounterId }, body: { values } });
+		fill.mutate({
+			path: { id: encounterId },
+			body: { values: answered(values) },
+		});
 	}
 
 	function finish() {
 		fill.mutate(
-			{ path: { id: encounterId }, body: { values } },
+			{ path: { id: encounterId }, body: { values: answered(values) } },
 			{ onSuccess: () => complete.mutate({ path: { id: encounterId } }) },
+		);
+	}
+
+	function sectionPanel(section: SheetSection) {
+		return (
+			<Panel key={section.name}>
+				<PanelHeader
+					title={section.name ?? "Seção"}
+					hint={isCharted(section) ? CHART_HINT : undefined}
+					actions={
+						isCharted(section) && lastVisit ? (
+							<Button
+								variant="secondary"
+								onClick={() =>
+									setComparedTo(lastVisit.completedAt ?? lastVisit.startedAt)
+								}
+							>
+								Comparar com {shortDate(lastVisit.startedAt)}
+							</Button>
+						) : null
+					}
+				/>
+				<div className="flex flex-col gap-4 p-4">
+					{(section.fields ?? []).map((field) => (
+						<SheetFieldControl
+							key={field.code}
+							field={field}
+							disabled={!open}
+							value={values[field.code ?? ""]}
+							onChange={(value) =>
+								setValues({ ...values, [field.code ?? ""]: value })
+							}
+						/>
+					))}
+				</div>
+			</Panel>
 		);
 	}
 
@@ -63,7 +113,7 @@ export function EncounterRecord({ encounterId }: EncounterRecordProps) {
 		<>
 			<AppTopBar
 				title="Ficha de atendimento"
-				meta={`${encounter.data.customerName ?? ""} · ${dateTimeLabel(encounter.data.startedAt)}`}
+				meta={metaOf(encounter.data)}
 				actions={
 					<>
 						<Button
@@ -84,26 +134,7 @@ export function EncounterRecord({ encounterId }: EncounterRecordProps) {
 			/>
 
 			<Page>
-				<div className="flex items-center justify-between rounded-[10px] border border-line bg-panel px-4 py-3">
-					<div className="flex flex-col">
-						<span className="text-[14px] font-semibold text-ink">
-							{encounter.data.customerName}
-						</span>
-						<span className="text-[12px] text-muted">
-							{encounter.data.serviceName ?? "—"} ·{" "}
-							{encounter.data.practitionerName ?? "—"}
-						</span>
-					</div>
-					<div className="flex items-center gap-3">
-						<span className="text-[12px] text-faint">
-							Modelo {sheet?.templateName ?? "—"} · versão{" "}
-							{sheet?.templateVersion ?? "—"}
-						</span>
-						<Badge tone={open ? "brand" : "neutral"}>
-							{open ? "Em atendimento" : "Concluído"}
-						</Badge>
-					</div>
-				</div>
+				<EncounterHeader encounter={encounter.data} open={open} />
 
 				{pending.length > 0 && open ? (
 					<Callout tone="warn" title="Campos obrigatórios pendentes">
@@ -118,37 +149,60 @@ export function EncounterRecord({ encounterId }: EncounterRecordProps) {
 					<Callout tone="danger">{messageOf(complete.error)}</Callout>
 				) : null}
 
-				{(sheet?.sections ?? []).map((section) => (
-					<Panel key={section.name}>
-						<PanelHeader title={section.name ?? "Seção"} />
-						<div className="grid grid-cols-2 gap-4 p-5">
-							{(section.fields ?? []).map((field) => (
-								<div
-									key={field.code}
-									className={isWide(field.fieldType) ? "col-span-2" : undefined}
-								>
-									<SheetFieldControl
-										field={field}
-										value={values[field.code ?? ""]}
-										onChange={(value) =>
-											setValues({ ...values, [field.code ?? ""]: value })
-										}
-									/>
-								</div>
-							))}
-						</div>
-					</Panel>
-				))}
+				<div className="grid grid-cols-1 items-start gap-4 xl:grid-cols-[minmax(0,2fr)_minmax(0,1fr)]">
+					<div className="flex flex-col gap-4">
+						{sections.filter(isCharted).map(sectionPanel)}
+					</div>
+					<div className="flex flex-col gap-4">
+						{sections
+							.filter((section) => !isCharted(section))
+							.map(sectionPanel)}
+						<SigningState encounter={encounter.data} />
+					</div>
+				</div>
 			</Page>
+
+			{comparedTo ? (
+				<RecordComparison
+					encounterId={encounterId}
+					asOf={comparedTo}
+					sheet={sheet}
+					onClose={() => setComparedTo(undefined)}
+				/>
+			) : null}
 		</>
 	);
 }
 
-function isWide(fieldType: string | undefined) {
+const CHART_HINT = "Clique em uma região para marcar a condição observada";
+
+function SigningState({ encounter }: { encounter: EncounterView }) {
 	return (
-		fieldType === "LONG_TEXT" ||
-		fieldType === "ODONTOGRAM" ||
-		fieldType === "BODY_MAP" ||
-		fieldType === "MULTI_CHOICE"
+		<div className="flex flex-col gap-1 px-1 text-[11.5px] text-faint">
+			<span>
+				{encounter.lastSavedAt
+					? `Rascunho salvo às ${clockTime(encounter.lastSavedAt)}`
+					: "Rascunho ainda não salvo"}
+			</span>
+			<span>
+				{encounter.signedBy
+					? `Assinado por ${encounter.signedBy.name}`
+					: "Assinado digitalmente ao concluir"}
+			</span>
+		</div>
 	);
+}
+
+function isCharted(section: SheetSection) {
+	return (section.fields ?? []).some((field) => field.descriptor);
+}
+
+function metaOf(encounter: EncounterView) {
+	return [
+		"Atendimentos",
+		encounter.customer?.name,
+		shortDate(encounter.startedAt),
+	]
+		.filter(Boolean)
+		.join(" · ");
 }

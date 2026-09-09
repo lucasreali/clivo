@@ -19,8 +19,10 @@ type CustomerHistoryProps = {
 
 export function CustomerHistory({ customerId }: CustomerHistoryProps) {
 	const customer = useGetCustomer({ path: { id: customerId } });
-	const encounters = useListCustomerEncounters({ query: { customerId } });
+	const history = useListCustomerEncounters({ query: { customerId } });
 	const invoices = useListInvoicesByCustomer({ query: { customerId } });
+
+	const encounters = history.data?.encounters ?? [];
 
 	const outstanding = (invoices.data ?? []).reduce(
 		(total, invoice) => total + (invoice.outstandingBalance ?? 0),
@@ -39,17 +41,17 @@ export function CustomerHistory({ customerId }: CustomerHistoryProps) {
 					<Panel>
 						<PanelHeader
 							title="Atendimentos"
-							hint={`${(encounters.data ?? []).length} registros`}
+							hint={`${encounters.length} registros`}
 						/>
 
-						{(encounters.data ?? []).length === 0 ? (
+						{encounters.length === 0 ? (
 							<EmptyState
 								title="Nenhum atendimento registrado"
 								description="Os atendimentos aparecem aqui assim que a ficha é aberta na recepção."
 							/>
 						) : null}
 
-						{(encounters.data ?? []).map((encounter) => (
+						{encounters.map((encounter) => (
 							<article
 								key={encounter.id}
 								className="flex items-start gap-4 border-b border-line px-4 py-3.5 last:border-b-0"

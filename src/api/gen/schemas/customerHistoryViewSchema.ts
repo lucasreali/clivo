@@ -4,13 +4,13 @@
 */
 
 import * as z from 'zod'
-import { alertViewSchema } from './alertViewSchema'
 import { countsViewSchema } from './countsViewSchema'
 import { encounterHistoryViewSchema } from './encounterHistoryViewSchema'
+import { standingAlertViewSchema } from './standingAlertViewSchema'
 import { summaryViewSchema } from './summaryViewSchema'
 
 export const customerHistoryViewSchema = z.object({
-  alerts: z.array(alertViewSchema).optional(),
+  alerts: z.array(standingAlertViewSchema).optional(),
   counts: countsViewSchema.optional(),
   customerId: z.uuid().optional(),
   customerSince: z.iso.datetime().optional(),

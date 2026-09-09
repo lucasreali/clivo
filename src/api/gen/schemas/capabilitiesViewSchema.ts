@@ -4,12 +4,12 @@
 */
 
 import * as z from 'zod'
-import { moduleViewSchema } from './moduleViewSchema'
-import { parameterViewSchema } from './parameterViewSchema'
+import { activeModuleViewSchema } from './activeModuleViewSchema'
+import { effectiveParameterViewSchema } from './effectiveParameterViewSchema'
 
 export const capabilitiesViewSchema = z.object({
-  modules: z.array(moduleViewSchema).optional(),
-  parameters: z.array(parameterViewSchema).optional(),
+  modules: z.array(activeModuleViewSchema).optional(),
+  parameters: z.array(effectiveParameterViewSchema).optional(),
 })
 
 export type CapabilitiesViewSchemaType = z.infer<typeof capabilitiesViewSchema>

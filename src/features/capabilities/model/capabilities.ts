@@ -1,14 +1,14 @@
 import type {
+	ActiveModuleView,
 	CapabilitiesView,
-	ModuleView,
 	ParameterView,
 } from "#/api/gen/types";
 import type { ModuleCode } from "./module-code";
 
 export class Modules {
-	private constructor(private readonly items: readonly ModuleView[]) {}
+	private constructor(private readonly items: readonly ActiveModuleView[]) {}
 
-	static from(items: ModuleView[] | undefined) {
+	static from(items: ActiveModuleView[] | undefined) {
 		return new Modules(items ?? []);
 	}
 
@@ -24,7 +24,7 @@ export class Modules {
 		return this.items.length === 0;
 	}
 
-	map<T>(project: (module: ModuleView) => T) {
+	map<T>(project: (module: ActiveModuleView) => T) {
 		return this.items.map(project);
 	}
 }

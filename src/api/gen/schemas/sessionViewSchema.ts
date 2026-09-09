@@ -4,10 +4,10 @@
 */
 
 import * as z from 'zod'
-import { clinicViewSchema } from './clinicViewSchema'
+import { signedInClinicViewSchema } from './signedInClinicViewSchema'
 
 export const sessionViewSchema = z.object({
-  clinic: clinicViewSchema.optional(),
+  clinic: signedInClinicViewSchema.optional(),
   name: z.string().optional(),
   role: z.string().optional(),
   userId: z.uuid().optional(),

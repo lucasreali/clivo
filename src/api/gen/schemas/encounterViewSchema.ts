@@ -4,19 +4,22 @@
 */
 
 import * as z from 'zod'
+import { attendedCustomerViewSchema } from './attendedCustomerViewSchema'
+import { attendingPractitionerViewSchema } from './attendingPractitionerViewSchema'
+import { providedServiceViewSchema } from './providedServiceViewSchema'
 import { recordSheetSchema } from './recordSheetSchema'
+import { signatureViewSchema } from './signatureViewSchema'
 
 export const encounterViewSchema = z.object({
   appointmentId: z.uuid().optional(),
   completedAt: z.iso.datetime().optional(),
-  customerId: z.uuid().optional(),
-  customerName: z.string().optional(),
+  customer: attendedCustomerViewSchema.optional(),
   id: z.uuid().optional(),
-  practitionerId: z.uuid().optional(),
-  practitionerName: z.string().optional(),
-  serviceId: z.uuid().optional(),
-  serviceName: z.string().optional(),
+  lastSavedAt: z.iso.datetime().optional(),
+  practitioner: attendingPractitionerViewSchema.optional(),
+  service: providedServiceViewSchema.optional(),
   sheet: recordSheetSchema.optional(),
+  signedBy: signatureViewSchema.optional(),
   startedAt: z.iso.datetime().optional(),
   status: z.string().optional(),
 })

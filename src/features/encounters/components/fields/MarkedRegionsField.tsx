@@ -1,92 +1,127 @@
 import { useState } from "react";
-
-type Chart = Record<string, string>;
+import type { RegionMarking, SheetField } from "#/api/gen/types";
+import {
+	Chart,
+	entriesOf,
+	Markings,
+	type Spot,
+	sessionStatesOf,
+	Vocabulary,
+} from "../../model/chart";
+import { ChartLegend } from "./ChartLegend";
+import { MarkingEditor } from "./MarkingEditor";
+import { MarkingList } from "./MarkingList";
+import { RegionChart } from "./RegionChart";
 
 type MarkedRegionsFieldProps = {
-	label: string;
-	regions: readonly string[];
-	value: Chart;
-	onChange: (chart: Chart) => void;
+	field: SheetField;
+	value: unknown;
+	disabled: boolean;
+	onChange: (markings: RegionMarking[]) => void;
 };
 
 /**
- * Renders the odontogram and the body map: both arrive as a list of regions
- * plus a note per marked region, so one component serves either component field.
+ * Variability mechanism B: the region drawing, the parts it accepts and the
+ * conditions it offers all arrive in the field's descriptor, so the same
+ * component serves a dental chart, a body map or whatever the API describes.
  */
 export function MarkedRegionsField({
-	label,
-	regions,
+	field,
 	value,
+	disabled,
 	onChange,
 }: MarkedRegionsFieldProps) {
-	const [selected, setSelected] = useState<string | null>(null);
+	const [spots, setSpots] = useState<Spot[]>([]);
 
-	function noteFor(region: string, note: string) {
-		const chart = { ...value };
-		if (note.trim() === "") {
-			delete chart[region];
-			onChange(chart);
-			return;
-		}
+	const vocabulary = Vocabulary.of(field.descriptor);
+	const markings = Markings.of(value);
+	const recorded = (field.markings ?? []).filter(
+		(state) => state.origin?.source !== "SESSION",
+	);
+	const session = sessionStatesOf(markings.list());
+	const chart = Chart.of(field.descriptor, [...recorded, ...session]);
 
-		chart[region] = note;
-		onChange(chart);
+	function touch(region: string, part: string | undefined) {
+		setSpots(
+			spots.some((spot) => isSame(spot, region, part))
+				? spots.filter((spot) => !isSame(spot, region, part))
+				: [...spots, { region, part }],
+		);
+	}
+
+	function paint(code: string) {
+		onChange(
+			markings.marks(spots, code)
+				? markings.cleared(spots)
+				: markings.painting(spots, code, vocabulary.refusesParts(code)),
+		);
+		setSpots([]);
+	}
+
+	function remove() {
+		onChange(markings.cleared(spots));
+		setSpots([]);
 	}
 
 	return (
-		<div className="flex flex-col gap-3">
-			<span className="text-[12px] font-medium text-muted">{label}</span>
+		<div className="flex flex-col gap-4">
+			<RegionChart
+				chart={chart}
+				vocabulary={vocabulary}
+				spots={spots}
+				onSelect={touch}
+			/>
 
-			<div className="flex flex-wrap gap-1.5">
-				{regions.map((region) => (
-					<button
-						key={region}
-						type="button"
-						onClick={() => setSelected(region === selected ? null : region)}
-						className={regionClass(region, value, selected)}
-					>
-						{region}
-					</button>
-				))}
-			</div>
+			{spots.length > 0 ? (
+				<MarkingEditor
+					place={placeOf(chart, spots)}
+					marking={markings.shared(spots)}
+					vocabulary={vocabulary}
+					disabled={disabled}
+					onMark={paint}
+					onNote={(note) => onChange(markings.annotated(spots, note))}
+					onRemove={remove}
+					onClose={() => setSpots([])}
+				/>
+			) : null}
 
-			{selected ? (
-				<label className="flex flex-col gap-1.5">
-					<span className="text-[12px] text-muted">
-						Anotação para {selected}
+			<div className="grid grid-cols-[minmax(0,1fr)_auto] gap-8">
+				<section className="flex flex-col gap-2">
+					<span className="text-[12px] font-medium text-muted">
+						Marcações desta sessão
 					</span>
-					<input
-						value={value[selected] ?? ""}
-						onChange={(event) => noteFor(selected, event.target.value)}
-						placeholder="Ex.: cárie oclusal, restauração em resina"
-						className="h-[38px] rounded-field border border-line bg-panel px-3 text-[13px] outline-none focus:border-brand"
+					<MarkingList
+						entries={entriesOf([...session, ...recorded])}
+						vocabulary={vocabulary}
+						onSelect={(region, part) => setSpots([{ region, part }])}
 					/>
-				</label>
-			) : null}
-
-			{Object.entries(value).length > 0 ? (
-				<ul className="m-0 flex list-none flex-col gap-1 p-0">
-					{Object.entries(value).map(([region, note]) => (
-						<li key={region} className="flex gap-2 text-[12.5px] text-muted">
-							<span className="font-semibold text-ink">{region}</span>
-							<span>{note}</span>
-						</li>
-					))}
-				</ul>
-			) : null}
+				</section>
+				<section className="flex flex-col gap-2">
+					<span className="text-[12px] font-medium text-muted">
+						Legenda de condições
+					</span>
+					<ChartLegend vocabulary={vocabulary} />
+				</section>
+			</div>
 		</div>
 	);
 }
 
-function regionClass(region: string, chart: Chart, selected: string | null) {
-	const base =
-		"h-8 w-10 rounded-field border text-[12px] font-medium transition-colors";
+function placeOf(chart: Chart, spots: readonly Spot[]) {
+	const regions = new Map<string, string[]>();
+	for (const spot of spots) {
+		const named = chart.regionNamed(spot.region);
+		const label = named?.label ?? spot.region;
+		regions.set(
+			label,
+			spot.part ? [...(regions.get(label) ?? []), spot.part] : [],
+		);
+	}
+	return [...regions]
+		.map(([region, parts]) => [region, ...parts].join(" · "))
+		.join("   ");
+}
 
-	if (region === selected) {
-		return `${base} border-brand bg-brand text-white`;
-	}
-	if (chart[region]) {
-		return `${base} border-brand bg-brand-soft text-brand-ink`;
-	}
-	return `${base} border-line bg-panel text-muted hover:border-line-strong`;
+function isSame(spot: Spot, region: string, part: string | undefined) {
+	return spot.region === region && spot.part === part;
 }
