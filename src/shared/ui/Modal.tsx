@@ -4,6 +4,8 @@ import {
 } from "@base-ui/react/dialog";
 import { X } from "@phosphor-icons/react";
 import { cn } from "./cn";
+import { SCRIM } from "./motion";
+import { useOpenTransition } from "./use-open-transition";
 
 export type ModalDismissal = "free" | "guarded";
 
@@ -27,6 +29,7 @@ export function Modal({
 	dismissal = "free",
 }: ModalProps) {
 	const isGuarded = dismissal === "guarded";
+	const transition = useOpenTransition(onClose);
 
 	function closeUnlessGuarded(
 		isOpen: boolean,
@@ -39,20 +42,23 @@ export function Modal({
 			details.cancel();
 			return;
 		}
-		onClose();
+		transition.close();
 	}
 
 	return (
 		<Dialog.Root
-			open
+			open={transition.isOpen}
 			disablePointerDismissal={isGuarded}
 			onOpenChange={closeUnlessGuarded}
+			onOpenChangeComplete={transition.onSettled}
 		>
 			<Dialog.Portal>
-				<Dialog.Backdrop className="fixed inset-0 z-50 bg-[rgba(44,44,42,0.38)] transition-opacity data-ending-style:opacity-0 data-starting-style:opacity-0" />
+				<Dialog.Backdrop
+					className={cn(SCRIM, "duration-(--duration-overlay) ease-pop")}
+				/>
 				<Dialog.Popup
 					className={cn(
-						"-translate-x-1/2 -translate-y-1/2 fixed top-1/2 left-1/2 z-50 flex max-h-[calc(100dvh-3rem)] w-[calc(100vw-3rem)] flex-col overflow-hidden rounded-xl border border-line bg-panel shadow-[0_24px_60px_rgba(44,44,42,0.2)] outline-none transition-[opacity,scale] data-ending-style:scale-[0.98] data-ending-style:opacity-0 data-starting-style:scale-[0.98] data-starting-style:opacity-0",
+						"-translate-x-1/2 -translate-y-1/2 fixed top-1/2 left-1/2 z-50 flex max-h-[calc(100dvh-3rem)] w-[calc(100vw-3rem)] flex-col overflow-hidden rounded-xl border border-line bg-panel shadow-[0_24px_60px_rgba(44,44,42,0.2)] outline-none transition-[opacity,scale] duration-(--duration-overlay) ease-pop data-ending-style:scale-[0.97] data-ending-style:opacity-0 data-starting-style:scale-[0.97] data-starting-style:opacity-0",
 						width,
 					)}
 				>

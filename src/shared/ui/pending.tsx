@@ -33,7 +33,7 @@ function Notices() {
 		<Toast.Root
 			key={notice.id}
 			toast={notice}
-			className="flex w-full gap-2.5 rounded-field border border-line bg-panel p-3.5 shadow-[0_8px_24px_rgba(44,44,42,0.12)] transition-opacity data-ending-style:opacity-0 data-starting-style:opacity-0"
+			className="flex w-full gap-2.5 rounded-field border border-line bg-panel p-3.5 shadow-[0_8px_24px_rgba(44,44,42,0.12)] transition-[opacity,translate] duration-(--duration-overlay) ease-pop data-ending-style:translate-x-8 data-ending-style:opacity-0 data-starting-style:translate-x-8 data-starting-style:opacity-0"
 		>
 			<WarningCircle
 				size={16}

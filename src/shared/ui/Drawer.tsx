@@ -7,6 +7,8 @@ import { useState } from "react";
 import { useIsCompactViewport } from "../use-viewport";
 import { Button } from "./Button";
 import { cn } from "./cn";
+import { DRAWER_MOTION, DRAWER_SCRIM_MOTION, SCRIM } from "./motion";
+import { useOpenTransition } from "./use-open-transition";
 
 type DrawerSide = "right" | "left" | "bottom";
 
@@ -61,6 +63,7 @@ export function Drawer({
 	const [isDiscarding, setIsDiscarding] = useState(false);
 	const isCompact = useIsCompactViewport();
 	const placement = PLACEMENTS[isCompact ? "sheet" : side];
+	const transition = useOpenTransition(onClose);
 
 	function closeUnlessDirty(
 		isOpen: boolean,
@@ -74,23 +77,25 @@ export function Drawer({
 			setIsDiscarding(true);
 			return;
 		}
-		onClose();
+		transition.close();
 	}
 
 	return (
 		<DrawerPrimitive.Root
-			open
+			open={transition.isOpen}
 			swipeDirection={placement.swipe}
 			onOpenChange={closeUnlessDirty}
+			onOpenChangeComplete={transition.onSettled}
 		>
 			<DrawerPrimitive.Portal>
-				<DrawerPrimitive.Backdrop className="fixed inset-0 z-50 bg-[rgba(44,44,42,0.38)] transition-opacity data-ending-style:opacity-0 data-starting-style:opacity-0" />
+				<DrawerPrimitive.Backdrop className={cn(SCRIM, DRAWER_SCRIM_MOTION)} />
 				<DrawerPrimitive.Viewport
 					className={cn("fixed inset-0 z-50 flex", placement.viewport)}
 				>
 					<DrawerPrimitive.Popup
 						className={cn(
-							"flex flex-col overflow-hidden bg-panel shadow-[0_24px_60px_rgba(44,44,42,0.2)] outline-none transition-transform duration-300 ease-out",
+							"flex flex-col overflow-hidden bg-panel shadow-[0_24px_60px_rgba(44,44,42,0.2)] outline-none",
+							DRAWER_MOTION,
 							placement.popup,
 							!isCompact && width,
 						)}
@@ -119,7 +124,7 @@ export function Drawer({
 						{isDiscarding ? (
 							<DiscardPrompt
 								onKeep={() => setIsDiscarding(false)}
-								onDiscard={onClose}
+								onDiscard={transition.close}
 							/>
 						) : (
 							<DrawerFooter>{footer}</DrawerFooter>
