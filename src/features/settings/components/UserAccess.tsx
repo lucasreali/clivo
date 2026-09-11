@@ -20,14 +20,14 @@ export function UserAccess({ user }: { user: UserView }) {
 	return (
 		<Panel>
 			<PanelHeader
-				title={`Acessos de ${user.name}`}
-				hint="Somente os módulos contratados pela clínica podem ser liberados."
+				title={`Access of ${user.name}`}
+				hint="Only the modules the clinic contracted can be granted."
 			/>
 
 			{contracted.isEmpty() ? (
 				<EmptyState
-					title="Nenhum módulo contratado"
-					description="Esta clínica opera apenas com o núcleo. A contratação de módulos é feita pela equipe Clivo."
+					title="No modules contracted"
+					description="This clinic runs on the core alone. Contracting modules is handled by the Clivo team."
 				/>
 			) : null}
 

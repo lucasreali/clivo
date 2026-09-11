@@ -12,8 +12,8 @@ function ConsoleLayout() {
 
 	return (
 		<ConsoleShell
-			user={session.name ?? "Equipe Clivo"}
-			role={session.role ?? "Plataforma"}
+			user={session.name ?? "Clivo team"}
+			role={session.role ?? "Platform"}
 		>
 			<Outlet />
 		</ConsoleShell>

@@ -16,8 +16,8 @@ type DependentsPanelProps = {
 };
 
 const dependentSchema = z.object({
-	name: requiredText("Informe o nome do dependente."),
-	type: requiredText("Informe o tipo."),
+	name: requiredText("Enter the dependent name."),
+	type: requiredText("Enter the type."),
 	birthDate: z.string(),
 });
 
@@ -51,8 +51,8 @@ export function DependentsPanel({ customerId }: DependentsPanelProps) {
 	return (
 		<Panel>
 			<PanelHeader
-				title="Dependentes"
-				hint="Disponível porque o módulo de dependentes está ativo nesta clínica."
+				title="Dependents"
+				hint="Available because the dependents module is active in this clinic."
 			/>
 
 			<ul className="m-0 list-none p-0">
@@ -64,7 +64,7 @@ export function DependentsPanel({ customerId }: DependentsPanelProps) {
 						<span className="font-medium text-ink">{dependent.name}</span>
 						<span className="text-[12px] text-muted">
 							{dependent.type}
-							{dependent.ageInYears ? ` · ${dependent.ageInYears} anos` : ""}
+							{dependent.ageInYears ? ` · ${dependent.ageInYears} years` : ""}
 						</span>
 					</li>
 				))}
@@ -76,23 +76,23 @@ export function DependentsPanel({ customerId }: DependentsPanelProps) {
 				className="flex items-start gap-3 border-t border-line bg-surface px-4 py-3"
 			>
 				<form.AppField name="name">
-					{(field) => <field.TextField label="Nome" required />}
+					{(field) => <field.TextField label="Name" required />}
 				</form.AppField>
 				<form.AppField name="type">
 					{(field) => (
 						<field.TextField
-							label="Tipo"
+							label="Type"
 							required
-							hint="Ex.: filho, cônjuge, animal."
+							hint="E.g.: child, spouse, pet."
 						/>
 					)}
 				</form.AppField>
 				<form.AppField name="birthDate">
-					{(field) => <field.TextField label="Nascimento" type="date" />}
+					{(field) => <field.TextField label="Date of birth" type="date" />}
 				</form.AppField>
 				<div className="pt-6">
 					<Button type="submit" disabled={register.isPending}>
-						Adicionar
+						Add
 					</Button>
 				</div>
 			</form>

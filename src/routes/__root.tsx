@@ -24,7 +24,7 @@ export const Route = createRootRouteWithContext<RouterContext>()({
 		meta: [
 			{ charSet: "utf-8" },
 			{ name: "viewport", content: "width=device-width, initial-scale=1" },
-			{ title: "CLIVO · Gestão clínica" },
+			{ title: "CLIVO · Clinic management" },
 		],
 		links: [
 			{ rel: "stylesheet", href: appCss },
@@ -39,20 +39,20 @@ export const Route = createRootRouteWithContext<RouterContext>()({
 
 function RootError({ error }: ErrorComponentProps) {
 	return (
-		<Centered title="Não foi possível carregar a tela">
+		<Centered title="This screen could not be loaded">
 			<p className="m-0 text-[13px] leading-relaxed text-muted">
 				{messageOf(error)}
 			</p>
 			<p className="m-0 text-[12px] leading-relaxed text-faint">
-				Se o erro for de rede, confirme que a API está no ar em{" "}
-				<code>API_PROXY_TARGET</code> e recarregue a página.
+				If this is a network error, make sure the API is up at{" "}
+				<code>API_PROXY_TARGET</code> and reload the page.
 			</p>
 			<button
 				type="button"
 				onClick={() => window.location.reload()}
 				className="mt-1 h-[34px] rounded-field bg-brand px-3.5 text-[13px] font-semibold text-white"
 			>
-				Tentar novamente
+				Retry
 			</button>
 		</Centered>
 	);
@@ -60,9 +60,9 @@ function RootError({ error }: ErrorComponentProps) {
 
 function NotFound() {
 	return (
-		<Centered title="Página não encontrada">
+		<Centered title="Page not found">
 			<a href="/" className="text-[13px] font-semibold">
-				Voltar para o painel do dia
+				Back to the day panel
 			</a>
 		</Centered>
 	);
@@ -89,7 +89,7 @@ function RootDocument({ children }: { children: React.ReactNode }) {
 	const { queryClient } = Route.useRouteContext();
 
 	return (
-		<html lang="pt-BR">
+		<html lang="en">
 			<head>
 				<HeadContent />
 			</head>

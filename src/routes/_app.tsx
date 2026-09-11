@@ -13,9 +13,9 @@ function AppLayout() {
 
 	return (
 		<AppShell
-			user={session.name ?? "Equipe"}
+			user={session.name ?? "Team"}
 			role={labelOfRole(session.role)}
-			clinic={session.clinic?.name ?? "Clínica"}
+			clinic={session.clinic?.name ?? "Clinic"}
 		>
 			<Outlet />
 		</AppShell>

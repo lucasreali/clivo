@@ -30,14 +30,14 @@ export function ParametersPanel() {
 	return (
 		<Panel>
 			<PanelHeader
-				title="Parâmetros da clínica"
-				hint="A regra existe em todas as clínicas; o valor é desta unidade."
+				title="Clinic parameters"
+				hint="The rule exists in every clinic; the value belongs to this unit."
 				actions={
 					<Button
 						onClick={saveAll}
 						disabled={Object.keys(edited).length === 0 || change.isPending}
 					>
-						Salvar parâmetros
+						Save parameters
 					</Button>
 				}
 			/>

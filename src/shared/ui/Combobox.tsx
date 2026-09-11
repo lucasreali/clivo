@@ -33,7 +33,7 @@ export function Combobox({
 	onSearch,
 	onBlur,
 	placeholder,
-	emptyMessage = "Nenhum resultado.",
+	emptyMessage = "No results.",
 	isLoading = false,
 	disabled = false,
 	className,

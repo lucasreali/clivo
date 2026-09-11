@@ -1,16 +1,16 @@
-const DAY = new Intl.DateTimeFormat("pt-BR", { dateStyle: "short" });
-const TIME = new Intl.DateTimeFormat("pt-BR", {
+const DAY = new Intl.DateTimeFormat("en-US", { dateStyle: "short" });
+const TIME = new Intl.DateTimeFormat("en-US", {
 	hour: "2-digit",
 	minute: "2-digit",
 });
-const LONG_DAY = new Intl.DateTimeFormat("pt-BR", {
+const LONG_DAY = new Intl.DateTimeFormat("en-US", {
 	weekday: "long",
 	day: "numeric",
 	month: "long",
 	year: "numeric",
 });
-const WEEKDAY = new Intl.DateTimeFormat("pt-BR", { weekday: "short" });
-const DAY_MONTH = new Intl.DateTimeFormat("pt-BR", {
+const WEEKDAY = new Intl.DateTimeFormat("en-US", { weekday: "short" });
+const DAY_MONTH = new Intl.DateTimeFormat("en-US", {
 	day: "2-digit",
 	month: "2-digit",
 });
@@ -41,7 +41,7 @@ export function dayLabel(day: string) {
 }
 
 export function weekdayLabel(day: string) {
-	return WEEKDAY.format(new Date(`${day}T12:00:00`)).replace(".", "");
+	return WEEKDAY.format(new Date(`${day}T12:00:00`));
 }
 
 export function dayMonthLabel(day: string) {
@@ -73,5 +73,5 @@ export function ageLabel(birthDate: string | undefined) {
 	const years = now.getFullYear() - born.getFullYear();
 	const anniversary = new Date(born);
 	anniversary.setFullYear(now.getFullYear());
-	return `${now < anniversary ? years - 1 : years} anos`;
+	return `${now < anniversary ? years - 1 : years} years`;
 }

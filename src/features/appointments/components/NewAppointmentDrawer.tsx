@@ -62,21 +62,21 @@ export function NewAppointmentDrawer({
 
 	const patients: Option[] = (customers.data ?? []).map((customer) => ({
 		value: String(customer.id),
-		label: customer.name ?? "Sem nome",
+		label: customer.name ?? "Unnamed",
 		hint: describe(customer.nationalId, customer.phone),
 	}));
 
 	const practitionerOptions: Option[] = (practitioners.data ?? []).map(
 		(practitioner) => ({
 			value: String(practitioner.id),
-			label: practitioner.name ?? "Sem nome",
+			label: practitioner.name ?? "Unnamed",
 			hint: practitioner.licenseNumber ?? undefined,
 		}),
 	);
 
 	const serviceOptions: Option[] = (services.data ?? []).map((service) => ({
 		value: String(service.id),
-		label: service.name ?? "Sem nome",
+		label: service.name ?? "Unnamed",
 		hint: service.durationMinutes
 			? `${service.durationMinutes} min`
 			: undefined,
@@ -84,8 +84,8 @@ export function NewAppointmentDrawer({
 
 	return (
 		<Drawer
-			title="Novo agendamento"
-			subtitle="A agenda do dia continua visível atrás deste painel."
+			title="New appointment"
+			subtitle="The day schedule stays visible behind this panel."
 			onClose={onClose}
 			isDirty={isDirty}
 			width="max-w-[460px]"
@@ -95,7 +95,7 @@ export function NewAppointmentDrawer({
 					form="new-appointment"
 					disabled={schedule.isPending}
 				>
-					Salvar agendamento
+					Save appointment
 				</Button>
 			}
 		>
@@ -108,16 +108,16 @@ export function NewAppointmentDrawer({
 				<form.AppField name="customerId">
 					{(field) => (
 						<field.ComboboxField
-							label="Paciente"
+							label="Patient"
 							required
 							options={patients}
 							onSearch={setSearch}
 							isLoading={customers.isFetching}
-							placeholder="Digite o nome do paciente"
+							placeholder="Type the patient name"
 							emptyMessage={
 								search
-									? `Nenhum paciente encontrado para “${search}”.`
-									: "Digite parte do nome para buscar."
+									? `No patient found for “${search}”.`
+									: "Type part of the name to search."
 							}
 						/>
 					)}
@@ -126,10 +126,10 @@ export function NewAppointmentDrawer({
 				<form.AppField name="practitionerId">
 					{(field) => (
 						<field.ComboboxField
-							label="Profissional"
+							label="Practitioner"
 							required
 							options={practitionerOptions}
-							placeholder="Selecione"
+							placeholder="Select"
 						/>
 					)}
 				</form.AppField>
@@ -137,25 +137,25 @@ export function NewAppointmentDrawer({
 				<form.AppField name="serviceId">
 					{(field) => (
 						<field.ComboboxField
-							label="Serviço"
+							label="Service"
 							required
 							options={serviceOptions}
-							placeholder="Selecione"
+							placeholder="Select"
 						/>
 					)}
 				</form.AppField>
 
 				<div className="grid grid-cols-2 gap-3">
 					<form.AppField name="date">
-						{(field) => <field.TextField label="Data" type="date" required />}
+						{(field) => <field.TextField label="Date" type="date" required />}
 					</form.AppField>
 					<form.AppField name="time">
-						{(field) => <field.TextField label="Hora" type="time" required />}
+						{(field) => <field.TextField label="Time" type="time" required />}
 					</form.AppField>
 				</div>
 
 				{schedule.isError ? (
-					<Callout tone="danger" title="Horário indisponível">
+					<Callout tone="danger" title="Time slot unavailable">
 						{messageOf(schedule.error)}
 					</Callout>
 				) : null}

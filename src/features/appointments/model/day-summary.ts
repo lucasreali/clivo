@@ -10,18 +10,18 @@ export function summarise(appointments: readonly AppointmentView[]): Counter[] {
 		).length;
 
 	return [
-		{ label: "Agendados hoje", value: appointments.length, tone: "neutral" },
+		{ label: "Scheduled today", value: appointments.length, tone: "neutral" },
 		{
-			label: "Aguardando confirmação",
+			label: "Awaiting confirmation",
 			value: countOf("SCHEDULED"),
 			tone: "warn",
 		},
 		{
-			label: "Na recepção",
+			label: "At the front desk",
 			value: countOf("ARRIVED", "IN_PROGRESS"),
 			tone: "info",
 		},
-		{ label: "Concluídos", value: countOf("COMPLETED"), tone: "brand" },
-		{ label: "Faltas", value: countOf("NO_SHOW"), tone: "danger" },
+		{ label: "Completed", value: countOf("COMPLETED"), tone: "brand" },
+		{ label: "No-shows", value: countOf("NO_SHOW"), tone: "danger" },
 	];
 }

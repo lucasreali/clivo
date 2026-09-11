@@ -11,7 +11,7 @@ import { Logo } from "#/shared/ui/Logo";
 
 const credentialsSchema = z.object({
 	email: requiredEmail,
-	password: requiredText("Informe a senha."),
+	password: requiredText("Enter the password."),
 });
 
 export function SignInForm() {
@@ -42,14 +42,14 @@ export function SignInForm() {
 			<div className="flex flex-col gap-1.5">
 				<Logo size="lg" />
 				<span className="text-[12.5px] text-muted">
-					Entre com a conta da sua clínica
+					Sign in with your clinic account
 				</span>
 			</div>
 
 			<form.AppField name="email">
 				{(field) => (
 					<field.TextField
-						label="E-mail"
+						label="Email"
 						type="email"
 						inputMode="email"
 						autoComplete="username"
@@ -61,7 +61,7 @@ export function SignInForm() {
 			<form.AppField name="password">
 				{(field) => (
 					<field.TextField
-						label="Senha"
+						label="Password"
 						type="password"
 						autoComplete="current-password"
 						required
@@ -74,11 +74,11 @@ export function SignInForm() {
 			) : null}
 
 			<Button type="submit" disabled={signIn.isPending} className="h-[38px]">
-				{signIn.isPending ? "Entrando…" : "Entrar"}
+				{signIn.isPending ? "Signing in…" : "Sign in"}
 			</Button>
 
 			<span className="text-center text-[11.5px] text-faint">
-				Acesso restrito à equipe da clínica. Uso monitorado conforme a LGPD.
+				Restricted to clinic staff. Usage is monitored under the LGPD.
 			</span>
 		</form>
 	);

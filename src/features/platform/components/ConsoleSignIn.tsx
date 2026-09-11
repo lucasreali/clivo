@@ -11,7 +11,7 @@ import { Logo } from "#/shared/ui/Logo";
 
 const credentialsSchema = z.object({
 	email: requiredEmail,
-	password: requiredText("Informe a senha."),
+	password: requiredText("Enter the password."),
 });
 
 export function ConsoleSignIn() {
@@ -47,15 +47,15 @@ export function ConsoleSignIn() {
 					</span>
 				</span>
 				<span className="text-[13.5px] font-semibold text-ink">
-					Console de administração
+					Administration console
 				</span>
 				<span className="text-[12.5px] text-muted">
-					Suas credenciais definem a que clínicas você tem acesso.
+					Your credentials define which clinics you can reach.
 				</span>
 			</div>
 
 			{signIn.isError ? (
-				<Callout tone="danger" title="Não foi possível entrar">
+				<Callout tone="danger" title="Could not sign in">
 					{messageOf(signIn.error)}
 				</Callout>
 			) : null}
@@ -63,7 +63,7 @@ export function ConsoleSignIn() {
 			<form.AppField name="email">
 				{(field) => (
 					<field.TextField
-						label="E-mail"
+						label="Email"
 						type="email"
 						inputMode="email"
 						autoComplete="username"
@@ -75,7 +75,7 @@ export function ConsoleSignIn() {
 			<form.AppField name="password">
 				{(field) => (
 					<field.TextField
-						label="Senha"
+						label="Password"
 						type="password"
 						autoComplete="current-password"
 						required
@@ -84,11 +84,11 @@ export function ConsoleSignIn() {
 			</form.AppField>
 
 			<Button type="submit" disabled={signIn.isPending} className="h-[38px]">
-				{signIn.isPending ? "Entrando…" : "Entrar"}
+				{signIn.isPending ? "Signing in…" : "Sign in"}
 			</Button>
 
 			<span className="text-center text-[11.5px] text-faint">
-				Acesso restrito à equipe Clivo · não há cadastro público.
+				Restricted to the Clivo team · there is no public sign-up.
 			</span>
 		</form>
 	);

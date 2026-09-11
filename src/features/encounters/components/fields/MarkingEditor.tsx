@@ -28,7 +28,7 @@ export function MarkingEditor({
 				<span className="text-[13px] font-semibold text-ink">{place}</span>
 				<button
 					type="button"
-					aria-label="Fechar marcação"
+					aria-label="Close marking"
 					onClick={onClose}
 					className="text-faint hover:text-ink"
 				>
@@ -42,11 +42,11 @@ export function MarkingEditor({
 						value={marking.note ?? ""}
 						disabled={disabled}
 						maxLength={NOTE_LIMIT}
-						placeholder="Anotação desta marcação"
+						placeholder="Note for this marking"
 						onChange={(event) => onNote(event.target.value)}
 					/>
 					<Button variant="ghost" disabled={disabled} onClick={onRemove}>
-						Remover
+						Remove
 					</Button>
 				</div>
 			) : null}

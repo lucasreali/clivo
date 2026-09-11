@@ -112,7 +112,7 @@ export function Drawer({
 								) : null}
 							</div>
 							<DrawerPrimitive.Close
-								aria-label="Fechar"
+								aria-label="Close"
 								className="text-faint hover:text-ink"
 							>
 								<X size={16} aria-hidden="true" />
@@ -157,14 +157,14 @@ function DiscardPrompt({ onKeep, onDiscard }: DiscardPromptProps) {
 	return (
 		<footer className="flex shrink-0 flex-wrap items-center justify-between gap-3 border-line border-t bg-surface px-5 py-3">
 			<span className="text-[12.5px] text-muted">
-				As alterações ainda não foram salvas.
+				Your changes have not been saved yet.
 			</span>
 			<span className="flex gap-2">
 				<Button variant="secondary" autoFocus onClick={onKeep}>
-					Continuar editando
+					Keep editing
 				</Button>
 				<Button variant="danger" onClick={onDiscard}>
-					Descartar
+					Discard
 				</Button>
 			</span>
 		</footer>

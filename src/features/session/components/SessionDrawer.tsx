@@ -24,8 +24,8 @@ export function SessionDrawer({
 
 	return (
 		<Drawer
-			title="Minha conta"
-			subtitle="Dados da sessão aberta neste navegador."
+			title="My account"
+			subtitle="Details of the session open in this browser."
 			onClose={onClose}
 			side="left"
 			footer={
@@ -49,14 +49,14 @@ export function SessionDrawer({
 			</div>
 
 			<dl className="flex flex-col gap-2.5 rounded-field bg-surface px-3.5 py-3">
-				<SessionEntry label="Nome" value={user} />
-				<SessionEntry label="Perfil de acesso" value={role} />
-				<SessionEntry label="Clínica" value={clinic} />
+				<SessionEntry label="Name" value={user} />
+				<SessionEntry label="Access role" value={role} />
+				<SessionEntry label="Clinic" value={clinic} />
 			</dl>
 
 			<Callout tone="neutral">
-				Ao sair, a sessão é encerrada no servidor e os dados da clínica deixam
-				de ficar disponíveis neste navegador.
+				Signing out ends the session on the server, and the clinic data stops
+				being available in this browser.
 			</Callout>
 
 			{signOut.isError ? (
@@ -84,21 +84,19 @@ function SignOutAction({
 	if (!isConfirming) {
 		return (
 			<Button variant="danger" onClick={onAsk}>
-				Sair da conta
+				Sign out
 			</Button>
 		);
 	}
 
 	return (
 		<>
-			<span className="mr-auto text-[12.5px] text-muted">
-				Encerrar a sessão?
-			</span>
+			<span className="mr-auto text-[12.5px] text-muted">End the session?</span>
 			<Button variant="secondary" autoFocus onClick={onKeep}>
-				Continuar conectado
+				Stay signed in
 			</Button>
 			<Button variant="danger" onClick={onConfirm} disabled={isPending}>
-				{isPending ? "Saindo…" : "Confirmar saída"}
+				{isPending ? "Signing out…" : "Confirm sign-out"}
 			</Button>
 		</>
 	);

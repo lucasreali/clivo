@@ -1,7 +1,7 @@
 import { createFileRoute } from "@tanstack/react-router";
 import { EncounterRecord } from "#/features/encounters/components/EncounterRecord";
 
-export const Route = createFileRoute("/_app/atendimentos/$encounterId")({
+export const Route = createFileRoute("/_app/encounters/$encounterId")({
 	component: EncounterPage,
 });
 

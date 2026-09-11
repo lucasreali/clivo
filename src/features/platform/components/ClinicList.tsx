@@ -22,7 +22,7 @@ const column = columnsFor<ClinicView>();
 
 const COLUMNS = column.columns([
 	column.accessor("name", {
-		header: "Nome",
+		header: "Name",
 		cell: ({ row }) => <ClinicName clinic={row.original} />,
 	}),
 	column.accessor("taxId", {
@@ -35,7 +35,7 @@ const COLUMNS = column.columns([
 		),
 	}),
 	column.accessor("status", {
-		header: "Situação",
+		header: "Status",
 		meta: { width: "140px" },
 		cell: ({ getValue }) => {
 			const situation = describeClinicStatus(getValue());
@@ -43,14 +43,14 @@ const COLUMNS = column.columns([
 		},
 	}),
 	column.accessor("segment", {
-		header: "Segmento",
+		header: "Segment",
 		meta: { width: "18%" },
 		cell: ({ getValue }) => (
 			<span className="truncate text-muted">{getValue() ?? "—"}</span>
 		),
 	}),
 	column.accessor("createdAt", {
-		header: "Entrada",
+		header: "Joined",
 		meta: { width: "110px" },
 		cell: ({ getValue }) => (
 			<span className="text-muted">{shortDate(getValue())}</span>
@@ -61,11 +61,11 @@ const COLUMNS = column.columns([
 		meta: { width: "90px", align: "right" },
 		cell: ({ row }) => (
 			<Link
-				to="/console/clinicas/$tenantId/modulos"
+				to="/console/clinics/$tenantId/modules"
 				params={{ tenantId: String(row.original.id) }}
 				className="text-[12.5px] font-semibold text-brand-ink"
 			>
-				Abrir
+				Open
 			</Link>
 		),
 	}),
@@ -84,11 +84,11 @@ export function ClinicList() {
 	return (
 		<>
 			<TopBar
-				title="Clínicas"
+				title="Clinics"
 				meta={summaryOf(catalog.total(), catalog.countOf("ACTIVE"))}
 				actions={
-					<Link to="/console/nova-clinica" className={buttonClass()}>
-						+ Nova clínica
+					<Link to="/console/new-clinic" className={buttonClass()}>
+						+ New clinic
 					</Link>
 				}
 			/>
@@ -99,25 +99,25 @@ export function ClinicList() {
 						<TextInput
 							value={search}
 							onChange={(event) => setSearch(event.target.value)}
-							placeholder="Buscar por nome ou CNPJ"
+							placeholder="Search by name or CNPJ"
 							className="h-[34px] w-[320px]"
-							aria-label="Buscar clínica"
+							aria-label="Search clinic"
 						/>
 						<Select
 							value={status}
 							onChange={setStatus}
 							options={[
-								{ value: "", label: "Todas as situações" },
+								{ value: "", label: "All statuses" },
 								...CLINIC_SITUATIONS.map((situation) => ({
 									value: situation.status,
 									label: situation.label,
 								})),
 							]}
 							className="h-[34px] w-[180px]"
-							aria-label="Filtrar por situação"
+							aria-label="Filter by status"
 						/>
 						<span className="ml-auto text-[12px] text-faint">
-							{shown.total()} de {catalog.total()} listadas
+							{shown.total()} of {catalog.total()} listed
 						</span>
 					</div>
 
@@ -126,7 +126,7 @@ export function ClinicList() {
 						rows={shown.listed()}
 						rowId={(clinic) => String(clinic.id)}
 						isPending={isPending}
-						pendingLabel="Carregando clínicas…"
+						pendingLabel="Loading clinics…"
 						pageSize={12}
 						empty={
 							<EmptyClinics
@@ -146,7 +146,7 @@ function ClinicName({ clinic }: { clinic: ClinicView }) {
 		<div className="flex min-w-0 flex-col">
 			<span className="truncate font-medium text-ink">{clinic.name}</span>
 			<span className="truncate text-[11.5px] text-muted">
-				{clinic.legalName ?? "Sem razão social cadastrada"}
+				{clinic.legalName ?? "No legal name on record"}
 			</span>
 		</div>
 	);
@@ -161,11 +161,11 @@ function EmptyClinics({ search, platformIsEmpty }: EmptyClinicsProps) {
 	if (platformIsEmpty) {
 		return (
 			<EmptyState
-				title="Nenhuma clínica cadastrada nesta instância"
-				description="Cadastre a primeira clínica com nome, CNPJ e o gestor inicial. A clínica nasce sem módulos ativos — a configuração vem depois."
+				title="No clinics registered in this instance"
+				description="Register the first clinic with a name, CNPJ and the initial manager. A clinic starts with no active modules — configuration comes later."
 				actions={
-					<Link to="/console/nova-clinica" className={buttonClass()}>
-						Cadastrar primeira clínica
+					<Link to="/console/new-clinic" className={buttonClass()}>
+						Register the first clinic
 					</Link>
 				}
 			/>
@@ -175,14 +175,12 @@ function EmptyClinics({ search, platformIsEmpty }: EmptyClinicsProps) {
 	return (
 		<EmptyState
 			title={
-				search
-					? `Nenhuma clínica corresponde a “${search}”`
-					: "Nenhuma clínica nesta situação"
+				search ? `No clinic matches “${search}”` : "No clinic with this status"
 			}
-			description="A busca cobre nome, razão social e CNPJ. Confira a grafia ou limpe o filtro de situação."
+			description="The search covers name, legal name and CNPJ. Check the spelling or clear the status filter."
 			actions={
-				<Link to="/console/nova-clinica" className={buttonClass("secondary")}>
-					Cadastrar nova clínica
+				<Link to="/console/new-clinic" className={buttonClass("secondary")}>
+					Register a new clinic
 				</Link>
 			}
 		/>
@@ -190,6 +188,6 @@ function EmptyClinics({ search, platformIsEmpty }: EmptyClinicsProps) {
 }
 
 function summaryOf(total: number, active: number) {
-	const clinics = total === 1 ? "inquilino" : "inquilinos";
-	return `${total} ${clinics} nesta instância · ${active} ${active === 1 ? "ativa" : "ativas"}`;
+	const clinics = total === 1 ? "tenant" : "tenants";
+	return `${total} ${clinics} in this instance · ${active} active`;
 }

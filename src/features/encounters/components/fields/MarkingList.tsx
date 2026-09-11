@@ -16,8 +16,8 @@ export function MarkingList({
 	if (entries.length === 0) {
 		return (
 			<EmptyState
-				title="Nenhuma condição marcada"
-				description="Escolha um dente no desenho para registrar a condição observada."
+				title="No condition marked"
+				description="Pick a region on the drawing to record the condition observed."
 			/>
 		);
 	}
@@ -59,13 +59,13 @@ function keyOf(entry: ChartEntry) {
 }
 
 function coverageOf(entry: ChartEntry) {
-	return entry.parts.length > 0 ? entry.parts.join(" · ") : "toda a região";
+	return entry.parts.length > 0 ? entry.parts.join(" · ") : "whole region";
 }
 
 function sinceOf(entry: ChartEntry) {
 	if (entry.origin?.source === "SESSION") {
-		return "nesta sessão";
+		return "in this session";
 	}
 	const since = entry.origin?.since ?? entry.origin?.recordedAt;
-	return since ? `desde ${shortDate(since)}` : "registro anterior";
+	return since ? `since ${shortDate(since)}` : "earlier record";
 }

@@ -19,15 +19,12 @@ export function BillingReport() {
 
 	return (
 		<>
-			<AppTopBar
-				title="Financeiro"
-				meta="Relatório de faturamento do período"
-			/>
+			<AppTopBar title="Billing" meta="Revenue report for the period" />
 
 			<Page>
 				<Panel>
 					<PanelHeader
-						title="Período"
+						title="Period"
 						actions={
 							<div className="flex items-center gap-2">
 								<TextInput
@@ -35,14 +32,14 @@ export function BillingReport() {
 									value={from}
 									onChange={(event) => setFrom(event.target.value)}
 									className="h-[34px] w-[160px]"
-									aria-label="Data inicial"
+									aria-label="Start date"
 								/>
 								<TextInput
 									type="date"
 									value={to}
 									onChange={(event) => setTo(event.target.value)}
 									className="h-[34px] w-[160px]"
-									aria-label="Data final"
+									aria-label="End date"
 								/>
 							</div>
 						}
@@ -75,11 +72,11 @@ function ReportBody({ error, data }: ReportBodyProps) {
 
 	return (
 		<div className="grid grid-cols-5 gap-3 p-5">
-			<Metric label="Cobranças" value={String(data?.invoices ?? 0)} />
-			<Metric label="Bruto" value={money(data?.gross)} />
-			<Metric label="Descontos" value={money(data?.discount)} />
-			<Metric label="Recebido" value={money(data?.received)} />
-			<Metric label="Em aberto" value={money(data?.outstanding)} />
+			<Metric label="Invoices" value={String(data?.invoices ?? 0)} />
+			<Metric label="Gross" value={money(data?.gross)} />
+			<Metric label="Discounts" value={money(data?.discount)} />
+			<Metric label="Received" value={money(data?.received)} />
+			<Metric label="Outstanding" value={money(data?.outstanding)} />
 		</div>
 	);
 }
@@ -87,8 +84,8 @@ function ReportBody({ error, data }: ReportBodyProps) {
 function ReportDenied() {
 	return (
 		<EmptyState
-			title="Relatório restrito ao seu perfil"
-			description="Nesta clínica o modelo de acesso reserva os números do faturamento à gestão. Peça a quem gerencia a clínica para liberar o seu perfil."
+			title="Report restricted for your role"
+			description="In this clinic the access model reserves revenue figures for management. Ask whoever manages the clinic to grant your role access."
 		/>
 	);
 }

@@ -2,7 +2,7 @@ import { createFileRoute } from "@tanstack/react-router";
 import { ClinicParameters } from "#/features/platform/components/ClinicParameters";
 
 export const Route = createFileRoute(
-	"/console/_console/clinicas/$tenantId/parametros",
+	"/console/_console/clinics/$tenantId/parameters",
 )({
 	component: ClinicParametersPage,
 });

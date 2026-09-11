@@ -11,7 +11,7 @@ import { Callout } from "#/shared/ui/Callout";
 import { Panel, PanelHeader } from "#/shared/ui/Panel";
 
 const administratorSchema = z.object({
-	name: requiredText("Informe o nome."),
+	name: requiredText("Enter the name."),
 	email: requiredEmail,
 	password: password(),
 });
@@ -39,8 +39,8 @@ export function Administrators() {
 	return (
 		<>
 			<TopBar
-				title="Administradores da plataforma"
-				meta="Equipe Clivo com acesso a este console · não existe cadastro público"
+				title="Platform administrators"
+				meta="Clivo staff with access to this console · there is no public sign-up"
 			/>
 
 			<Page>
@@ -53,21 +53,22 @@ export function Administrators() {
 						>
 							<div className="flex flex-col gap-1">
 								<span className="text-[13.5px] font-semibold text-ink">
-									Adicionar administrador
+									Add administrator
 								</span>
 								<span className="text-[12px] text-muted">
-									A pessoa entra com o e-mail e a senha inicial definidos aqui.
+									The person signs in with the email and initial password set
+									here.
 								</span>
 							</div>
 
 							<form.AppField name="name">
-								{(field) => <field.TextField label="Nome" required />}
+								{(field) => <field.TextField label="Name" required />}
 							</form.AppField>
 
 							<form.AppField name="email">
 								{(field) => (
 									<field.TextField
-										label="E-mail"
+										label="Email"
 										type="email"
 										inputMode="email"
 										required
@@ -78,11 +79,11 @@ export function Administrators() {
 							<form.AppField name="password">
 								{(field) => (
 									<field.TextField
-										label="Senha inicial"
+										label="Initial password"
 										type="password"
 										autoComplete="new-password"
 										required
-										hint="Mínimo de 8 caracteres. Combine a troca no primeiro acesso."
+										hint="At least 8 characters. Agree on changing it at first sign-in."
 									/>
 								)}
 							</form.AppField>
@@ -93,14 +94,14 @@ export function Administrators() {
 
 							{register.isSuccess ? (
 								<Callout tone="brand">
-									Administrador criado. O acesso vale para todas as clínicas
-									desta instância.
+									Administrator created. The access covers every clinic in this
+									instance.
 								</Callout>
 							) : null}
 
 							<div className="flex justify-end">
 								<Button type="submit" disabled={register.isPending}>
-									{register.isPending ? "Criando…" : "Criar administrador"}
+									{register.isPending ? "Creating…" : "Create administrator"}
 								</Button>
 							</div>
 						</form>
@@ -108,20 +109,22 @@ export function Administrators() {
 
 					<Panel>
 						<PanelHeader
-							title="O que este acesso concede"
-							hint="Não existe perfil parcial neste console."
+							title="What this access grants"
+							hint="There is no partial role in this console."
 						/>
 						<div className="flex flex-col gap-3 p-5">
 							<p className="m-0 text-[12.5px] leading-relaxed text-muted">
-								Administradores da plataforma enxergam todas as clínicas desta
-								instância, os módulos contratados por cada uma e os parâmetros
-								em vigor. Todo acesso a este console é criado por alguém já
-								autorizado.
+								Platform administrators see every clinic in this instance, the
+								modules each one contracted and the parameters in force. Every
+								access to this console is created by someone already authorized.
 							</p>
-							<Callout tone="warn" title="A listagem ainda não existe na API">
-								A plataforma expõe apenas a criação de administradores. Enquanto
-								não houver um endpoint de consulta, o console não tem como
-								mostrar quem já tem acesso nem revogar um acesso concedido.
+							<Callout
+								tone="warn"
+								title="The listing does not exist in the API yet"
+							>
+								The platform exposes only the creation of administrators. Until
+								a query endpoint exists, the console cannot show who already has
+								access, nor revoke an access already granted.
 							</Callout>
 						</div>
 					</Panel>

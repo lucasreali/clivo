@@ -28,7 +28,7 @@ function GlobalSearch() {
 	return (
 		<button
 			type="button"
-			onClick={() => announcePending("A busca global do topo")}
+			onClick={() => announcePending("The global search in the top bar")}
 			className="flex h-[34px] w-[250px] items-center gap-2 rounded-field border border-line bg-surface px-2.5 text-left"
 		>
 			<MagnifyingGlass
@@ -37,7 +37,7 @@ function GlobalSearch() {
 				aria-hidden="true"
 			/>
 			<span className="text-[12.5px] text-faint">
-				Buscar paciente, CPF ou telefone
+				Search by patient, CPF or phone
 			</span>
 		</button>
 	);
@@ -47,8 +47,8 @@ function Notifications() {
 	return (
 		<button
 			type="button"
-			onClick={() => announcePending("O painel de avisos")}
-			aria-label="Avisos"
+			onClick={() => announcePending("The notifications panel")}
+			aria-label="Notifications"
 			className="relative flex h-[34px] w-[34px] items-center justify-center rounded-field border border-line bg-panel"
 		>
 			<Bell size={15} className="text-muted" aria-hidden="true" />

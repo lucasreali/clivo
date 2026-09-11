@@ -26,31 +26,31 @@ export function EncounterHeader({ encounter, open }: EncounterHeaderProps) {
 							.join(" · ")}
 					</span>
 					<span className="text-[12px] text-muted">
-						{customer?.coverage?.plan ?? "Particular"}
+						{customer?.coverage?.plan ?? "Private pay"}
 						<Alerts notes={notesOf(encounter)} />
 					</span>
 				</div>
 			</div>
 
-			<Detail label="Data" value={dateTimeLabel(encounter.startedAt)} />
+			<Detail label="Date" value={dateTimeLabel(encounter.startedAt)} />
 			<Detail
-				label="Profissional"
+				label="Practitioner"
 				value={[practitioner?.name, practitioner?.license]
 					.filter(Boolean)
 					.join(" · ")}
 			/>
-			<Detail label="Serviço" value={encounter.service?.name} />
+			<Detail label="Service" value={encounter.service?.name} />
 
 			<div className="ml-auto flex items-center gap-3">
 				<Badge tone={open ? "brand" : "neutral"}>
-					{open ? "Em atendimento" : "Concluído"}
+					{open ? "In progress" : "Completed"}
 				</Badge>
 				<Button
 					variant="secondary"
-					onClick={() => announcePending("O anexo de imagens à ficha")}
+					onClick={() => announcePending("Attaching images to the record")}
 				>
 					<Paperclip size={14} aria-hidden="true" />
-					Anexar imagem
+					Attach image
 				</Button>
 			</div>
 		</header>

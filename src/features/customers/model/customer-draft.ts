@@ -15,7 +15,7 @@ import {
 } from "#/shared/format/document";
 
 export const customerSchema = z.object({
-	name: requiredText("Informe o nome completo."),
+	name: requiredText("Enter the full name."),
 	phone: requiredPhone,
 	nationalId: optionalNationalId,
 	birthDate: z.string(),

@@ -74,7 +74,7 @@ export function Modal({
 							) : null}
 						</div>
 						<Dialog.Close
-							aria-label="Fechar"
+							aria-label="Close"
 							className="text-faint hover:text-ink"
 						>
 							<X size={16} aria-hidden="true" />

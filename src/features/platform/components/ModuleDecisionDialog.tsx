@@ -44,25 +44,29 @@ function DependencyOffer({
 
 	return (
 		<Modal
-			title={`Ligar ${module.name} exige ${dependency.name}`}
+			title={`Turning on ${module.name} requires ${dependency.name}`}
 			subtitle={module.description}
 			onClose={onClose}
 			footer={
 				<>
 					<Button variant="secondary" onClick={onClose}>
-						Cancelar
+						Cancel
 					</Button>
 					<Button onClick={activateBoth} disabled={isSaving}>
-						Ligar os dois módulos
+						Turn on both modules
 					</Button>
 				</>
 			}
 		>
-			<ModuleLine module={dependency} note="será ligado junto" tone="warn" />
-			<ModuleLine module={module} note="módulo pedido" tone="brand" />
+			<ModuleLine
+				module={dependency}
+				note="will be turned on too"
+				tone="warn"
+			/>
+			<ModuleLine module={module} note="requested module" tone="brand" />
 			<p className="m-0 text-[12.5px] leading-relaxed text-muted">
-				Ligar os dois habilita também os parâmetros que dependem deles na tela
-				de parâmetros desta clínica.
+				Turning both on also enables the parameters that depend on them in this
+				clinic parameters screen.
 			</p>
 		</Modal>
 	);
@@ -88,33 +92,33 @@ function DeactivationRefusal({
 
 	return (
 		<Modal
-			title={`${module.name} não pode ser desligado`}
+			title={`${module.name} cannot be turned off`}
 			dismissal="guarded"
-			subtitle="A ordem é obrigatória e o console não a inverte automaticamente."
+			subtitle="The order is mandatory and the console does not reverse it automatically."
 			onClose={onClose}
 			footer={
 				<>
 					<Button variant="secondary" onClick={onClose}>
-						Entendi
+						Got it
 					</Button>
 					<Button onClick={releaseDependent} disabled={isSaving}>
-						Desligar {first.name}
+						Turn off {first.name}
 					</Button>
 				</>
 			}
 		>
 			<Callout tone="danger">
-				Desligar {module.name} deixaria os registros dos módulos que dependem
-				dele sem referência.
+				Turning off {module.name} would leave the records of the modules that
+				depend on it without a reference.
 			</Callout>
 			<span className="text-[11.5px] font-semibold tracking-[1.1px] text-muted uppercase">
-				Depende de {module.name}
+				Depends on {module.name}
 			</span>
 			{dependents.map((dependent) => (
 				<ModuleLine
 					key={dependent.code}
 					module={dependent}
-					note="ativo nesta clínica"
+					note="active in this clinic"
 					tone="brand"
 				/>
 			))}
@@ -141,24 +145,24 @@ function DeactivationConfirmation({
 
 	return (
 		<Modal
-			title={`Desligar ${module.name}?`}
+			title={`Turn off ${module.name}?`}
 			dismissal="guarded"
-			subtitle="Os dados não são apagados — deixam de ser acessíveis enquanto o módulo estiver desligado."
+			subtitle="The data is not erased — it just stops being reachable while the module is off."
 			onClose={onClose}
 			footer={
 				<>
 					<Button variant="secondary" onClick={onClose}>
-						Manter ligado
+						Keep it on
 					</Button>
 					<Button variant="danger" onClick={turnOff} disabled={isSaving}>
-						Desligar módulo
+						Turn off module
 					</Button>
 				</>
 			}
 		>
 			<p className="m-0 text-[12.5px] leading-relaxed text-muted">
-				Do lado da clínica o módulo desaparece por completo: nenhum menu, nenhum
-				campo, nenhum aviso. Se for religado, tudo volta como estava.
+				On the clinic side the module disappears entirely: no menu, no field, no
+				notice. If it is turned back on, everything returns as it was.
 			</p>
 		</Modal>
 	);

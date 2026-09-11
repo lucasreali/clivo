@@ -29,17 +29,17 @@ function columnsManaging({
 }: TeamActions) {
 	return column.columns([
 		column.accessor("name", {
-			header: "Pessoa",
+			header: "Person",
 			cell: ({ row }) => <Person user={row.original} />,
 		}),
 		column.accessor("role", {
-			header: "Perfil",
+			header: "Role",
 			meta: { width: "170px" },
 			cell: ({ row }) => (
 				<Select
 					value={row.original.role ?? ""}
 					disabled={!row.original.active || isSaving}
-					aria-label={`Perfil de ${row.original.name}`}
+					aria-label={`Role of ${row.original.name}`}
 					className="h-[32px]"
 					options={Roles.assignableByManager().map((option) => ({
 						value: option.role,
@@ -55,11 +55,11 @@ function columnsManaging({
 			),
 		}),
 		column.accessor("active", {
-			header: "Situação",
+			header: "Status",
 			meta: { width: "110px" },
 			cell: ({ getValue }) => (
 				<Badge tone={getValue() ? "brand" : "neutral"}>
-					{getValue() ? "Ativo" : "Inativo"}
+					{getValue() ? "Active" : "Inactive"}
 				</Badge>
 			),
 		}),
@@ -69,14 +69,14 @@ function columnsManaging({
 			cell: ({ row }) => (
 				<div className="flex justify-end gap-1.5">
 					<Button variant="ghost" onClick={() => onOpen(row.original)}>
-						Acessos
+						Access
 					</Button>
 					<Button
 						variant="ghost"
 						disabled={!row.original.active || isSaving}
 						onClick={() => onDeactivate(row.original.id ?? "")}
 					>
-						Inativar
+						Deactivate
 					</Button>
 				</div>
 			),
@@ -92,8 +92,8 @@ export function TeamPanel() {
 		<div className="grid grid-cols-[1.9fr_1fr] items-start gap-4">
 			<Panel>
 				<PanelHeader
-					title="Equipe da clínica"
-					hint="O perfil define o que a pessoa pode fazer; os módulos definem o que ela alcança."
+					title="Clinic team"
+					hint="The role defines what a person may do; the modules define what they reach."
 				/>
 
 				<DataTable
@@ -106,12 +106,12 @@ export function TeamPanel() {
 					rows={team.users}
 					rowId={(user) => user.id ?? ""}
 					isPending={team.isPending}
-					pendingLabel="Carregando equipe…"
+					pendingLabel="Loading team…"
 					highlighted={(user) => user.id === opened}
 					empty={
 						<EmptyState
-							title="Nenhum usuário nesta clínica"
-							description="O cadastro de usuários ainda não tem tela: use a API para criar a primeira conta."
+							title="No users in this clinic"
+							description="User registration has no screen yet: use the API to create the first account."
 						/>
 					}
 				/>
@@ -142,12 +142,12 @@ function OpenedUser({ user }: { user: UserView | undefined }) {
 		return (
 			<Panel>
 				<PanelHeader
-					title="Acessos por pessoa"
-					hint="Escolha alguém da equipe para liberar ou retirar módulos."
+					title="Access per person"
+					hint="Pick someone from the team to grant or revoke modules."
 				/>
 				<EmptyState
-					title="Nenhuma pessoa selecionada"
-					description="Cada módulo contratado pela clínica só aparece para quem recebeu acesso. Quem gerencia alcança todos."
+					title="No person selected"
+					description="Each module the clinic contracted only shows up for whoever was granted access. Managers reach all of them."
 				/>
 			</Panel>
 		);
@@ -156,11 +156,11 @@ function OpenedUser({ user }: { user: UserView | undefined }) {
 	if (manages(user.role)) {
 		return (
 			<Panel>
-				<PanelHeader title={`Acessos de ${user.name}`} />
+				<PanelHeader title={`Access of ${user.name}`} />
 				<div className="p-5">
 					<Callout tone="info" title={labelOfRole(user.role)}>
-						Quem gerencia a clínica alcança todos os módulos contratados. Para
-						limitar o acesso, mude o perfil antes.
+						Whoever manages the clinic reaches every contracted module. To limit
+						that access, change the role first.
 					</Callout>
 				</div>
 			</Panel>

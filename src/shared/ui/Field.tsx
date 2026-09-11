@@ -70,7 +70,7 @@ function PasswordInput({ className, disabled, ...rest }: InputProps) {
 				type="button"
 				disabled={disabled}
 				onClick={() => setRevealed(!revealed)}
-				aria-label={revealed ? "Ocultar senha" : "Mostrar senha"}
+				aria-label={revealed ? "Hide password" : "Show password"}
 				aria-pressed={revealed}
 				className="absolute right-3 flex text-faint hover:text-ink disabled:text-line"
 			>

@@ -16,7 +16,7 @@ export function useStartEncounter() {
 			onSuccess: async (encounter) => {
 				await refresh();
 				await navigate({
-					to: "/atendimentos/$encounterId",
+					to: "/encounters/$encounterId",
 					params: { encounterId: String(encounter.id) },
 				});
 			},

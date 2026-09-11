@@ -107,7 +107,7 @@ export function MarkedRegionsField({
 
 			<section className="flex flex-col gap-2">
 				<span className="text-[12px] font-medium text-muted">
-					Marcações desta sessão
+					Markings from this session
 				</span>
 				<MarkingList
 					entries={entriesOf([...session, ...recorded])}
@@ -125,12 +125,12 @@ function hintOf(
 	brush: string | undefined,
 ) {
 	if (spots.length > 0) {
-		return "Escolha a condição a aplicar no trecho selecionado.";
+		return "Choose the condition to apply to the selected area.";
 	}
 	if (brush) {
-		return `${vocabulary.labelOf(brush)}: clique nos trechos do desenho para marcar, clique de novo para desmarcar.`;
+		return `${vocabulary.labelOf(brush)}: click the areas on the drawing to mark them, click again to unmark.`;
 	}
-	return "Escolha uma condição e clique no desenho para marcar, ou selecione trechos antes para anotar e remover.";
+	return "Choose a condition and click the drawing to mark it, or select areas first to annotate and remove.";
 }
 
 function placeOf(chart: Chart, spots: readonly Spot[]) {

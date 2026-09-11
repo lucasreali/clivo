@@ -9,23 +9,23 @@ type RoleDescription = {
 const CLINIC_ROLES: readonly RoleDescription[] = [
 	{
 		role: "RECEPTION",
-		label: "Recepção",
-		hint: "Agenda, cadastro de clientes e chegada.",
+		label: "Front desk",
+		hint: "Schedule, customer registration and check-in.",
 	},
 	{
 		role: "PRACTITIONER",
-		label: "Profissional",
-		hint: "Atende e preenche a ficha do atendimento.",
+		label: "Practitioner",
+		hint: "Sees patients and fills in the encounter record.",
 	},
 	{
 		role: "ASSISTANT",
-		label: "Auxiliar",
-		hint: "Apoia o atendimento sem assinar a ficha.",
+		label: "Assistant",
+		hint: "Supports the encounter without signing the record.",
 	},
 	{
 		role: "MANAGER",
-		label: "Gestão",
-		hint: "Administra usuários, módulos e parâmetros da clínica.",
+		label: "Management",
+		hint: "Administers the clinic users, modules and parameters.",
 	},
 ];
 
@@ -53,5 +53,5 @@ export function manages(role: string | undefined) {
 }
 
 function labelOfPlatformRole(role: string | undefined) {
-	return role === "PLATFORM_ADMIN" ? "Plataforma" : (role ?? "Equipe");
+	return role === "PLATFORM_ADMIN" ? "Platform" : (role ?? "Team");
 }

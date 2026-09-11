@@ -1,7 +1,7 @@
 import { ResponseError } from "#/api/gen/.kubb/client";
 import type { ErrorResponse } from "#/api/gen/types";
 
-const FALLBACK = "Não foi possível concluir a operação. Tente novamente.";
+const FALLBACK = "The operation could not be completed. Please try again.";
 
 const MALFORMED_PAYLOAD = 400;
 const NOT_GRANTED = 403;

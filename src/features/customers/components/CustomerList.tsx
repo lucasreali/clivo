@@ -19,9 +19,9 @@ import { announcePending } from "#/shared/ui/pending";
 import { describeCustomerStatus } from "../model/customer-status";
 
 const SITUATIONS = [
-	{ label: "Ativos", value: "ACTIVE" },
-	{ label: "Inativos", value: "INACTIVE" },
-	{ label: "Todos", value: "" },
+	{ label: "Active", value: "ACTIVE" },
+	{ label: "Inactive", value: "INACTIVE" },
+	{ label: "All", value: "" },
 ];
 
 const FILTER =
@@ -31,25 +31,25 @@ const column = columnsFor<CustomerView>();
 
 const COLUMNS = column.columns([
 	column.accessor("name", {
-		header: "Nome",
+		header: "Name",
 		cell: ({ row }) => <CustomerName customer={row.original} />,
 	}),
 	column.accessor("phone", {
-		header: "Telefone",
+		header: "Phone",
 		meta: { width: "19%" },
 		cell: ({ getValue }) => (
 			<span className="text-muted">{phone(getValue())}</span>
 		),
 	}),
 	column.accessor("birthDate", {
-		header: "Nascimento",
+		header: "Date of birth",
 		meta: { width: "25%" },
 		cell: ({ getValue }) => (
 			<span className="text-muted">{shortDate(getValue())}</span>
 		),
 	}),
 	column.accessor("status", {
-		header: "Situação",
+		header: "Status",
 		meta: { width: "160px" },
 		cell: ({ getValue }) => {
 			const situation = describeCustomerStatus(getValue());
@@ -79,11 +79,11 @@ export function CustomerList() {
 	return (
 		<>
 			<AppTopBar
-				title="Clientes"
-				meta={`${rows.length} ${rows.length === 1 ? "cadastro" : "cadastros"} listados`}
+				title="Customers"
+				meta={`${rows.length} ${rows.length === 1 ? "record" : "records"} listed`}
 				actions={
-					<Link to="/clientes/novo" className={buttonClass()}>
-						+ Novo cliente
+					<Link to="/customers/new" className={buttonClass()}>
+						+ New customer
 					</Link>
 				}
 			/>
@@ -109,13 +109,13 @@ export function CustomerList() {
 					))}
 					<button
 						type="button"
-						onClick={() => announcePending("A exportação da lista em CSV")}
+						onClick={() => announcePending("Exporting the list as CSV")}
 						className={cn(
 							FILTER,
 							"ml-auto border border-line bg-panel text-ink",
 						)}
 					>
-						Exportar CSV
+						Export CSV
 					</button>
 				</div>
 
@@ -125,7 +125,7 @@ export function CustomerList() {
 						rows={rows}
 						rowId={(customer) => String(customer.id)}
 						isPending={customers.isPending}
-						pendingLabel="Carregando clientes…"
+						pendingLabel="Loading customers…"
 						pageSize={12}
 						empty={
 							<NoCustomers
@@ -158,20 +158,18 @@ function CustomerActions({ customer }: { customer: CustomerView }) {
 	return (
 		<div className="flex items-center justify-end gap-3">
 			<Link
-				to="/clientes/$customerId"
+				to="/customers/$customerId"
 				params={{ customerId: String(customer.id) }}
 				className="text-[12.5px] text-brand hover:text-brand-ink"
 			>
-				Abrir
+				Open
 			</Link>
-			<Menu label={`Mais ações de ${customer.name ?? "cliente"}`}>
-				<MenuItem
-					onClick={() => announcePending("O agendamento a partir da lista")}
-				>
-					Novo agendamento
+			<Menu label={`More actions for ${customer.name ?? "customer"}`}>
+				<MenuItem onClick={() => announcePending("Scheduling from the list")}>
+					New appointment
 				</MenuItem>
-				<MenuItem onClick={() => announcePending("O envio de mensagem")}>
-					Enviar mensagem
+				<MenuItem onClick={() => announcePending("Sending a message")}>
+					Send message
 				</MenuItem>
 			</Menu>
 		</div>
@@ -187,24 +185,22 @@ function NoCustomers({ search, onClearSearch }: NoCustomersProps) {
 	return (
 		<EmptyState
 			title={
-				search
-					? `Nenhum cliente encontrado para “${search}”`
-					: "Nenhum cliente cadastrado"
+				search ? `No customer found for “${search}”` : "No customers registered"
 			}
-			description="Confira a grafia do nome ou ajuste o filtro de situação. Se for a primeira visita, cadastre o cliente agora — leva menos de um minuto."
+			description="Check the spelling of the name or adjust the status filter. If this is a first visit, register the customer now — it takes less than a minute."
 			actions={
 				<>
 					{search ? (
 						<Button variant="secondary" onClick={onClearSearch}>
-							Limpar busca
+							Clear search
 						</Button>
 					) : null}
-					<Link to="/clientes/novo" className={buttonClass()}>
-						Cadastrar novo cliente
+					<Link to="/customers/new" className={buttonClass()}>
+						Register new customer
 					</Link>
 				</>
 			}
-			footnote="A busca considera o nome do cliente. Inclua os inativos pelo filtro acima."
+			footnote="The search matches the customer name. Include inactive ones with the filter above."
 		/>
 	);
 }
@@ -229,15 +225,15 @@ function SearchBox({ value, onChange }: SearchBoxProps) {
 			<input
 				value={value}
 				onChange={(event) => onChange(event.target.value)}
-				placeholder="Buscar por nome, CPF ou telefone"
-				aria-label="Buscar cliente"
+				placeholder="Search by name, CPF or phone"
+				aria-label="Search customer"
 				className="min-w-0 flex-1 bg-transparent text-[13px] text-ink outline-none"
 			/>
 			{value ? (
 				<button
 					type="button"
 					onClick={() => onChange("")}
-					aria-label="Limpar busca"
+					aria-label="Clear search"
 					className="text-faint hover:text-ink"
 				>
 					<X size={14} aria-hidden="true" />

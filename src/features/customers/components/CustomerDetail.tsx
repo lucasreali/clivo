@@ -56,7 +56,7 @@ export function CustomerDetail({ customerId }: CustomerDetailProps) {
 	}, [customer.data, reset]);
 
 	if (!customer.data) {
-		return <Page>Carregando cadastro…</Page>;
+		return <Page>Loading record…</Page>;
 	}
 
 	const situation = describeCustomerStatus(customer.data.status);
@@ -64,15 +64,15 @@ export function CustomerDetail({ customerId }: CustomerDetailProps) {
 	return (
 		<>
 			<AppTopBar
-				title={customer.data.name ?? "Cliente"}
-				meta="Clientes › Cadastro"
+				title={customer.data.name ?? "Customer"}
+				meta="Customers › Record"
 				actions={
 					<Link
-						to="/clientes/$customerId/historico"
+						to="/customers/$customerId/history"
 						params={{ customerId: String(customerId) }}
 						className={buttonClass("secondary")}
 					>
-						Ver histórico
+						View history
 					</Link>
 				}
 			/>
@@ -92,7 +92,7 @@ export function CustomerDetail({ customerId }: CustomerDetailProps) {
 									onClick={() => setDeactivating(true)}
 									disabled={customer.data.status === "INACTIVE"}
 								>
-									Inativar cliente
+									Deactivate customer
 								</Button>
 							</div>
 
@@ -104,7 +104,7 @@ export function CustomerDetail({ customerId }: CustomerDetailProps) {
 						) : null}
 
 						{describe.isSuccess ? (
-							<Callout tone="brand">Cadastro atualizado.</Callout>
+							<Callout tone="brand">Record updated.</Callout>
 						) : null}
 
 						<div className="flex justify-end gap-2">
@@ -112,10 +112,10 @@ export function CustomerDetail({ customerId }: CustomerDetailProps) {
 								variant="secondary"
 								onClick={() => reset(draftOf(customer.data))}
 							>
-								Descartar
+								Discard
 							</Button>
 							<Button type="submit" disabled={describe.isPending}>
-								Salvar alterações
+								Save changes
 							</Button>
 						</div>
 					</form>

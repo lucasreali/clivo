@@ -15,9 +15,9 @@ import { Vocabulary } from "../model/chart";
 import { fieldsOf } from "../model/record-values";
 
 const CHANGES: Record<string, { label: string; tone: Tone }> = {
-	ADDED: { label: "Marcado", tone: "brand" },
-	REMOVED: { label: "Removido", tone: "neutral" },
-	CHANGED: { label: "Alterado", tone: "warn" },
+	ADDED: { label: "Marked", tone: "brand" },
+	REMOVED: { label: "Removed", tone: "neutral" },
+	CHANGED: { label: "Changed", tone: "warn" },
 };
 
 type RecordComparisonProps = {
@@ -42,8 +42,8 @@ export function RecordComparison({
 
 	return (
 		<Drawer
-			title="Comparar com atendimento anterior"
-			subtitle={`Estado registrado em ${shortDate(asOf)}`}
+			title="Compare with previous encounter"
+			subtitle={`State recorded on ${shortDate(asOf)}`}
 			onClose={onClose}
 			width="max-w-[480px]"
 		>
@@ -52,14 +52,14 @@ export function RecordComparison({
 			) : null}
 
 			{comparison.isPending ? (
-				<span className="text-[12.5px] text-muted">Carregando comparação…</span>
+				<span className="text-[12.5px] text-muted">Loading comparison…</span>
 			) : null}
 
 			{fields.every((field) => (field.changes ?? []).length === 0) &&
 			!comparison.isPending ? (
 				<EmptyState
-					title="Nenhuma mudança"
-					description="As condições registradas são as mesmas da data comparada."
+					title="No changes"
+					description="The recorded conditions are the same as on the compared date."
 				/>
 			) : null}
 
@@ -106,7 +106,7 @@ function FieldChanges({ field, sheet }: FieldChangesProps) {
 							{transition(change, vocabulary)}
 						</span>
 						<span className="shrink-0 text-[11.5px] text-faint">
-							{change.part ?? "toda a região"}
+							{change.part ?? "whole region"}
 						</span>
 					</li>
 				))}

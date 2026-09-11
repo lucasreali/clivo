@@ -12,22 +12,22 @@ import { Route as rootRouteImport } from './routes/__root'
 import { Route as AppRouteImport } from './routes/_app'
 import { Route as LoginRouteImport } from './routes/login'
 import { Route as AppIndexRouteImport } from './routes/_app/index'
-import { Route as AppAgendaRouteImport } from './routes/_app/agenda'
-import { Route as AppConfiguracoesRouteImport } from './routes/_app/configuracoes'
+import { Route as AppScheduleRouteImport } from './routes/_app/schedule'
+import { Route as AppSettingsRouteImport } from './routes/_app/settings'
 import { Route as ConsoleConsoleRouteImport } from './routes/console/_console'
-import { Route as ConsoleEntrarRouteImport } from './routes/console/entrar'
-import { Route as AppAtendimentosEncounterIdRouteImport } from './routes/_app/atendimentos/$encounterId'
-import { Route as AppClientesIndexRouteImport } from './routes/_app/clientes/index'
-import { Route as AppClientesNovoRouteImport } from './routes/_app/clientes/novo'
-import { Route as AppFinanceiroIndexRouteImport } from './routes/_app/financeiro/index'
-import { Route as AppFinanceiroInvoiceIdRouteImport } from './routes/_app/financeiro/$invoiceId'
+import { Route as ConsoleSignInRouteImport } from './routes/console/sign-in'
+import { Route as AppBillingIndexRouteImport } from './routes/_app/billing/index'
+import { Route as AppBillingInvoiceIdRouteImport } from './routes/_app/billing/$invoiceId'
+import { Route as AppCustomersIndexRouteImport } from './routes/_app/customers/index'
+import { Route as AppCustomersNewRouteImport } from './routes/_app/customers/new'
+import { Route as AppEncountersEncounterIdRouteImport } from './routes/_app/encounters/$encounterId'
 import { Route as ConsoleConsoleIndexRouteImport } from './routes/console/_console/index'
-import { Route as ConsoleConsoleAdministradoresRouteImport } from './routes/console/_console/administradores'
-import { Route as ConsoleConsoleNovaClinicaRouteImport } from './routes/console/_console/nova-clinica'
-import { Route as AppClientesCustomerIdIndexRouteImport } from './routes/_app/clientes/$customerId.index'
-import { Route as AppClientesCustomerIdHistoricoRouteImport } from './routes/_app/clientes/$customerId.historico'
-import { Route as ConsoleConsoleClinicasTenantIdModulosRouteImport } from './routes/console/_console/clinicas/$tenantId.modulos'
-import { Route as ConsoleConsoleClinicasTenantIdParametrosRouteImport } from './routes/console/_console/clinicas/$tenantId.parametros'
+import { Route as ConsoleConsoleAdministratorsRouteImport } from './routes/console/_console/administrators'
+import { Route as ConsoleConsoleNewClinicRouteImport } from './routes/console/_console/new-clinic'
+import { Route as AppCustomersCustomerIdIndexRouteImport } from './routes/_app/customers/$customerId.index'
+import { Route as AppCustomersCustomerIdHistoryRouteImport } from './routes/_app/customers/$customerId.history'
+import { Route as ConsoleConsoleClinicsTenantIdModulesRouteImport } from './routes/console/_console/clinics/$tenantId.modules'
+import { Route as ConsoleConsoleClinicsTenantIdParametersRouteImport } from './routes/console/_console/clinics/$tenantId.parameters'
 
 const AppRoute = AppRouteImport.update({
   id: '/_app',
@@ -43,14 +43,14 @@ const AppIndexRoute = AppIndexRouteImport.update({
   path: '/',
   getParentRoute: () => AppRoute,
 } as any)
-const AppAgendaRoute = AppAgendaRouteImport.update({
-  id: '/agenda',
-  path: '/agenda',
+const AppScheduleRoute = AppScheduleRouteImport.update({
+  id: '/schedule',
+  path: '/schedule',
   getParentRoute: () => AppRoute,
 } as any)
-const AppConfiguracoesRoute = AppConfiguracoesRouteImport.update({
-  id: '/configuracoes',
-  path: '/configuracoes',
+const AppSettingsRoute = AppSettingsRouteImport.update({
+  id: '/settings',
+  path: '/settings',
   getParentRoute: () => AppRoute,
 } as any)
 const ConsoleConsoleRoute = ConsoleConsoleRouteImport.update({
@@ -58,208 +58,207 @@ const ConsoleConsoleRoute = ConsoleConsoleRouteImport.update({
   path: '/console',
   getParentRoute: () => rootRouteImport,
 } as any)
-const ConsoleEntrarRoute = ConsoleEntrarRouteImport.update({
-  id: '/console/entrar',
-  path: '/console/entrar',
+const ConsoleSignInRoute = ConsoleSignInRouteImport.update({
+  id: '/console/sign-in',
+  path: '/console/sign-in',
   getParentRoute: () => rootRouteImport,
 } as any)
-const AppAtendimentosEncounterIdRoute =
-  AppAtendimentosEncounterIdRouteImport.update({
-    id: '/atendimentos/$encounterId',
-    path: '/atendimentos/$encounterId',
+const AppBillingIndexRoute = AppBillingIndexRouteImport.update({
+  id: '/billing/',
+  path: '/billing/',
+  getParentRoute: () => AppRoute,
+} as any)
+const AppBillingInvoiceIdRoute = AppBillingInvoiceIdRouteImport.update({
+  id: '/billing/$invoiceId',
+  path: '/billing/$invoiceId',
+  getParentRoute: () => AppRoute,
+} as any)
+const AppCustomersIndexRoute = AppCustomersIndexRouteImport.update({
+  id: '/customers/',
+  path: '/customers/',
+  getParentRoute: () => AppRoute,
+} as any)
+const AppCustomersNewRoute = AppCustomersNewRouteImport.update({
+  id: '/customers/new',
+  path: '/customers/new',
+  getParentRoute: () => AppRoute,
+} as any)
+const AppEncountersEncounterIdRoute =
+  AppEncountersEncounterIdRouteImport.update({
+    id: '/encounters/$encounterId',
+    path: '/encounters/$encounterId',
     getParentRoute: () => AppRoute,
   } as any)
-const AppClientesIndexRoute = AppClientesIndexRouteImport.update({
-  id: '/clientes/',
-  path: '/clientes/',
-  getParentRoute: () => AppRoute,
-} as any)
-const AppClientesNovoRoute = AppClientesNovoRouteImport.update({
-  id: '/clientes/novo',
-  path: '/clientes/novo',
-  getParentRoute: () => AppRoute,
-} as any)
-const AppFinanceiroIndexRoute = AppFinanceiroIndexRouteImport.update({
-  id: '/financeiro/',
-  path: '/financeiro/',
-  getParentRoute: () => AppRoute,
-} as any)
-const AppFinanceiroInvoiceIdRoute = AppFinanceiroInvoiceIdRouteImport.update({
-  id: '/financeiro/$invoiceId',
-  path: '/financeiro/$invoiceId',
-  getParentRoute: () => AppRoute,
-} as any)
 const ConsoleConsoleIndexRoute = ConsoleConsoleIndexRouteImport.update({
   id: '/',
   path: '/',
   getParentRoute: () => ConsoleConsoleRoute,
 } as any)
-const ConsoleConsoleAdministradoresRoute =
-  ConsoleConsoleAdministradoresRouteImport.update({
-    id: '/administradores',
-    path: '/administradores',
+const ConsoleConsoleAdministratorsRoute =
+  ConsoleConsoleAdministratorsRouteImport.update({
+    id: '/administrators',
+    path: '/administrators',
     getParentRoute: () => ConsoleConsoleRoute,
   } as any)
-const ConsoleConsoleNovaClinicaRoute =
-  ConsoleConsoleNovaClinicaRouteImport.update({
-    id: '/nova-clinica',
-    path: '/nova-clinica',
-    getParentRoute: () => ConsoleConsoleRoute,
-  } as any)
-const AppClientesCustomerIdIndexRoute =
-  AppClientesCustomerIdIndexRouteImport.update({
-    id: '/clientes/$customerId/',
-    path: '/clientes/$customerId/',
+const ConsoleConsoleNewClinicRoute = ConsoleConsoleNewClinicRouteImport.update({
+  id: '/new-clinic',
+  path: '/new-clinic',
+  getParentRoute: () => ConsoleConsoleRoute,
+} as any)
+const AppCustomersCustomerIdIndexRoute =
+  AppCustomersCustomerIdIndexRouteImport.update({
+    id: '/customers/$customerId/',
+    path: '/customers/$customerId/',
     getParentRoute: () => AppRoute,
   } as any)
-const AppClientesCustomerIdHistoricoRoute =
-  AppClientesCustomerIdHistoricoRouteImport.update({
-    id: '/clientes/$customerId/historico',
-    path: '/clientes/$customerId/historico',
+const AppCustomersCustomerIdHistoryRoute =
+  AppCustomersCustomerIdHistoryRouteImport.update({
+    id: '/customers/$customerId/history',
+    path: '/customers/$customerId/history',
     getParentRoute: () => AppRoute,
   } as any)
-const ConsoleConsoleClinicasTenantIdModulosRoute =
-  ConsoleConsoleClinicasTenantIdModulosRouteImport.update({
-    id: '/clinicas/$tenantId/modulos',
-    path: '/clinicas/$tenantId/modulos',
+const ConsoleConsoleClinicsTenantIdModulesRoute =
+  ConsoleConsoleClinicsTenantIdModulesRouteImport.update({
+    id: '/clinics/$tenantId/modules',
+    path: '/clinics/$tenantId/modules',
     getParentRoute: () => ConsoleConsoleRoute,
   } as any)
-const ConsoleConsoleClinicasTenantIdParametrosRoute =
-  ConsoleConsoleClinicasTenantIdParametrosRouteImport.update({
-    id: '/clinicas/$tenantId/parametros',
-    path: '/clinicas/$tenantId/parametros',
+const ConsoleConsoleClinicsTenantIdParametersRoute =
+  ConsoleConsoleClinicsTenantIdParametersRouteImport.update({
+    id: '/clinics/$tenantId/parameters',
+    path: '/clinics/$tenantId/parameters',
     getParentRoute: () => ConsoleConsoleRoute,
   } as any)
 
 export interface FileRoutesByFullPath {
   '/': typeof AppIndexRoute
   '/login': typeof LoginRoute
-  '/agenda': typeof AppAgendaRoute
-  '/configuracoes': typeof AppConfiguracoesRoute
+  '/schedule': typeof AppScheduleRoute
+  '/settings': typeof AppSettingsRoute
   '/console': typeof ConsoleConsoleRouteWithChildren
-  '/console/entrar': typeof ConsoleEntrarRoute
-  '/atendimentos/$encounterId': typeof AppAtendimentosEncounterIdRoute
-  '/clientes/novo': typeof AppClientesNovoRoute
-  '/financeiro/$invoiceId': typeof AppFinanceiroInvoiceIdRoute
-  '/console/administradores': typeof ConsoleConsoleAdministradoresRoute
-  '/console/nova-clinica': typeof ConsoleConsoleNovaClinicaRoute
-  '/clientes/': typeof AppClientesIndexRoute
-  '/financeiro/': typeof AppFinanceiroIndexRoute
+  '/console/sign-in': typeof ConsoleSignInRoute
+  '/billing/$invoiceId': typeof AppBillingInvoiceIdRoute
+  '/customers/new': typeof AppCustomersNewRoute
+  '/encounters/$encounterId': typeof AppEncountersEncounterIdRoute
+  '/console/administrators': typeof ConsoleConsoleAdministratorsRoute
+  '/console/new-clinic': typeof ConsoleConsoleNewClinicRoute
+  '/billing/': typeof AppBillingIndexRoute
+  '/customers/': typeof AppCustomersIndexRoute
   '/console/': typeof ConsoleConsoleIndexRoute
-  '/clientes/$customerId/historico': typeof AppClientesCustomerIdHistoricoRoute
-  '/clientes/$customerId/': typeof AppClientesCustomerIdIndexRoute
-  '/console/clinicas/$tenantId/modulos': typeof ConsoleConsoleClinicasTenantIdModulosRoute
-  '/console/clinicas/$tenantId/parametros': typeof ConsoleConsoleClinicasTenantIdParametrosRoute
+  '/customers/$customerId/history': typeof AppCustomersCustomerIdHistoryRoute
+  '/customers/$customerId/': typeof AppCustomersCustomerIdIndexRoute
+  '/console/clinics/$tenantId/modules': typeof ConsoleConsoleClinicsTenantIdModulesRoute
+  '/console/clinics/$tenantId/parameters': typeof ConsoleConsoleClinicsTenantIdParametersRoute
 }
 export interface FileRoutesByTo {
   '/login': typeof LoginRoute
-  '/agenda': typeof AppAgendaRoute
-  '/configuracoes': typeof AppConfiguracoesRoute
-  '/console/entrar': typeof ConsoleEntrarRoute
+  '/schedule': typeof AppScheduleRoute
+  '/settings': typeof AppSettingsRoute
+  '/console/sign-in': typeof ConsoleSignInRoute
   '/': typeof AppIndexRoute
-  '/atendimentos/$encounterId': typeof AppAtendimentosEncounterIdRoute
-  '/clientes/novo': typeof AppClientesNovoRoute
-  '/financeiro/$invoiceId': typeof AppFinanceiroInvoiceIdRoute
-  '/console/administradores': typeof ConsoleConsoleAdministradoresRoute
-  '/console/nova-clinica': typeof ConsoleConsoleNovaClinicaRoute
-  '/clientes': typeof AppClientesIndexRoute
-  '/financeiro': typeof AppFinanceiroIndexRoute
+  '/billing/$invoiceId': typeof AppBillingInvoiceIdRoute
+  '/customers/new': typeof AppCustomersNewRoute
+  '/encounters/$encounterId': typeof AppEncountersEncounterIdRoute
+  '/console/administrators': typeof ConsoleConsoleAdministratorsRoute
+  '/console/new-clinic': typeof ConsoleConsoleNewClinicRoute
+  '/billing': typeof AppBillingIndexRoute
+  '/customers': typeof AppCustomersIndexRoute
   '/console': typeof ConsoleConsoleIndexRoute
-  '/clientes/$customerId/historico': typeof AppClientesCustomerIdHistoricoRoute
-  '/clientes/$customerId': typeof AppClientesCustomerIdIndexRoute
-  '/console/clinicas/$tenantId/modulos': typeof ConsoleConsoleClinicasTenantIdModulosRoute
-  '/console/clinicas/$tenantId/parametros': typeof ConsoleConsoleClinicasTenantIdParametrosRoute
+  '/customers/$customerId/history': typeof AppCustomersCustomerIdHistoryRoute
+  '/customers/$customerId': typeof AppCustomersCustomerIdIndexRoute
+  '/console/clinics/$tenantId/modules': typeof ConsoleConsoleClinicsTenantIdModulesRoute
+  '/console/clinics/$tenantId/parameters': typeof ConsoleConsoleClinicsTenantIdParametersRoute
 }
 export interface FileRoutesById {
   __root__: typeof rootRouteImport
   '/_app': typeof AppRouteWithChildren
   '/login': typeof LoginRoute
-  '/_app/agenda': typeof AppAgendaRoute
-  '/_app/configuracoes': typeof AppConfiguracoesRoute
+  '/_app/schedule': typeof AppScheduleRoute
+  '/_app/settings': typeof AppSettingsRoute
   '/console/_console': typeof ConsoleConsoleRouteWithChildren
-  '/console/entrar': typeof ConsoleEntrarRoute
+  '/console/sign-in': typeof ConsoleSignInRoute
   '/_app/': typeof AppIndexRoute
-  '/_app/atendimentos/$encounterId': typeof AppAtendimentosEncounterIdRoute
-  '/_app/clientes/novo': typeof AppClientesNovoRoute
-  '/_app/financeiro/$invoiceId': typeof AppFinanceiroInvoiceIdRoute
-  '/console/_console/administradores': typeof ConsoleConsoleAdministradoresRoute
-  '/console/_console/nova-clinica': typeof ConsoleConsoleNovaClinicaRoute
-  '/_app/clientes/': typeof AppClientesIndexRoute
-  '/_app/financeiro/': typeof AppFinanceiroIndexRoute
+  '/_app/billing/$invoiceId': typeof AppBillingInvoiceIdRoute
+  '/_app/customers/new': typeof AppCustomersNewRoute
+  '/_app/encounters/$encounterId': typeof AppEncountersEncounterIdRoute
+  '/console/_console/administrators': typeof ConsoleConsoleAdministratorsRoute
+  '/console/_console/new-clinic': typeof ConsoleConsoleNewClinicRoute
+  '/_app/billing/': typeof AppBillingIndexRoute
+  '/_app/customers/': typeof AppCustomersIndexRoute
   '/console/_console/': typeof ConsoleConsoleIndexRoute
-  '/_app/clientes/$customerId/historico': typeof AppClientesCustomerIdHistoricoRoute
-  '/_app/clientes/$customerId/': typeof AppClientesCustomerIdIndexRoute
-  '/console/_console/clinicas/$tenantId/modulos': typeof ConsoleConsoleClinicasTenantIdModulosRoute
-  '/console/_console/clinicas/$tenantId/parametros': typeof ConsoleConsoleClinicasTenantIdParametrosRoute
+  '/_app/customers/$customerId/history': typeof AppCustomersCustomerIdHistoryRoute
+  '/_app/customers/$customerId/': typeof AppCustomersCustomerIdIndexRoute
+  '/console/_console/clinics/$tenantId/modules': typeof ConsoleConsoleClinicsTenantIdModulesRoute
+  '/console/_console/clinics/$tenantId/parameters': typeof ConsoleConsoleClinicsTenantIdParametersRoute
 }
 export interface FileRouteTypes {
   fileRoutesByFullPath: FileRoutesByFullPath
   fullPaths:
     | '/'
     | '/login'
-    | '/agenda'
-    | '/configuracoes'
+    | '/schedule'
+    | '/settings'
     | '/console'
-    | '/console/entrar'
-    | '/atendimentos/$encounterId'
-    | '/clientes/novo'
-    | '/financeiro/$invoiceId'
-    | '/console/administradores'
-    | '/console/nova-clinica'
-    | '/clientes/'
-    | '/financeiro/'
+    | '/console/sign-in'
+    | '/billing/$invoiceId'
+    | '/customers/new'
+    | '/encounters/$encounterId'
+    | '/console/administrators'
+    | '/console/new-clinic'
+    | '/billing/'
+    | '/customers/'
     | '/console/'
-    | '/clientes/$customerId/historico'
-    | '/clientes/$customerId/'
-    | '/console/clinicas/$tenantId/modulos'
-    | '/console/clinicas/$tenantId/parametros'
+    | '/customers/$customerId/history'
+    | '/customers/$customerId/'
+    | '/console/clinics/$tenantId/modules'
+    | '/console/clinics/$tenantId/parameters'
   fileRoutesByTo: FileRoutesByTo
   to:
     | '/login'
-    | '/agenda'
-    | '/configuracoes'
-    | '/console/entrar'
+    | '/schedule'
+    | '/settings'
+    | '/console/sign-in'
     | '/'
-    | '/atendimentos/$encounterId'
-    | '/clientes/novo'
-    | '/financeiro/$invoiceId'
-    | '/console/administradores'
-    | '/console/nova-clinica'
-    | '/clientes'
-    | '/financeiro'
+    | '/billing/$invoiceId'
+    | '/customers/new'
+    | '/encounters/$encounterId'
+    | '/console/administrators'
+    | '/console/new-clinic'
+    | '/billing'
+    | '/customers'
     | '/console'
-    | '/clientes/$customerId/historico'
-    | '/clientes/$customerId'
-    | '/console/clinicas/$tenantId/modulos'
-    | '/console/clinicas/$tenantId/parametros'
+    | '/customers/$customerId/history'
+    | '/customers/$customerId'
+    | '/console/clinics/$tenantId/modules'
+    | '/console/clinics/$tenantId/parameters'
   id:
     | '__root__'
     | '/_app'
     | '/login'
-    | '/_app/agenda'
-    | '/_app/configuracoes'
+    | '/_app/schedule'
+    | '/_app/settings'
     | '/console/_console'
-    | '/console/entrar'
+    | '/console/sign-in'
     | '/_app/'
-    | '/_app/atendimentos/$encounterId'
-    | '/_app/clientes/novo'
-    | '/_app/financeiro/$invoiceId'
-    | '/console/_console/administradores'
-    | '/console/_console/nova-clinica'
-    | '/_app/clientes/'
-    | '/_app/financeiro/'
+    | '/_app/billing/$invoiceId'
+    | '/_app/customers/new'
+    | '/_app/encounters/$encounterId'
+    | '/console/_console/administrators'
+    | '/console/_console/new-clinic'
+    | '/_app/billing/'
+    | '/_app/customers/'
     | '/console/_console/'
-    | '/_app/clientes/$customerId/historico'
-    | '/_app/clientes/$customerId/'
-    | '/console/_console/clinicas/$tenantId/modulos'
-    | '/console/_console/clinicas/$tenantId/parametros'
+    | '/_app/customers/$customerId/history'
+    | '/_app/customers/$customerId/'
+    | '/console/_console/clinics/$tenantId/modules'
+    | '/console/_console/clinics/$tenantId/parameters'
   fileRoutesById: FileRoutesById
 }
 export interface RootRouteChildren {
   AppRoute: typeof AppRouteWithChildren
   LoginRoute: typeof LoginRoute
   ConsoleConsoleRoute: typeof ConsoleConsoleRouteWithChildren
-  ConsoleEntrarRoute: typeof ConsoleEntrarRoute
+  ConsoleSignInRoute: typeof ConsoleSignInRoute
 }
 
 declare module '@tanstack/react-router' {
@@ -285,18 +284,18 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof AppIndexRouteImport
       parentRoute: typeof AppRoute
     }
-    '/_app/agenda': {
-      id: '/_app/agenda'
-      path: '/agenda'
-      fullPath: '/agenda'
-      preLoaderRoute: typeof AppAgendaRouteImport
+    '/_app/schedule': {
+      id: '/_app/schedule'
+      path: '/schedule'
+      fullPath: '/schedule'
+      preLoaderRoute: typeof AppScheduleRouteImport
       parentRoute: typeof AppRoute
     }
-    '/_app/configuracoes': {
-      id: '/_app/configuracoes'
-      path: '/configuracoes'
-      fullPath: '/configuracoes'
-      preLoaderRoute: typeof AppConfiguracoesRouteImport
+    '/_app/settings': {
+      id: '/_app/settings'
+      path: '/settings'
+      fullPath: '/settings'
+      preLoaderRoute: typeof AppSettingsRouteImport
       parentRoute: typeof AppRoute
     }
     '/console/_console': {
@@ -306,46 +305,46 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof ConsoleConsoleRouteImport
       parentRoute: typeof rootRouteImport
     }
-    '/console/entrar': {
-      id: '/console/entrar'
-      path: '/console/entrar'
-      fullPath: '/console/entrar'
-      preLoaderRoute: typeof ConsoleEntrarRouteImport
+    '/console/sign-in': {
+      id: '/console/sign-in'
+      path: '/console/sign-in'
+      fullPath: '/console/sign-in'
+      preLoaderRoute: typeof ConsoleSignInRouteImport
       parentRoute: typeof rootRouteImport
     }
-    '/_app/atendimentos/$encounterId': {
-      id: '/_app/atendimentos/$encounterId'
-      path: '/atendimentos/$encounterId'
-      fullPath: '/atendimentos/$encounterId'
-      preLoaderRoute: typeof AppAtendimentosEncounterIdRouteImport
+    '/_app/billing/': {
+      id: '/_app/billing/'
+      path: '/billing'
+      fullPath: '/billing/'
+      preLoaderRoute: typeof AppBillingIndexRouteImport
       parentRoute: typeof AppRoute
     }
-    '/_app/clientes/': {
-      id: '/_app/clientes/'
-      path: '/clientes'
-      fullPath: '/clientes/'
-      preLoaderRoute: typeof AppClientesIndexRouteImport
+    '/_app/billing/$invoiceId': {
+      id: '/_app/billing/$invoiceId'
+      path: '/billing/$invoiceId'
+      fullPath: '/billing/$invoiceId'
+      preLoaderRoute: typeof AppBillingInvoiceIdRouteImport
       parentRoute: typeof AppRoute
     }
-    '/_app/clientes/novo': {
-      id: '/_app/clientes/novo'
-      path: '/clientes/novo'
-      fullPath: '/clientes/novo'
-      preLoaderRoute: typeof AppClientesNovoRouteImport
+    '/_app/customers/': {
+      id: '/_app/customers/'
+      path: '/customers'
+      fullPath: '/customers/'
+      preLoaderRoute: typeof AppCustomersIndexRouteImport
       parentRoute: typeof AppRoute
     }
-    '/_app/financeiro/': {
-      id: '/_app/financeiro/'
-      path: '/financeiro'
-      fullPath: '/financeiro/'
-      preLoaderRoute: typeof AppFinanceiroIndexRouteImport
+    '/_app/customers/new': {
+      id: '/_app/customers/new'
+      path: '/customers/new'
+      fullPath: '/customers/new'
+      preLoaderRoute: typeof AppCustomersNewRouteImport
       parentRoute: typeof AppRoute
     }
-    '/_app/financeiro/$invoiceId': {
-      id: '/_app/financeiro/$invoiceId'
-      path: '/financeiro/$invoiceId'
-      fullPath: '/financeiro/$invoiceId'
-      preLoaderRoute: typeof AppFinanceiroInvoiceIdRouteImport
+    '/_app/encounters/$encounterId': {
+      id: '/_app/encounters/$encounterId'
+      path: '/encounters/$encounterId'
+      fullPath: '/encounters/$encounterId'
+      preLoaderRoute: typeof AppEncountersEncounterIdRouteImport
       parentRoute: typeof AppRoute
     }
     '/console/_console/': {
@@ -355,95 +354,95 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof ConsoleConsoleIndexRouteImport
       parentRoute: typeof ConsoleConsoleRoute
     }
-    '/console/_console/administradores': {
-      id: '/console/_console/administradores'
-      path: '/administradores'
-      fullPath: '/console/administradores'
-      preLoaderRoute: typeof ConsoleConsoleAdministradoresRouteImport
+    '/console/_console/administrators': {
+      id: '/console/_console/administrators'
+      path: '/administrators'
+      fullPath: '/console/administrators'
+      preLoaderRoute: typeof ConsoleConsoleAdministratorsRouteImport
       parentRoute: typeof ConsoleConsoleRoute
     }
-    '/console/_console/nova-clinica': {
-      id: '/console/_console/nova-clinica'
-      path: '/nova-clinica'
-      fullPath: '/console/nova-clinica'
-      preLoaderRoute: typeof ConsoleConsoleNovaClinicaRouteImport
+    '/console/_console/new-clinic': {
+      id: '/console/_console/new-clinic'
+      path: '/new-clinic'
+      fullPath: '/console/new-clinic'
+      preLoaderRoute: typeof ConsoleConsoleNewClinicRouteImport
       parentRoute: typeof ConsoleConsoleRoute
     }
-    '/_app/clientes/$customerId/': {
-      id: '/_app/clientes/$customerId/'
-      path: '/clientes/$customerId'
-      fullPath: '/clientes/$customerId/'
-      preLoaderRoute: typeof AppClientesCustomerIdIndexRouteImport
+    '/_app/customers/$customerId/': {
+      id: '/_app/customers/$customerId/'
+      path: '/customers/$customerId'
+      fullPath: '/customers/$customerId/'
+      preLoaderRoute: typeof AppCustomersCustomerIdIndexRouteImport
       parentRoute: typeof AppRoute
     }
-    '/_app/clientes/$customerId/historico': {
-      id: '/_app/clientes/$customerId/historico'
-      path: '/clientes/$customerId/historico'
-      fullPath: '/clientes/$customerId/historico'
-      preLoaderRoute: typeof AppClientesCustomerIdHistoricoRouteImport
+    '/_app/customers/$customerId/history': {
+      id: '/_app/customers/$customerId/history'
+      path: '/customers/$customerId/history'
+      fullPath: '/customers/$customerId/history'
+      preLoaderRoute: typeof AppCustomersCustomerIdHistoryRouteImport
       parentRoute: typeof AppRoute
     }
-    '/console/_console/clinicas/$tenantId/modulos': {
-      id: '/console/_console/clinicas/$tenantId/modulos'
-      path: '/clinicas/$tenantId/modulos'
-      fullPath: '/console/clinicas/$tenantId/modulos'
-      preLoaderRoute: typeof ConsoleConsoleClinicasTenantIdModulosRouteImport
+    '/console/_console/clinics/$tenantId/modules': {
+      id: '/console/_console/clinics/$tenantId/modules'
+      path: '/clinics/$tenantId/modules'
+      fullPath: '/console/clinics/$tenantId/modules'
+      preLoaderRoute: typeof ConsoleConsoleClinicsTenantIdModulesRouteImport
       parentRoute: typeof ConsoleConsoleRoute
     }
-    '/console/_console/clinicas/$tenantId/parametros': {
-      id: '/console/_console/clinicas/$tenantId/parametros'
-      path: '/clinicas/$tenantId/parametros'
-      fullPath: '/console/clinicas/$tenantId/parametros'
-      preLoaderRoute: typeof ConsoleConsoleClinicasTenantIdParametrosRouteImport
+    '/console/_console/clinics/$tenantId/parameters': {
+      id: '/console/_console/clinics/$tenantId/parameters'
+      path: '/clinics/$tenantId/parameters'
+      fullPath: '/console/clinics/$tenantId/parameters'
+      preLoaderRoute: typeof ConsoleConsoleClinicsTenantIdParametersRouteImport
       parentRoute: typeof ConsoleConsoleRoute
     }
   }
 }
 
 interface AppRouteChildren {
-  AppAgendaRoute: typeof AppAgendaRoute
-  AppConfiguracoesRoute: typeof AppConfiguracoesRoute
+  AppScheduleRoute: typeof AppScheduleRoute
+  AppSettingsRoute: typeof AppSettingsRoute
   AppIndexRoute: typeof AppIndexRoute
-  AppAtendimentosEncounterIdRoute: typeof AppAtendimentosEncounterIdRoute
-  AppClientesNovoRoute: typeof AppClientesNovoRoute
-  AppFinanceiroInvoiceIdRoute: typeof AppFinanceiroInvoiceIdRoute
-  AppClientesIndexRoute: typeof AppClientesIndexRoute
-  AppFinanceiroIndexRoute: typeof AppFinanceiroIndexRoute
-  AppClientesCustomerIdHistoricoRoute: typeof AppClientesCustomerIdHistoricoRoute
-  AppClientesCustomerIdIndexRoute: typeof AppClientesCustomerIdIndexRoute
+  AppBillingInvoiceIdRoute: typeof AppBillingInvoiceIdRoute
+  AppCustomersNewRoute: typeof AppCustomersNewRoute
+  AppEncountersEncounterIdRoute: typeof AppEncountersEncounterIdRoute
+  AppBillingIndexRoute: typeof AppBillingIndexRoute
+  AppCustomersIndexRoute: typeof AppCustomersIndexRoute
+  AppCustomersCustomerIdHistoryRoute: typeof AppCustomersCustomerIdHistoryRoute
+  AppCustomersCustomerIdIndexRoute: typeof AppCustomersCustomerIdIndexRoute
 }
 
 const AppRouteChildren: AppRouteChildren = {
-  AppAgendaRoute: AppAgendaRoute,
-  AppConfiguracoesRoute: AppConfiguracoesRoute,
+  AppScheduleRoute: AppScheduleRoute,
+  AppSettingsRoute: AppSettingsRoute,
   AppIndexRoute: AppIndexRoute,
-  AppAtendimentosEncounterIdRoute: AppAtendimentosEncounterIdRoute,
-  AppClientesNovoRoute: AppClientesNovoRoute,
-  AppFinanceiroInvoiceIdRoute: AppFinanceiroInvoiceIdRoute,
-  AppClientesIndexRoute: AppClientesIndexRoute,
-  AppFinanceiroIndexRoute: AppFinanceiroIndexRoute,
-  AppClientesCustomerIdHistoricoRoute: AppClientesCustomerIdHistoricoRoute,
-  AppClientesCustomerIdIndexRoute: AppClientesCustomerIdIndexRoute,
+  AppBillingInvoiceIdRoute: AppBillingInvoiceIdRoute,
+  AppCustomersNewRoute: AppCustomersNewRoute,
+  AppEncountersEncounterIdRoute: AppEncountersEncounterIdRoute,
+  AppBillingIndexRoute: AppBillingIndexRoute,
+  AppCustomersIndexRoute: AppCustomersIndexRoute,
+  AppCustomersCustomerIdHistoryRoute: AppCustomersCustomerIdHistoryRoute,
+  AppCustomersCustomerIdIndexRoute: AppCustomersCustomerIdIndexRoute,
 }
 
 const AppRouteWithChildren = AppRoute._addFileChildren(AppRouteChildren)
 
 interface ConsoleConsoleRouteChildren {
-  ConsoleConsoleAdministradoresRoute: typeof ConsoleConsoleAdministradoresRoute
-  ConsoleConsoleNovaClinicaRoute: typeof ConsoleConsoleNovaClinicaRoute
+  ConsoleConsoleAdministratorsRoute: typeof ConsoleConsoleAdministratorsRoute
+  ConsoleConsoleNewClinicRoute: typeof ConsoleConsoleNewClinicRoute
   ConsoleConsoleIndexRoute: typeof ConsoleConsoleIndexRoute
-  ConsoleConsoleClinicasTenantIdModulosRoute: typeof ConsoleConsoleClinicasTenantIdModulosRoute
-  ConsoleConsoleClinicasTenantIdParametrosRoute: typeof ConsoleConsoleClinicasTenantIdParametrosRoute
+  ConsoleConsoleClinicsTenantIdModulesRoute: typeof ConsoleConsoleClinicsTenantIdModulesRoute
+  ConsoleConsoleClinicsTenantIdParametersRoute: typeof ConsoleConsoleClinicsTenantIdParametersRoute
 }
 
 const ConsoleConsoleRouteChildren: ConsoleConsoleRouteChildren = {
-  ConsoleConsoleAdministradoresRoute: ConsoleConsoleAdministradoresRoute,
-  ConsoleConsoleNovaClinicaRoute: ConsoleConsoleNovaClinicaRoute,
+  ConsoleConsoleAdministratorsRoute: ConsoleConsoleAdministratorsRoute,
+  ConsoleConsoleNewClinicRoute: ConsoleConsoleNewClinicRoute,
   ConsoleConsoleIndexRoute: ConsoleConsoleIndexRoute,
-  ConsoleConsoleClinicasTenantIdModulosRoute:
-    ConsoleConsoleClinicasTenantIdModulosRoute,
-  ConsoleConsoleClinicasTenantIdParametrosRoute:
-    ConsoleConsoleClinicasTenantIdParametrosRoute,
+  ConsoleConsoleClinicsTenantIdModulesRoute:
+    ConsoleConsoleClinicsTenantIdModulesRoute,
+  ConsoleConsoleClinicsTenantIdParametersRoute:
+    ConsoleConsoleClinicsTenantIdParametersRoute,
 }
 
 const ConsoleConsoleRouteWithChildren = ConsoleConsoleRoute._addFileChildren(
@@ -454,7 +453,7 @@ const rootRouteChildren: RootRouteChildren = {
   AppRoute: AppRouteWithChildren,
   LoginRoute: LoginRoute,
   ConsoleConsoleRoute: ConsoleConsoleRouteWithChildren,
-  ConsoleEntrarRoute: ConsoleEntrarRoute,
+  ConsoleSignInRoute: ConsoleSignInRoute,
 }
 export const routeTree = rootRouteImport
   ._addFileChildren(rootRouteChildren)

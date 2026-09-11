@@ -53,12 +53,12 @@ export function NumberInput({
 					className={cn(CONTROL, "pr-10", className)}
 				/>
 				<div className="absolute inset-y-px right-px flex w-8 flex-col overflow-hidden rounded-r-[7px] border-line border-l">
-					<NumberField.Increment className={STEPPER} aria-label="Aumentar">
+					<NumberField.Increment className={STEPPER} aria-label="Increase">
 						<CaretUp size={10} weight="bold" aria-hidden="true" />
 					</NumberField.Increment>
 					<NumberField.Decrement
 						className={cn(STEPPER, "border-line border-t")}
-						aria-label="Diminuir"
+						aria-label="Decrease"
 					>
 						<CaretDown size={10} weight="bold" aria-hidden="true" />
 					</NumberField.Decrement>

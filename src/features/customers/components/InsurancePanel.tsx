@@ -17,7 +17,7 @@ type InsurancePanelProps = {
 };
 
 const membershipSchema = z.object({
-	planId: requiredText("Escolha a operadora."),
+	planId: requiredText("Choose the insurer."),
 	memberNumber: z.string(),
 });
 
@@ -51,8 +51,8 @@ export function InsurancePanel({ customerId }: InsurancePanelProps) {
 	return (
 		<Panel>
 			<PanelHeader
-				title="Convênios"
-				hint="Disponível porque o módulo de convênios está ativo nesta clínica."
+				title="Insurance"
+				hint="Available because the insurance module is active in this clinic."
 			/>
 
 			<ul className="m-0 list-none p-0">
@@ -65,7 +65,7 @@ export function InsurancePanel({ customerId }: InsurancePanelProps) {
 							{membership.plan?.name}
 						</span>
 						<span className="text-[12px] text-muted">
-							Carteirinha {membership.memberNumber ?? "—"}
+							Member number {membership.memberNumber ?? "—"}
 						</span>
 					</li>
 				))}
@@ -79,21 +79,21 @@ export function InsurancePanel({ customerId }: InsurancePanelProps) {
 				<form.AppField name="planId">
 					{(field) => (
 						<field.SelectField
-							label="Operadora"
+							label="Insurer"
 							required
 							options={(plans.data ?? []).map((plan) => ({
 								value: String(plan.id),
-								label: plan.name ?? "Sem nome",
+								label: plan.name ?? "Unnamed",
 							}))}
 						/>
 					)}
 				</form.AppField>
 				<form.AppField name="memberNumber">
-					{(field) => <field.TextField label="Número da carteirinha" />}
+					{(field) => <field.TextField label="Member number" />}
 				</form.AppField>
 				<div className="pt-6">
 					<Button type="submit" disabled={enrol.isPending}>
-						Vincular
+						Link
 					</Button>
 				</div>
 			</form>

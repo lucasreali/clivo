@@ -48,7 +48,7 @@ export function SheetFieldControl({
 						onChange={onChange}
 						options={[
 							// An optional sheet field has to stay clearable once answered.
-							...(field.required ? [] : [{ value: "", label: "Selecione" }]),
+							...(field.required ? [] : [{ value: "", label: "Select" }]),
 							...options.map((option) => ({ value: option, label: option })),
 						]}
 					/>

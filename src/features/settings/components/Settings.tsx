@@ -12,12 +12,8 @@ export function Settings() {
 	return (
 		<>
 			<AppTopBar
-				title="Configurações da clínica"
-				meta={
-					isManager
-						? "Parâmetros da unidade e acessos da equipe"
-						: "Parâmetros da unidade"
-				}
+				title="Clinic settings"
+				meta={isManager ? "Unit parameters and team access" : "Unit parameters"}
 			/>
 
 			<Page>

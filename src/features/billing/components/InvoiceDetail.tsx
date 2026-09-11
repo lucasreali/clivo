@@ -28,25 +28,25 @@ import { describeInvoiceStatus } from "../model/invoice-status";
 
 const METHODS: { value: PaymentRequestMethodEnumKey; label: string }[] = [
 	{ value: "PIX", label: "Pix" },
-	{ value: "CASH", label: "Dinheiro" },
-	{ value: "DEBIT", label: "Cartão de débito" },
-	{ value: "CREDIT", label: "Cartão de crédito" },
-	{ value: "INSURANCE", label: "Convênio" },
+	{ value: "CASH", label: "Cash" },
+	{ value: "DEBIT", label: "Debit card" },
+	{ value: "CREDIT", label: "Credit card" },
+	{ value: "INSURANCE", label: "Insurance" },
 ];
 
 const lineColumn = columnsFor<LineView>();
 
 const LINE_COLUMNS = lineColumn.columns([
-	lineColumn.accessor("description", { header: "Descrição" }),
+	lineColumn.accessor("description", { header: "Description" }),
 	lineColumn.accessor("quantity", {
-		header: "Qtd.",
+		header: "Qty.",
 		meta: { width: "80px" },
 		cell: ({ getValue }) => (
 			<span className="text-muted">{getValue() ?? 1}</span>
 		),
 	}),
 	lineColumn.accessor("unitPrice", {
-		header: "Valor unitário",
+		header: "Unit price",
 		meta: { width: "22%" },
 		cell: ({ getValue }) => (
 			<span className="text-muted">{money(getValue())}</span>
@@ -65,9 +65,9 @@ const LINE_COLUMNS = lineColumn.columns([
 const paymentColumn = columnsFor<PaymentView>();
 
 const PAYMENT_COLUMNS = paymentColumn.columns([
-	paymentColumn.accessor("method", { header: "Forma" }),
+	paymentColumn.accessor("method", { header: "Method" }),
 	paymentColumn.accessor("paidAt", {
-		header: "Recebido em",
+		header: "Received on",
 		meta: { width: "45%" },
 		cell: ({ getValue }) => (
 			<span className="text-[12px] text-muted">
@@ -76,12 +76,12 @@ const PAYMENT_COLUMNS = paymentColumn.columns([
 		),
 	}),
 	paymentColumn.accessor("amount", {
-		header: "Valor",
+		header: "Amount",
 		meta: { width: "120px", align: "right" },
 		cell: ({ row }) => (
 			<span className="font-medium text-ink">
 				{money(row.original.amount)}
-				{row.original.refunded ? " · estornado" : ""}
+				{row.original.refunded ? " · refunded" : ""}
 			</span>
 		),
 	}),
@@ -102,7 +102,7 @@ export function InvoiceDetail({ invoiceId }: InvoiceDetailProps) {
 	});
 
 	if (!invoice.data) {
-		return <Page>Carregando cobrança…</Page>;
+		return <Page>Loading invoice…</Page>;
 	}
 
 	const status = describeInvoiceStatus(invoice.data.status);
@@ -110,8 +110,8 @@ export function InvoiceDetail({ invoiceId }: InvoiceDetailProps) {
 	return (
 		<>
 			<AppTopBar
-				title={`Cobrança #${invoiceId}`}
-				meta={`Financeiro · ${invoice.data.customerName ?? ""}`}
+				title={`Invoice #${invoiceId}`}
+				meta={`Billing · ${invoice.data.customerName ?? ""}`}
 			/>
 
 			<Page>
@@ -119,7 +119,7 @@ export function InvoiceDetail({ invoiceId }: InvoiceDetailProps) {
 					<div className="flex flex-col gap-4">
 						<Panel>
 							<PanelHeader
-								title="Itens do atendimento"
+								title="Encounter items"
 								actions={<Badge tone={status.tone}>{status.label}</Badge>}
 							/>
 
@@ -129,18 +129,18 @@ export function InvoiceDetail({ invoiceId }: InvoiceDetailProps) {
 								rowId={(line) => `${line.serviceId}-${line.description}`}
 								empty={
 									<EmptyState
-										title="Nenhum item lançado"
-										description="Os itens do atendimento aparecem aqui assim que a ficha é concluída."
+										title="No items posted"
+										description="The encounter items show up here as soon as the record is completed."
 									/>
 								}
 							/>
 
 							<dl className="m-0 flex flex-col gap-1.5 border-t border-line bg-surface px-4 py-3 text-[13px]">
 								<Total label="Subtotal" value={invoice.data.grossAmount} />
-								<Total label="Desconto" value={-(invoice.data.discount ?? 0)} />
+								<Total label="Discount" value={-(invoice.data.discount ?? 0)} />
 								<Total label="Total" value={invoice.data.netAmount} strong />
 								<Total
-									label="Em aberto"
+									label="Outstanding"
 									value={invoice.data.outstandingBalance}
 									strong
 								/>
@@ -152,15 +152,15 @@ export function InvoiceDetail({ invoiceId }: InvoiceDetailProps) {
 						) : null}
 
 						<Panel>
-							<PanelHeader title="Pagamentos registrados" />
+							<PanelHeader title="Recorded payments" />
 							<DataTable
 								columns={PAYMENT_COLUMNS}
 								rows={invoice.data.payments ?? []}
 								rowId={(payment) => String(payment.id)}
 								empty={
 									<EmptyState
-										title="Nenhum recebimento registrado"
-										description="Os recebimentos aparecem aqui assim que um pagamento é lançado."
+										title="No payments recorded"
+										description="Payments show up here as soon as one is posted."
 									/>
 								}
 							/>
@@ -237,9 +237,9 @@ function SettleForm({
 
 	return (
 		<Panel>
-			<PanelHeader title="Registrar recebimento" />
+			<PanelHeader title="Record a payment" />
 			<form onSubmit={submit} className="flex flex-col gap-3 p-4">
-				<Field label="Forma de pagamento" required>
+				<Field label="Payment method" required>
 					{(id) => (
 						<Select
 							id={id}
@@ -251,7 +251,7 @@ function SettleForm({
 						/>
 					)}
 				</Field>
-				<Field label="Valor recebido" required>
+				<Field label="Amount received" required>
 					{(id) => (
 						<NumberInput
 							id={id}
@@ -264,7 +264,7 @@ function SettleForm({
 				</Field>
 				{error ? <Callout tone="danger">{error}</Callout> : null}
 				<Button type="submit" disabled={isPending}>
-					Registrar recebimento
+					Record payment
 				</Button>
 			</form>
 		</Panel>
@@ -288,9 +288,9 @@ function DiscountForm({ onApply, isPending, error }: DiscountFormProps) {
 
 	return (
 		<Panel>
-			<PanelHeader title="Desconto autorizado" />
+			<PanelHeader title="Authorized discount" />
 			<form onSubmit={submit} className="flex flex-col gap-3 p-4">
-				<Field label="Valor do desconto" required>
+				<Field label="Discount amount" required>
 					{(id) => (
 						<NumberInput
 							id={id}
@@ -301,7 +301,7 @@ function DiscountForm({ onApply, isPending, error }: DiscountFormProps) {
 						/>
 					)}
 				</Field>
-				<Field label="Motivo">
+				<Field label="Reason">
 					{(id) => (
 						<TextInput
 							id={id}
@@ -316,7 +316,7 @@ function DiscountForm({ onApply, isPending, error }: DiscountFormProps) {
 					type="submit"
 					disabled={!amount || isPending}
 				>
-					Aplicar desconto
+					Apply discount
 				</Button>
 			</form>
 		</Panel>

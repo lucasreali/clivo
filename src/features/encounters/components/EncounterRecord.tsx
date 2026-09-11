@@ -50,7 +50,7 @@ export function EncounterRecord({ encounterId }: EncounterRecordProps) {
 	}, [encounter.data]);
 
 	if (!encounter.data) {
-		return <Page>Carregando ficha…</Page>;
+		return <Page>Loading record…</Page>;
 	}
 
 	const sheet = encounter.data.sheet;
@@ -77,7 +77,7 @@ export function EncounterRecord({ encounterId }: EncounterRecordProps) {
 		return (
 			<Panel key={section.name}>
 				<PanelHeader
-					title={section.name ?? "Seção"}
+					title={section.name ?? "Section"}
 					hint={isCharted(section) ? CHART_HINT : undefined}
 					actions={
 						isCharted(section) && lastVisit ? (
@@ -87,7 +87,7 @@ export function EncounterRecord({ encounterId }: EncounterRecordProps) {
 									setComparedTo(lastVisit.completedAt ?? lastVisit.startedAt)
 								}
 							>
-								Comparar com {shortDate(lastVisit.startedAt)}
+								Compare with {shortDate(lastVisit.startedAt)}
 							</Button>
 						) : null
 					}
@@ -112,7 +112,7 @@ export function EncounterRecord({ encounterId }: EncounterRecordProps) {
 	return (
 		<>
 			<AppTopBar
-				title="Ficha de atendimento"
+				title="Encounter record"
 				meta={metaOf(encounter.data)}
 				actions={
 					<>
@@ -121,13 +121,13 @@ export function EncounterRecord({ encounterId }: EncounterRecordProps) {
 							onClick={save}
 							disabled={!open || fill.isPending}
 						>
-							Salvar rascunho
+							Save draft
 						</Button>
 						<Button
 							onClick={finish}
 							disabled={!open || pending.length > 0 || complete.isPending}
 						>
-							Concluir e gerar cobrança
+							Complete and generate invoice
 						</Button>
 					</>
 				}
@@ -137,7 +137,7 @@ export function EncounterRecord({ encounterId }: EncounterRecordProps) {
 				<EncounterHeader encounter={encounter.data} open={open} />
 
 				{pending.length > 0 && open ? (
-					<Callout tone="warn" title="Campos obrigatórios pendentes">
+					<Callout tone="warn" title="Required fields still missing">
 						{pending.join(" · ")}
 					</Callout>
 				) : null}
@@ -174,20 +174,20 @@ export function EncounterRecord({ encounterId }: EncounterRecordProps) {
 	);
 }
 
-const CHART_HINT = "Clique em uma região para marcar a condição observada";
+const CHART_HINT = "Click a region to mark the condition observed";
 
 function SigningState({ encounter }: { encounter: EncounterView }) {
 	return (
 		<div className="flex flex-col gap-1 px-1 text-[11.5px] text-faint">
 			<span>
 				{encounter.lastSavedAt
-					? `Rascunho salvo às ${clockTime(encounter.lastSavedAt)}`
-					: "Rascunho ainda não salvo"}
+					? `Draft saved at ${clockTime(encounter.lastSavedAt)}`
+					: "Draft not saved yet"}
 			</span>
 			<span>
 				{encounter.signedBy
-					? `Assinado por ${encounter.signedBy.name}`
-					: "Assinado digitalmente ao concluir"}
+					? `Signed by ${encounter.signedBy.name}`
+					: "Signed digitally on completion"}
 			</span>
 		</div>
 	);
@@ -199,7 +199,7 @@ function isCharted(section: SheetSection) {
 
 function metaOf(encounter: EncounterView) {
 	return [
-		"Atendimentos",
+		"Encounters",
 		encounter.customer?.name,
 		shortDate(encounter.startedAt),
 	]

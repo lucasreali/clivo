@@ -7,7 +7,7 @@ import { Access } from "../model/access";
 
 type RouteContext = { queryClient: QueryClient };
 
-type SignInPath = "/login" | "/console/entrar";
+type SignInPath = "/login" | "/console/sign-in";
 
 export async function requireClinicSession({ queryClient }: RouteContext) {
 	const session = await resolveSession(queryClient, "/login");
@@ -20,7 +20,7 @@ export async function requireClinicSession({ queryClient }: RouteContext) {
 }
 
 export async function requireConsoleSession({ queryClient }: RouteContext) {
-	const session = await resolveSession(queryClient, "/console/entrar");
+	const session = await resolveSession(queryClient, "/console/sign-in");
 
 	if (!Access.of(session).administersPlatform()) {
 		throw redirect({ to: "/" });

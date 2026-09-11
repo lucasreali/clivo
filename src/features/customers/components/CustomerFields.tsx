@@ -17,16 +17,12 @@ export const CustomerFields = withForm({
 		<div className="flex flex-col gap-6">
 			<fieldset className="flex flex-col gap-3 border-0 p-0">
 				<legend className="mb-1 text-[13.5px] font-semibold text-ink">
-					Dados pessoais
+					Personal details
 				</legend>
 				<div className="grid grid-cols-3 gap-3">
 					<form.AppField name="name">
 						{(field) => (
-							<field.TextField
-								label="Nome completo"
-								required
-								autoComplete="name"
-							/>
+							<field.TextField label="Full name" required autoComplete="name" />
 						)}
 					</form.AppField>
 					<form.AppField name="nationalId">
@@ -37,29 +33,25 @@ export const CustomerFields = withForm({
 								inputMode="numeric"
 								placeholder="000.000.000-00"
 								disabled={lockNationalId}
-								hint={
-									lockNationalId ? "O CPF não pode ser alterado." : undefined
-								}
+								hint={lockNationalId ? "The CPF cannot be changed." : undefined}
 							/>
 						)}
 					</form.AppField>
 					<form.AppField name="birthDate">
-						{(field) => (
-							<field.TextField label="Data de nascimento" type="date" />
-						)}
+						{(field) => <field.TextField label="Date of birth" type="date" />}
 					</form.AppField>
 				</div>
 			</fieldset>
 
 			<fieldset className="flex flex-col gap-3 border-0 p-0">
 				<legend className="mb-1 text-[13.5px] font-semibold text-ink">
-					Contato
+					Contact
 				</legend>
 				<div className="grid grid-cols-2 gap-3">
 					<form.AppField name="phone">
 						{(field) => (
 							<field.TextField
-								label="Celular / WhatsApp"
+								label="Mobile / WhatsApp"
 								required
 								mask={maskPhone}
 								inputMode="tel"
@@ -70,7 +62,7 @@ export const CustomerFields = withForm({
 					<form.AppField name="email">
 						{(field) => (
 							<field.TextField
-								label="E-mail"
+								label="Email"
 								type="email"
 								inputMode="email"
 								autoComplete="email"
@@ -82,13 +74,13 @@ export const CustomerFields = withForm({
 
 			<fieldset className="flex flex-col gap-3 border-0 p-0">
 				<legend className="mb-1 text-[13.5px] font-semibold text-ink">
-					Endereço
+					Address
 				</legend>
 				<div className="grid grid-cols-[160px_1fr] gap-3">
 					<form.AppField name="postalCode">
 						{(field) => (
 							<field.TextField
-								label="CEP"
+								label="Postal code"
 								mask={maskPostalCode}
 								inputMode="numeric"
 								placeholder="00000-000"
@@ -96,7 +88,7 @@ export const CustomerFields = withForm({
 						)}
 					</form.AppField>
 					<form.AppField name="street">
-						{(field) => <field.TextField label="Logradouro" />}
+						{(field) => <field.TextField label="Street" />}
 					</form.AppField>
 				</div>
 			</fieldset>

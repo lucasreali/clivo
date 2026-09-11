@@ -22,13 +22,13 @@ export function ClinicTopBar({
 
 	const details = [
 		clinic.data?.taxId ? taxId(clinic.data.taxId) : undefined,
-		`${situation.label} desde ${shortDate(clinic.data?.createdAt)}`,
+		`${situation.label} since ${shortDate(clinic.data?.createdAt)}`,
 		meta,
 	].filter(Boolean);
 
 	return (
 		<TopBar
-			title={`${clinic.data?.name ?? "Clínica"} · ${section}`}
+			title={`${clinic.data?.name ?? "Clinic"} · ${section}`}
 			meta={details.join(" · ")}
 			actions={actions}
 		/>

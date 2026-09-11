@@ -5,9 +5,9 @@ This file provides guidance to Claude Code (claude.ai/code) when working with co
 ## What this is
 
 CLIVO is the React front end of a clinic-management system for a software-reuse
-course. The domain UI is written in Brazilian Portuguese (`lang="pt-BR"`, route
-segments like `/clientes`, `/agenda`, `/financeiro`); code, identifiers and
-documentation are in English. The backend lives in the sibling repository
+course. The whole product is in English — user-visible copy (`lang="en"`, route
+segments like `/customers`, `/schedule`, `/billing`), code, identifiers and
+documentation alike. The backend lives in the sibling repository
 `../clivo-api` and is the source of the OpenAPI spec this app generates against.
 
 The whole point of the project is **variability**: one product serves dental,
@@ -58,10 +58,10 @@ the generated axios clients as their `baseURL`.
 - `src/routes/**` — TanStack Router file-based routes. Two surfaces live here:
   `_app` is the clinic-facing product, and `console/_console` is the platform
   administration console for the Clivo team (`/console`, signing in at
-  `/console/entrar`, backed by `/api/platform/**` and the `platform` feature).
+  `/console/sign-in`, backed by `/api/platform/**` and the `platform` feature).
   Route files stay thin:
   they declare the route and point `component` at a feature component (see
-  `src/routes/_app/agenda.tsx`). `_app.tsx` is the authenticated layout — it
+  `src/routes/_app/schedule.tsx`). `_app.tsx` is the authenticated layout — it
   resolves the session in `beforeLoad`, redirects to `/login` on 401, and wraps
   everything in `AppShell`. `routeTree.gen.ts` is generated; never edit it.
 - `src/features/<domain>/` — the actual application, split `components/`
@@ -71,7 +71,8 @@ the generated axios clients as their `baseURL`.
 - `src/shared/` — `ui/` design-system primitives (`Panel`, `Field`, `Button`,
   `Badge`, `Modal`, `Drawer`, `Menu`, `Select`, `Combobox`, `DataTable`,
   `EmptyState`, `Avatar`, plus `cn` and the `Tone` palette),
-  `format/` pt-BR formatters for dates, money, national ids and names, and
+  `format/` en-US formatters for dates, money, national ids and names (amounts
+  stay in BRL — the API reports reais), and
   `api-error.ts`.
 - `src/api/` — `client.ts` sets `withCredentials` (the API authenticates with a
   session cookie), `query-client.ts` builds the QueryClient (60s staleTime, no
@@ -159,8 +160,9 @@ invalidation predicates match on `queryKey[0].url` — see
   `maskTaxId`, `maskPhone`, `maskPostalCode` in `shared/format/document.ts`) and
   are sent to the API as bare digits. CPF and CNPJ check digits are verified in
   `src/shared/validation/document.ts` — the API validates neither.
-- User-visible strings are Portuguese; commit messages, comments and identifiers
-  are English.
+- Everything is English: user-visible strings, commit messages, comments and
+  identifiers. Brazilian document formats (CPF, CNPJ, postal code) stay as they
+  are — they are data, not copy.
 
 <!-- cortex:begin -->
 ## Cortex — decision memory

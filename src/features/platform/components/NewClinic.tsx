@@ -29,7 +29,7 @@ export function NewClinic() {
 					onError: (error) => showViolations(error, form),
 					onSuccess: (provisioned) =>
 						navigate({
-							to: "/console/clinicas/$tenantId/modulos",
+							to: "/console/clinics/$tenantId/modules",
 							params: { tenantId: String(provisioned.clinic?.id) },
 						}),
 				},
@@ -38,7 +38,7 @@ export function NewClinic() {
 
 	return (
 		<>
-			<TopBar title="Nova clínica" meta="Console · Clínicas · cadastro" />
+			<TopBar title="New clinic" meta="Console · Clinics · registration" />
 
 			<Page>
 				<form
@@ -50,21 +50,21 @@ export function NewClinic() {
 						<div className="flex flex-col gap-4">
 							<Panel>
 								<PanelHeader
-									title="Parte 1 · Dados da clínica"
-									hint="Identificação do inquilino nesta instância."
+									title="Part 1 · Clinic details"
+									hint="How the tenant is identified in this instance."
 								/>
 								<div className="grid grid-cols-2 gap-5 p-5">
 									<form.AppField name="name">
 										{(field) => (
 											<field.TextField
-												label="Nome da clínica"
+												label="Clinic name"
 												required
-												hint="Como a clínica aparece nas telas e nos relatórios."
+												hint="How the clinic shows up on screens and reports."
 											/>
 										)}
 									</form.AppField>
 									<form.AppField name="legalName">
-										{(field) => <field.TextField label="Razão social" />}
+										{(field) => <field.TextField label="Legal name" />}
 									</form.AppField>
 									<form.AppField name="taxId">
 										{(field) => (
@@ -73,15 +73,15 @@ export function NewClinic() {
 												mask={maskTaxId}
 												inputMode="numeric"
 												placeholder="00.000.000/0000-00"
-												hint="Identifica a clínica na plataforma: um CNPJ pertence a uma única clínica."
+												hint="Identifies the clinic on the platform: one CNPJ belongs to a single clinic."
 											/>
 										)}
 									</form.AppField>
 									<form.AppField name="segment">
 										{(field) => (
 											<field.TextField
-												label="Segmento"
-												hint="Odontologia, fisioterapia, veterinária… orienta a implantação, não trava a configuração."
+												label="Segment"
+												hint="Dentistry, physiotherapy, veterinary… it guides onboarding, it does not lock the configuration."
 											/>
 										)}
 									</form.AppField>
@@ -90,17 +90,17 @@ export function NewClinic() {
 
 							<Panel>
 								<PanelHeader
-									title="Parte 2 · Primeiro gestor"
-									hint="Sem este usuário a clínica nasce inacessível: ninguém do lado do cliente consegue entrar nem criar outros usuários."
+									title="Part 2 · First manager"
+									hint="Without this user the clinic starts unreachable: nobody on the customer side can sign in or create other users."
 								/>
 								<div className="grid grid-cols-2 gap-5 p-5">
 									<form.AppField name="managerName">
-										{(field) => <field.TextField label="Nome" required />}
+										{(field) => <field.TextField label="Name" required />}
 									</form.AppField>
 									<form.AppField name="managerEmail">
 										{(field) => (
 											<field.TextField
-												label="E-mail"
+												label="Email"
 												type="email"
 												inputMode="email"
 												required
@@ -110,11 +110,11 @@ export function NewClinic() {
 									<form.AppField name="managerPassword">
 										{(field) => (
 											<field.TextField
-												label="Senha inicial"
+												label="Initial password"
 												type="password"
 												autoComplete="new-password"
 												required
-												hint="Mínimo de 8 caracteres. Combine a troca no primeiro acesso."
+												hint="At least 8 characters. Agree on changing it at first sign-in."
 											/>
 										)}
 									</form.AppField>
@@ -124,21 +124,22 @@ export function NewClinic() {
 
 						<Panel className="flex flex-col gap-3 p-5">
 							<span className="text-[13.5px] font-semibold text-ink">
-								Como a clínica nasce
+								How the clinic starts
 							</span>
-							<Callout tone="warn" title="Sem nenhum módulo ativo">
-								Só agenda, clientes e atendimentos — o núcleo que toda clínica
-								tem. Depois de criar, o próximo passo é configurar os módulos.
+							<Callout tone="warn" title="With no module active">
+								Only scheduling, customers and encounters — the core every
+								clinic has. Once created, the next step is configuring the
+								modules.
 							</Callout>
 							<p className="m-0 text-[12.5px] leading-relaxed text-muted">
-								O gestor recebe o perfil de administrador da clínica: cria
-								usuários, define horários e opera todos os módulos ativos. Não
-								tem acesso a este console.
+								The manager gets the clinic administrator role: creates users,
+								sets working hours and operates every active module. They have
+								no access to this console.
 							</p>
 							<p className="m-0 text-[12px] leading-relaxed text-faint">
-								A clínica passa a ser endereçada pelo identificador que a
-								plataforma gera. O CNPJ, quando informado, não pode se repetir
-								em outra clínica.
+								The clinic is addressed by the identifier the platform
+								generates. The CNPJ, when given, cannot repeat in another
+								clinic.
 							</p>
 						</Panel>
 					</div>
@@ -152,10 +153,10 @@ export function NewClinic() {
 							variant="secondary"
 							onClick={() => navigate({ to: "/console" })}
 						>
-							Cancelar
+							Cancel
 						</Button>
 						<Button type="submit" disabled={onboarding.isPending}>
-							{onboarding.isPending ? "Criando…" : "Criar clínica"}
+							{onboarding.isPending ? "Creating…" : "Create clinic"}
 						</Button>
 					</div>
 				</form>

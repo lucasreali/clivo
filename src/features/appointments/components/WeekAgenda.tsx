@@ -29,10 +29,10 @@ const SLOTS = slotsOfDay();
 const GRID = "grid-cols-[62px_repeat(6,1fr)]";
 
 const LEGEND: { label: string; tone: Tone }[] = [
-	{ label: "Confirmado", tone: "brand" },
-	{ label: "Aguardando", tone: "warn" },
-	{ label: "Na recepção", tone: "info" },
-	{ label: "Falta", tone: "danger" },
+	{ label: "Confirmed", tone: "brand" },
+	{ label: "Awaiting", tone: "warn" },
+	{ label: "At the front desk", tone: "info" },
+	{ label: "No-show", tone: "danger" },
 ];
 
 export function WeekAgenda() {
@@ -61,10 +61,10 @@ export function WeekAgenda() {
 	return (
 		<>
 			<AppTopBar
-				title="Agenda"
-				meta={`Semana de ${dayMonthLabel(monday)} a ${dayMonthLabel(shiftDays(monday, 5))}`}
+				title="Schedule"
+				meta={`Week of ${dayMonthLabel(monday)} to ${dayMonthLabel(shiftDays(monday, 5))}`}
 				actions={
-					<Button onClick={() => setCreating(true)}>+ Novo agendamento</Button>
+					<Button onClick={() => setCreating(true)}>+ New appointment</Button>
 				}
 			/>
 
@@ -76,13 +76,13 @@ export function WeekAgenda() {
 							value={practitioner}
 							onChange={setPractitioner}
 							options={[
-								{ value: "", label: "Todos os profissionais" },
+								{ value: "", label: "All practitioners" },
 								...(practitioners.data ?? []).map((item) => ({
 									value: String(item.id),
-									label: item.name ?? "Sem nome",
+									label: item.name ?? "Unnamed",
 								})),
 							]}
-							aria-label="Filtrar por profissional"
+							aria-label="Filter by practitioner"
 							className="h-[34px] w-[220px] text-[13px]"
 						/>
 					</div>
@@ -97,7 +97,7 @@ export function WeekAgenda() {
 						))}
 						<span className="flex items-center gap-1.5">
 							<span className="stripes h-2.5 w-2.5 rounded-sm" />
-							Bloqueio / intervalo
+							Block / break
 						</span>
 					</div>
 				</div>
@@ -202,7 +202,7 @@ function WeekPager({ monday, onChange }: WeekPagerProps) {
 	return (
 		<div className="flex h-[34px] shrink-0 items-center overflow-hidden rounded-field border border-line bg-panel">
 			<PagerArrow
-				label="Semana anterior"
+				label="Previous week"
 				direction="previous"
 				onClick={() => onChange(shiftDays(monday, -7))}
 			/>
@@ -214,7 +214,7 @@ function WeekPager({ monday, onChange }: WeekPagerProps) {
 				{dayMonthLabel(monday)} – {dayMonthLabel(shiftDays(monday, 5))}
 			</button>
 			<PagerArrow
-				label="Próxima semana"
+				label="Next week"
 				direction="next"
 				onClick={() => onChange(shiftDays(monday, 7))}
 			/>

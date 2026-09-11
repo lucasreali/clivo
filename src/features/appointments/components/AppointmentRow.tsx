@@ -10,7 +10,7 @@ import { useOpenEncounter } from "../hooks/use-open-encounter";
 import { useStartEncounter } from "../hooks/use-start-encounter";
 import { describeStatus, isUnderway } from "../model/appointment-status";
 
-const NO_SHOW_REASON = "Paciente não compareceu ao horário marcado";
+const NO_SHOW_REASON = "The patient did not show up at the scheduled time";
 const ACTION =
 	"text-[12.5px] text-brand hover:text-brand-ink disabled:text-faint";
 
@@ -43,7 +43,7 @@ export function AppointmentRow({
 
 			<div className="flex min-w-0 flex-col leading-tight">
 				<Link
-					to="/clientes/$customerId"
+					to="/customers/$customerId"
 					params={{ customerId: String(appointment.customerId) }}
 					className="truncate text-[13.5px] text-ink hover:text-brand-ink"
 				>
@@ -72,7 +72,7 @@ export function AppointmentRow({
 					label={status.action}
 				/>
 				<Menu
-					label={`Mais ações de ${appointment.customerName ?? "agendamento"}`}
+					label={`More actions for ${appointment.customerName ?? "appointment"}`}
 				>
 					<SecondaryActions
 						appointment={appointment}
@@ -105,7 +105,7 @@ function PrimaryAction({
 		return (
 			<button
 				type="button"
-				onClick={() => announcePending("A confirmação do paciente")}
+				onClick={() => announcePending("Patient confirmation")}
 				className={ACTION}
 			>
 				{label}
@@ -142,7 +142,7 @@ function PrimaryAction({
 	if (appointment.status === "IN_PROGRESS") {
 		return openEncounter ? (
 			<Link
-				to="/atendimentos/$encounterId"
+				to="/encounters/$encounterId"
 				params={{ encounterId: openEncounter }}
 				className={ACTION}
 			>
@@ -156,7 +156,7 @@ function PrimaryAction({
 	if (appointment.status === "COMPLETED") {
 		return (
 			<Link
-				to="/clientes/$customerId/historico"
+				to="/customers/$customerId/history"
 				params={{ customerId: String(appointment.customerId) }}
 				className={ACTION}
 			>
@@ -184,22 +184,22 @@ function SecondaryActions({
 
 	return (
 		<>
-			<MenuItem onClick={onReschedule}>Reagendar</MenuItem>
+			<MenuItem onClick={onReschedule}>Reschedule</MenuItem>
 			<MenuItem
 				onClick={() =>
 					markNoShow.mutate({ path: { id }, body: { reason: NO_SHOW_REASON } })
 				}
 				disabled={markNoShow.isPending}
 			>
-				Registrar falta
+				Mark as no-show
 			</MenuItem>
 			<MenuItem
-				onClick={() => announcePending("O envio de lembrete ao paciente")}
+				onClick={() => announcePending("Sending a reminder to the patient")}
 			>
-				Enviar lembrete
+				Send reminder
 			</MenuItem>
 			<MenuItem onClick={onCancel} danger>
-				Cancelar agendamento
+				Cancel appointment
 			</MenuItem>
 		</>
 	);

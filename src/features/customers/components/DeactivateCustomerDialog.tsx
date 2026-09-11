@@ -10,11 +10,11 @@ import { Modal } from "#/shared/ui/Modal";
 import { Select } from "#/shared/ui/Select";
 
 const REASONS = [
-	"Mudou de cidade",
-	"Cadastro duplicado",
-	"Solicitação do cliente",
-	"Sem contato há mais de dois anos",
-	"Outro motivo",
+	"Moved to another city",
+	"Duplicate record",
+	"Customer request",
+	"No contact for over two years",
+	"Other reason",
 ];
 
 type DeactivateCustomerDialogProps = {
@@ -48,33 +48,33 @@ export function DeactivateCustomerDialog({
 
 	return (
 		<Modal
-			title={`Inativar ${customer.name ?? "cliente"}?`}
+			title={`Deactivate ${customer.name ?? "customer"}?`}
 			dismissal="guarded"
 			onClose={onClose}
 			footer={
 				<>
 					<Button variant="secondary" onClick={onClose}>
-						Voltar
+						Go back
 					</Button>
 					<Button
 						variant="danger"
 						onClick={confirm}
 						disabled={deactivate.isPending}
 					>
-						Inativar cliente
+						Deactivate customer
 					</Button>
 				</>
 			}
 		>
 			<Callout tone="neutral">
-				Este cliente não pode ser excluído porque possui atendimentos,
-				prontuário e cobranças vinculados, que a clínica é obrigada a preservar.
-				Ao inativar, o cadastro sai das buscas do dia a dia e não recebe novos
-				agendamentos, mas todo o histórico continua acessível pelo filtro
-				“Inativos”.
+				This customer cannot be deleted because encounters, medical records and
+				charges are attached to it, and the clinic is required to keep them.
+				Deactivating removes the record from day-to-day searches and blocks new
+				appointments, but the whole history stays reachable through the
+				“Inactive” filter.
 			</Callout>
 
-			<Field label="Motivo da inativação" required>
+			<Field label="Deactivation reason" required>
 				{(id) => (
 					<Select
 						id={id}
@@ -88,7 +88,7 @@ export function DeactivateCustomerDialog({
 				)}
 			</Field>
 
-			<Field label="Detalhe do motivo">
+			<Field label="Reason details">
 				{(id) => (
 					<TextArea
 						id={id}

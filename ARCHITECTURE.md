@@ -9,8 +9,8 @@ exists to keep that promise legible.
 
 The app serves two audiences from one code base:
 
-- **The clinic**, under the `_app` layout — agenda, clientes, atendimentos,
-  financeiro. It sees only what the clinic's own modules turned on.
+- **The clinic**, under the `_app` layout — schedule, customers, encounters,
+  billing. It sees only what the clinic's own modules turned on.
 - **The Clivo team**, under `/console` — the platform administration console:
   every clinic on the instance, the modules each one contracted, the parameters
   in effect and the creation of new administrators. It reaches the
@@ -18,7 +18,7 @@ The app serves two audiences from one code base:
   platform administrator.
 
 Each surface has its own shell (`AppShell` / `ConsoleShell`), its own sign-in
-(`/login` / `/console/entrar`) and its own guard, and both share `shared/ui`.
+(`/login` / `/console/sign-in`) and its own guard, and both share `shared/ui`.
 
 ## Layers
 
@@ -102,7 +102,7 @@ new branch in a screen.** If you find yourself writing
 - **Forms** — react-hook-form drives the state, a zod schema in the feature's
   `model/` states the rules, and `shared/form/` holds the bound inputs. The API
   checks neither CPF nor CNPJ, so the client owns those check digits.
-- **Copy is Portuguese, code and docs are English.**
+- **Copy, code and docs are all English.**
 
 ## Rendering mode and the API origin
 

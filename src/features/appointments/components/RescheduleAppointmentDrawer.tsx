@@ -37,18 +37,18 @@ export function RescheduleAppointmentDrawer({
 
 	return (
 		<Drawer
-			title="Reagendar atendimento"
+			title="Reschedule encounter"
 			subtitle={`${appointment.customerName ?? ""} · ${appointment.serviceName ?? ""} · ${appointment.practitionerName ?? ""}`}
 			onClose={onClose}
 			isDirty={day !== scheduled.day || time !== scheduled.time}
 			footer={
 				<Button onClick={confirm} disabled={reschedule.isPending}>
-					Salvar novo horário
+					Save new time
 				</Button>
 			}
 		>
 			<div className="grid gap-3">
-				<Field label="Nova data" required>
+				<Field label="New date" required>
 					{(id) => (
 						<TextInput
 							id={id}
@@ -58,7 +58,7 @@ export function RescheduleAppointmentDrawer({
 						/>
 					)}
 				</Field>
-				<Field label="Nova hora" required>
+				<Field label="New time" required>
 					{(id) => (
 						<TextInput
 							id={id}
@@ -71,8 +71,8 @@ export function RescheduleAppointmentDrawer({
 			</div>
 
 			<Callout tone="warn">
-				O horário anterior fica registrado no histórico do atendimento. Se o
-				módulo de notificações estiver ativo, o cliente é avisado ao salvar.
+				The previous time stays in the encounter history. If the notifications
+				module is active, the customer is notified once you save.
 			</Callout>
 
 			{reschedule.isError ? (

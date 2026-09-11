@@ -2,7 +2,7 @@ import { Toast } from "@base-ui/react/toast";
 import { WarningCircle, X } from "@phosphor-icons/react";
 import { cn } from "./cn";
 
-const NOTICE = "Funcionalidade ainda não construída";
+const NOTICE = "Feature not built yet";
 
 const notices = Toast.createToastManager();
 
@@ -10,7 +10,7 @@ export function announcePending(feature: string) {
 	notices.add({
 		id: feature,
 		title: NOTICE,
-		description: `${feature} faz parte do desenho do CLIVO, mas ainda não tem implementação neste protótipo.`,
+		description: `${feature} is part of the CLIVO design, but has no implementation in this prototype yet.`,
 	});
 }
 
@@ -45,7 +45,7 @@ function Notices() {
 				<Toast.Description className="mt-1 text-[12px] text-muted leading-relaxed" />
 			</div>
 			<Toast.Close
-				aria-label="Fechar"
+				aria-label="Close"
 				className="ml-auto h-fit shrink-0 text-faint hover:text-ink"
 			>
 				<X size={14} aria-hidden="true" />

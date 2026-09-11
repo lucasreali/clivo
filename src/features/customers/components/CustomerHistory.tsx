@@ -32,22 +32,22 @@ export function CustomerHistory({ customerId }: CustomerHistoryProps) {
 	return (
 		<>
 			<AppTopBar
-				title={customer.data?.name ?? "Cliente"}
-				meta="Clientes › Histórico de atendimentos"
+				title={customer.data?.name ?? "Customer"}
+				meta="Customers › Encounter history"
 			/>
 
 			<Page>
 				<div className="grid grid-cols-[1.7fr_1fr] items-start gap-4">
 					<Panel>
 						<PanelHeader
-							title="Atendimentos"
-							hint={`${encounters.length} registros`}
+							title="Encounters"
+							hint={`${encounters.length} records`}
 						/>
 
 						{encounters.length === 0 ? (
 							<EmptyState
-								title="Nenhum atendimento registrado"
-								description="Os atendimentos aparecem aqui assim que a ficha é aberta na recepção."
+								title="No encounters recorded"
+								description="Encounters show up here as soon as the record is opened at the front desk."
 							/>
 						) : null}
 
@@ -61,20 +61,20 @@ export function CustomerHistory({ customerId }: CustomerHistoryProps) {
 								</span>
 								<div className="flex min-w-0 flex-1 flex-col gap-1">
 									<span className="text-[13.5px] font-medium text-ink">
-										{encounter.serviceName ?? "Atendimento"}
+										{encounter.serviceName ?? "Encounter"}
 									</span>
 									<span className="text-[12px] text-muted">
 										{encounter.practitionerName ?? "—"}
 									</span>
 									<span className="text-[12px] text-faint">
-										Ficha: {encounter.sheet?.templateName ?? "—"} · versão{" "}
+										Record: {encounter.sheet?.templateName ?? "—"} · version{" "}
 										{encounter.sheet?.templateVersion ?? "—"}
 									</span>
 								</div>
 								<Badge
 									tone={encounter.status === "COMPLETED" ? "neutral" : "brand"}
 								>
-									{encounter.status === "COMPLETED" ? "Concluído" : "Em aberto"}
+									{encounter.status === "COMPLETED" ? "Completed" : "Open"}
 								</Badge>
 							</article>
 						))}
@@ -82,14 +82,14 @@ export function CustomerHistory({ customerId }: CustomerHistoryProps) {
 
 					<Panel>
 						<PanelHeader
-							title="Cobranças"
-							hint={`Em aberto: ${money(outstanding)}`}
+							title="Charges"
+							hint={`Outstanding: ${money(outstanding)}`}
 						/>
 
 						{(invoices.data ?? []).length === 0 ? (
 							<EmptyState
-								title="Nenhuma cobrança"
-								description="As cobranças são geradas ao concluir um atendimento."
+								title="No charges"
+								description="Charges are generated when an encounter is completed."
 							/>
 						) : null}
 
@@ -99,16 +99,16 @@ export function CustomerHistory({ customerId }: CustomerHistoryProps) {
 							return (
 								<Link
 									key={invoice.id}
-									to="/financeiro/$invoiceId"
+									to="/billing/$invoiceId"
 									params={{ invoiceId: String(invoice.id) }}
 									className="flex items-center justify-between border-b border-line px-4 py-3 text-[13px] last:border-b-0 hover:bg-surface"
 								>
 									<span className="flex flex-col">
 										<span className="font-medium text-ink">
-											Cobrança #{invoice.id}
+											Invoice #{invoice.id}
 										</span>
 										<span className="text-[11.5px] text-muted">
-											Vence em {invoice.dueDate ?? "—"}
+											Due on {invoice.dueDate ?? "—"}
 										</span>
 									</span>
 									<span className="flex items-center gap-3">

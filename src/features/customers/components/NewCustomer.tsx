@@ -17,7 +17,7 @@ import {
 } from "../model/customer-draft";
 import { CustomerFields } from "./CustomerFields";
 
-const CONSENT_PURPOSE = "Prontuário, agendamento e cobrança";
+const CONSENT_PURPOSE = "Medical record, scheduling and billing";
 const CONSENT_SOURCE = "RECEPTION";
 
 export function NewCustomer() {
@@ -51,7 +51,7 @@ export function NewCustomer() {
 							await grantConsent(customerId);
 						}
 						await navigate({
-							to: "/clientes/$customerId",
+							to: "/customers/$customerId",
 							params: { customerId },
 						});
 					},
@@ -61,7 +61,7 @@ export function NewCustomer() {
 
 	return (
 		<>
-			<AppTopBar title="Novo cliente" meta="Clientes › Cadastro" />
+			<AppTopBar title="New customer" meta="Customers › Registration" />
 
 			<Page>
 				<form
@@ -75,17 +75,17 @@ export function NewCustomer() {
 
 					<Panel className="flex flex-col gap-3 p-5">
 						<span className="text-[13.5px] font-semibold text-ink">
-							Consentimento LGPD
+							LGPD consent
 						</span>
 						<p className="m-0 text-[12.5px] leading-relaxed text-muted">
-							A clínica trata dados pessoais e de saúde para prontuário,
-							agendamento, cobrança e obrigações legais. O cliente pode
-							solicitar acesso, correção ou exclusão a qualquer momento.
+							The clinic processes personal and health data for medical records,
+							scheduling, billing and legal obligations. The customer may
+							request access, correction or deletion at any time.
 						</p>
 						<Checkbox
 							checked={consented}
 							onCheckedChange={setConsented}
-							label="O cliente leu e concordou com o termo de tratamento de dados, assinado presencialmente na recepção."
+							label="The customer has read and agreed to the data processing terms, signed in person at the front desk."
 						/>
 					</Panel>
 
@@ -96,12 +96,12 @@ export function NewCustomer() {
 					<div className="flex justify-end gap-2">
 						<Button
 							variant="secondary"
-							onClick={() => navigate({ to: "/clientes" })}
+							onClick={() => navigate({ to: "/customers" })}
 						>
-							Cancelar
+							Cancel
 						</Button>
 						<Button type="submit" disabled={register.isPending}>
-							Salvar cliente
+							Save customer
 						</Button>
 					</div>
 				</form>

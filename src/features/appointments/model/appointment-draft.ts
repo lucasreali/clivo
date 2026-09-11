@@ -4,11 +4,11 @@ import { requiredText } from "#/shared/form/schema";
 import { toInstant } from "#/shared/format/date";
 
 export const appointmentSchema = z.object({
-	customerId: requiredText("Escolha o paciente."),
-	practitionerId: requiredText("Escolha o profissional."),
-	serviceId: requiredText("Escolha o serviço."),
-	date: requiredText("Informe a data."),
-	time: requiredText("Informe a hora."),
+	customerId: requiredText("Choose the patient."),
+	practitionerId: requiredText("Choose the practitioner."),
+	serviceId: requiredText("Choose the service."),
+	date: requiredText("Enter the date."),
+	time: requiredText("Enter the time."),
 });
 
 export type AppointmentDraft = z.infer<typeof appointmentSchema>;

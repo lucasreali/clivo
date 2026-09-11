@@ -43,13 +43,13 @@ export function DayPanel() {
 	return (
 		<>
 			<AppTopBar
-				title="Painel do dia"
+				title="Day panel"
 				meta={dayLabel(day)}
 				actions={
 					<>
 						<DayPager day={day} onChange={setDay} />
 						<Button onClick={() => setOverlay({ kind: "create" })}>
-							+ Novo agendamento
+							+ New appointment
 						</Button>
 					</>
 				}
@@ -79,10 +79,10 @@ export function DayPanel() {
 					<div className="flex items-center justify-between gap-4 border-b border-line px-4 py-3">
 						<div className="flex flex-wrap items-center gap-2">
 							<span className="mr-0.5 text-[12.5px] text-muted">
-								Profissional
+								Practitioner
 							</span>
 							<PractitionerChip
-								label="Todos"
+								label="All"
 								isActive={practitioner === ""}
 								onSelect={() => setPractitioner("")}
 							/>
@@ -98,15 +98,15 @@ export function DayPanel() {
 						<div className="flex shrink-0 items-center gap-3.5">
 							<span className="text-[12.5px] text-muted">
 								{panel.dataUpdatedAt
-									? `Atualizado às ${clockTime(new Date(panel.dataUpdatedAt).toISOString())}`
-									: "Atualizando…"}
+									? `Updated at ${clockTime(new Date(panel.dataUpdatedAt).toISOString())}`
+									: "Updating…"}
 							</span>
 							<button
 								type="button"
-								onClick={() => announcePending("A impressão da lista do dia")}
+								onClick={() => announcePending("Printing the day list")}
 								className="text-[12.5px] text-brand hover:text-brand-ink"
 							>
-								Imprimir lista
+								Print list
 							</button>
 						</div>
 					</div>
@@ -117,11 +117,11 @@ export function DayPanel() {
 							COLUMNS,
 						)}
 					>
-						<span>Hora</span>
-						<span>Paciente</span>
-						<span>Profissional</span>
-						<span>Serviço</span>
-						<span>Estado</span>
+						<span>Time</span>
+						<span>Patient</span>
+						<span>Practitioner</span>
+						<span>Service</span>
+						<span>Status</span>
 						<span />
 					</div>
 
@@ -129,11 +129,11 @@ export function DayPanel() {
 
 					{!panel.isPending && appointments.length === 0 ? (
 						<EmptyState
-							title="Nenhum atendimento neste dia"
-							description="Escolha outra data ou crie um novo agendamento para esta agenda."
+							title="No encounters on this day"
+							description="Pick another date or create a new appointment for this schedule."
 							actions={
 								<Button onClick={() => setOverlay({ kind: "create" })}>
-									Novo agendamento
+									New appointment
 								</Button>
 							}
 						/>
@@ -210,7 +210,7 @@ function DayPager({ day, onChange }: DayPagerProps) {
 		<div className="flex h-[34px] items-center overflow-hidden rounded-field border border-line bg-panel">
 			<button
 				type="button"
-				aria-label="Dia anterior"
+				aria-label="Previous day"
 				onClick={() => onChange(shiftDays(day, -1))}
 				className="h-full w-[34px] border-r border-line text-[14px] text-muted hover:text-ink"
 			>
@@ -221,11 +221,11 @@ function DayPager({ day, onChange }: DayPagerProps) {
 				onClick={() => onChange(today())}
 				className="h-full px-3.5 text-[13px] text-ink"
 			>
-				Hoje
+				Today
 			</button>
 			<button
 				type="button"
-				aria-label="Próximo dia"
+				aria-label="Next day"
 				onClick={() => onChange(shiftDays(day, 1))}
 				className="h-full w-[34px] border-l border-line text-[14px] text-muted hover:text-ink"
 			>
@@ -238,7 +238,7 @@ function DayPager({ day, onChange }: DayPagerProps) {
 function Loading() {
 	return (
 		<div className="px-4 py-10 text-center text-[12.5px] text-muted">
-			Carregando atendimentos…
+			Loading encounters…
 		</div>
 	);
 }

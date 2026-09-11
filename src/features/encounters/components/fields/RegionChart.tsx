@@ -179,7 +179,7 @@ function nameOf(
 ) {
 	const place = [region.label ?? region.code, part].filter(Boolean).join(" ");
 	const state = states.find((marked) => marked.part === part);
-	return `${place}: ${state ? vocabulary.labelOf(state.mark) : "sem marcação"}`;
+	return `${place}: ${state ? vocabulary.labelOf(state.mark) : "not marked"}`;
 }
 
 function codesOf(regions: readonly ComponentRegion[]) {

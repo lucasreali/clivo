@@ -15,31 +15,31 @@ export type ConsoleNavigationItem = {
 
 export const CONSOLE_NAVIGATION: readonly ConsoleNavigationItem[] = [
 	{
-		label: "Clínicas",
+		label: "Clinics",
 		to: "/console",
 		icon: Buildings,
 	},
 	{
-		label: "Nova clínica",
-		to: "/console/nova-clinica",
+		label: "New clinic",
+		to: "/console/new-clinic",
 		icon: Plus,
 	},
 	{
-		label: "Administradores",
-		to: "/console/administradores",
+		label: "Administrators",
+		to: "/console/administrators",
 		icon: UserGear,
 	},
 ];
 
 export const CLINIC_NAVIGATION: readonly ConsoleNavigationItem[] = [
 	{
-		label: "Módulos",
-		to: "/console/clinicas/$tenantId/modulos",
+		label: "Modules",
+		to: "/console/clinics/$tenantId/modules",
 		icon: PuzzlePiece,
 	},
 	{
-		label: "Parâmetros",
-		to: "/console/clinicas/$tenantId/parametros",
+		label: "Parameters",
+		to: "/console/clinics/$tenantId/parameters",
 		icon: SlidersHorizontal,
 	},
 ];

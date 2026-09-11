@@ -54,10 +54,10 @@ function OpenClinic({ tenantId }: { tenantId: string }) {
 	return (
 		<div className="mx-4 flex flex-col gap-1.5 border-t border-line pt-3">
 			<span className="text-[9.5px] font-medium tracking-[1.1px] text-muted">
-				CLÍNICA ABERTA
+				OPEN CLINIC
 			</span>
 			<span className="text-[13px] leading-tight font-semibold text-ink">
-				{clinic.data?.name ?? "Carregando…"}
+				{clinic.data?.name ?? "Loading…"}
 			</span>
 			<span className="font-mono text-[10.5px] tracking-[0.5px] text-muted">
 				{clinic.data?.taxId ? taxId(clinic.data.taxId) : ""}
@@ -73,7 +73,7 @@ function OpenClinic({ tenantId }: { tenantId: string }) {
 				to="/console"
 				className="mt-1.5 text-[11.5px] text-muted hover:text-ink"
 			>
-				Fechar clínica
+				Close clinic
 			</Link>
 		</div>
 	);

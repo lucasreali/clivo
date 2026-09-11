@@ -3,9 +3,9 @@ import type { Tone } from "#/shared/ui/tone";
 type Situation = { label: string; tone: Tone };
 
 const STATUS: Record<string, Situation> = {
-	ACTIVE: { label: "Ativa", tone: "brand" },
-	SUSPENDED: { label: "Suspensa", tone: "warn" },
-	CLOSED: { label: "Encerrada", tone: "neutral" },
+	ACTIVE: { label: "Active", tone: "brand" },
+	SUSPENDED: { label: "Suspended", tone: "warn" },
+	CLOSED: { label: "Closed", tone: "neutral" },
 };
 
 const UNKNOWN: Situation = { label: "—", tone: "neutral" };

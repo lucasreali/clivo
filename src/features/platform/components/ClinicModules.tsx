@@ -26,22 +26,22 @@ function columnsToggling(
 ) {
 	return column.columns([
 		column.accessor("name", {
-			header: "Módulo",
+			header: "Module",
 			meta: { width: "25%" },
 			cell: ({ row }) => <ModuleName module={row.original} />,
 		}),
 		column.accessor("description", {
-			header: "Efeito na clínica",
+			header: "Effect on the clinic",
 			cell: ({ row }) => (
 				<ModuleEffect module={row.original} catalog={catalog} />
 			),
 		}),
 		column.accessor("active", {
-			header: "Situação",
+			header: "Status",
 			meta: { width: "150px" },
 			cell: ({ getValue }) => (
 				<Badge tone={getValue() ? "brand" : "neutral"}>
-					{getValue() ? "Ativo" : "Desligado"}
+					{getValue() ? "Active" : "Off"}
 				</Badge>
 			),
 		}),
@@ -54,7 +54,7 @@ function columnsToggling(
 					onClick={() => onToggle(row.original)}
 					disabled={isSaving}
 				>
-					{row.original.active ? "Desligar" : "Ligar"}
+					{row.original.active ? "Turn off" : "Turn on"}
 				</Button>
 			),
 		}),
@@ -82,8 +82,8 @@ export function ClinicModules({ tenantId }: { tenantId: string }) {
 		<>
 			<ClinicTopBar
 				tenantId={tenantId}
-				section="módulos"
-				meta={`${catalog.activeCount()} de ${catalog.total()} módulos`}
+				section="modules"
+				meta={`${catalog.activeCount()} of ${catalog.total()} modules`}
 				actions={<ClinicLifecycleActions tenantId={tenantId} />}
 			/>
 
@@ -91,8 +91,8 @@ export function ClinicModules({ tenantId }: { tenantId: string }) {
 				<div className="grid grid-cols-[1.9fr_1fr] items-start gap-4">
 					<Panel>
 						<PanelHeader
-							title="Catálogo da plataforma"
-							hint="Neste console o catálogo inteiro aparece sempre: o que está desligado é informação, não ruído."
+							title="Platform catalog"
+							hint="In this console the whole catalog is always listed: what is off is information, not noise."
 						/>
 
 						<DataTable
@@ -100,11 +100,11 @@ export function ClinicModules({ tenantId }: { tenantId: string }) {
 							rows={catalog.listed()}
 							rowId={(module) => module.code ?? ""}
 							isPending={modules.isPending}
-							pendingLabel="Carregando módulos…"
+							pendingLabel="Loading modules…"
 							empty={
 								<EmptyState
-									title="Nenhum módulo no catálogo"
-									description="A plataforma ainda não publicou nenhum módulo para esta instância."
+									title="No module in the catalog"
+									description="The platform has not published any module for this instance yet."
 								/>
 							}
 						/>
@@ -118,14 +118,14 @@ export function ClinicModules({ tenantId }: { tenantId: string }) {
 
 					<Panel>
 						<PanelHeader
-							title="Histórico de ativações"
-							hint="Toda mudança de módulo fica registrada."
+							title="Activation history"
+							hint="Every module change is recorded."
 						/>
 
 						{modules.history.length === 0 ? (
 							<EmptyState
-								title="Nenhuma mudança registrada"
-								description="Ligar ou desligar um módulo cria a primeira linha deste registro."
+								title="No change recorded"
+								description="Turning a module on or off creates the first line of this log."
 							/>
 						) : null}
 
@@ -190,7 +190,7 @@ function ModuleEffect({ module, catalog }: ModuleEffectProps) {
 			</span>
 			{missing ? (
 				<span className="text-[11.5px] text-warn-ink">
-					Depende de {missing.name}, que está desligado.
+					Depends on {missing.name}, which is off.
 				</span>
 			) : null}
 		</div>

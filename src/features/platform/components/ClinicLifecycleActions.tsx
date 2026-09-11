@@ -20,7 +20,7 @@ export function ClinicLifecycleActions({ tenantId }: { tenantId: string }) {
 				onClick={lifecycle.activate}
 				disabled={lifecycle.isPending}
 			>
-				Reativar clínica
+				Reactivate clinic
 			</Button>
 		);
 	}
@@ -28,7 +28,7 @@ export function ClinicLifecycleActions({ tenantId }: { tenantId: string }) {
 	return (
 		<>
 			<Button variant="ghost" onClick={() => setIsAsking(true)}>
-				Suspender clínica
+				Suspend clinic
 			</Button>
 			{isAsking ? (
 				<SuspensionDialog
@@ -54,29 +54,29 @@ function SuspensionDialog({ lifecycle, onClose }: SuspensionDialogProps) {
 
 	return (
 		<Modal
-			title="Suspender a clínica"
+			title="Suspend the clinic"
 			dismissal="guarded"
-			subtitle="Os registros são preservados; ninguém do lado do cliente consegue entrar enquanto a suspensão durar."
+			subtitle="The records are preserved; nobody on the customer side can sign in while the suspension lasts."
 			onClose={onClose}
 			footer={
 				<>
 					<Button variant="secondary" onClick={onClose}>
-						Manter em serviço
+						Keep in service
 					</Button>
 					<Button
 						variant="danger"
 						onClick={confirm}
 						disabled={reason.trim() === "" || lifecycle.isPending}
 					>
-						Suspender
+						Suspend
 					</Button>
 				</>
 			}
 		>
 			<Field
-				label="Motivo"
+				label="Reason"
 				required
-				hint="Fica registrado na clínica e aparece para quem for reativá-la."
+				hint="It is recorded on the clinic and shown to whoever reactivates it."
 			>
 				{(id) => (
 					<TextArea

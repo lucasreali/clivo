@@ -4,29 +4,29 @@ type StatusDescription = { label: string; tone: Tone; action: string };
 
 export const APPOINTMENT_STATUS = {
 	SCHEDULED: {
-		label: "Aguardando confirmação",
+		label: "Awaiting confirmation",
 		tone: "warn",
-		action: "Confirmar",
+		action: "Confirm",
 	},
 	CONFIRMED: {
-		label: "Confirmado",
+		label: "Confirmed",
 		tone: "brand",
-		action: "Registrar chegada",
+		action: "Check in",
 	},
-	ARRIVED: { label: "Chegou", tone: "info", action: "Iniciar" },
+	ARRIVED: { label: "Arrived", tone: "info", action: "Start" },
 	IN_PROGRESS: {
-		label: "Em atendimento",
+		label: "In progress",
 		tone: "brand",
-		action: "Abrir ficha",
+		action: "Open record",
 	},
-	COMPLETED: { label: "Concluído", tone: "neutral", action: "Ver ficha" },
-	CANCELLED: { label: "Cancelado", tone: "neutral", action: "Reagendar" },
-	NO_SHOW: { label: "Falta", tone: "danger", action: "Reagendar" },
+	COMPLETED: { label: "Completed", tone: "neutral", action: "View record" },
+	CANCELLED: { label: "Cancelled", tone: "neutral", action: "Reschedule" },
+	NO_SHOW: { label: "No-show", tone: "danger", action: "Reschedule" },
 } as const satisfies Record<string, StatusDescription>;
 
 export type AppointmentStatus = keyof typeof APPOINTMENT_STATUS;
 
-const UNKNOWN = { label: "—", tone: "neutral", action: "Abrir" } as const;
+const UNKNOWN = { label: "—", tone: "neutral", action: "Open" } as const;
 
 export function describeStatus(status: string | undefined) {
 	return APPOINTMENT_STATUS[status as AppointmentStatus] ?? UNKNOWN;

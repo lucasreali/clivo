@@ -10,11 +10,11 @@ import { Select } from "#/shared/ui/Select";
 import { useAppointmentActions } from "../hooks/use-appointment-actions";
 
 const REASONS = [
-	"Solicitação do paciente",
-	"Indisponibilidade do profissional",
-	"Reagendamento acordado",
-	"Paciente não confirmou",
-	"Outro motivo",
+	"Patient request",
+	"Practitioner unavailable",
+	"Agreed reschedule",
+	"Patient did not confirm",
+	"Other reason",
 ];
 
 type CancelAppointmentDialogProps = {
@@ -42,26 +42,26 @@ export function CancelAppointmentDialog({
 
 	return (
 		<Modal
-			title={`Cancelar agendamento de ${appointment.customerName ?? "cliente"}?`}
+			title={`Cancel the appointment for ${appointment.customerName ?? "customer"}?`}
 			dismissal="guarded"
-			subtitle={`${appointment.serviceName ?? "Atendimento"} · ${appointment.practitionerName ?? ""} · ${shortDate(appointment.start)} às ${clockTime(appointment.start)}`}
+			subtitle={`${appointment.serviceName ?? "Encounter"} · ${appointment.practitionerName ?? ""} · ${shortDate(appointment.start)} at ${clockTime(appointment.start)}`}
 			onClose={onClose}
 			footer={
 				<>
 					<Button variant="secondary" onClick={onClose}>
-						Voltar sem cancelar
+						Go back without cancelling
 					</Button>
 					<Button
 						variant="danger"
 						onClick={confirm}
 						disabled={cancel.isPending}
 					>
-						Confirmar cancelamento
+						Confirm cancellation
 					</Button>
 				</>
 			}
 		>
-			<Field label="Motivo do cancelamento" required>
+			<Field label="Cancellation reason" required>
 				{(id) => (
 					<Select
 						id={id}
@@ -75,21 +75,21 @@ export function CancelAppointmentDialog({
 				)}
 			</Field>
 
-			<Field label="Observação (opcional)">
+			<Field label="Note (optional)">
 				{(id) => (
 					<TextArea
 						id={id}
 						value={note}
 						onChange={(event) => setNote(event.target.value)}
-						placeholder="Ex.: paciente avisou com 2 horas de antecedência."
+						placeholder="E.g.: the patient called two hours in advance."
 					/>
 				)}
 			</Field>
 
 			<Callout tone="neutral">
-				O agendamento não é excluído: fica registrado como cancelado no
-				histórico do cliente, com o motivo e quem cancelou. O horário volta a
-				ficar livre na agenda.
+				The appointment is not deleted: it stays in the customer history as
+				cancelled, with the reason and who cancelled it. The time slot becomes
+				free on the schedule again.
 			</Callout>
 
 			{cancel.isError ? (

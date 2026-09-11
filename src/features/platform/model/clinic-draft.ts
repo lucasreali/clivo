@@ -9,11 +9,11 @@ import {
 import { digitsOf } from "#/shared/format/document";
 
 export const clinicSchema = z.object({
-	name: requiredText("Informe o nome da clínica."),
+	name: requiredText("Enter the clinic name."),
 	legalName: z.string(),
 	taxId: optionalTaxId,
 	segment: z.string(),
-	managerName: requiredText("Informe o nome do gestor."),
+	managerName: requiredText("Enter the manager name."),
 	managerEmail: requiredEmail,
 	managerPassword: password(),
 });

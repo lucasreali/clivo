@@ -20,7 +20,7 @@ function columnsEditing(
 	return column.columns([
 		column.display({
 			id: "control",
-			header: "Parâmetro e valor",
+			header: "Parameter and value",
 			cell: ({ row }) => (
 				<ParameterControl
 					parameter={row.original}
@@ -30,7 +30,7 @@ function columnsEditing(
 			),
 		}),
 		column.accessor("code", {
-			header: "Código",
+			header: "Code",
 			meta: { width: "150px" },
 			cell: ({ getValue }) => (
 				<span className="block pt-1.5 font-mono text-[12px] text-muted">
@@ -39,7 +39,7 @@ function columnsEditing(
 			),
 		}),
 		column.accessor("value", {
-			header: "Valor vigente",
+			header: "Current value",
 			meta: { width: "25%" },
 			cell: ({ getValue }) => (
 				<span className="block pt-1.5 text-[12.5px] text-muted">
@@ -67,14 +67,14 @@ export function ClinicParameters({ tenantId }: { tenantId: string }) {
 		<>
 			<ClinicTopBar
 				tenantId={tenantId}
-				section="parâmetros"
-				meta={`${parameters.parameters.length} em vigor`}
+				section="parameters"
+				meta={`${parameters.parameters.length} in force`}
 				actions={
 					<Button
 						onClick={saveAll}
 						disabled={pending.length === 0 || parameters.isSaving}
 					>
-						{parameters.isSaving ? "Salvando…" : "Salvar alterações"}
+						{parameters.isSaving ? "Saving…" : "Save changes"}
 					</Button>
 				}
 			/>
@@ -82,8 +82,8 @@ export function ClinicParameters({ tenantId }: { tenantId: string }) {
 			<Page>
 				<Panel>
 					<PanelHeader
-						title="Parâmetros desta clínica"
-						hint="A regra existe em todas as clínicas; o valor é desta unidade."
+						title="Parameters of this clinic"
+						hint="The rule exists in every clinic; the value belongs to this unit."
 					/>
 
 					<DataTable
@@ -93,21 +93,21 @@ export function ClinicParameters({ tenantId }: { tenantId: string }) {
 						rows={parameters.parameters}
 						rowId={(parameter) => parameter.code ?? ""}
 						isPending={parameters.isPending}
-						pendingLabel="Carregando parâmetros…"
+						pendingLabel="Loading parameters…"
 						verticalAlign="top"
 						empty={
 							<EmptyState
-								title="Nenhum parâmetro em vigor"
-								description="Parâmetro que depende de módulo inativo não aparece aqui. Ligue o módulo correspondente para trazer as linhas de volta com os valores anteriores."
+								title="No parameter in force"
+								description="A parameter that depends on an inactive module does not show up here. Turn the matching module on to bring the rows back with their previous values."
 							/>
 						}
 					/>
 
 					<div className="border-t border-line px-4 py-3">
 						<Callout tone="neutral">
-							Parâmetro que depende de módulo inativo não é renderizado — nem
-							cinza, nem com aviso. Ligar o módulo em Módulos traz a linha de
-							volta com o valor anterior.
+							A parameter that depends on an inactive module is not rendered —
+							not greyed out, not flagged. Turning the module on under Modules
+							brings the row back with its previous value.
 						</Callout>
 					</div>
 

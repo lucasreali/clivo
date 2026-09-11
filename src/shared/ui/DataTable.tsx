@@ -81,7 +81,7 @@ export function DataTable<Row extends RowData>({
 	rowId,
 	empty,
 	isPending = false,
-	pendingLabel = "Carregando…",
+	pendingLabel = "Loading…",
 	pageSize,
 	highlighted,
 	verticalAlign = "middle",
@@ -167,7 +167,7 @@ export function DataTable<Row extends RowData>({
 
 			{pageCount > 1 ? (
 				<Pager
-					page={`Página ${table.state.pagination.pageIndex + 1} de ${pageCount}`}
+					page={`Page ${table.state.pagination.pageIndex + 1} of ${pageCount}`}
 					onPrevious={
 						table.getCanPreviousPage() ? () => table.previousPage() : undefined
 					}
@@ -231,10 +231,10 @@ function Pager({ page, onPrevious, onNext }: PagerProps) {
 			<span className="text-[12px] text-muted">{page}</span>
 			<div className="flex gap-1.5">
 				<Button variant="ghost" disabled={!onPrevious} onClick={onPrevious}>
-					Anterior
+					Previous
 				</Button>
 				<Button variant="ghost" disabled={!onNext} onClick={onNext}>
-					Próxima
+					Next
 				</Button>
 			</div>
 		</div>
