@@ -9,6 +9,7 @@ import { fieldContext, formContext } from "./context";
 import {
 	CheckboxField,
 	ComboboxField,
+	NumberField,
 	SelectField,
 	TextAreaField,
 	TextField,
@@ -20,6 +21,7 @@ export const { useAppForm, withForm } = createFormHook({
 	fieldComponents: {
 		TextField,
 		TextAreaField,
+		NumberField,
 		SelectField,
 		CheckboxField,
 		ComboboxField,

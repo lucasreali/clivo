@@ -19,6 +19,8 @@ import { Route as ConsoleEntrarRouteImport } from './routes/console/entrar'
 import { Route as AppAtendimentosEncounterIdRouteImport } from './routes/_app/atendimentos/$encounterId'
 import { Route as AppClientesIndexRouteImport } from './routes/_app/clientes/index'
 import { Route as AppClientesNovoRouteImport } from './routes/_app/clientes/novo'
+import { Route as AppEstoqueIndexRouteImport } from './routes/_app/estoque/index'
+import { Route as AppEstoqueProductIdRouteImport } from './routes/_app/estoque/$productId'
 import { Route as AppFinanceiroIndexRouteImport } from './routes/_app/financeiro/index'
 import { Route as AppFinanceiroInvoiceIdRouteImport } from './routes/_app/financeiro/$invoiceId'
 import { Route as ConsoleConsoleIndexRouteImport } from './routes/console/_console/index'
@@ -77,6 +79,16 @@ const AppClientesIndexRoute = AppClientesIndexRouteImport.update({
 const AppClientesNovoRoute = AppClientesNovoRouteImport.update({
   id: '/clientes/novo',
   path: '/clientes/novo',
+  getParentRoute: () => AppRoute,
+} as any)
+const AppEstoqueIndexRoute = AppEstoqueIndexRouteImport.update({
+  id: '/estoque/',
+  path: '/estoque/',
+  getParentRoute: () => AppRoute,
+} as any)
+const AppEstoqueProductIdRoute = AppEstoqueProductIdRouteImport.update({
+  id: '/estoque/$productId',
+  path: '/estoque/$productId',
   getParentRoute: () => AppRoute,
 } as any)
 const AppFinanceiroIndexRoute = AppFinanceiroIndexRouteImport.update({
@@ -140,10 +152,12 @@ export interface FileRoutesByFullPath {
   '/console/entrar': typeof ConsoleEntrarRoute
   '/atendimentos/$encounterId': typeof AppAtendimentosEncounterIdRoute
   '/clientes/novo': typeof AppClientesNovoRoute
+  '/estoque/$productId': typeof AppEstoqueProductIdRoute
   '/financeiro/$invoiceId': typeof AppFinanceiroInvoiceIdRoute
   '/console/administradores': typeof ConsoleConsoleAdministradoresRoute
   '/console/nova-clinica': typeof ConsoleConsoleNovaClinicaRoute
   '/clientes/': typeof AppClientesIndexRoute
+  '/estoque/': typeof AppEstoqueIndexRoute
   '/financeiro/': typeof AppFinanceiroIndexRoute
   '/console/': typeof ConsoleConsoleIndexRoute
   '/clientes/$customerId/historico': typeof AppClientesCustomerIdHistoricoRoute
@@ -159,10 +173,12 @@ export interface FileRoutesByTo {
   '/': typeof AppIndexRoute
   '/atendimentos/$encounterId': typeof AppAtendimentosEncounterIdRoute
   '/clientes/novo': typeof AppClientesNovoRoute
+  '/estoque/$productId': typeof AppEstoqueProductIdRoute
   '/financeiro/$invoiceId': typeof AppFinanceiroInvoiceIdRoute
   '/console/administradores': typeof ConsoleConsoleAdministradoresRoute
   '/console/nova-clinica': typeof ConsoleConsoleNovaClinicaRoute
   '/clientes': typeof AppClientesIndexRoute
+  '/estoque': typeof AppEstoqueIndexRoute
   '/financeiro': typeof AppFinanceiroIndexRoute
   '/console': typeof ConsoleConsoleIndexRoute
   '/clientes/$customerId/historico': typeof AppClientesCustomerIdHistoricoRoute
@@ -181,10 +197,12 @@ export interface FileRoutesById {
   '/_app/': typeof AppIndexRoute
   '/_app/atendimentos/$encounterId': typeof AppAtendimentosEncounterIdRoute
   '/_app/clientes/novo': typeof AppClientesNovoRoute
+  '/_app/estoque/$productId': typeof AppEstoqueProductIdRoute
   '/_app/financeiro/$invoiceId': typeof AppFinanceiroInvoiceIdRoute
   '/console/_console/administradores': typeof ConsoleConsoleAdministradoresRoute
   '/console/_console/nova-clinica': typeof ConsoleConsoleNovaClinicaRoute
   '/_app/clientes/': typeof AppClientesIndexRoute
+  '/_app/estoque/': typeof AppEstoqueIndexRoute
   '/_app/financeiro/': typeof AppFinanceiroIndexRoute
   '/console/_console/': typeof ConsoleConsoleIndexRoute
   '/_app/clientes/$customerId/historico': typeof AppClientesCustomerIdHistoricoRoute
@@ -203,10 +221,12 @@ export interface FileRouteTypes {
     | '/console/entrar'
     | '/atendimentos/$encounterId'
     | '/clientes/novo'
+    | '/estoque/$productId'
     | '/financeiro/$invoiceId'
     | '/console/administradores'
     | '/console/nova-clinica'
     | '/clientes/'
+    | '/estoque/'
     | '/financeiro/'
     | '/console/'
     | '/clientes/$customerId/historico'
@@ -222,10 +242,12 @@ export interface FileRouteTypes {
     | '/'
     | '/atendimentos/$encounterId'
     | '/clientes/novo'
+    | '/estoque/$productId'
     | '/financeiro/$invoiceId'
     | '/console/administradores'
     | '/console/nova-clinica'
     | '/clientes'
+    | '/estoque'
     | '/financeiro'
     | '/console'
     | '/clientes/$customerId/historico'
@@ -243,10 +265,12 @@ export interface FileRouteTypes {
     | '/_app/'
     | '/_app/atendimentos/$encounterId'
     | '/_app/clientes/novo'
+    | '/_app/estoque/$productId'
     | '/_app/financeiro/$invoiceId'
     | '/console/_console/administradores'
     | '/console/_console/nova-clinica'
     | '/_app/clientes/'
+    | '/_app/estoque/'
     | '/_app/financeiro/'
     | '/console/_console/'
     | '/_app/clientes/$customerId/historico'
@@ -334,6 +358,20 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof AppClientesNovoRouteImport
       parentRoute: typeof AppRoute
     }
+    '/_app/estoque/': {
+      id: '/_app/estoque/'
+      path: '/estoque'
+      fullPath: '/estoque/'
+      preLoaderRoute: typeof AppEstoqueIndexRouteImport
+      parentRoute: typeof AppRoute
+    }
+    '/_app/estoque/$productId': {
+      id: '/_app/estoque/$productId'
+      path: '/estoque/$productId'
+      fullPath: '/estoque/$productId'
+      preLoaderRoute: typeof AppEstoqueProductIdRouteImport
+      parentRoute: typeof AppRoute
+    }
     '/_app/financeiro/': {
       id: '/_app/financeiro/'
       path: '/financeiro'
@@ -406,8 +444,10 @@ interface AppRouteChildren {
   AppIndexRoute: typeof AppIndexRoute
   AppAtendimentosEncounterIdRoute: typeof AppAtendimentosEncounterIdRoute
   AppClientesNovoRoute: typeof AppClientesNovoRoute
+  AppEstoqueProductIdRoute: typeof AppEstoqueProductIdRoute
   AppFinanceiroInvoiceIdRoute: typeof AppFinanceiroInvoiceIdRoute
   AppClientesIndexRoute: typeof AppClientesIndexRoute
+  AppEstoqueIndexRoute: typeof AppEstoqueIndexRoute
   AppFinanceiroIndexRoute: typeof AppFinanceiroIndexRoute
   AppClientesCustomerIdHistoricoRoute: typeof AppClientesCustomerIdHistoricoRoute
   AppClientesCustomerIdIndexRoute: typeof AppClientesCustomerIdIndexRoute
@@ -419,8 +459,10 @@ const AppRouteChildren: AppRouteChildren = {
   AppIndexRoute: AppIndexRoute,
   AppAtendimentosEncounterIdRoute: AppAtendimentosEncounterIdRoute,
   AppClientesNovoRoute: AppClientesNovoRoute,
+  AppEstoqueProductIdRoute: AppEstoqueProductIdRoute,
   AppFinanceiroInvoiceIdRoute: AppFinanceiroInvoiceIdRoute,
   AppClientesIndexRoute: AppClientesIndexRoute,
+  AppEstoqueIndexRoute: AppEstoqueIndexRoute,
   AppFinanceiroIndexRoute: AppFinanceiroIndexRoute,
   AppClientesCustomerIdHistoricoRoute: AppClientesCustomerIdHistoricoRoute,
   AppClientesCustomerIdIndexRoute: AppClientesCustomerIdIndexRoute,
