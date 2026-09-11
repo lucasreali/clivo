@@ -38,6 +38,11 @@ export function NumberInput({
 		<NumberField.Root
 			{...rest}
 			value={numberOf(value)}
+			// The parser takes the decimal separator from the locale, and the default is
+			// whatever locale the browser runs in — on an en-US machine "1,5" would parse
+			// as 1 and write off the wrong amount, silently. Every other Intl in this
+			// codebase pins pt-BR; so does this one.
+			locale="pt-BR"
 			// Without a thousands mark the parser reads both "1.5" and "1,5" as one and a
 			// half, so a typist reaching for either separator gets the number they meant.
 			format={{ useGrouping: false }}
