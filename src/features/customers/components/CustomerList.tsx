@@ -5,7 +5,7 @@ import { useSearchCustomers } from "#/api/gen/hooks";
 import type { CustomerView } from "#/api/gen/types";
 import { Page } from "#/features/navigation/components/AppShell";
 import { AppTopBar } from "#/features/navigation/components/AppTopBar";
-import { shortDate } from "#/shared/format/date";
+import { shortDay } from "#/shared/format/date";
 import { nationalId, phone } from "#/shared/format/document";
 import { Avatar } from "#/shared/ui/Avatar";
 import { Badge } from "#/shared/ui/Badge";
@@ -45,7 +45,7 @@ const COLUMNS = column.columns([
 		header: "Nascimento",
 		meta: { width: "25%" },
 		cell: ({ getValue }) => (
-			<span className="text-muted">{shortDate(getValue())}</span>
+			<span className="text-muted">{shortDay(getValue())}</span>
 		),
 	}),
 	column.accessor("status", {

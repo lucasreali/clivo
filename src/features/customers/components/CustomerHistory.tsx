@@ -7,7 +7,7 @@ import {
 import { describeInvoiceStatus } from "#/features/billing/model/invoice-status";
 import { Page } from "#/features/navigation/components/AppShell";
 import { AppTopBar } from "#/features/navigation/components/AppTopBar";
-import { dateTimeLabel } from "#/shared/format/date";
+import { dateTimeLabel, shortDay } from "#/shared/format/date";
 import { money } from "#/shared/format/money";
 import { Badge } from "#/shared/ui/Badge";
 import { EmptyState } from "#/shared/ui/EmptyState";
@@ -108,7 +108,7 @@ export function CustomerHistory({ customerId }: CustomerHistoryProps) {
 											Cobrança #{invoice.id}
 										</span>
 										<span className="text-[11.5px] text-muted">
-											Vence em {invoice.dueDate ?? "—"}
+											Vence em {shortDay(invoice.dueDate)}
 										</span>
 									</span>
 									<span className="flex items-center gap-3">
