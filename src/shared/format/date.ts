@@ -52,6 +52,17 @@ export function shortDate(instant: string | undefined) {
 	return instant ? DAY.format(new Date(instant)) : "—";
 }
 
+/**
+ * A date the API sends without a time ("2026-10-15") parses as UTC midnight,
+ * which reads as the day before anywhere west of Greenwich. Noon local keeps
+ * the day the API meant, the same trick `dayLabel` uses.
+ */
+export function shortDay(day: string | undefined) {
+	// Slicing keeps the function total: handed a full instant by mistake, it
+	// formats the day rather than throwing on a doubled "T".
+	return day ? DAY.format(new Date(`${day.slice(0, 10)}T12:00:00`)) : "—";
+}
+
 export function clockTime(instant: string | undefined) {
 	return instant ? TIME.format(new Date(instant)) : "—";
 }
