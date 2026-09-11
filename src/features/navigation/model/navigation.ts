@@ -55,7 +55,6 @@ export const NAVIGATION: readonly NavigationItem[] = [
 		to: "/estoque",
 		icon: Package,
 		requires: MODULE.inventory,
-		pending: true,
 	},
 	{
 		label: "Relatórios",
