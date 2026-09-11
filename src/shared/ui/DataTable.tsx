@@ -50,6 +50,14 @@ const BODY_CELL = "border-b border-line px-4 py-3 text-left text-[13px]";
 
 const ALIGNMENT = { right: "text-right", center: "text-center" } as const;
 
+// The sort toggle is a flex button, which shrinks to its text and so ignores the
+// cell's text-align. An aligned column has to push the button itself, or the
+// header drifts away from the numbers underneath it.
+const JUSTIFY = {
+	right: "w-full justify-end",
+	center: "w-full justify-center",
+} as const;
+
 const VERTICAL = { middle: "align-middle", top: "align-top" } as const;
 
 const SORT_MARKS = { asc: CaretUp, desc: CaretDown } as const;
@@ -122,7 +130,10 @@ export function DataTable<Row extends RowData>({
 										alignmentOf(header.column.columnDef.meta),
 									)}
 								>
-									<SortToggle header={header}>
+									<SortToggle
+										header={header}
+										align={header.column.columnDef.meta?.align}
+									>
 										<table.FlexRender header={header} />
 									</SortToggle>
 								</th>
@@ -180,11 +191,13 @@ export function DataTable<Row extends RowData>({
 
 type SortToggleProps<Row extends RowData> = {
 	header: Header<typeof FEATURES, Row>;
+	align?: ColumnLayout["align"];
 	children: React.ReactNode;
 };
 
 function SortToggle<Row extends RowData>({
 	header,
+	align,
 	children,
 }: SortToggleProps<Row>) {
 	if (header.isPlaceholder) {
@@ -199,7 +212,10 @@ function SortToggle<Row extends RowData>({
 		<button
 			type="button"
 			onClick={header.column.getToggleSortingHandler()}
-			className="flex items-center gap-1 hover:text-ink"
+			className={cn(
+				"flex items-center gap-1 hover:text-ink",
+				align && JUSTIFY[align],
+			)}
 		>
 			{children}
 			<SortMark direction={header.column.getIsSorted()} />
