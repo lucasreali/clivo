@@ -8,9 +8,9 @@ import {
 	sessionStatesOf,
 	Vocabulary,
 } from "../../model/chart";
-import { ChartLegend } from "./ChartLegend";
 import { MarkingEditor } from "./MarkingEditor";
 import { MarkingList } from "./MarkingList";
+import { MarkingPalette } from "./MarkingPalette";
 import { RegionChart } from "./RegionChart";
 
 type MarkedRegionsFieldProps = {
@@ -32,6 +32,7 @@ export function MarkedRegionsField({
 	onChange,
 }: MarkedRegionsFieldProps) {
 	const [spots, setSpots] = useState<Spot[]>([]);
+	const [brush, setBrush] = useState<string>();
 
 	const vocabulary = Vocabulary.of(field.descriptor);
 	const markings = Markings.of(value);
@@ -40,8 +41,13 @@ export function MarkedRegionsField({
 	);
 	const session = sessionStatesOf(markings.list());
 	const chart = Chart.of(field.descriptor, [...recorded, ...session]);
+	const selected = markings.shared(spots);
 
 	function touch(region: string, part: string | undefined) {
+		if (brush && spots.length === 0) {
+			paint([{ region, part }], brush);
+			return;
+		}
 		setSpots(
 			spots.some((spot) => isSame(spot, region, part))
 				? spots.filter((spot) => !isSame(spot, region, part))
@@ -49,13 +55,21 @@ export function MarkedRegionsField({
 		);
 	}
 
-	function paint(code: string) {
-		onChange(
-			markings.marks(spots, code)
-				? markings.cleared(spots)
-				: markings.painting(spots, code, vocabulary.refusesParts(code)),
-		);
+	function pick(code: string) {
+		if (spots.length === 0) {
+			setBrush(brush === code ? undefined : code);
+			return;
+		}
+		paint(spots, code);
 		setSpots([]);
+	}
+
+	function paint(targets: readonly Spot[], code: string) {
+		onChange(
+			markings.marks(targets, code)
+				? markings.cleared(targets)
+				: markings.painting(targets, code, vocabulary.refusesParts(code)),
+		);
 	}
 
 	function remove() {
@@ -65,6 +79,14 @@ export function MarkedRegionsField({
 
 	return (
 		<div className="flex flex-col gap-4">
+			<MarkingPalette
+				vocabulary={vocabulary}
+				active={spots.length > 0 ? selected?.mark : brush}
+				hint={hintOf(vocabulary, spots, brush)}
+				disabled={disabled}
+				onPick={pick}
+			/>
+
 			<RegionChart
 				chart={chart}
 				vocabulary={vocabulary}
@@ -75,36 +97,40 @@ export function MarkedRegionsField({
 			{spots.length > 0 ? (
 				<MarkingEditor
 					place={placeOf(chart, spots)}
-					marking={markings.shared(spots)}
-					vocabulary={vocabulary}
+					marking={selected}
 					disabled={disabled}
-					onMark={paint}
 					onNote={(note) => onChange(markings.annotated(spots, note))}
 					onRemove={remove}
 					onClose={() => setSpots([])}
 				/>
 			) : null}
 
-			<div className="grid grid-cols-[minmax(0,1fr)_auto] gap-8">
-				<section className="flex flex-col gap-2">
-					<span className="text-[12px] font-medium text-muted">
-						Marcações desta sessão
-					</span>
-					<MarkingList
-						entries={entriesOf([...session, ...recorded])}
-						vocabulary={vocabulary}
-						onSelect={(region, part) => setSpots([{ region, part }])}
-					/>
-				</section>
-				<section className="flex flex-col gap-2">
-					<span className="text-[12px] font-medium text-muted">
-						Legenda de condições
-					</span>
-					<ChartLegend vocabulary={vocabulary} />
-				</section>
-			</div>
+			<section className="flex flex-col gap-2">
+				<span className="text-[12px] font-medium text-muted">
+					Marcações desta sessão
+				</span>
+				<MarkingList
+					entries={entriesOf([...session, ...recorded])}
+					vocabulary={vocabulary}
+					onSelect={(region, part) => setSpots([{ region, part }])}
+				/>
+			</section>
 		</div>
 	);
+}
+
+function hintOf(
+	vocabulary: Vocabulary,
+	spots: readonly Spot[],
+	brush: string | undefined,
+) {
+	if (spots.length > 0) {
+		return "Escolha a condição a aplicar no trecho selecionado.";
+	}
+	if (brush) {
+		return `${vocabulary.labelOf(brush)}: clique nos trechos do desenho para marcar, clique de novo para desmarcar.`;
+	}
+	return "Escolha uma condição e clique no desenho para marcar, ou selecione trechos antes para anotar e remover.";
 }
 
 function placeOf(chart: Chart, spots: readonly Spot[]) {
