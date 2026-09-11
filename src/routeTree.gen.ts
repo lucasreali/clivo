@@ -13,6 +13,7 @@ import { Route as AppRouteImport } from './routes/_app'
 import { Route as LoginRouteImport } from './routes/login'
 import { Route as AppIndexRouteImport } from './routes/_app/index'
 import { Route as AppAgendaRouteImport } from './routes/_app/agenda'
+import { Route as AppComissoesRouteImport } from './routes/_app/comissoes'
 import { Route as AppConfiguracoesRouteImport } from './routes/_app/configuracoes'
 import { Route as ConsoleConsoleRouteImport } from './routes/console/_console'
 import { Route as ConsoleEntrarRouteImport } from './routes/console/entrar'
@@ -48,6 +49,11 @@ const AppIndexRoute = AppIndexRouteImport.update({
 const AppAgendaRoute = AppAgendaRouteImport.update({
   id: '/agenda',
   path: '/agenda',
+  getParentRoute: () => AppRoute,
+} as any)
+const AppComissoesRoute = AppComissoesRouteImport.update({
+  id: '/comissoes',
+  path: '/comissoes',
   getParentRoute: () => AppRoute,
 } as any)
 const AppConfiguracoesRoute = AppConfiguracoesRouteImport.update({
@@ -147,6 +153,7 @@ export interface FileRoutesByFullPath {
   '/': typeof AppIndexRoute
   '/login': typeof LoginRoute
   '/agenda': typeof AppAgendaRoute
+  '/comissoes': typeof AppComissoesRoute
   '/configuracoes': typeof AppConfiguracoesRoute
   '/console': typeof ConsoleConsoleRouteWithChildren
   '/console/entrar': typeof ConsoleEntrarRoute
@@ -168,6 +175,7 @@ export interface FileRoutesByFullPath {
 export interface FileRoutesByTo {
   '/login': typeof LoginRoute
   '/agenda': typeof AppAgendaRoute
+  '/comissoes': typeof AppComissoesRoute
   '/configuracoes': typeof AppConfiguracoesRoute
   '/console/entrar': typeof ConsoleEntrarRoute
   '/': typeof AppIndexRoute
@@ -191,6 +199,7 @@ export interface FileRoutesById {
   '/_app': typeof AppRouteWithChildren
   '/login': typeof LoginRoute
   '/_app/agenda': typeof AppAgendaRoute
+  '/_app/comissoes': typeof AppComissoesRoute
   '/_app/configuracoes': typeof AppConfiguracoesRoute
   '/console/_console': typeof ConsoleConsoleRouteWithChildren
   '/console/entrar': typeof ConsoleEntrarRoute
@@ -216,6 +225,7 @@ export interface FileRouteTypes {
     | '/'
     | '/login'
     | '/agenda'
+    | '/comissoes'
     | '/configuracoes'
     | '/console'
     | '/console/entrar'
@@ -237,6 +247,7 @@ export interface FileRouteTypes {
   to:
     | '/login'
     | '/agenda'
+    | '/comissoes'
     | '/configuracoes'
     | '/console/entrar'
     | '/'
@@ -259,6 +270,7 @@ export interface FileRouteTypes {
     | '/_app'
     | '/login'
     | '/_app/agenda'
+    | '/_app/comissoes'
     | '/_app/configuracoes'
     | '/console/_console'
     | '/console/entrar'
@@ -314,6 +326,13 @@ declare module '@tanstack/react-router' {
       path: '/agenda'
       fullPath: '/agenda'
       preLoaderRoute: typeof AppAgendaRouteImport
+      parentRoute: typeof AppRoute
+    }
+    '/_app/comissoes': {
+      id: '/_app/comissoes'
+      path: '/comissoes'
+      fullPath: '/comissoes'
+      preLoaderRoute: typeof AppComissoesRouteImport
       parentRoute: typeof AppRoute
     }
     '/_app/configuracoes': {
@@ -440,6 +459,7 @@ declare module '@tanstack/react-router' {
 
 interface AppRouteChildren {
   AppAgendaRoute: typeof AppAgendaRoute
+  AppComissoesRoute: typeof AppComissoesRoute
   AppConfiguracoesRoute: typeof AppConfiguracoesRoute
   AppIndexRoute: typeof AppIndexRoute
   AppAtendimentosEncounterIdRoute: typeof AppAtendimentosEncounterIdRoute
@@ -455,6 +475,7 @@ interface AppRouteChildren {
 
 const AppRouteChildren: AppRouteChildren = {
   AppAgendaRoute: AppAgendaRoute,
+  AppComissoesRoute: AppComissoesRoute,
   AppConfiguracoesRoute: AppConfiguracoesRoute,
   AppIndexRoute: AppIndexRoute,
   AppAtendimentosEncounterIdRoute: AppAtendimentosEncounterIdRoute,
