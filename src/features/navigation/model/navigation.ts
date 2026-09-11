@@ -81,7 +81,6 @@ export const NAVIGATION: readonly NavigationItem[] = [
 		to: "/comissoes",
 		icon: Percent,
 		requires: MODULE.commissions,
-		pending: true,
 	},
 	{
 		label: "Configurações",
