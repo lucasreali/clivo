@@ -23,6 +23,7 @@ import {
 import { EncounterHeader } from "./EncounterHeader";
 import { SheetFieldControl } from "./fields/SheetFieldControl";
 import { RecordComparison } from "./RecordComparison";
+import { SuppliesPanel } from "./SuppliesPanel";
 
 type EncounterRecordProps = {
 	encounterId: string;
@@ -157,6 +158,7 @@ export function EncounterRecord({ encounterId }: EncounterRecordProps) {
 						{sections
 							.filter((section) => !isCharted(section))
 							.map(sectionPanel)}
+						<SuppliesPanel encounterId={encounterId} open={open} />
 						<SigningState encounter={encounter.data} />
 					</div>
 				</div>
