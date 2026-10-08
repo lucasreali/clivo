@@ -10,6 +10,7 @@ import { Panel, PanelHeader } from "#/shared/ui/Panel";
 import { Select } from "#/shared/ui/Select";
 import { useTeam } from "../hooks/use-team";
 import { labelOfRole, manages, Roles } from "../model/role";
+import { NewUserDrawer } from "./NewUserDrawer";
 import { UserAccess } from "./UserAccess";
 
 const column = columnsFor<UserView>();
@@ -86,6 +87,7 @@ function columnsManaging({
 
 export function TeamPanel() {
 	const [opened, setOpened] = useState<string>();
+	const [isRegistering, setRegistering] = useState(false);
 	const team = useTeam();
 
 	return (
@@ -94,6 +96,9 @@ export function TeamPanel() {
 				<PanelHeader
 					title="Equipe da clínica"
 					hint="O perfil define o que a pessoa pode fazer; os módulos definem o que ela alcança."
+					actions={
+						<Button onClick={() => setRegistering(true)}>+ Nova pessoa</Button>
+					}
 				/>
 
 				<DataTable
@@ -111,7 +116,12 @@ export function TeamPanel() {
 					empty={
 						<EmptyState
 							title="Nenhum usuário nesta clínica"
-							description="O cadastro de usuários ainda não tem tela: use a API para criar a primeira conta."
+							description="Crie o acesso de cada pessoa da equipe com o perfil que ela vai usar."
+							actions={
+								<Button onClick={() => setRegistering(true)}>
+									Adicionar pessoa
+								</Button>
+							}
 						/>
 					}
 				/>
@@ -124,6 +134,10 @@ export function TeamPanel() {
 			</Panel>
 
 			<OpenedUser user={team.users.find((user) => user.id === opened)} />
+
+			{isRegistering ? (
+				<NewUserDrawer onClose={() => setRegistering(false)} />
+			) : null}
 		</div>
 	);
 }
