@@ -7,6 +7,7 @@ import {
 	type Icon,
 	IdentificationCard,
 	ListChecks,
+	Notebook,
 	Package,
 	Percent,
 	SquaresFour,
@@ -50,6 +51,11 @@ export const NAVIGATION: readonly NavigationItem[] = [
 		label: "Serviços",
 		to: "/servicos",
 		icon: ListChecks,
+	},
+	{
+		label: "Modelos de ficha",
+		to: "/fichas",
+		icon: Notebook,
 	},
 	{
 		label: "Atendimentos",

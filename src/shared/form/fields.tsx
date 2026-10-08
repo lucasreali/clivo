@@ -149,6 +149,8 @@ export function TextAreaField({
 type SelectFieldProps = LabelledProps & {
 	options: readonly Option[];
 	placeholder?: string;
+	/** What the popup says when `options` is empty. */
+	emptyMessage?: string;
 };
 
 export function SelectField({

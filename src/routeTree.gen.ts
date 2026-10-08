@@ -25,6 +25,9 @@ import { Route as AppClientesIndexRouteImport } from './routes/_app/clientes/ind
 import { Route as AppClientesNovoRouteImport } from './routes/_app/clientes/novo'
 import { Route as AppEstoqueIndexRouteImport } from './routes/_app/estoque/index'
 import { Route as AppEstoqueProductIdRouteImport } from './routes/_app/estoque/$productId'
+import { Route as AppFichasIndexRouteImport } from './routes/_app/fichas/index'
+import { Route as AppFichasTemplateIdRouteImport } from './routes/_app/fichas/$templateId'
+import { Route as AppFichasNovoRouteImport } from './routes/_app/fichas/novo'
 import { Route as AppFinanceiroIndexRouteImport } from './routes/_app/financeiro/index'
 import { Route as AppFinanceiroInvoiceIdRouteImport } from './routes/_app/financeiro/$invoiceId'
 import { Route as ConsoleConsoleIndexRouteImport } from './routes/console/_console/index'
@@ -115,6 +118,21 @@ const AppEstoqueProductIdRoute = AppEstoqueProductIdRouteImport.update({
   path: '/estoque/$productId',
   getParentRoute: () => AppRoute,
 } as any)
+const AppFichasIndexRoute = AppFichasIndexRouteImport.update({
+  id: '/fichas/',
+  path: '/fichas/',
+  getParentRoute: () => AppRoute,
+} as any)
+const AppFichasTemplateIdRoute = AppFichasTemplateIdRouteImport.update({
+  id: '/fichas/$templateId',
+  path: '/fichas/$templateId',
+  getParentRoute: () => AppRoute,
+} as any)
+const AppFichasNovoRoute = AppFichasNovoRouteImport.update({
+  id: '/fichas/novo',
+  path: '/fichas/novo',
+  getParentRoute: () => AppRoute,
+} as any)
 const AppFinanceiroIndexRoute = AppFinanceiroIndexRouteImport.update({
   id: '/financeiro/',
   path: '/financeiro/',
@@ -181,11 +199,14 @@ export interface FileRoutesByFullPath {
   '/atendimentos/$encounterId': typeof AppAtendimentosEncounterIdRoute
   '/clientes/novo': typeof AppClientesNovoRoute
   '/estoque/$productId': typeof AppEstoqueProductIdRoute
+  '/fichas/$templateId': typeof AppFichasTemplateIdRoute
+  '/fichas/novo': typeof AppFichasNovoRoute
   '/financeiro/$invoiceId': typeof AppFinanceiroInvoiceIdRoute
   '/console/administradores': typeof ConsoleConsoleAdministradoresRoute
   '/console/nova-clinica': typeof ConsoleConsoleNovaClinicaRoute
   '/clientes/': typeof AppClientesIndexRoute
   '/estoque/': typeof AppEstoqueIndexRoute
+  '/fichas/': typeof AppFichasIndexRoute
   '/financeiro/': typeof AppFinanceiroIndexRoute
   '/console/': typeof ConsoleConsoleIndexRoute
   '/clientes/$customerId/historico': typeof AppClientesCustomerIdHistoricoRoute
@@ -206,11 +227,14 @@ export interface FileRoutesByTo {
   '/atendimentos/$encounterId': typeof AppAtendimentosEncounterIdRoute
   '/clientes/novo': typeof AppClientesNovoRoute
   '/estoque/$productId': typeof AppEstoqueProductIdRoute
+  '/fichas/$templateId': typeof AppFichasTemplateIdRoute
+  '/fichas/novo': typeof AppFichasNovoRoute
   '/financeiro/$invoiceId': typeof AppFinanceiroInvoiceIdRoute
   '/console/administradores': typeof ConsoleConsoleAdministradoresRoute
   '/console/nova-clinica': typeof ConsoleConsoleNovaClinicaRoute
   '/clientes': typeof AppClientesIndexRoute
   '/estoque': typeof AppEstoqueIndexRoute
+  '/fichas': typeof AppFichasIndexRoute
   '/financeiro': typeof AppFinanceiroIndexRoute
   '/console': typeof ConsoleConsoleIndexRoute
   '/clientes/$customerId/historico': typeof AppClientesCustomerIdHistoricoRoute
@@ -234,11 +258,14 @@ export interface FileRoutesById {
   '/_app/atendimentos/$encounterId': typeof AppAtendimentosEncounterIdRoute
   '/_app/clientes/novo': typeof AppClientesNovoRoute
   '/_app/estoque/$productId': typeof AppEstoqueProductIdRoute
+  '/_app/fichas/$templateId': typeof AppFichasTemplateIdRoute
+  '/_app/fichas/novo': typeof AppFichasNovoRoute
   '/_app/financeiro/$invoiceId': typeof AppFinanceiroInvoiceIdRoute
   '/console/_console/administradores': typeof ConsoleConsoleAdministradoresRoute
   '/console/_console/nova-clinica': typeof ConsoleConsoleNovaClinicaRoute
   '/_app/clientes/': typeof AppClientesIndexRoute
   '/_app/estoque/': typeof AppEstoqueIndexRoute
+  '/_app/fichas/': typeof AppFichasIndexRoute
   '/_app/financeiro/': typeof AppFinanceiroIndexRoute
   '/console/_console/': typeof ConsoleConsoleIndexRoute
   '/_app/clientes/$customerId/historico': typeof AppClientesCustomerIdHistoricoRoute
@@ -262,11 +289,14 @@ export interface FileRouteTypes {
     | '/atendimentos/$encounterId'
     | '/clientes/novo'
     | '/estoque/$productId'
+    | '/fichas/$templateId'
+    | '/fichas/novo'
     | '/financeiro/$invoiceId'
     | '/console/administradores'
     | '/console/nova-clinica'
     | '/clientes/'
     | '/estoque/'
+    | '/fichas/'
     | '/financeiro/'
     | '/console/'
     | '/clientes/$customerId/historico'
@@ -287,11 +317,14 @@ export interface FileRouteTypes {
     | '/atendimentos/$encounterId'
     | '/clientes/novo'
     | '/estoque/$productId'
+    | '/fichas/$templateId'
+    | '/fichas/novo'
     | '/financeiro/$invoiceId'
     | '/console/administradores'
     | '/console/nova-clinica'
     | '/clientes'
     | '/estoque'
+    | '/fichas'
     | '/financeiro'
     | '/console'
     | '/clientes/$customerId/historico'
@@ -314,11 +347,14 @@ export interface FileRouteTypes {
     | '/_app/atendimentos/$encounterId'
     | '/_app/clientes/novo'
     | '/_app/estoque/$productId'
+    | '/_app/fichas/$templateId'
+    | '/_app/fichas/novo'
     | '/_app/financeiro/$invoiceId'
     | '/console/_console/administradores'
     | '/console/_console/nova-clinica'
     | '/_app/clientes/'
     | '/_app/estoque/'
+    | '/_app/fichas/'
     | '/_app/financeiro/'
     | '/console/_console/'
     | '/_app/clientes/$customerId/historico'
@@ -448,6 +484,27 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof AppEstoqueProductIdRouteImport
       parentRoute: typeof AppRoute
     }
+    '/_app/fichas/': {
+      id: '/_app/fichas/'
+      path: '/fichas'
+      fullPath: '/fichas/'
+      preLoaderRoute: typeof AppFichasIndexRouteImport
+      parentRoute: typeof AppRoute
+    }
+    '/_app/fichas/$templateId': {
+      id: '/_app/fichas/$templateId'
+      path: '/fichas/$templateId'
+      fullPath: '/fichas/$templateId'
+      preLoaderRoute: typeof AppFichasTemplateIdRouteImport
+      parentRoute: typeof AppRoute
+    }
+    '/_app/fichas/novo': {
+      id: '/_app/fichas/novo'
+      path: '/fichas/novo'
+      fullPath: '/fichas/novo'
+      preLoaderRoute: typeof AppFichasNovoRouteImport
+      parentRoute: typeof AppRoute
+    }
     '/_app/financeiro/': {
       id: '/_app/financeiro/'
       path: '/financeiro'
@@ -525,9 +582,12 @@ interface AppRouteChildren {
   AppAtendimentosEncounterIdRoute: typeof AppAtendimentosEncounterIdRoute
   AppClientesNovoRoute: typeof AppClientesNovoRoute
   AppEstoqueProductIdRoute: typeof AppEstoqueProductIdRoute
+  AppFichasTemplateIdRoute: typeof AppFichasTemplateIdRoute
+  AppFichasNovoRoute: typeof AppFichasNovoRoute
   AppFinanceiroInvoiceIdRoute: typeof AppFinanceiroInvoiceIdRoute
   AppClientesIndexRoute: typeof AppClientesIndexRoute
   AppEstoqueIndexRoute: typeof AppEstoqueIndexRoute
+  AppFichasIndexRoute: typeof AppFichasIndexRoute
   AppFinanceiroIndexRoute: typeof AppFinanceiroIndexRoute
   AppClientesCustomerIdHistoricoRoute: typeof AppClientesCustomerIdHistoricoRoute
   AppClientesCustomerIdIndexRoute: typeof AppClientesCustomerIdIndexRoute
@@ -544,9 +604,12 @@ const AppRouteChildren: AppRouteChildren = {
   AppAtendimentosEncounterIdRoute: AppAtendimentosEncounterIdRoute,
   AppClientesNovoRoute: AppClientesNovoRoute,
   AppEstoqueProductIdRoute: AppEstoqueProductIdRoute,
+  AppFichasTemplateIdRoute: AppFichasTemplateIdRoute,
+  AppFichasNovoRoute: AppFichasNovoRoute,
   AppFinanceiroInvoiceIdRoute: AppFinanceiroInvoiceIdRoute,
   AppClientesIndexRoute: AppClientesIndexRoute,
   AppEstoqueIndexRoute: AppEstoqueIndexRoute,
+  AppFichasIndexRoute: AppFichasIndexRoute,
   AppFinanceiroIndexRoute: AppFinanceiroIndexRoute,
   AppClientesCustomerIdHistoricoRoute: AppClientesCustomerIdHistoricoRoute,
   AppClientesCustomerIdIndexRoute: AppClientesCustomerIdIndexRoute,
