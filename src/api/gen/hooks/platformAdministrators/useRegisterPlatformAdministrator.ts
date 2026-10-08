@@ -3,11 +3,11 @@
 * Do not edit manually.
 */
 
+import type { UseMutationOptions, UseMutationResult, QueryClient } from '@tanstack/react-query'
 import type { RequestConfig, ResponseErrorConfig } from '../../.kubb/client'
 import type { RegisterPlatformAdministratorOptions, RegisterPlatformAdministratorStatus201, RegisterPlatformAdministratorStatus400, RegisterPlatformAdministratorStatus401, RegisterPlatformAdministratorStatus403, RegisterPlatformAdministratorStatus404, RegisterPlatformAdministratorStatus422 } from '../../types/platformAdministrators/RegisterPlatformAdministrator'
-import type { UseMutationOptions, UseMutationResult, QueryClient } from '@tanstack/react-query'
-import { registerPlatformAdministrator } from '../../clients/platformAdministrators/registerPlatformAdministrator'
 import { mutationOptions, useMutation } from '@tanstack/react-query'
+import { registerPlatformAdministrator } from '../../clients/platformAdministrators/registerPlatformAdministrator'
 
 export const registerPlatformAdministratorMutationKey = () => [{ url: '/api/platform/administrators' }] as const
 

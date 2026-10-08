@@ -3,11 +3,11 @@
 * Do not edit manually.
 */
 
+import type { UseMutationOptions, UseMutationResult, QueryClient } from '@tanstack/react-query'
 import type { RequestConfig, ResponseErrorConfig } from '../../.kubb/client'
 import type { DispatchDueNotificationsStatus200, DispatchDueNotificationsStatus400, DispatchDueNotificationsStatus401, DispatchDueNotificationsStatus403, DispatchDueNotificationsStatus404, DispatchDueNotificationsStatus422 } from '../../types/notifications/DispatchDueNotifications'
-import type { UseMutationOptions, UseMutationResult, QueryClient } from '@tanstack/react-query'
-import { dispatchDueNotifications } from '../../clients/notifications/dispatchDueNotifications'
 import { mutationOptions, useMutation } from '@tanstack/react-query'
+import { dispatchDueNotifications } from '../../clients/notifications/dispatchDueNotifications'
 
 export const dispatchDueNotificationsMutationKey = () => [{ url: '/api/notifications/dispatch' }] as const
 

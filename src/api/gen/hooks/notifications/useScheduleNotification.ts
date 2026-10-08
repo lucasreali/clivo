@@ -3,11 +3,11 @@
 * Do not edit manually.
 */
 
+import type { UseMutationOptions, UseMutationResult, QueryClient } from '@tanstack/react-query'
 import type { RequestConfig, ResponseErrorConfig } from '../../.kubb/client'
 import type { ScheduleNotificationOptions, ScheduleNotificationStatus201, ScheduleNotificationStatus400, ScheduleNotificationStatus401, ScheduleNotificationStatus403, ScheduleNotificationStatus404, ScheduleNotificationStatus422 } from '../../types/notifications/ScheduleNotification'
-import type { UseMutationOptions, UseMutationResult, QueryClient } from '@tanstack/react-query'
-import { scheduleNotification } from '../../clients/notifications/scheduleNotification'
 import { mutationOptions, useMutation } from '@tanstack/react-query'
+import { scheduleNotification } from '../../clients/notifications/scheduleNotification'
 
 export const scheduleNotificationMutationKey = () => [{ url: '/api/notifications' }] as const
 

@@ -3,11 +3,11 @@
 * Do not edit manually.
 */
 
+import type { UseMutationOptions, UseMutationResult, QueryClient } from '@tanstack/react-query'
 import type { RequestConfig, ResponseErrorConfig } from '../../.kubb/client'
 import type { DeactivateClinicModuleOptions, DeactivateClinicModuleStatus204, DeactivateClinicModuleStatus400, DeactivateClinicModuleStatus401, DeactivateClinicModuleStatus403, DeactivateClinicModuleStatus404, DeactivateClinicModuleStatus422 } from '../../types/platformClinicModules/DeactivateClinicModule'
-import type { UseMutationOptions, UseMutationResult, QueryClient } from '@tanstack/react-query'
-import { deactivateClinicModule } from '../../clients/platformClinicModules/deactivateClinicModule'
 import { mutationOptions, useMutation } from '@tanstack/react-query'
+import { deactivateClinicModule } from '../../clients/platformClinicModules/deactivateClinicModule'
 
 export const deactivateClinicModuleMutationKey = () => [{ url: '/api/platform/tenants/:tenantId/modules/:code/activation' }] as const
 

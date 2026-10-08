@@ -3,11 +3,11 @@
 * Do not edit manually.
 */
 
+import type { QueryKey, QueryClient, UseSuspenseQueryOptions, UseSuspenseQueryResult } from '@tanstack/react-query'
 import type { RequestConfig, ResponseErrorConfig } from '../../.kubb/client'
 import type { GetPractitionerAttendanceOptions, GetPractitionerAttendanceStatus200, GetPractitionerAttendanceStatus400, GetPractitionerAttendanceStatus401, GetPractitionerAttendanceStatus403, GetPractitionerAttendanceStatus404, GetPractitionerAttendanceStatus422 } from '../../types/practitioners/GetPractitionerAttendance'
-import type { QueryKey, QueryClient, UseSuspenseQueryOptions, UseSuspenseQueryResult } from '@tanstack/react-query'
-import { getPractitionerAttendance } from '../../clients/practitioners/getPractitionerAttendance'
 import { queryOptions, useSuspenseQuery } from '@tanstack/react-query'
+import { getPractitionerAttendance } from '../../clients/practitioners/getPractitionerAttendance'
 
 export const getPractitionerAttendanceSuspenseQueryKey = ({ path, query }: Omit<GetPractitionerAttendanceOptions, 'headers'>) => [{ url: '/api/practitioners/:id/attendance', params: path }, ...(query ? [query] : [])] as const
 

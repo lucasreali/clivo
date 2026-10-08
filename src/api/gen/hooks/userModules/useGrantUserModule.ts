@@ -3,11 +3,11 @@
 * Do not edit manually.
 */
 
+import type { UseMutationOptions, UseMutationResult, QueryClient } from '@tanstack/react-query'
 import type { RequestConfig, ResponseErrorConfig } from '../../.kubb/client'
 import type { GrantUserModuleOptions, GrantUserModuleStatus200, GrantUserModuleStatus400, GrantUserModuleStatus401, GrantUserModuleStatus403, GrantUserModuleStatus404, GrantUserModuleStatus422 } from '../../types/userModules/GrantUserModule'
-import type { UseMutationOptions, UseMutationResult, QueryClient } from '@tanstack/react-query'
-import { grantUserModule } from '../../clients/userModules/grantUserModule'
 import { mutationOptions, useMutation } from '@tanstack/react-query'
+import { grantUserModule } from '../../clients/userModules/grantUserModule'
 
 export const grantUserModuleMutationKey = () => [{ url: '/api/users/:userId/modules/:code' }] as const
 

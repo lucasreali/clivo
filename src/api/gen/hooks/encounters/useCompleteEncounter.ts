@@ -3,11 +3,11 @@
 * Do not edit manually.
 */
 
+import type { UseMutationOptions, UseMutationResult, QueryClient } from '@tanstack/react-query'
 import type { RequestConfig, ResponseErrorConfig } from '../../.kubb/client'
 import type { CompleteEncounterOptions, CompleteEncounterStatus200, CompleteEncounterStatus400, CompleteEncounterStatus401, CompleteEncounterStatus403, CompleteEncounterStatus404, CompleteEncounterStatus422 } from '../../types/encounters/CompleteEncounter'
-import type { UseMutationOptions, UseMutationResult, QueryClient } from '@tanstack/react-query'
-import { completeEncounter } from '../../clients/encounters/completeEncounter'
 import { mutationOptions, useMutation } from '@tanstack/react-query'
+import { completeEncounter } from '../../clients/encounters/completeEncounter'
 
 export const completeEncounterMutationKey = () => [{ url: '/api/encounters/:id/completion' }] as const
 

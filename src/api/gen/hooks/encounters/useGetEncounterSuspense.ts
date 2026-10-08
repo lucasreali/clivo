@@ -3,11 +3,11 @@
 * Do not edit manually.
 */
 
+import type { QueryKey, QueryClient, UseSuspenseQueryOptions, UseSuspenseQueryResult } from '@tanstack/react-query'
 import type { RequestConfig, ResponseErrorConfig } from '../../.kubb/client'
 import type { GetEncounterOptions, GetEncounterStatus200, GetEncounterStatus400, GetEncounterStatus401, GetEncounterStatus403, GetEncounterStatus404, GetEncounterStatus422 } from '../../types/encounters/GetEncounter'
-import type { QueryKey, QueryClient, UseSuspenseQueryOptions, UseSuspenseQueryResult } from '@tanstack/react-query'
-import { getEncounter } from '../../clients/encounters/getEncounter'
 import { queryOptions, useSuspenseQuery } from '@tanstack/react-query'
+import { getEncounter } from '../../clients/encounters/getEncounter'
 
 export const getEncounterSuspenseQueryKey = ({ path }: Omit<GetEncounterOptions, 'headers'>) => [{ url: '/api/encounters/:id', params: path }] as const
 

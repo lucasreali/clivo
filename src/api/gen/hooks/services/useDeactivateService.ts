@@ -3,11 +3,11 @@
 * Do not edit manually.
 */
 
+import type { UseMutationOptions, UseMutationResult, QueryClient } from '@tanstack/react-query'
 import type { RequestConfig, ResponseErrorConfig } from '../../.kubb/client'
 import type { DeactivateServiceOptions, DeactivateServiceStatus200, DeactivateServiceStatus400, DeactivateServiceStatus401, DeactivateServiceStatus403, DeactivateServiceStatus404, DeactivateServiceStatus422 } from '../../types/services/DeactivateService'
-import type { UseMutationOptions, UseMutationResult, QueryClient } from '@tanstack/react-query'
-import { deactivateService } from '../../clients/services/deactivateService'
 import { mutationOptions, useMutation } from '@tanstack/react-query'
+import { deactivateService } from '../../clients/services/deactivateService'
 
 export const deactivateServiceMutationKey = () => [{ url: '/api/services/:id/deactivation' }] as const
 

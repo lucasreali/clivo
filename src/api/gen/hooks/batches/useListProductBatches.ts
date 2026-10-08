@@ -3,11 +3,11 @@
 * Do not edit manually.
 */
 
+import type { QueryKey, QueryClient, QueryObserverOptions, UseQueryResult } from '@tanstack/react-query'
 import type { RequestConfig, ResponseErrorConfig } from '../../.kubb/client'
 import type { ListProductBatchesOptions, ListProductBatchesStatus200, ListProductBatchesStatus400, ListProductBatchesStatus401, ListProductBatchesStatus403, ListProductBatchesStatus404, ListProductBatchesStatus422 } from '../../types/batches/ListProductBatches'
-import type { QueryKey, QueryClient, QueryObserverOptions, UseQueryResult } from '@tanstack/react-query'
-import { listProductBatches } from '../../clients/batches/listProductBatches'
 import { queryOptions, useQuery } from '@tanstack/react-query'
+import { listProductBatches } from '../../clients/batches/listProductBatches'
 
 export const listProductBatchesQueryKey = ({ path }: Omit<ListProductBatchesOptions, 'headers'>) => [{ url: '/api/products/:productId/batches', params: path }] as const
 

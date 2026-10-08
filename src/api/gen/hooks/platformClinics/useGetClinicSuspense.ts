@@ -3,11 +3,11 @@
 * Do not edit manually.
 */
 
+import type { QueryKey, QueryClient, UseSuspenseQueryOptions, UseSuspenseQueryResult } from '@tanstack/react-query'
 import type { RequestConfig, ResponseErrorConfig } from '../../.kubb/client'
 import type { GetClinicOptions, GetClinicStatus200, GetClinicStatus400, GetClinicStatus401, GetClinicStatus403, GetClinicStatus404, GetClinicStatus422 } from '../../types/platformClinics/GetClinic'
-import type { QueryKey, QueryClient, UseSuspenseQueryOptions, UseSuspenseQueryResult } from '@tanstack/react-query'
-import { getClinic } from '../../clients/platformClinics/getClinic'
 import { queryOptions, useSuspenseQuery } from '@tanstack/react-query'
+import { getClinic } from '../../clients/platformClinics/getClinic'
 
 export const getClinicSuspenseQueryKey = ({ path }: Omit<GetClinicOptions, 'headers'>) => [{ url: '/api/platform/tenants/:tenantId', params: path }] as const
 

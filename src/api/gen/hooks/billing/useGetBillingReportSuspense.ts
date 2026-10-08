@@ -3,11 +3,11 @@
 * Do not edit manually.
 */
 
+import type { QueryKey, QueryClient, UseSuspenseQueryOptions, UseSuspenseQueryResult } from '@tanstack/react-query'
 import type { RequestConfig, ResponseErrorConfig } from '../../.kubb/client'
 import type { GetBillingReportOptions, GetBillingReportStatus200, GetBillingReportStatus400, GetBillingReportStatus401, GetBillingReportStatus403, GetBillingReportStatus404, GetBillingReportStatus422 } from '../../types/billing/GetBillingReport'
-import type { QueryKey, QueryClient, UseSuspenseQueryOptions, UseSuspenseQueryResult } from '@tanstack/react-query'
-import { getBillingReport } from '../../clients/billing/getBillingReport'
 import { queryOptions, useSuspenseQuery } from '@tanstack/react-query'
+import { getBillingReport } from '../../clients/billing/getBillingReport'
 
 export const getBillingReportSuspenseQueryKey = ({ query }: Omit<GetBillingReportOptions, 'headers'>) => [{ url: '/api/invoices/report' }, ...(query ? [query] : [])] as const
 

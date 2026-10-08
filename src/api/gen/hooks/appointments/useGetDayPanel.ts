@@ -3,11 +3,11 @@
 * Do not edit manually.
 */
 
+import type { QueryKey, QueryClient, QueryObserverOptions, UseQueryResult } from '@tanstack/react-query'
 import type { RequestConfig, ResponseErrorConfig } from '../../.kubb/client'
 import type { GetDayPanelOptions, GetDayPanelStatus200, GetDayPanelStatus400, GetDayPanelStatus401, GetDayPanelStatus403, GetDayPanelStatus404, GetDayPanelStatus422 } from '../../types/appointments/GetDayPanel'
-import type { QueryKey, QueryClient, QueryObserverOptions, UseQueryResult } from '@tanstack/react-query'
-import { getDayPanel } from '../../clients/appointments/getDayPanel'
 import { queryOptions, useQuery } from '@tanstack/react-query'
+import { getDayPanel } from '../../clients/appointments/getDayPanel'
 
 export const getDayPanelQueryKey = ({ query }: Omit<GetDayPanelOptions, 'headers'>) => [{ url: '/api/appointments' }, ...(query ? [query] : [])] as const
 

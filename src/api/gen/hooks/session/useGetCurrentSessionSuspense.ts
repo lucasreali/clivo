@@ -3,11 +3,11 @@
 * Do not edit manually.
 */
 
+import type { QueryKey, QueryClient, UseSuspenseQueryOptions, UseSuspenseQueryResult } from '@tanstack/react-query'
 import type { RequestConfig, ResponseErrorConfig } from '../../.kubb/client'
 import type { GetCurrentSessionStatus200, GetCurrentSessionStatus400, GetCurrentSessionStatus401, GetCurrentSessionStatus403, GetCurrentSessionStatus404, GetCurrentSessionStatus422 } from '../../types/session/GetCurrentSession'
-import type { QueryKey, QueryClient, UseSuspenseQueryOptions, UseSuspenseQueryResult } from '@tanstack/react-query'
-import { getCurrentSession } from '../../clients/session/getCurrentSession'
 import { queryOptions, useSuspenseQuery } from '@tanstack/react-query'
+import { getCurrentSession } from '../../clients/session/getCurrentSession'
 
 export const getCurrentSessionSuspenseQueryKey = () => [{ url: '/api/session' }] as const
 

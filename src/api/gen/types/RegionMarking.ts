@@ -10,9 +10,9 @@
 export type RegionMarking = {
     /**
      * @description Code of the condition, from ComponentDescriptor.vocabulary[].code.
-     * @type string | undefined
+     * @type string
     */
-    mark?: string;
+    mark: string;
     /**
      * @description Free note the practitioner wrote about this marking.
      * @maxLength 400
@@ -26,7 +26,7 @@ export type RegionMarking = {
     parts?: string[];
     /**
      * @description Code of the marked region, from ComponentDescriptor.regions[].code.
-     * @type string | undefined
+     * @type string
     */
-    region?: string;
+    region: string;
 };

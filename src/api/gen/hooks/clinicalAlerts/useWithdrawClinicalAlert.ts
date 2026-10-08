@@ -3,11 +3,11 @@
 * Do not edit manually.
 */
 
+import type { UseMutationOptions, UseMutationResult, QueryClient } from '@tanstack/react-query'
 import type { RequestConfig, ResponseErrorConfig } from '../../.kubb/client'
 import type { WithdrawClinicalAlertOptions, WithdrawClinicalAlertStatus204, WithdrawClinicalAlertStatus400, WithdrawClinicalAlertStatus401, WithdrawClinicalAlertStatus403, WithdrawClinicalAlertStatus404, WithdrawClinicalAlertStatus422 } from '../../types/clinicalAlerts/WithdrawClinicalAlert'
-import type { UseMutationOptions, UseMutationResult, QueryClient } from '@tanstack/react-query'
-import { withdrawClinicalAlert } from '../../clients/clinicalAlerts/withdrawClinicalAlert'
 import { mutationOptions, useMutation } from '@tanstack/react-query'
+import { withdrawClinicalAlert } from '../../clients/clinicalAlerts/withdrawClinicalAlert'
 
 export const withdrawClinicalAlertMutationKey = () => [{ url: '/api/clinical-alerts/:id' }] as const
 

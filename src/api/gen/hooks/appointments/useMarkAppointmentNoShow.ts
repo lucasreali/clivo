@@ -3,11 +3,11 @@
 * Do not edit manually.
 */
 
+import type { UseMutationOptions, UseMutationResult, QueryClient } from '@tanstack/react-query'
 import type { RequestConfig, ResponseErrorConfig } from '../../.kubb/client'
 import type { MarkAppointmentNoShowOptions, MarkAppointmentNoShowStatus200, MarkAppointmentNoShowStatus400, MarkAppointmentNoShowStatus401, MarkAppointmentNoShowStatus403, MarkAppointmentNoShowStatus404, MarkAppointmentNoShowStatus422 } from '../../types/appointments/MarkAppointmentNoShow'
-import type { UseMutationOptions, UseMutationResult, QueryClient } from '@tanstack/react-query'
-import { markAppointmentNoShow } from '../../clients/appointments/markAppointmentNoShow'
 import { mutationOptions, useMutation } from '@tanstack/react-query'
+import { markAppointmentNoShow } from '../../clients/appointments/markAppointmentNoShow'
 
 export const markAppointmentNoShowMutationKey = () => [{ url: '/api/appointments/:id/absence' }] as const
 

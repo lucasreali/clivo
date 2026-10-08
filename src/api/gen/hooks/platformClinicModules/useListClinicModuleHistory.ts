@@ -3,11 +3,11 @@
 * Do not edit manually.
 */
 
+import type { QueryKey, QueryClient, QueryObserverOptions, UseQueryResult } from '@tanstack/react-query'
 import type { RequestConfig, ResponseErrorConfig } from '../../.kubb/client'
 import type { ListClinicModuleHistoryStatus200, ListClinicModuleHistoryStatus400, ListClinicModuleHistoryStatus401, ListClinicModuleHistoryStatus403, ListClinicModuleHistoryStatus404, ListClinicModuleHistoryStatus422 } from '../../types/platformClinicModules/ListClinicModuleHistory'
-import type { QueryKey, QueryClient, QueryObserverOptions, UseQueryResult } from '@tanstack/react-query'
-import { listClinicModuleHistory } from '../../clients/platformClinicModules/listClinicModuleHistory'
 import { queryOptions, useQuery } from '@tanstack/react-query'
+import { listClinicModuleHistory } from '../../clients/platformClinicModules/listClinicModuleHistory'
 
 export const listClinicModuleHistoryQueryKey = () => [{ url: '/api/platform/tenants/:tenantId/modules/history' }] as const
 

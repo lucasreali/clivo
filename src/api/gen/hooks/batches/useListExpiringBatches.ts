@@ -3,11 +3,11 @@
 * Do not edit manually.
 */
 
+import type { QueryKey, QueryClient, QueryObserverOptions, UseQueryResult } from '@tanstack/react-query'
 import type { RequestConfig, ResponseErrorConfig } from '../../.kubb/client'
 import type { ListExpiringBatchesOptions, ListExpiringBatchesStatus200, ListExpiringBatchesStatus400, ListExpiringBatchesStatus401, ListExpiringBatchesStatus403, ListExpiringBatchesStatus404, ListExpiringBatchesStatus422 } from '../../types/batches/ListExpiringBatches'
-import type { QueryKey, QueryClient, QueryObserverOptions, UseQueryResult } from '@tanstack/react-query'
-import { listExpiringBatches } from '../../clients/batches/listExpiringBatches'
 import { queryOptions, useQuery } from '@tanstack/react-query'
+import { listExpiringBatches } from '../../clients/batches/listExpiringBatches'
 
 export const listExpiringBatchesQueryKey = ({ query }: Omit<ListExpiringBatchesOptions, 'headers'> = {}) => [{ url: '/api/batches/expiring' }, ...(query ? [query] : [])] as const
 

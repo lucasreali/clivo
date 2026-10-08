@@ -3,11 +3,11 @@
 * Do not edit manually.
 */
 
+import type { UseMutationOptions, UseMutationResult, QueryClient } from '@tanstack/react-query'
 import type { RequestConfig, ResponseErrorConfig } from '../../.kubb/client'
 import type { CloseCommissionPeriodOptions, CloseCommissionPeriodStatus200, CloseCommissionPeriodStatus400, CloseCommissionPeriodStatus401, CloseCommissionPeriodStatus403, CloseCommissionPeriodStatus404, CloseCommissionPeriodStatus422 } from '../../types/commissions/CloseCommissionPeriod'
-import type { UseMutationOptions, UseMutationResult, QueryClient } from '@tanstack/react-query'
-import { closeCommissionPeriod } from '../../clients/commissions/closeCommissionPeriod'
 import { mutationOptions, useMutation } from '@tanstack/react-query'
+import { closeCommissionPeriod } from '../../clients/commissions/closeCommissionPeriod'
 
 export const closeCommissionPeriodMutationKey = () => [{ url: '/api/commissions/closing' }] as const
 

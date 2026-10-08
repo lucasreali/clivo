@@ -3,11 +3,11 @@
 * Do not edit manually.
 */
 
+import type { QueryKey, QueryClient, UseSuspenseQueryOptions, UseSuspenseQueryResult } from '@tanstack/react-query'
 import type { RequestConfig, ResponseErrorConfig } from '../../.kubb/client'
 import type { ListCustomerAttachmentsOptions, ListCustomerAttachmentsStatus200, ListCustomerAttachmentsStatus400, ListCustomerAttachmentsStatus401, ListCustomerAttachmentsStatus403, ListCustomerAttachmentsStatus404, ListCustomerAttachmentsStatus422 } from '../../types/attachments/ListCustomerAttachments'
-import type { QueryKey, QueryClient, UseSuspenseQueryOptions, UseSuspenseQueryResult } from '@tanstack/react-query'
-import { listCustomerAttachments } from '../../clients/attachments/listCustomerAttachments'
 import { queryOptions, useSuspenseQuery } from '@tanstack/react-query'
+import { listCustomerAttachments } from '../../clients/attachments/listCustomerAttachments'
 
 export const listCustomerAttachmentsSuspenseQueryKey = ({ query }: Omit<ListCustomerAttachmentsOptions, 'headers'>) => [{ url: '/api/attachments' }, ...(query ? [query] : [])] as const
 

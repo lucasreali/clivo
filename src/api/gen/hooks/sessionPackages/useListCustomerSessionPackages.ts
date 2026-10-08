@@ -3,11 +3,11 @@
 * Do not edit manually.
 */
 
+import type { QueryKey, QueryClient, QueryObserverOptions, UseQueryResult } from '@tanstack/react-query'
 import type { RequestConfig, ResponseErrorConfig } from '../../.kubb/client'
 import type { ListCustomerSessionPackagesOptions, ListCustomerSessionPackagesStatus200, ListCustomerSessionPackagesStatus400, ListCustomerSessionPackagesStatus401, ListCustomerSessionPackagesStatus403, ListCustomerSessionPackagesStatus404, ListCustomerSessionPackagesStatus422 } from '../../types/sessionPackages/ListCustomerSessionPackages'
-import type { QueryKey, QueryClient, QueryObserverOptions, UseQueryResult } from '@tanstack/react-query'
-import { listCustomerSessionPackages } from '../../clients/sessionPackages/listCustomerSessionPackages'
 import { queryOptions, useQuery } from '@tanstack/react-query'
+import { listCustomerSessionPackages } from '../../clients/sessionPackages/listCustomerSessionPackages'
 
 export const listCustomerSessionPackagesQueryKey = ({ query }: Omit<ListCustomerSessionPackagesOptions, 'headers'>) => [{ url: '/api/session-packages' }, ...(query ? [query] : [])] as const
 

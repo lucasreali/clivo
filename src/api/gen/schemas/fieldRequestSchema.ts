@@ -12,7 +12,7 @@ export const fieldRequestSchema = z.object({
   label: z.string().min(0).max(80),
   options: z.array(z.string()).optional(),
   required: z.boolean().optional(),
-  requiresModule: z.string().min(0).max(4).optional(),
+  requiresModule: z.string().min(0).max(20).optional(),
   validation: z.object({}).catchall(z.unknown()).optional(),
 })
 

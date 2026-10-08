@@ -3,11 +3,11 @@
 * Do not edit manually.
 */
 
+import type { QueryKey, QueryClient, UseSuspenseQueryOptions, UseSuspenseQueryResult } from '@tanstack/react-query'
 import type { RequestConfig, ResponseErrorConfig } from '../../.kubb/client'
 import type { SearchCustomersOptions, SearchCustomersStatus200, SearchCustomersStatus400, SearchCustomersStatus401, SearchCustomersStatus403, SearchCustomersStatus404, SearchCustomersStatus422 } from '../../types/customers/SearchCustomers'
-import type { QueryKey, QueryClient, UseSuspenseQueryOptions, UseSuspenseQueryResult } from '@tanstack/react-query'
-import { searchCustomers } from '../../clients/customers/searchCustomers'
 import { queryOptions, useSuspenseQuery } from '@tanstack/react-query'
+import { searchCustomers } from '../../clients/customers/searchCustomers'
 
 export const searchCustomersSuspenseQueryKey = ({ query }: Omit<SearchCustomersOptions, 'headers'> = {}) => [{ url: '/api/customers' }, ...(query ? [query] : [])] as const
 

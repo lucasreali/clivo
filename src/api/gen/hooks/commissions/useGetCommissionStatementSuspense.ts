@@ -3,11 +3,11 @@
 * Do not edit manually.
 */
 
+import type { QueryKey, QueryClient, UseSuspenseQueryOptions, UseSuspenseQueryResult } from '@tanstack/react-query'
 import type { RequestConfig, ResponseErrorConfig } from '../../.kubb/client'
 import type { GetCommissionStatementOptions, GetCommissionStatementStatus200, GetCommissionStatementStatus400, GetCommissionStatementStatus401, GetCommissionStatementStatus403, GetCommissionStatementStatus404, GetCommissionStatementStatus422 } from '../../types/commissions/GetCommissionStatement'
-import type { QueryKey, QueryClient, UseSuspenseQueryOptions, UseSuspenseQueryResult } from '@tanstack/react-query'
-import { getCommissionStatement } from '../../clients/commissions/getCommissionStatement'
 import { queryOptions, useSuspenseQuery } from '@tanstack/react-query'
+import { getCommissionStatement } from '../../clients/commissions/getCommissionStatement'
 
 export const getCommissionStatementSuspenseQueryKey = ({ query }: Omit<GetCommissionStatementOptions, 'headers'>) => [{ url: '/api/commissions' }, ...(query ? [query] : [])] as const
 

@@ -3,11 +3,11 @@
 * Do not edit manually.
 */
 
+import type { QueryKey, QueryClient, QueryObserverOptions, UseQueryResult } from '@tanstack/react-query'
 import type { RequestConfig, ResponseErrorConfig } from '../../.kubb/client'
 import type { GetRecordTemplateOptions, GetRecordTemplateStatus200, GetRecordTemplateStatus400, GetRecordTemplateStatus401, GetRecordTemplateStatus403, GetRecordTemplateStatus404, GetRecordTemplateStatus422 } from '../../types/recordTemplates/GetRecordTemplate'
-import type { QueryKey, QueryClient, QueryObserverOptions, UseQueryResult } from '@tanstack/react-query'
-import { getRecordTemplate } from '../../clients/recordTemplates/getRecordTemplate'
 import { queryOptions, useQuery } from '@tanstack/react-query'
+import { getRecordTemplate } from '../../clients/recordTemplates/getRecordTemplate'
 
 export const getRecordTemplateQueryKey = ({ path }: Omit<GetRecordTemplateOptions, 'headers'>) => [{ url: '/api/record-templates/:id', params: path }] as const
 

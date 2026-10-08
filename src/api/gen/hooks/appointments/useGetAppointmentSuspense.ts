@@ -3,11 +3,11 @@
 * Do not edit manually.
 */
 
+import type { QueryKey, QueryClient, UseSuspenseQueryOptions, UseSuspenseQueryResult } from '@tanstack/react-query'
 import type { RequestConfig, ResponseErrorConfig } from '../../.kubb/client'
 import type { GetAppointmentOptions, GetAppointmentStatus200, GetAppointmentStatus400, GetAppointmentStatus401, GetAppointmentStatus403, GetAppointmentStatus404, GetAppointmentStatus422 } from '../../types/appointments/GetAppointment'
-import type { QueryKey, QueryClient, UseSuspenseQueryOptions, UseSuspenseQueryResult } from '@tanstack/react-query'
-import { getAppointment } from '../../clients/appointments/getAppointment'
 import { queryOptions, useSuspenseQuery } from '@tanstack/react-query'
+import { getAppointment } from '../../clients/appointments/getAppointment'
 
 export const getAppointmentSuspenseQueryKey = ({ path }: Omit<GetAppointmentOptions, 'headers'>) => [{ url: '/api/appointments/:id', params: path }] as const
 

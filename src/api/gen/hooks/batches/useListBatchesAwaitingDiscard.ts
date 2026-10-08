@@ -3,11 +3,11 @@
 * Do not edit manually.
 */
 
+import type { QueryKey, QueryClient, QueryObserverOptions, UseQueryResult } from '@tanstack/react-query'
 import type { RequestConfig, ResponseErrorConfig } from '../../.kubb/client'
 import type { ListBatchesAwaitingDiscardStatus200, ListBatchesAwaitingDiscardStatus400, ListBatchesAwaitingDiscardStatus401, ListBatchesAwaitingDiscardStatus403, ListBatchesAwaitingDiscardStatus404, ListBatchesAwaitingDiscardStatus422 } from '../../types/batches/ListBatchesAwaitingDiscard'
-import type { QueryKey, QueryClient, QueryObserverOptions, UseQueryResult } from '@tanstack/react-query'
-import { listBatchesAwaitingDiscard } from '../../clients/batches/listBatchesAwaitingDiscard'
 import { queryOptions, useQuery } from '@tanstack/react-query'
+import { listBatchesAwaitingDiscard } from '../../clients/batches/listBatchesAwaitingDiscard'
 
 export const listBatchesAwaitingDiscardQueryKey = () => [{ url: '/api/batches/awaiting-discard' }] as const
 

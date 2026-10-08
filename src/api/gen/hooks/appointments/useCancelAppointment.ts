@@ -3,11 +3,11 @@
 * Do not edit manually.
 */
 
+import type { UseMutationOptions, UseMutationResult, QueryClient } from '@tanstack/react-query'
 import type { RequestConfig, ResponseErrorConfig } from '../../.kubb/client'
 import type { CancelAppointmentOptions, CancelAppointmentStatus200, CancelAppointmentStatus400, CancelAppointmentStatus401, CancelAppointmentStatus403, CancelAppointmentStatus404, CancelAppointmentStatus422 } from '../../types/appointments/CancelAppointment'
-import type { UseMutationOptions, UseMutationResult, QueryClient } from '@tanstack/react-query'
-import { cancelAppointment } from '../../clients/appointments/cancelAppointment'
 import { mutationOptions, useMutation } from '@tanstack/react-query'
+import { cancelAppointment } from '../../clients/appointments/cancelAppointment'
 
 export const cancelAppointmentMutationKey = () => [{ url: '/api/appointments/:id/cancellation' }] as const
 

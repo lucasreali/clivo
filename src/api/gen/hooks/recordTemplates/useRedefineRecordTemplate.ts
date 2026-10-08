@@ -3,11 +3,11 @@
 * Do not edit manually.
 */
 
+import type { UseMutationOptions, UseMutationResult, QueryClient } from '@tanstack/react-query'
 import type { RequestConfig, ResponseErrorConfig } from '../../.kubb/client'
 import type { RedefineRecordTemplateOptions, RedefineRecordTemplateStatus200, RedefineRecordTemplateStatus400, RedefineRecordTemplateStatus401, RedefineRecordTemplateStatus403, RedefineRecordTemplateStatus404, RedefineRecordTemplateStatus422 } from '../../types/recordTemplates/RedefineRecordTemplate'
-import type { UseMutationOptions, UseMutationResult, QueryClient } from '@tanstack/react-query'
-import { redefineRecordTemplate } from '../../clients/recordTemplates/redefineRecordTemplate'
 import { mutationOptions, useMutation } from '@tanstack/react-query'
+import { redefineRecordTemplate } from '../../clients/recordTemplates/redefineRecordTemplate'
 
 export const redefineRecordTemplateMutationKey = () => [{ url: '/api/record-templates/:id' }] as const
 

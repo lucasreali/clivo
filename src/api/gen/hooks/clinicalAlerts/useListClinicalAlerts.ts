@@ -3,11 +3,11 @@
 * Do not edit manually.
 */
 
+import type { QueryKey, QueryClient, QueryObserverOptions, UseQueryResult } from '@tanstack/react-query'
 import type { RequestConfig, ResponseErrorConfig } from '../../.kubb/client'
 import type { ListClinicalAlertsOptions, ListClinicalAlertsStatus200, ListClinicalAlertsStatus400, ListClinicalAlertsStatus401, ListClinicalAlertsStatus403, ListClinicalAlertsStatus404, ListClinicalAlertsStatus422 } from '../../types/clinicalAlerts/ListClinicalAlerts'
-import type { QueryKey, QueryClient, QueryObserverOptions, UseQueryResult } from '@tanstack/react-query'
-import { listClinicalAlerts } from '../../clients/clinicalAlerts/listClinicalAlerts'
 import { queryOptions, useQuery } from '@tanstack/react-query'
+import { listClinicalAlerts } from '../../clients/clinicalAlerts/listClinicalAlerts'
 
 export const listClinicalAlertsQueryKey = ({ query }: Omit<ListClinicalAlertsOptions, 'headers'>) => [{ url: '/api/clinical-alerts' }, ...(query ? [query] : [])] as const
 

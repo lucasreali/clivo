@@ -3,11 +3,11 @@
 * Do not edit manually.
 */
 
+import type { UseMutationOptions, UseMutationResult, QueryClient } from '@tanstack/react-query'
 import type { RequestConfig, ResponseErrorConfig } from '../../.kubb/client'
 import type { ProvisionClinicOptions, ProvisionClinicStatus201, ProvisionClinicStatus400, ProvisionClinicStatus401, ProvisionClinicStatus403, ProvisionClinicStatus404, ProvisionClinicStatus422 } from '../../types/platformClinics/ProvisionClinic'
-import type { UseMutationOptions, UseMutationResult, QueryClient } from '@tanstack/react-query'
-import { provisionClinic } from '../../clients/platformClinics/provisionClinic'
 import { mutationOptions, useMutation } from '@tanstack/react-query'
+import { provisionClinic } from '../../clients/platformClinics/provisionClinic'
 
 export const provisionClinicMutationKey = () => [{ url: '/api/platform/tenants' }] as const
 

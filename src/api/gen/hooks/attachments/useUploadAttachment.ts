@@ -3,11 +3,11 @@
 * Do not edit manually.
 */
 
+import type { UseMutationOptions, UseMutationResult, QueryClient } from '@tanstack/react-query'
 import type { RequestConfig, ResponseErrorConfig } from '../../.kubb/client'
 import type { UploadAttachmentOptions, UploadAttachmentStatus201, UploadAttachmentStatus400, UploadAttachmentStatus401, UploadAttachmentStatus403, UploadAttachmentStatus404, UploadAttachmentStatus422 } from '../../types/attachments/UploadAttachment'
-import type { UseMutationOptions, UseMutationResult, QueryClient } from '@tanstack/react-query'
-import { uploadAttachment } from '../../clients/attachments/uploadAttachment'
 import { mutationOptions, useMutation } from '@tanstack/react-query'
+import { uploadAttachment } from '../../clients/attachments/uploadAttachment'
 
 export const uploadAttachmentMutationKey = () => [{ url: '/api/attachments' }] as const
 

@@ -3,11 +3,11 @@
 * Do not edit manually.
 */
 
+import type { UseMutationOptions, UseMutationResult, QueryClient } from '@tanstack/react-query'
 import type { RequestConfig, ResponseErrorConfig } from '../../.kubb/client'
 import type { RevokeUserModuleOptions, RevokeUserModuleStatus200, RevokeUserModuleStatus400, RevokeUserModuleStatus401, RevokeUserModuleStatus403, RevokeUserModuleStatus404, RevokeUserModuleStatus422 } from '../../types/userModules/RevokeUserModule'
-import type { UseMutationOptions, UseMutationResult, QueryClient } from '@tanstack/react-query'
-import { revokeUserModule } from '../../clients/userModules/revokeUserModule'
 import { mutationOptions, useMutation } from '@tanstack/react-query'
+import { revokeUserModule } from '../../clients/userModules/revokeUserModule'
 
 export const revokeUserModuleMutationKey = () => [{ url: '/api/users/:userId/modules/:code' }] as const
 

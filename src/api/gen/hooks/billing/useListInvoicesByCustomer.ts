@@ -3,11 +3,11 @@
 * Do not edit manually.
 */
 
+import type { QueryKey, QueryClient, QueryObserverOptions, UseQueryResult } from '@tanstack/react-query'
 import type { RequestConfig, ResponseErrorConfig } from '../../.kubb/client'
 import type { ListInvoicesByCustomerOptions, ListInvoicesByCustomerStatus200, ListInvoicesByCustomerStatus400, ListInvoicesByCustomerStatus401, ListInvoicesByCustomerStatus403, ListInvoicesByCustomerStatus404, ListInvoicesByCustomerStatus422 } from '../../types/billing/ListInvoicesByCustomer'
-import type { QueryKey, QueryClient, QueryObserverOptions, UseQueryResult } from '@tanstack/react-query'
-import { listInvoicesByCustomer } from '../../clients/billing/listInvoicesByCustomer'
 import { queryOptions, useQuery } from '@tanstack/react-query'
+import { listInvoicesByCustomer } from '../../clients/billing/listInvoicesByCustomer'
 
 export const listInvoicesByCustomerQueryKey = ({ query }: Omit<ListInvoicesByCustomerOptions, 'headers'>) => [{ url: '/api/invoices' }, ...(query ? [query] : [])] as const
 

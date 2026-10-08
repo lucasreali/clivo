@@ -3,11 +3,11 @@
 * Do not edit manually.
 */
 
+import type { QueryKey, QueryClient, QueryObserverOptions, UseQueryResult } from '@tanstack/react-query'
 import type { RequestConfig, ResponseErrorConfig } from '../../.kubb/client'
 import type { ListStockMovementsOptions, ListStockMovementsStatus200, ListStockMovementsStatus400, ListStockMovementsStatus401, ListStockMovementsStatus403, ListStockMovementsStatus404, ListStockMovementsStatus422 } from '../../types/inventory/ListStockMovements'
-import type { QueryKey, QueryClient, QueryObserverOptions, UseQueryResult } from '@tanstack/react-query'
-import { listStockMovements } from '../../clients/inventory/listStockMovements'
 import { queryOptions, useQuery } from '@tanstack/react-query'
+import { listStockMovements } from '../../clients/inventory/listStockMovements'
 
 export const listStockMovementsQueryKey = ({ path }: Omit<ListStockMovementsOptions, 'headers'>) => [{ url: '/api/products/:id/movements', params: path }] as const
 

@@ -3,11 +3,11 @@
 * Do not edit manually.
 */
 
+import type { UseMutationOptions, UseMutationResult, QueryClient } from '@tanstack/react-query'
 import type { RequestConfig, ResponseErrorConfig } from '../../.kubb/client'
 import type { SignOutStatus204, SignOutStatus400, SignOutStatus401, SignOutStatus403, SignOutStatus404, SignOutStatus422 } from '../../types/session/SignOut'
-import type { UseMutationOptions, UseMutationResult, QueryClient } from '@tanstack/react-query'
-import { signOut } from '../../clients/session/signOut'
 import { mutationOptions, useMutation } from '@tanstack/react-query'
+import { signOut } from '../../clients/session/signOut'
 
 export const signOutMutationKey = () => [{ url: '/api/session' }] as const
 

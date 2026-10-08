@@ -3,11 +3,11 @@
 * Do not edit manually.
 */
 
+import type { QueryKey, QueryClient, UseSuspenseQueryOptions, UseSuspenseQueryResult } from '@tanstack/react-query'
 import type { RequestConfig, ResponseErrorConfig } from '../../.kubb/client'
 import type { ListCommissionRatesStatus200, ListCommissionRatesStatus400, ListCommissionRatesStatus401, ListCommissionRatesStatus403, ListCommissionRatesStatus404, ListCommissionRatesStatus422 } from '../../types/commissions/ListCommissionRates'
-import type { QueryKey, QueryClient, UseSuspenseQueryOptions, UseSuspenseQueryResult } from '@tanstack/react-query'
-import { listCommissionRates } from '../../clients/commissions/listCommissionRates'
 import { queryOptions, useSuspenseQuery } from '@tanstack/react-query'
+import { listCommissionRates } from '../../clients/commissions/listCommissionRates'
 
 export const listCommissionRatesSuspenseQueryKey = () => [{ url: '/api/commission-rates' }] as const
 

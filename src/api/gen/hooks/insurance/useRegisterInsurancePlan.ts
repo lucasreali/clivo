@@ -3,11 +3,11 @@
 * Do not edit manually.
 */
 
+import type { UseMutationOptions, UseMutationResult, QueryClient } from '@tanstack/react-query'
 import type { RequestConfig, ResponseErrorConfig } from '../../.kubb/client'
 import type { RegisterInsurancePlanOptions, RegisterInsurancePlanStatus201, RegisterInsurancePlanStatus400, RegisterInsurancePlanStatus401, RegisterInsurancePlanStatus403, RegisterInsurancePlanStatus404, RegisterInsurancePlanStatus422 } from '../../types/insurance/RegisterInsurancePlan'
-import type { UseMutationOptions, UseMutationResult, QueryClient } from '@tanstack/react-query'
-import { registerInsurancePlan } from '../../clients/insurance/registerInsurancePlan'
 import { mutationOptions, useMutation } from '@tanstack/react-query'
+import { registerInsurancePlan } from '../../clients/insurance/registerInsurancePlan'
 
 export const registerInsurancePlanMutationKey = () => [{ url: '/api/insurance-plans' }] as const
 

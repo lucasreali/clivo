@@ -3,11 +3,11 @@
 * Do not edit manually.
 */
 
+import type { UseMutationOptions, UseMutationResult, QueryClient } from '@tanstack/react-query'
 import type { RequestConfig, ResponseErrorConfig } from '../../.kubb/client'
 import type { CancelSessionPackageOptions, CancelSessionPackageStatus200, CancelSessionPackageStatus400, CancelSessionPackageStatus401, CancelSessionPackageStatus403, CancelSessionPackageStatus404, CancelSessionPackageStatus422 } from '../../types/sessionPackages/CancelSessionPackage'
-import type { UseMutationOptions, UseMutationResult, QueryClient } from '@tanstack/react-query'
-import { cancelSessionPackage } from '../../clients/sessionPackages/cancelSessionPackage'
 import { mutationOptions, useMutation } from '@tanstack/react-query'
+import { cancelSessionPackage } from '../../clients/sessionPackages/cancelSessionPackage'
 
 export const cancelSessionPackageMutationKey = () => [{ url: '/api/session-packages/:id/cancellation' }] as const
 

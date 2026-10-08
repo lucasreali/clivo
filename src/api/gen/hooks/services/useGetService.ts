@@ -3,11 +3,11 @@
 * Do not edit manually.
 */
 
+import type { QueryKey, QueryClient, QueryObserverOptions, UseQueryResult } from '@tanstack/react-query'
 import type { RequestConfig, ResponseErrorConfig } from '../../.kubb/client'
 import type { GetServiceOptions, GetServiceStatus200, GetServiceStatus400, GetServiceStatus401, GetServiceStatus403, GetServiceStatus404, GetServiceStatus422 } from '../../types/services/GetService'
-import type { QueryKey, QueryClient, QueryObserverOptions, UseQueryResult } from '@tanstack/react-query'
-import { getService } from '../../clients/services/getService'
 import { queryOptions, useQuery } from '@tanstack/react-query'
+import { getService } from '../../clients/services/getService'
 
 export const getServiceQueryKey = ({ path }: Omit<GetServiceOptions, 'headers'>) => [{ url: '/api/services/:id', params: path }] as const
 

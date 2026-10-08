@@ -3,11 +3,11 @@
 * Do not edit manually.
 */
 
+import type { UseMutationOptions, UseMutationResult, QueryClient } from '@tanstack/react-query'
 import type { RequestConfig, ResponseErrorConfig } from '../../.kubb/client'
 import type { RegisterScheduleBlockOptions, RegisterScheduleBlockStatus201, RegisterScheduleBlockStatus400, RegisterScheduleBlockStatus401, RegisterScheduleBlockStatus403, RegisterScheduleBlockStatus404, RegisterScheduleBlockStatus422 } from '../../types/scheduleBlocks/RegisterScheduleBlock'
-import type { UseMutationOptions, UseMutationResult, QueryClient } from '@tanstack/react-query'
-import { registerScheduleBlock } from '../../clients/scheduleBlocks/registerScheduleBlock'
 import { mutationOptions, useMutation } from '@tanstack/react-query'
+import { registerScheduleBlock } from '../../clients/scheduleBlocks/registerScheduleBlock'
 
 export const registerScheduleBlockMutationKey = () => [{ url: '/api/schedule-blocks' }] as const
 

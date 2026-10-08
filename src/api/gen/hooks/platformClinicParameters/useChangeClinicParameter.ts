@@ -3,11 +3,11 @@
 * Do not edit manually.
 */
 
+import type { UseMutationOptions, UseMutationResult, QueryClient } from '@tanstack/react-query'
 import type { RequestConfig, ResponseErrorConfig } from '../../.kubb/client'
 import type { ChangeClinicParameterOptions, ChangeClinicParameterStatus204, ChangeClinicParameterStatus400, ChangeClinicParameterStatus401, ChangeClinicParameterStatus403, ChangeClinicParameterStatus404, ChangeClinicParameterStatus422 } from '../../types/platformClinicParameters/ChangeClinicParameter'
-import type { UseMutationOptions, UseMutationResult, QueryClient } from '@tanstack/react-query'
-import { changeClinicParameter } from '../../clients/platformClinicParameters/changeClinicParameter'
 import { mutationOptions, useMutation } from '@tanstack/react-query'
+import { changeClinicParameter } from '../../clients/platformClinicParameters/changeClinicParameter'
 
 export const changeClinicParameterMutationKey = () => [{ url: '/api/platform/tenants/:tenantId/parameters/:code' }] as const
 

@@ -3,11 +3,11 @@
 * Do not edit manually.
 */
 
+import type { UseMutationOptions, UseMutationResult, QueryClient } from '@tanstack/react-query'
 import type { RequestConfig, ResponseErrorConfig } from '../../.kubb/client'
 import type { SellSessionPackageOptions, SellSessionPackageStatus201, SellSessionPackageStatus400, SellSessionPackageStatus401, SellSessionPackageStatus403, SellSessionPackageStatus404, SellSessionPackageStatus422 } from '../../types/sessionPackages/SellSessionPackage'
-import type { UseMutationOptions, UseMutationResult, QueryClient } from '@tanstack/react-query'
-import { sellSessionPackage } from '../../clients/sessionPackages/sellSessionPackage'
 import { mutationOptions, useMutation } from '@tanstack/react-query'
+import { sellSessionPackage } from '../../clients/sessionPackages/sellSessionPackage'
 
 export const sellSessionPackageMutationKey = () => [{ url: '/api/session-packages' }] as const
 

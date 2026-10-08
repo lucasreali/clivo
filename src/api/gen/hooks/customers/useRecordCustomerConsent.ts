@@ -3,11 +3,11 @@
 * Do not edit manually.
 */
 
+import type { UseMutationOptions, UseMutationResult, QueryClient } from '@tanstack/react-query'
 import type { RequestConfig, ResponseErrorConfig } from '../../.kubb/client'
 import type { RecordCustomerConsentOptions, RecordCustomerConsentStatus201, RecordCustomerConsentStatus400, RecordCustomerConsentStatus401, RecordCustomerConsentStatus403, RecordCustomerConsentStatus404, RecordCustomerConsentStatus422 } from '../../types/customers/RecordCustomerConsent'
-import type { UseMutationOptions, UseMutationResult, QueryClient } from '@tanstack/react-query'
-import { recordCustomerConsent } from '../../clients/customers/recordCustomerConsent'
 import { mutationOptions, useMutation } from '@tanstack/react-query'
+import { recordCustomerConsent } from '../../clients/customers/recordCustomerConsent'
 
 export const recordCustomerConsentMutationKey = () => [{ url: '/api/customers/:id/consents' }] as const
 

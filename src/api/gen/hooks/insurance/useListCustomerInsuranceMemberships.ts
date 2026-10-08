@@ -3,11 +3,11 @@
 * Do not edit manually.
 */
 
+import type { QueryKey, QueryClient, QueryObserverOptions, UseQueryResult } from '@tanstack/react-query'
 import type { RequestConfig, ResponseErrorConfig } from '../../.kubb/client'
 import type { ListCustomerInsuranceMembershipsOptions, ListCustomerInsuranceMembershipsStatus200, ListCustomerInsuranceMembershipsStatus400, ListCustomerInsuranceMembershipsStatus401, ListCustomerInsuranceMembershipsStatus403, ListCustomerInsuranceMembershipsStatus404, ListCustomerInsuranceMembershipsStatus422 } from '../../types/insurance/ListCustomerInsuranceMemberships'
-import type { QueryKey, QueryClient, QueryObserverOptions, UseQueryResult } from '@tanstack/react-query'
-import { listCustomerInsuranceMemberships } from '../../clients/insurance/listCustomerInsuranceMemberships'
 import { queryOptions, useQuery } from '@tanstack/react-query'
+import { listCustomerInsuranceMemberships } from '../../clients/insurance/listCustomerInsuranceMemberships'
 
 export const listCustomerInsuranceMembershipsQueryKey = ({ query }: Omit<ListCustomerInsuranceMembershipsOptions, 'headers'>) => [{ url: '/api/insurance-memberships' }, ...(query ? [query] : [])] as const
 

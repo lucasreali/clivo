@@ -3,11 +3,11 @@
 * Do not edit manually.
 */
 
+import type { QueryKey, QueryClient, QueryObserverOptions, UseQueryResult } from '@tanstack/react-query'
 import type { RequestConfig, ResponseErrorConfig } from '../../.kubb/client'
 import type { GetInvoiceOptions, GetInvoiceStatus200, GetInvoiceStatus400, GetInvoiceStatus401, GetInvoiceStatus403, GetInvoiceStatus404, GetInvoiceStatus422 } from '../../types/billing/GetInvoice'
-import type { QueryKey, QueryClient, QueryObserverOptions, UseQueryResult } from '@tanstack/react-query'
-import { getInvoice } from '../../clients/billing/getInvoice'
 import { queryOptions, useQuery } from '@tanstack/react-query'
+import { getInvoice } from '../../clients/billing/getInvoice'
 
 export const getInvoiceQueryKey = ({ path }: Omit<GetInvoiceOptions, 'headers'>) => [{ url: '/api/invoices/:id', params: path }] as const
 

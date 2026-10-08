@@ -3,11 +3,11 @@
 * Do not edit manually.
 */
 
+import type { QueryKey, QueryClient, QueryObserverOptions, UseQueryResult } from '@tanstack/react-query'
 import type { RequestConfig, ResponseErrorConfig } from '../../.kubb/client'
 import type { ListInsurancePlansStatus200, ListInsurancePlansStatus400, ListInsurancePlansStatus401, ListInsurancePlansStatus403, ListInsurancePlansStatus404, ListInsurancePlansStatus422 } from '../../types/insurance/ListInsurancePlans'
-import type { QueryKey, QueryClient, QueryObserverOptions, UseQueryResult } from '@tanstack/react-query'
-import { listInsurancePlans } from '../../clients/insurance/listInsurancePlans'
 import { queryOptions, useQuery } from '@tanstack/react-query'
+import { listInsurancePlans } from '../../clients/insurance/listInsurancePlans'
 
 export const listInsurancePlansQueryKey = () => [{ url: '/api/insurance-plans' }] as const
 

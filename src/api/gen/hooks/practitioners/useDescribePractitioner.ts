@@ -3,11 +3,11 @@
 * Do not edit manually.
 */
 
+import type { UseMutationOptions, UseMutationResult, QueryClient } from '@tanstack/react-query'
 import type { RequestConfig, ResponseErrorConfig } from '../../.kubb/client'
 import type { DescribePractitionerOptions, DescribePractitionerStatus200, DescribePractitionerStatus400, DescribePractitionerStatus401, DescribePractitionerStatus403, DescribePractitionerStatus404, DescribePractitionerStatus422 } from '../../types/practitioners/DescribePractitioner'
-import type { UseMutationOptions, UseMutationResult, QueryClient } from '@tanstack/react-query'
-import { describePractitioner } from '../../clients/practitioners/describePractitioner'
 import { mutationOptions, useMutation } from '@tanstack/react-query'
+import { describePractitioner } from '../../clients/practitioners/describePractitioner'
 
 export const describePractitionerMutationKey = () => [{ url: '/api/practitioners/:id' }] as const
 

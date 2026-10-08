@@ -3,11 +3,11 @@
 * Do not edit manually.
 */
 
+import type { QueryKey, QueryClient, QueryObserverOptions, UseQueryResult } from '@tanstack/react-query'
 import type { RequestConfig, ResponseErrorConfig } from '../../.kubb/client'
 import type { ListParametersStatus200, ListParametersStatus400, ListParametersStatus401, ListParametersStatus403, ListParametersStatus404, ListParametersStatus422 } from '../../types/parameters/ListParameters'
-import type { QueryKey, QueryClient, QueryObserverOptions, UseQueryResult } from '@tanstack/react-query'
-import { listParameters } from '../../clients/parameters/listParameters'
 import { queryOptions, useQuery } from '@tanstack/react-query'
+import { listParameters } from '../../clients/parameters/listParameters'
 
 export const listParametersQueryKey = () => [{ url: '/api/parameters' }] as const
 

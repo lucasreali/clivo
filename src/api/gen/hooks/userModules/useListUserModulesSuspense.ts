@@ -3,11 +3,11 @@
 * Do not edit manually.
 */
 
+import type { QueryKey, QueryClient, UseSuspenseQueryOptions, UseSuspenseQueryResult } from '@tanstack/react-query'
 import type { RequestConfig, ResponseErrorConfig } from '../../.kubb/client'
 import type { ListUserModulesOptions, ListUserModulesStatus200, ListUserModulesStatus400, ListUserModulesStatus401, ListUserModulesStatus403, ListUserModulesStatus404, ListUserModulesStatus422 } from '../../types/userModules/ListUserModules'
-import type { QueryKey, QueryClient, UseSuspenseQueryOptions, UseSuspenseQueryResult } from '@tanstack/react-query'
-import { listUserModules } from '../../clients/userModules/listUserModules'
 import { queryOptions, useSuspenseQuery } from '@tanstack/react-query'
+import { listUserModules } from '../../clients/userModules/listUserModules'
 
 export const listUserModulesSuspenseQueryKey = ({ path }: Omit<ListUserModulesOptions, 'headers'>) => [{ url: '/api/users/:userId/modules', params: path }] as const
 

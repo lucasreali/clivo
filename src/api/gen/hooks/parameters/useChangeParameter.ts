@@ -3,11 +3,11 @@
 * Do not edit manually.
 */
 
+import type { UseMutationOptions, UseMutationResult, QueryClient } from '@tanstack/react-query'
 import type { RequestConfig, ResponseErrorConfig } from '../../.kubb/client'
 import type { ChangeParameterOptions, ChangeParameterStatus204, ChangeParameterStatus400, ChangeParameterStatus401, ChangeParameterStatus403, ChangeParameterStatus404, ChangeParameterStatus422 } from '../../types/parameters/ChangeParameter'
-import type { UseMutationOptions, UseMutationResult, QueryClient } from '@tanstack/react-query'
-import { changeParameter } from '../../clients/parameters/changeParameter'
 import { mutationOptions, useMutation } from '@tanstack/react-query'
+import { changeParameter } from '../../clients/parameters/changeParameter'
 
 export const changeParameterMutationKey = () => [{ url: '/api/parameters/:code' }] as const
 

@@ -3,11 +3,11 @@
 * Do not edit manually.
 */
 
+import type { QueryKey, QueryClient, UseSuspenseQueryOptions, UseSuspenseQueryResult } from '@tanstack/react-query'
 import type { RequestConfig, ResponseErrorConfig } from '../../.kubb/client'
 import type { GetCustomerOptions, GetCustomerStatus200, GetCustomerStatus400, GetCustomerStatus401, GetCustomerStatus403, GetCustomerStatus404, GetCustomerStatus422 } from '../../types/customers/GetCustomer'
-import type { QueryKey, QueryClient, UseSuspenseQueryOptions, UseSuspenseQueryResult } from '@tanstack/react-query'
-import { getCustomer } from '../../clients/customers/getCustomer'
 import { queryOptions, useSuspenseQuery } from '@tanstack/react-query'
+import { getCustomer } from '../../clients/customers/getCustomer'
 
 export const getCustomerSuspenseQueryKey = ({ path }: Omit<GetCustomerOptions, 'headers'>) => [{ url: '/api/customers/:id', params: path }] as const
 

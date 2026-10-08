@@ -3,11 +3,11 @@
 * Do not edit manually.
 */
 
+import type { QueryKey, QueryClient, UseSuspenseQueryOptions, UseSuspenseQueryResult } from '@tanstack/react-query'
 import type { RequestConfig, ResponseErrorConfig } from '../../.kubb/client'
 import type { GetAuditTrailOptions, GetAuditTrailStatus200, GetAuditTrailStatus400, GetAuditTrailStatus401, GetAuditTrailStatus403, GetAuditTrailStatus404, GetAuditTrailStatus422 } from '../../types/auditTrail/GetAuditTrail'
-import type { QueryKey, QueryClient, UseSuspenseQueryOptions, UseSuspenseQueryResult } from '@tanstack/react-query'
-import { getAuditTrail } from '../../clients/auditTrail/getAuditTrail'
 import { queryOptions, useSuspenseQuery } from '@tanstack/react-query'
+import { getAuditTrail } from '../../clients/auditTrail/getAuditTrail'
 
 export const getAuditTrailSuspenseQueryKey = ({ query }: Omit<GetAuditTrailOptions, 'headers'>) => [{ url: '/api/audit-trail' }, ...(query ? [query] : [])] as const
 

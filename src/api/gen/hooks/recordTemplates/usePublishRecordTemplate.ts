@@ -3,11 +3,11 @@
 * Do not edit manually.
 */
 
+import type { UseMutationOptions, UseMutationResult, QueryClient } from '@tanstack/react-query'
 import type { RequestConfig, ResponseErrorConfig } from '../../.kubb/client'
 import type { PublishRecordTemplateOptions, PublishRecordTemplateStatus200, PublishRecordTemplateStatus400, PublishRecordTemplateStatus401, PublishRecordTemplateStatus403, PublishRecordTemplateStatus404, PublishRecordTemplateStatus422 } from '../../types/recordTemplates/PublishRecordTemplate'
-import type { UseMutationOptions, UseMutationResult, QueryClient } from '@tanstack/react-query'
-import { publishRecordTemplate } from '../../clients/recordTemplates/publishRecordTemplate'
 import { mutationOptions, useMutation } from '@tanstack/react-query'
+import { publishRecordTemplate } from '../../clients/recordTemplates/publishRecordTemplate'
 
 export const publishRecordTemplateMutationKey = () => [{ url: '/api/record-templates/:id/publication' }] as const
 

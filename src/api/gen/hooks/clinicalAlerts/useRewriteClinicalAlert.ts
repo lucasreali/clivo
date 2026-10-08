@@ -3,11 +3,11 @@
 * Do not edit manually.
 */
 
+import type { UseMutationOptions, UseMutationResult, QueryClient } from '@tanstack/react-query'
 import type { RequestConfig, ResponseErrorConfig } from '../../.kubb/client'
 import type { RewriteClinicalAlertOptions, RewriteClinicalAlertStatus200, RewriteClinicalAlertStatus400, RewriteClinicalAlertStatus401, RewriteClinicalAlertStatus403, RewriteClinicalAlertStatus404, RewriteClinicalAlertStatus422 } from '../../types/clinicalAlerts/RewriteClinicalAlert'
-import type { UseMutationOptions, UseMutationResult, QueryClient } from '@tanstack/react-query'
-import { rewriteClinicalAlert } from '../../clients/clinicalAlerts/rewriteClinicalAlert'
 import { mutationOptions, useMutation } from '@tanstack/react-query'
+import { rewriteClinicalAlert } from '../../clients/clinicalAlerts/rewriteClinicalAlert'
 
 export const rewriteClinicalAlertMutationKey = () => [{ url: '/api/clinical-alerts/:id' }] as const
 

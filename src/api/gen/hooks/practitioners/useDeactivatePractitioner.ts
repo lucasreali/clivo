@@ -3,11 +3,11 @@
 * Do not edit manually.
 */
 
+import type { UseMutationOptions, UseMutationResult, QueryClient } from '@tanstack/react-query'
 import type { RequestConfig, ResponseErrorConfig } from '../../.kubb/client'
 import type { DeactivatePractitionerOptions, DeactivatePractitionerStatus200, DeactivatePractitionerStatus400, DeactivatePractitionerStatus401, DeactivatePractitionerStatus403, DeactivatePractitionerStatus404, DeactivatePractitionerStatus422 } from '../../types/practitioners/DeactivatePractitioner'
-import type { UseMutationOptions, UseMutationResult, QueryClient } from '@tanstack/react-query'
-import { deactivatePractitioner } from '../../clients/practitioners/deactivatePractitioner'
 import { mutationOptions, useMutation } from '@tanstack/react-query'
+import { deactivatePractitioner } from '../../clients/practitioners/deactivatePractitioner'
 
 export const deactivatePractitionerMutationKey = () => [{ url: '/api/practitioners/:id/deactivation' }] as const
 

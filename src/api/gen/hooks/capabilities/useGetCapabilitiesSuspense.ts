@@ -3,11 +3,11 @@
 * Do not edit manually.
 */
 
+import type { QueryKey, QueryClient, UseSuspenseQueryOptions, UseSuspenseQueryResult } from '@tanstack/react-query'
 import type { RequestConfig, ResponseErrorConfig } from '../../.kubb/client'
 import type { GetCapabilitiesStatus200, GetCapabilitiesStatus400, GetCapabilitiesStatus401, GetCapabilitiesStatus403, GetCapabilitiesStatus404, GetCapabilitiesStatus422 } from '../../types/capabilities/GetCapabilities'
-import type { QueryKey, QueryClient, UseSuspenseQueryOptions, UseSuspenseQueryResult } from '@tanstack/react-query'
-import { getCapabilities } from '../../clients/capabilities/getCapabilities'
 import { queryOptions, useSuspenseQuery } from '@tanstack/react-query'
+import { getCapabilities } from '../../clients/capabilities/getCapabilities'
 
 export const getCapabilitiesSuspenseQueryKey = () => [{ url: '/api/capabilities' }] as const
 

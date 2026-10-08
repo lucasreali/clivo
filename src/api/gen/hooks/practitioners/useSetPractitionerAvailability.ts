@@ -3,11 +3,11 @@
 * Do not edit manually.
 */
 
+import type { UseMutationOptions, UseMutationResult, QueryClient } from '@tanstack/react-query'
 import type { RequestConfig, ResponseErrorConfig } from '../../.kubb/client'
 import type { SetPractitionerAvailabilityOptions, SetPractitionerAvailabilityStatus200, SetPractitionerAvailabilityStatus400, SetPractitionerAvailabilityStatus401, SetPractitionerAvailabilityStatus403, SetPractitionerAvailabilityStatus404, SetPractitionerAvailabilityStatus422 } from '../../types/practitioners/SetPractitionerAvailability'
-import type { UseMutationOptions, UseMutationResult, QueryClient } from '@tanstack/react-query'
-import { setPractitionerAvailability } from '../../clients/practitioners/setPractitionerAvailability'
 import { mutationOptions, useMutation } from '@tanstack/react-query'
+import { setPractitionerAvailability } from '../../clients/practitioners/setPractitionerAvailability'
 
 export const setPractitionerAvailabilityMutationKey = () => [{ url: '/api/practitioners/:id/availability' }] as const
 

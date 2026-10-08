@@ -3,11 +3,11 @@
 * Do not edit manually.
 */
 
+import type { UseMutationOptions, UseMutationResult, QueryClient } from '@tanstack/react-query'
 import type { RequestConfig, ResponseErrorConfig } from '../../.kubb/client'
 import type { DeactivateProductOptions, DeactivateProductStatus200, DeactivateProductStatus400, DeactivateProductStatus401, DeactivateProductStatus403, DeactivateProductStatus404, DeactivateProductStatus422 } from '../../types/inventory/DeactivateProduct'
-import type { UseMutationOptions, UseMutationResult, QueryClient } from '@tanstack/react-query'
-import { deactivateProduct } from '../../clients/inventory/deactivateProduct'
 import { mutationOptions, useMutation } from '@tanstack/react-query'
+import { deactivateProduct } from '../../clients/inventory/deactivateProduct'
 
 export const deactivateProductMutationKey = () => [{ url: '/api/products/:id/deactivation' }] as const
 

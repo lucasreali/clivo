@@ -3,11 +3,11 @@
 * Do not edit manually.
 */
 
+import type { QueryKey, QueryClient, QueryObserverOptions, UseQueryResult } from '@tanstack/react-query'
 import type { RequestConfig, ResponseErrorConfig } from '../../.kubb/client'
 import type { ListScheduleBlocksOptions, ListScheduleBlocksStatus200, ListScheduleBlocksStatus400, ListScheduleBlocksStatus401, ListScheduleBlocksStatus403, ListScheduleBlocksStatus404, ListScheduleBlocksStatus422 } from '../../types/scheduleBlocks/ListScheduleBlocks'
-import type { QueryKey, QueryClient, QueryObserverOptions, UseQueryResult } from '@tanstack/react-query'
-import { listScheduleBlocks } from '../../clients/scheduleBlocks/listScheduleBlocks'
 import { queryOptions, useQuery } from '@tanstack/react-query'
+import { listScheduleBlocks } from '../../clients/scheduleBlocks/listScheduleBlocks'
 
 export const listScheduleBlocksQueryKey = ({ query }: Omit<ListScheduleBlocksOptions, 'headers'>) => [{ url: '/api/schedule-blocks' }, ...(query ? [query] : [])] as const
 

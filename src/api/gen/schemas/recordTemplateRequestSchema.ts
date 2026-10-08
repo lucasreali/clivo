@@ -8,7 +8,7 @@ import { sectionRequestSchema } from './sectionRequestSchema'
 
 export const recordTemplateRequestSchema = z.object({
   name: z.string().min(0).max(120),
-  requiresModule: z.string().min(0).max(4).optional(),
+  requiresModule: z.string().min(0).max(20).optional(),
   sections: z.array(sectionRequestSchema),
 })
 

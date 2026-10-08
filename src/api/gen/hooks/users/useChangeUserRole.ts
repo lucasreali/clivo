@@ -3,11 +3,11 @@
 * Do not edit manually.
 */
 
+import type { UseMutationOptions, UseMutationResult, QueryClient } from '@tanstack/react-query'
 import type { RequestConfig, ResponseErrorConfig } from '../../.kubb/client'
 import type { ChangeUserRoleOptions, ChangeUserRoleStatus200, ChangeUserRoleStatus400, ChangeUserRoleStatus401, ChangeUserRoleStatus403, ChangeUserRoleStatus404, ChangeUserRoleStatus422 } from '../../types/users/ChangeUserRole'
-import type { UseMutationOptions, UseMutationResult, QueryClient } from '@tanstack/react-query'
-import { changeUserRole } from '../../clients/users/changeUserRole'
 import { mutationOptions, useMutation } from '@tanstack/react-query'
+import { changeUserRole } from '../../clients/users/changeUserRole'
 
 export const changeUserRoleMutationKey = () => [{ url: '/api/users/:userId/role' }] as const
 

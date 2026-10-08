@@ -32,7 +32,7 @@ export type FieldRequest = {
     required?: boolean;
     /**
      * @minLength 0
-     * @maxLength 4
+     * @maxLength 20
      * @type string | undefined
     */
     requiresModule?: string;

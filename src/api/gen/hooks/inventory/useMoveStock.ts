@@ -3,11 +3,11 @@
 * Do not edit manually.
 */
 
+import type { UseMutationOptions, UseMutationResult, QueryClient } from '@tanstack/react-query'
 import type { RequestConfig, ResponseErrorConfig } from '../../.kubb/client'
 import type { MoveStockOptions, MoveStockStatus201, MoveStockStatus400, MoveStockStatus401, MoveStockStatus403, MoveStockStatus404, MoveStockStatus422 } from '../../types/inventory/MoveStock'
-import type { UseMutationOptions, UseMutationResult, QueryClient } from '@tanstack/react-query'
-import { moveStock } from '../../clients/inventory/moveStock'
 import { mutationOptions, useMutation } from '@tanstack/react-query'
+import { moveStock } from '../../clients/inventory/moveStock'
 
 export const moveStockMutationKey = () => [{ url: '/api/products/:id/movements' }] as const
 

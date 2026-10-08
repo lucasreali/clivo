@@ -3,11 +3,11 @@
 * Do not edit manually.
 */
 
+import type { QueryKey, QueryClient, UseSuspenseQueryOptions, UseSuspenseQueryResult } from '@tanstack/react-query'
 import type { RequestConfig, ResponseErrorConfig } from '../../.kubb/client'
 import type { ListCustomerEncountersOptions, ListCustomerEncountersStatus200, ListCustomerEncountersStatus400, ListCustomerEncountersStatus401, ListCustomerEncountersStatus403, ListCustomerEncountersStatus404, ListCustomerEncountersStatus422 } from '../../types/encounters/ListCustomerEncounters'
-import type { QueryKey, QueryClient, UseSuspenseQueryOptions, UseSuspenseQueryResult } from '@tanstack/react-query'
-import { listCustomerEncounters } from '../../clients/encounters/listCustomerEncounters'
 import { queryOptions, useSuspenseQuery } from '@tanstack/react-query'
+import { listCustomerEncounters } from '../../clients/encounters/listCustomerEncounters'
 
 export const listCustomerEncountersSuspenseQueryKey = ({ query }: Omit<ListCustomerEncountersOptions, 'headers'>) => [{ url: '/api/encounters' }, ...(query ? [query] : [])] as const
 

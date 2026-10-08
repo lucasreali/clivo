@@ -3,11 +3,11 @@
 * Do not edit manually.
 */
 
+import type { UseMutationOptions, UseMutationResult, QueryClient } from '@tanstack/react-query'
 import type { RequestConfig, ResponseErrorConfig } from '../../.kubb/client'
 import type { ApplyInvoiceDiscountOptions, ApplyInvoiceDiscountStatus200, ApplyInvoiceDiscountStatus400, ApplyInvoiceDiscountStatus401, ApplyInvoiceDiscountStatus403, ApplyInvoiceDiscountStatus404, ApplyInvoiceDiscountStatus422 } from '../../types/billing/ApplyInvoiceDiscount'
-import type { UseMutationOptions, UseMutationResult, QueryClient } from '@tanstack/react-query'
-import { applyInvoiceDiscount } from '../../clients/billing/applyInvoiceDiscount'
 import { mutationOptions, useMutation } from '@tanstack/react-query'
+import { applyInvoiceDiscount } from '../../clients/billing/applyInvoiceDiscount'
 
 export const applyInvoiceDiscountMutationKey = () => [{ url: '/api/invoices/:id/discount' }] as const
 

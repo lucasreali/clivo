@@ -3,11 +3,11 @@
 * Do not edit manually.
 */
 
+import type { QueryKey, QueryClient, UseSuspenseQueryOptions, UseSuspenseQueryResult } from '@tanstack/react-query'
 import type { RequestConfig, ResponseErrorConfig } from '../../.kubb/client'
 import type { ListCustomerDependentsOptions, ListCustomerDependentsStatus200, ListCustomerDependentsStatus400, ListCustomerDependentsStatus401, ListCustomerDependentsStatus403, ListCustomerDependentsStatus404, ListCustomerDependentsStatus422 } from '../../types/dependents/ListCustomerDependents'
-import type { QueryKey, QueryClient, UseSuspenseQueryOptions, UseSuspenseQueryResult } from '@tanstack/react-query'
-import { listCustomerDependents } from '../../clients/dependents/listCustomerDependents'
 import { queryOptions, useSuspenseQuery } from '@tanstack/react-query'
+import { listCustomerDependents } from '../../clients/dependents/listCustomerDependents'
 
 export const listCustomerDependentsSuspenseQueryKey = ({ path }: Omit<ListCustomerDependentsOptions, 'headers'>) => [{ url: '/api/customers/:customerId/dependents', params: path }] as const
 

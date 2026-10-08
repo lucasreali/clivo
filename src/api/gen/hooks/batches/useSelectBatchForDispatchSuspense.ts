@@ -3,11 +3,11 @@
 * Do not edit manually.
 */
 
+import type { QueryKey, QueryClient, UseSuspenseQueryOptions, UseSuspenseQueryResult } from '@tanstack/react-query'
 import type { RequestConfig, ResponseErrorConfig } from '../../.kubb/client'
 import type { SelectBatchForDispatchOptions, SelectBatchForDispatchStatus200, SelectBatchForDispatchStatus400, SelectBatchForDispatchStatus401, SelectBatchForDispatchStatus403, SelectBatchForDispatchStatus404, SelectBatchForDispatchStatus422 } from '../../types/batches/SelectBatchForDispatch'
-import type { QueryKey, QueryClient, UseSuspenseQueryOptions, UseSuspenseQueryResult } from '@tanstack/react-query'
-import { selectBatchForDispatch } from '../../clients/batches/selectBatchForDispatch'
 import { queryOptions, useSuspenseQuery } from '@tanstack/react-query'
+import { selectBatchForDispatch } from '../../clients/batches/selectBatchForDispatch'
 
 export const selectBatchForDispatchSuspenseQueryKey = ({ path, query }: Omit<SelectBatchForDispatchOptions, 'headers'>) => [{ url: '/api/products/:productId/batches/selection', params: path }, ...(query ? [query] : [])] as const
 

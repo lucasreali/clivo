@@ -3,11 +3,11 @@
 * Do not edit manually.
 */
 
+import type { UseMutationOptions, UseMutationResult, QueryClient } from '@tanstack/react-query'
 import type { RequestConfig, ResponseErrorConfig } from '../../.kubb/client'
 import type { SetCommissionRateOptions, SetCommissionRateStatus200, SetCommissionRateStatus400, SetCommissionRateStatus401, SetCommissionRateStatus403, SetCommissionRateStatus404, SetCommissionRateStatus422 } from '../../types/commissions/SetCommissionRate'
-import type { UseMutationOptions, UseMutationResult, QueryClient } from '@tanstack/react-query'
-import { setCommissionRate } from '../../clients/commissions/setCommissionRate'
 import { mutationOptions, useMutation } from '@tanstack/react-query'
+import { setCommissionRate } from '../../clients/commissions/setCommissionRate'
 
 export const setCommissionRateMutationKey = () => [{ url: '/api/practitioners/:practitionerId/commission-rate' }] as const
 

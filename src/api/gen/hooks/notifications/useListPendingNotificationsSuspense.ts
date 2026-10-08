@@ -3,11 +3,11 @@
 * Do not edit manually.
 */
 
+import type { QueryKey, QueryClient, UseSuspenseQueryOptions, UseSuspenseQueryResult } from '@tanstack/react-query'
 import type { RequestConfig, ResponseErrorConfig } from '../../.kubb/client'
 import type { ListPendingNotificationsStatus200, ListPendingNotificationsStatus400, ListPendingNotificationsStatus401, ListPendingNotificationsStatus403, ListPendingNotificationsStatus404, ListPendingNotificationsStatus422 } from '../../types/notifications/ListPendingNotifications'
-import type { QueryKey, QueryClient, UseSuspenseQueryOptions, UseSuspenseQueryResult } from '@tanstack/react-query'
-import { listPendingNotifications } from '../../clients/notifications/listPendingNotifications'
 import { queryOptions, useSuspenseQuery } from '@tanstack/react-query'
+import { listPendingNotifications } from '../../clients/notifications/listPendingNotifications'
 
 export const listPendingNotificationsSuspenseQueryKey = () => [{ url: '/api/notifications/pending' }] as const
 

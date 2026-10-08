@@ -3,11 +3,11 @@
 * Do not edit manually.
 */
 
+import type { QueryKey, QueryClient, UseSuspenseQueryOptions, UseSuspenseQueryResult } from '@tanstack/react-query'
 import type { RequestConfig, ResponseErrorConfig } from '../../.kubb/client'
 import type { GetDependentOptions, GetDependentStatus200, GetDependentStatus400, GetDependentStatus401, GetDependentStatus403, GetDependentStatus404, GetDependentStatus422 } from '../../types/dependents/GetDependent'
-import type { QueryKey, QueryClient, UseSuspenseQueryOptions, UseSuspenseQueryResult } from '@tanstack/react-query'
-import { getDependent } from '../../clients/dependents/getDependent'
 import { queryOptions, useSuspenseQuery } from '@tanstack/react-query'
+import { getDependent } from '../../clients/dependents/getDependent'
 
 export const getDependentSuspenseQueryKey = ({ path }: Omit<GetDependentOptions, 'headers'>) => [{ url: '/api/dependents/:id', params: path }] as const
 

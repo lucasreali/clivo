@@ -3,11 +3,11 @@
 * Do not edit manually.
 */
 
+import type { UseMutationOptions, UseMutationResult, QueryClient } from '@tanstack/react-query'
 import type { RequestConfig, ResponseErrorConfig } from '../../.kubb/client'
 import type { OpenEncounterOptions, OpenEncounterStatus201, OpenEncounterStatus400, OpenEncounterStatus401, OpenEncounterStatus403, OpenEncounterStatus404, OpenEncounterStatus422 } from '../../types/encounters/OpenEncounter'
-import type { UseMutationOptions, UseMutationResult, QueryClient } from '@tanstack/react-query'
-import { openEncounter } from '../../clients/encounters/openEncounter'
 import { mutationOptions, useMutation } from '@tanstack/react-query'
+import { openEncounter } from '../../clients/encounters/openEncounter'
 
 export const openEncounterMutationKey = () => [{ url: '/api/encounters' }] as const
 

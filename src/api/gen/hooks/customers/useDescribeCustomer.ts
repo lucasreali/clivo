@@ -3,11 +3,11 @@
 * Do not edit manually.
 */
 
+import type { UseMutationOptions, UseMutationResult, QueryClient } from '@tanstack/react-query'
 import type { RequestConfig, ResponseErrorConfig } from '../../.kubb/client'
 import type { DescribeCustomerOptions, DescribeCustomerStatus200, DescribeCustomerStatus400, DescribeCustomerStatus401, DescribeCustomerStatus403, DescribeCustomerStatus404, DescribeCustomerStatus422 } from '../../types/customers/DescribeCustomer'
-import type { UseMutationOptions, UseMutationResult, QueryClient } from '@tanstack/react-query'
-import { describeCustomer } from '../../clients/customers/describeCustomer'
 import { mutationOptions, useMutation } from '@tanstack/react-query'
+import { describeCustomer } from '../../clients/customers/describeCustomer'
 
 export const describeCustomerMutationKey = () => [{ url: '/api/customers/:id' }] as const
 

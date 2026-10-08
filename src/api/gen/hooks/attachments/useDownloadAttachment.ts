@@ -3,11 +3,11 @@
 * Do not edit manually.
 */
 
+import type { QueryKey, QueryClient, QueryObserverOptions, UseQueryResult } from '@tanstack/react-query'
 import type { RequestConfig, ResponseErrorConfig } from '../../.kubb/client'
 import type { DownloadAttachmentOptions, DownloadAttachmentStatus200, DownloadAttachmentStatus400, DownloadAttachmentStatus401, DownloadAttachmentStatus403, DownloadAttachmentStatus404, DownloadAttachmentStatus422 } from '../../types/attachments/DownloadAttachment'
-import type { QueryKey, QueryClient, QueryObserverOptions, UseQueryResult } from '@tanstack/react-query'
-import { downloadAttachment } from '../../clients/attachments/downloadAttachment'
 import { queryOptions, useQuery } from '@tanstack/react-query'
+import { downloadAttachment } from '../../clients/attachments/downloadAttachment'
 
 export const downloadAttachmentQueryKey = ({ path }: Omit<DownloadAttachmentOptions, 'headers'>) => [{ url: '/api/attachments/:id/content', params: path }] as const
 

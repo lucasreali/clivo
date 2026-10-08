@@ -3,11 +3,11 @@
 * Do not edit manually.
 */
 
+import type { QueryKey, QueryClient, UseSuspenseQueryOptions, UseSuspenseQueryResult } from '@tanstack/react-query'
 import type { RequestConfig, ResponseErrorConfig } from '../../.kubb/client'
 import type { GetSessionPackageOptions, GetSessionPackageStatus200, GetSessionPackageStatus400, GetSessionPackageStatus401, GetSessionPackageStatus403, GetSessionPackageStatus404, GetSessionPackageStatus422 } from '../../types/sessionPackages/GetSessionPackage'
-import type { QueryKey, QueryClient, UseSuspenseQueryOptions, UseSuspenseQueryResult } from '@tanstack/react-query'
-import { getSessionPackage } from '../../clients/sessionPackages/getSessionPackage'
 import { queryOptions, useSuspenseQuery } from '@tanstack/react-query'
+import { getSessionPackage } from '../../clients/sessionPackages/getSessionPackage'
 
 export const getSessionPackageSuspenseQueryKey = ({ path }: Omit<GetSessionPackageOptions, 'headers'>) => [{ url: '/api/session-packages/:id', params: path }] as const
 

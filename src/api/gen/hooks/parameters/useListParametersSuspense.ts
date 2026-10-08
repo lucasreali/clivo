@@ -3,11 +3,11 @@
 * Do not edit manually.
 */
 
+import type { QueryKey, QueryClient, UseSuspenseQueryOptions, UseSuspenseQueryResult } from '@tanstack/react-query'
 import type { RequestConfig, ResponseErrorConfig } from '../../.kubb/client'
 import type { ListParametersStatus200, ListParametersStatus400, ListParametersStatus401, ListParametersStatus403, ListParametersStatus404, ListParametersStatus422 } from '../../types/parameters/ListParameters'
-import type { QueryKey, QueryClient, UseSuspenseQueryOptions, UseSuspenseQueryResult } from '@tanstack/react-query'
-import { listParameters } from '../../clients/parameters/listParameters'
 import { queryOptions, useSuspenseQuery } from '@tanstack/react-query'
+import { listParameters } from '../../clients/parameters/listParameters'
 
 export const listParametersSuspenseQueryKey = () => [{ url: '/api/parameters' }] as const
 

@@ -3,11 +3,11 @@
 * Do not edit manually.
 */
 
+import type { QueryKey, QueryClient, UseSuspenseQueryOptions, UseSuspenseQueryResult } from '@tanstack/react-query'
 import type { RequestConfig, ResponseErrorConfig } from '../../.kubb/client'
 import type { ListAppointmentNotificationsOptions, ListAppointmentNotificationsStatus200, ListAppointmentNotificationsStatus400, ListAppointmentNotificationsStatus401, ListAppointmentNotificationsStatus403, ListAppointmentNotificationsStatus404, ListAppointmentNotificationsStatus422 } from '../../types/notifications/ListAppointmentNotifications'
-import type { QueryKey, QueryClient, UseSuspenseQueryOptions, UseSuspenseQueryResult } from '@tanstack/react-query'
-import { listAppointmentNotifications } from '../../clients/notifications/listAppointmentNotifications'
 import { queryOptions, useSuspenseQuery } from '@tanstack/react-query'
+import { listAppointmentNotifications } from '../../clients/notifications/listAppointmentNotifications'
 
 export const listAppointmentNotificationsSuspenseQueryKey = ({ query }: Omit<ListAppointmentNotificationsOptions, 'headers'>) => [{ url: '/api/notifications' }, ...(query ? [query] : [])] as const
 

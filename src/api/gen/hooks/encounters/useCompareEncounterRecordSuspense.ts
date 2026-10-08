@@ -3,11 +3,11 @@
 * Do not edit manually.
 */
 
+import type { QueryKey, QueryClient, UseSuspenseQueryOptions, UseSuspenseQueryResult } from '@tanstack/react-query'
 import type { RequestConfig, ResponseErrorConfig } from '../../.kubb/client'
 import type { CompareEncounterRecordOptions, CompareEncounterRecordStatus200, CompareEncounterRecordStatus400, CompareEncounterRecordStatus401, CompareEncounterRecordStatus403, CompareEncounterRecordStatus404, CompareEncounterRecordStatus422 } from '../../types/encounters/CompareEncounterRecord'
-import type { QueryKey, QueryClient, UseSuspenseQueryOptions, UseSuspenseQueryResult } from '@tanstack/react-query'
-import { compareEncounterRecord } from '../../clients/encounters/compareEncounterRecord'
 import { queryOptions, useSuspenseQuery } from '@tanstack/react-query'
+import { compareEncounterRecord } from '../../clients/encounters/compareEncounterRecord'
 
 export const compareEncounterRecordSuspenseQueryKey = ({ path, query }: Omit<CompareEncounterRecordOptions, 'headers'>) => [{ url: '/api/encounters/:id/record/comparison', params: path }, ...(query ? [query] : [])] as const
 

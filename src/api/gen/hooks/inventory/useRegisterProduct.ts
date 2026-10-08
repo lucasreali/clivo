@@ -3,11 +3,11 @@
 * Do not edit manually.
 */
 
+import type { UseMutationOptions, UseMutationResult, QueryClient } from '@tanstack/react-query'
 import type { RequestConfig, ResponseErrorConfig } from '../../.kubb/client'
 import type { RegisterProductOptions, RegisterProductStatus201, RegisterProductStatus400, RegisterProductStatus401, RegisterProductStatus403, RegisterProductStatus404, RegisterProductStatus422 } from '../../types/inventory/RegisterProduct'
-import type { UseMutationOptions, UseMutationResult, QueryClient } from '@tanstack/react-query'
-import { registerProduct } from '../../clients/inventory/registerProduct'
 import { mutationOptions, useMutation } from '@tanstack/react-query'
+import { registerProduct } from '../../clients/inventory/registerProduct'
 
 export const registerProductMutationKey = () => [{ url: '/api/products' }] as const
 
