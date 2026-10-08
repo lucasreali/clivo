@@ -6,6 +6,7 @@ import {
 	Gear,
 	type Icon,
 	IdentificationCard,
+	ListChecks,
 	Package,
 	Percent,
 	SquaresFour,
@@ -44,6 +45,11 @@ export const NAVIGATION: readonly NavigationItem[] = [
 		label: "Profissionais",
 		to: "/profissionais",
 		icon: Stethoscope,
+	},
+	{
+		label: "Serviços",
+		to: "/servicos",
+		icon: ListChecks,
 	},
 	{
 		label: "Atendimentos",

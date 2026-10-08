@@ -16,6 +16,7 @@ import { Route as AppAgendaRouteImport } from './routes/_app/agenda'
 import { Route as AppComissoesRouteImport } from './routes/_app/comissoes'
 import { Route as AppConfiguracoesRouteImport } from './routes/_app/configuracoes'
 import { Route as AppProfissionaisRouteImport } from './routes/_app/profissionais'
+import { Route as AppServicosRouteImport } from './routes/_app/servicos'
 import { Route as ConsoleConsoleRouteImport } from './routes/console/_console'
 import { Route as ConsoleEntrarRouteImport } from './routes/console/entrar'
 import { Route as AppAtendimentosEncounterIdRouteImport } from './routes/_app/atendimentos/$encounterId'
@@ -65,6 +66,11 @@ const AppConfiguracoesRoute = AppConfiguracoesRouteImport.update({
 const AppProfissionaisRoute = AppProfissionaisRouteImport.update({
   id: '/profissionais',
   path: '/profissionais',
+  getParentRoute: () => AppRoute,
+} as any)
+const AppServicosRoute = AppServicosRouteImport.update({
+  id: '/servicos',
+  path: '/servicos',
   getParentRoute: () => AppRoute,
 } as any)
 const ConsoleConsoleRoute = ConsoleConsoleRouteImport.update({
@@ -162,6 +168,7 @@ export interface FileRoutesByFullPath {
   '/comissoes': typeof AppComissoesRoute
   '/configuracoes': typeof AppConfiguracoesRoute
   '/profissionais': typeof AppProfissionaisRoute
+  '/servicos': typeof AppServicosRoute
   '/console': typeof ConsoleConsoleRouteWithChildren
   '/console/entrar': typeof ConsoleEntrarRoute
   '/atendimentos/$encounterId': typeof AppAtendimentosEncounterIdRoute
@@ -185,6 +192,7 @@ export interface FileRoutesByTo {
   '/comissoes': typeof AppComissoesRoute
   '/configuracoes': typeof AppConfiguracoesRoute
   '/profissionais': typeof AppProfissionaisRoute
+  '/servicos': typeof AppServicosRoute
   '/console/entrar': typeof ConsoleEntrarRoute
   '/': typeof AppIndexRoute
   '/atendimentos/$encounterId': typeof AppAtendimentosEncounterIdRoute
@@ -210,6 +218,7 @@ export interface FileRoutesById {
   '/_app/comissoes': typeof AppComissoesRoute
   '/_app/configuracoes': typeof AppConfiguracoesRoute
   '/_app/profissionais': typeof AppProfissionaisRoute
+  '/_app/servicos': typeof AppServicosRoute
   '/console/_console': typeof ConsoleConsoleRouteWithChildren
   '/console/entrar': typeof ConsoleEntrarRoute
   '/_app/': typeof AppIndexRoute
@@ -237,6 +246,7 @@ export interface FileRouteTypes {
     | '/comissoes'
     | '/configuracoes'
     | '/profissionais'
+    | '/servicos'
     | '/console'
     | '/console/entrar'
     | '/atendimentos/$encounterId'
@@ -260,6 +270,7 @@ export interface FileRouteTypes {
     | '/comissoes'
     | '/configuracoes'
     | '/profissionais'
+    | '/servicos'
     | '/console/entrar'
     | '/'
     | '/atendimentos/$encounterId'
@@ -284,6 +295,7 @@ export interface FileRouteTypes {
     | '/_app/comissoes'
     | '/_app/configuracoes'
     | '/_app/profissionais'
+    | '/_app/servicos'
     | '/console/_console'
     | '/console/entrar'
     | '/_app/'
@@ -359,6 +371,13 @@ declare module '@tanstack/react-router' {
       path: '/profissionais'
       fullPath: '/profissionais'
       preLoaderRoute: typeof AppProfissionaisRouteImport
+      parentRoute: typeof AppRoute
+    }
+    '/_app/servicos': {
+      id: '/_app/servicos'
+      path: '/servicos'
+      fullPath: '/servicos'
+      preLoaderRoute: typeof AppServicosRouteImport
       parentRoute: typeof AppRoute
     }
     '/console/_console': {
@@ -481,6 +500,7 @@ interface AppRouteChildren {
   AppComissoesRoute: typeof AppComissoesRoute
   AppConfiguracoesRoute: typeof AppConfiguracoesRoute
   AppProfissionaisRoute: typeof AppProfissionaisRoute
+  AppServicosRoute: typeof AppServicosRoute
   AppIndexRoute: typeof AppIndexRoute
   AppAtendimentosEncounterIdRoute: typeof AppAtendimentosEncounterIdRoute
   AppClientesNovoRoute: typeof AppClientesNovoRoute
@@ -498,6 +518,7 @@ const AppRouteChildren: AppRouteChildren = {
   AppComissoesRoute: AppComissoesRoute,
   AppConfiguracoesRoute: AppConfiguracoesRoute,
   AppProfissionaisRoute: AppProfissionaisRoute,
+  AppServicosRoute: AppServicosRoute,
   AppIndexRoute: AppIndexRoute,
   AppAtendimentosEncounterIdRoute: AppAtendimentosEncounterIdRoute,
   AppClientesNovoRoute: AppClientesNovoRoute,
@@ -543,3 +564,12 @@ const rootRouteChildren: RootRouteChildren = {
 export const routeTree = rootRouteImport
   ._addFileChildren(rootRouteChildren)
   ._addFileTypes<FileRouteTypes>()
+
+import type { getRouter } from './router.tsx'
+import type { createStart } from '@tanstack/react-start'
+declare module '@tanstack/react-start' {
+  interface Register {
+    ssr: true
+    router: Awaited<ReturnType<typeof getRouter>>
+  }
+}
