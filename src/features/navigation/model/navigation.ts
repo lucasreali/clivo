@@ -86,7 +86,6 @@ export const NAVIGATION: readonly NavigationItem[] = [
 		to: "/convenios",
 		icon: IdentificationCard,
 		requires: MODULE.insurance,
-		pending: true,
 	},
 	{
 		label: "Comissões",

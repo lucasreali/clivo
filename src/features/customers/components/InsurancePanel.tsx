@@ -81,10 +81,12 @@ export function InsurancePanel({ customerId }: InsurancePanelProps) {
 						<field.SelectField
 							label="Operadora"
 							required
-							options={(plans.data ?? []).map((plan) => ({
-								value: String(plan.id),
-								label: plan.name ?? "Sem nome",
-							}))}
+							options={(plans.data ?? [])
+								.filter((plan) => plan.status === "ACTIVE")
+								.map((plan) => ({
+									value: String(plan.id),
+									label: plan.name ?? "Sem nome",
+								}))}
 						/>
 					)}
 				</form.AppField>

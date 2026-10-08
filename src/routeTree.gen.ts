@@ -15,6 +15,7 @@ import { Route as AppIndexRouteImport } from './routes/_app/index'
 import { Route as AppAgendaRouteImport } from './routes/_app/agenda'
 import { Route as AppComissoesRouteImport } from './routes/_app/comissoes'
 import { Route as AppConfiguracoesRouteImport } from './routes/_app/configuracoes'
+import { Route as AppConveniosRouteImport } from './routes/_app/convenios'
 import { Route as AppProfissionaisRouteImport } from './routes/_app/profissionais'
 import { Route as AppServicosRouteImport } from './routes/_app/servicos'
 import { Route as ConsoleConsoleRouteImport } from './routes/console/_console'
@@ -61,6 +62,11 @@ const AppComissoesRoute = AppComissoesRouteImport.update({
 const AppConfiguracoesRoute = AppConfiguracoesRouteImport.update({
   id: '/configuracoes',
   path: '/configuracoes',
+  getParentRoute: () => AppRoute,
+} as any)
+const AppConveniosRoute = AppConveniosRouteImport.update({
+  id: '/convenios',
+  path: '/convenios',
   getParentRoute: () => AppRoute,
 } as any)
 const AppProfissionaisRoute = AppProfissionaisRouteImport.update({
@@ -167,6 +173,7 @@ export interface FileRoutesByFullPath {
   '/agenda': typeof AppAgendaRoute
   '/comissoes': typeof AppComissoesRoute
   '/configuracoes': typeof AppConfiguracoesRoute
+  '/convenios': typeof AppConveniosRoute
   '/profissionais': typeof AppProfissionaisRoute
   '/servicos': typeof AppServicosRoute
   '/console': typeof ConsoleConsoleRouteWithChildren
@@ -191,6 +198,7 @@ export interface FileRoutesByTo {
   '/agenda': typeof AppAgendaRoute
   '/comissoes': typeof AppComissoesRoute
   '/configuracoes': typeof AppConfiguracoesRoute
+  '/convenios': typeof AppConveniosRoute
   '/profissionais': typeof AppProfissionaisRoute
   '/servicos': typeof AppServicosRoute
   '/console/entrar': typeof ConsoleEntrarRoute
@@ -217,6 +225,7 @@ export interface FileRoutesById {
   '/_app/agenda': typeof AppAgendaRoute
   '/_app/comissoes': typeof AppComissoesRoute
   '/_app/configuracoes': typeof AppConfiguracoesRoute
+  '/_app/convenios': typeof AppConveniosRoute
   '/_app/profissionais': typeof AppProfissionaisRoute
   '/_app/servicos': typeof AppServicosRoute
   '/console/_console': typeof ConsoleConsoleRouteWithChildren
@@ -245,6 +254,7 @@ export interface FileRouteTypes {
     | '/agenda'
     | '/comissoes'
     | '/configuracoes'
+    | '/convenios'
     | '/profissionais'
     | '/servicos'
     | '/console'
@@ -269,6 +279,7 @@ export interface FileRouteTypes {
     | '/agenda'
     | '/comissoes'
     | '/configuracoes'
+    | '/convenios'
     | '/profissionais'
     | '/servicos'
     | '/console/entrar'
@@ -294,6 +305,7 @@ export interface FileRouteTypes {
     | '/_app/agenda'
     | '/_app/comissoes'
     | '/_app/configuracoes'
+    | '/_app/convenios'
     | '/_app/profissionais'
     | '/_app/servicos'
     | '/console/_console'
@@ -364,6 +376,13 @@ declare module '@tanstack/react-router' {
       path: '/configuracoes'
       fullPath: '/configuracoes'
       preLoaderRoute: typeof AppConfiguracoesRouteImport
+      parentRoute: typeof AppRoute
+    }
+    '/_app/convenios': {
+      id: '/_app/convenios'
+      path: '/convenios'
+      fullPath: '/convenios'
+      preLoaderRoute: typeof AppConveniosRouteImport
       parentRoute: typeof AppRoute
     }
     '/_app/profissionais': {
@@ -499,6 +518,7 @@ interface AppRouteChildren {
   AppAgendaRoute: typeof AppAgendaRoute
   AppComissoesRoute: typeof AppComissoesRoute
   AppConfiguracoesRoute: typeof AppConfiguracoesRoute
+  AppConveniosRoute: typeof AppConveniosRoute
   AppProfissionaisRoute: typeof AppProfissionaisRoute
   AppServicosRoute: typeof AppServicosRoute
   AppIndexRoute: typeof AppIndexRoute
@@ -517,6 +537,7 @@ const AppRouteChildren: AppRouteChildren = {
   AppAgendaRoute: AppAgendaRoute,
   AppComissoesRoute: AppComissoesRoute,
   AppConfiguracoesRoute: AppConfiguracoesRoute,
+  AppConveniosRoute: AppConveniosRoute,
   AppProfissionaisRoute: AppProfissionaisRoute,
   AppServicosRoute: AppServicosRoute,
   AppIndexRoute: AppIndexRoute,
