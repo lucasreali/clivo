@@ -15,6 +15,8 @@ import { EmptyState } from "#/shared/ui/EmptyState";
 import { Panel } from "#/shared/ui/Panel";
 import { describeProductStatus } from "../model/product-status";
 import { BatchesPanel } from "./BatchesPanel";
+import { DeactivateProductDialog } from "./DeactivateProductDialog";
+import { ProductDrawer } from "./ProductDrawer";
 import { StockMovementDrawer } from "./StockMovementDrawer";
 import { StockMovements } from "./StockMovements";
 
@@ -22,8 +24,10 @@ type ProductDetailProps = {
 	productId: string;
 };
 
+type Acting = "moving" | "editing" | "deactivating";
+
 export function ProductDetail({ productId }: ProductDetailProps) {
-	const [isMoving, setMoving] = useState(false);
+	const [acting, setActing] = useState<Acting | undefined>();
 	const product = useGetProduct({ path: { id: productId } });
 
 	if (product.isPending) {
@@ -77,13 +81,35 @@ export function ProductDetail({ productId }: ProductDetailProps) {
 	}
 
 	const item = product.data;
+	const isActive = item.status === "ACTIVE";
+	const close = () => setActing(undefined);
 
 	return (
 		<>
 			<AppTopBar
 				title={item.name ?? "Produto"}
 				meta="Estoque › Produto"
-				actions={<Button onClick={() => setMoving(true)}>Movimentar</Button>}
+				actions={
+					<>
+						{isActive ? (
+							<>
+								<Button
+									variant="ghost"
+									onClick={() => setActing("deactivating")}
+								>
+									Inativar
+								</Button>
+								<Button
+									variant="secondary"
+									onClick={() => setActing("editing")}
+								>
+									Editar
+								</Button>
+							</>
+						) : null}
+						<Button onClick={() => setActing("moving")}>Movimentar</Button>
+					</>
+				}
 			/>
 
 			<Page>
@@ -92,8 +118,16 @@ export function ProductDetail({ productId }: ProductDetailProps) {
 				<StockMovements product={item} />
 			</Page>
 
-			{isMoving ? (
-				<StockMovementDrawer product={item} onClose={() => setMoving(false)} />
+			{acting === "moving" ? (
+				<StockMovementDrawer product={item} onClose={close} />
+			) : null}
+
+			{acting === "editing" ? (
+				<ProductDrawer product={item} onClose={close} />
+			) : null}
+
+			{acting === "deactivating" ? (
+				<DeactivateProductDialog product={item} onClose={close} />
 			) : null}
 		</>
 	);

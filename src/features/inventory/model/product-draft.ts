@@ -1,5 +1,5 @@
 import * as z from "zod";
-import type { ProductRequest } from "#/api/gen/types";
+import type { ProductRequest, ProductView } from "#/api/gen/types";
 import { requiredText } from "#/shared/form/schema";
 import { amountOf, nonNegativeAmount } from "./amount";
 
@@ -22,12 +22,17 @@ export const productSchema = z.object({
 
 export type ProductDraft = z.infer<typeof productSchema>;
 
-export const EMPTY_PRODUCT: ProductDraft = {
-	name: "",
-	unit: "",
-	minStock: "",
-	batchControlled: false,
-};
+export function productDraftOf(product?: ProductView): ProductDraft {
+	return {
+		name: product?.name ?? "",
+		unit: product?.unit ?? "",
+		minStock:
+			product?.minStock === undefined || product.minStock === 0
+				? ""
+				: String(product.minStock),
+		batchControlled: product?.batchControlled ?? false,
+	};
+}
 
 export function productRequestOf(draft: ProductDraft): ProductRequest {
 	return {

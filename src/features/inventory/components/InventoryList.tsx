@@ -20,7 +20,7 @@ import { EmptyState } from "#/shared/ui/EmptyState";
 import { Panel } from "#/shared/ui/Panel";
 import { describeProductStatus } from "../model/product-status";
 import { ExpiringBatches } from "./ExpiringBatches";
-import { NewProductDrawer } from "./NewProductDrawer";
+import { ProductDrawer } from "./ProductDrawer";
 import { StockMovementDrawer } from "./StockMovementDrawer";
 
 const SITUATIONS = [
@@ -167,7 +167,7 @@ export function InventoryList() {
 			</Page>
 
 			{isRegistering ? (
-				<NewProductDrawer onClose={() => setRegistering(false)} />
+				<ProductDrawer onClose={() => setRegistering(false)} />
 			) : null}
 
 			{moving ? (

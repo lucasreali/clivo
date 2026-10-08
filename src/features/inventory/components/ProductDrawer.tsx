@@ -1,4 +1,5 @@
-import { useRegisterProduct } from "#/api/gen/hooks";
+import { useDescribeProduct, useRegisterProduct } from "#/api/gen/hooks";
+import type { ProductView } from "#/api/gen/types";
 import { ModuleGate } from "#/features/capabilities/components/ModuleGate";
 import { MODULE } from "#/features/capabilities/model/module-code";
 import { messageOf } from "#/shared/api-error";
@@ -14,51 +15,69 @@ import { Callout } from "#/shared/ui/Callout";
 import { Drawer } from "#/shared/ui/Drawer";
 import { useInventoryRefresh } from "../hooks/use-inventory-refresh";
 import {
-	EMPTY_PRODUCT,
+	type ProductDraft,
+	productDraftOf,
 	productRequestOf,
 	productSchema,
 } from "../model/product-draft";
 
-const FORM = "new-product";
+const FORM = "product";
 
-type NewProductDrawerProps = {
+type ProductDrawerProps = {
+	/** Absent to register a new product, present to redescribe this one. */
+	product?: ProductView;
 	onClose: () => void;
 };
 
-export function NewProductDrawer({ onClose }: NewProductDrawerProps) {
+export function ProductDrawer({ product, onClose }: ProductDrawerProps) {
 	const refresh = useInventoryRefresh();
+	const isEditing = product !== undefined;
 
-	const register = useRegisterProduct({
-		mutation: {
-			onSuccess: async () => {
-				await refresh();
-				onClose();
-			},
+	const mutation = {
+		onSuccess: async () => {
+			await refresh();
+			onClose();
 		},
-	});
+	};
+	const register = useRegisterProduct({ mutation });
+	const describe = useDescribeProduct({ mutation });
+	const saving = isEditing ? describe : register;
+
+	function save(draft: ProductDraft) {
+		const body = productRequestOf(draft);
+		const options = {
+			onError: (error: unknown) => showViolations(error, form),
+		};
+
+		if (product?.id) {
+			describe.mutate({ path: { id: product.id }, body }, options);
+		} else {
+			register.mutate({ body }, options);
+		}
+	}
 
 	const form = useAppForm({
-		defaultValues: EMPTY_PRODUCT,
+		defaultValues: productDraftOf(product),
 		...validatedBy(productSchema),
-		onSubmit: ({ value }) =>
-			register.mutate(
-				{ body: productRequestOf(value) },
-				{ onError: (error) => showViolations(error, form) },
-			),
+		onSubmit: ({ value }) => save(value),
 	});
 
 	const isDirty = useIsDirty(form);
 
 	return (
 		<Drawer
-			title="Novo produto"
-			subtitle="O saldo começa em zero; registre a primeira entrada depois de cadastrar."
+			title={isEditing ? `Editar ${product.name ?? "produto"}` : "Novo produto"}
+			subtitle={
+				isEditing
+					? "O saldo não muda aqui; use Movimentar para registrar entradas, saídas e ajustes."
+					: "O saldo começa em zero; registre a primeira entrada depois de cadastrar."
+			}
 			onClose={onClose}
 			isDirty={isDirty}
 			width="max-w-[440px]"
 			footer={
-				<Button type="submit" form={FORM} disabled={register.isPending}>
-					Salvar produto
+				<Button type="submit" form={FORM} disabled={saving.isPending}>
+					{isEditing ? "Salvar alterações" : "Salvar produto"}
 				</Button>
 			}
 		>
@@ -112,8 +131,8 @@ export function NewProductDrawer({ onClose }: NewProductDrawerProps) {
 					</form.AppField>
 				</ModuleGate>
 
-				{register.isError ? (
-					<Callout tone="danger">{messageOf(register.error)}</Callout>
+				{saving.isError ? (
+					<Callout tone="danger">{messageOf(saving.error)}</Callout>
 				) : null}
 			</form>
 		</Drawer>
