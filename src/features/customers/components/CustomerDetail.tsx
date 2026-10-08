@@ -20,6 +20,7 @@ import {
 	requestOf,
 } from "../model/customer-draft";
 import { describeCustomerStatus } from "../model/customer-status";
+import { ClinicalAlertsPanel } from "./ClinicalAlertsPanel";
 import { CustomerFields } from "./CustomerFields";
 import { DeactivateCustomerDialog } from "./DeactivateCustomerDialog";
 import { DependentsPanel } from "./DependentsPanel";
@@ -121,6 +122,7 @@ export function CustomerDetail({ customerId }: CustomerDetailProps) {
 					</form>
 
 					<div className="flex flex-col gap-4">
+						<ClinicalAlertsPanel customerId={customerId} />
 						<ModuleGate requires={MODULE.insurance}>
 							<InsurancePanel customerId={customerId} />
 						</ModuleGate>
