@@ -5,6 +5,7 @@ import {
 	useDeactivateClinic,
 	useListClinics,
 	useProvisionClinic,
+	useUpdateClinic,
 } from "#/api/gen/hooks";
 import { ClinicCatalog } from "../model/clinic-catalog";
 
@@ -39,6 +40,14 @@ export function useClinicLifecycle(tenantId: string) {
 		isPending: activate.isPending || deactivate.isPending,
 		error: activate.error ?? deactivate.error,
 	};
+}
+
+export function useClinicDetails() {
+	const queryClient = useQueryClient();
+
+	return useUpdateClinic({
+		mutation: { onSuccess: () => queryClient.invalidateQueries() },
+	});
 }
 
 export function useClinicOnboarding() {

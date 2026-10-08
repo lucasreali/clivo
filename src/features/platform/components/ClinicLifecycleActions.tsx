@@ -7,33 +7,46 @@ import { Field, TextArea } from "#/shared/ui/Field";
 import { Modal } from "#/shared/ui/Modal";
 import { useClinicLifecycle } from "../hooks/use-clinics";
 import { isInService } from "../model/clinic-status";
+import { ClinicDetailsDrawer } from "./ClinicDetailsDrawer";
 
 export function ClinicLifecycleActions({ tenantId }: { tenantId: string }) {
 	const [isAsking, setIsAsking] = useState(false);
+	const [isEditing, setIsEditing] = useState(false);
 	const clinic = useGetClinic({ path: { tenantId } });
 	const lifecycle = useClinicLifecycle(tenantId);
 
-	if (!isInService(clinic.data?.status)) {
-		return (
-			<Button
-				variant="secondary"
-				onClick={lifecycle.activate}
-				disabled={lifecycle.isPending}
-			>
-				Reativar clínica
-			</Button>
-		);
-	}
-
 	return (
 		<>
-			<Button variant="ghost" onClick={() => setIsAsking(true)}>
-				Suspender clínica
+			{isInService(clinic.data?.status) ? (
+				<Button variant="ghost" onClick={() => setIsAsking(true)}>
+					Suspender clínica
+				</Button>
+			) : (
+				<Button
+					variant="secondary"
+					onClick={lifecycle.activate}
+					disabled={lifecycle.isPending}
+				>
+					Reativar clínica
+				</Button>
+			)}
+			<Button
+				variant="secondary"
+				onClick={() => setIsEditing(true)}
+				disabled={!clinic.data}
+			>
+				Editar dados
 			</Button>
 			{isAsking ? (
 				<SuspensionDialog
 					lifecycle={lifecycle}
 					onClose={() => setIsAsking(false)}
+				/>
+			) : null}
+			{isEditing && clinic.data ? (
+				<ClinicDetailsDrawer
+					clinic={clinic.data}
+					onClose={() => setIsEditing(false)}
 				/>
 			) : null}
 		</>
