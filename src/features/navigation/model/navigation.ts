@@ -10,6 +10,7 @@ import {
 	Percent,
 	SquaresFour,
 	Stack,
+	Stethoscope,
 	Users,
 } from "@phosphor-icons/react";
 import type { ModuleCode } from "#/features/capabilities/model/module-code";
@@ -38,6 +39,11 @@ export const NAVIGATION: readonly NavigationItem[] = [
 		label: "Clientes",
 		to: "/clientes",
 		icon: Users,
+	},
+	{
+		label: "Profissionais",
+		to: "/profissionais",
+		icon: Stethoscope,
 	},
 	{
 		label: "Atendimentos",
